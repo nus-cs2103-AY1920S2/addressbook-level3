@@ -41,8 +41,10 @@ public class DeliveredCommand extends Command {
             + "FLAG: -r or -o"
             + " Example: " + COMMAND_WORD + " 1 -o";
 
-    public static final String MESSAGE_DELIVERED_SUCCESS = "The order has been delivered: %1$s";
+    public static final String MESSAGE_ORDER_DELIVERED_SUCCESS = "The order has been delivered: %1$s";
+    public static final String MESSAGE_RETURN_ORDER_DELIVERED_SUCCESS = "The return order has been delivered: %1$s";
     public static final String MESSAGE_ORDER_ALREADY_DELIVERED = "This order was already delivered";
+    public static final String MESSAGE_RETURN_ORDER_ALREADY_DELIVERED = "This return order was already delivered";
 
     private static final Logger logger = Logger.getLogger(DeliveredCommand.class.getName());
     private final Index targetIndex;
@@ -128,7 +130,7 @@ public class DeliveredCommand extends Command {
         if (!orderToBeDelivered.isDelivered()) {
             logger.fine("Order is not delivered, valid to be delivered.");
             deliverAndUpdateOrderList(model);
-            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+            return new CommandResult(String.format(MESSAGE_ORDER_DELIVERED_SUCCESS, orderToBeDelivered));
         } else {
             logger.fine("Order was already delivered. Unable to be delivered again.");
             updateOrderList(model);
@@ -151,11 +153,11 @@ public class DeliveredCommand extends Command {
         if (!returnOrderToBeDelivered.isDelivered()) {
             logger.fine("Return order is not delivered, valid to be delivered.");
             deliverAndUpdateReturnList(model);
-            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
+            return new CommandResult(String.format(MESSAGE_RETURN_ORDER_DELIVERED_SUCCESS, returnOrderToBeDelivered));
         } else {
             logger.fine("Return order was already delivered. Unable to be delivered again.");
             updateReturnList(model);
-            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
+            return new CommandResult(String.format(MESSAGE_RETURN_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
         }
     }
 

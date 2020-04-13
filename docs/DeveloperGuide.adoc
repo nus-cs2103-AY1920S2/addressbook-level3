@@ -1958,7 +1958,7 @@ Use case ends.
 ** 1b1. Delino shows an error message to tell user the right way to use the help command.
 +
 Use case ends.
-//end:use_case_help[]
+//end::use_case_help[]
 
 
 //@@author Exeexe93
@@ -2350,8 +2350,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Convert a delivered order into a return order or create a new return order
 
-.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-OR `return` `tid/TRANSACTION_ID` `rts/RETURN_TIMESTAMP`
+.. Return command format: `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>>
+<<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>> <<command_prefix, `EMAIL`>>
+ <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>>
+ <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>> +
+OR `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>>
 .. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
    Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
 .. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +

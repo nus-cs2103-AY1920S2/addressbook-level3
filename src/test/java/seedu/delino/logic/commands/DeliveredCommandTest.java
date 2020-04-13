@@ -6,8 +6,10 @@ import static seedu.delino.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.delino.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.delino.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.delino.logic.commands.CommandTestUtil.showReturnOrderAtIndex;
-import static seedu.delino.logic.commands.DeliveredCommand.MESSAGE_DELIVERED_SUCCESS;
 import static seedu.delino.logic.commands.DeliveredCommand.MESSAGE_ORDER_ALREADY_DELIVERED;
+import static seedu.delino.logic.commands.DeliveredCommand.MESSAGE_ORDER_DELIVERED_SUCCESS;
+import static seedu.delino.logic.commands.DeliveredCommand.MESSAGE_RETURN_ORDER_ALREADY_DELIVERED;
+import static seedu.delino.logic.commands.DeliveredCommand.MESSAGE_RETURN_ORDER_DELIVERED_SUCCESS;
 import static seedu.delino.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.delino.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.delino.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -46,7 +48,7 @@ public class DeliveredCommandTest {
         DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredParcelDescriptor(deliveredOrder));
 
-        String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredOrder);
+        String expectedMessage = String.format(MESSAGE_ORDER_DELIVERED_SUCCESS, deliveredOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), model.getReturnOrderBook(),
                 new UserPrefs());
@@ -66,7 +68,7 @@ public class DeliveredCommandTest {
         DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredParcelDescriptor(deliveredReturnOrder));
 
-        String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredReturnOrder);
+        String expectedMessage = String.format(MESSAGE_RETURN_ORDER_DELIVERED_SUCCESS, deliveredReturnOrder);
 
         Model expectedModel = new ModelManager(model.getOrderBook(), new ReturnOrderBook(model.getReturnOrderBook()),
                 new UserPrefs());
@@ -101,7 +103,7 @@ public class DeliveredCommandTest {
         Model expectedModel = new ModelManager(model.getOrderBook(), new ReturnOrderBook(model.getReturnOrderBook()),
                 new UserPrefs());
 
-        String expectedMessage = String.format(MESSAGE_ORDER_ALREADY_DELIVERED, deliveredReturnOrder);
+        String expectedMessage = String.format(MESSAGE_RETURN_ORDER_ALREADY_DELIVERED, deliveredReturnOrder);
         expectedModel.setReturnOrder(model.getFilteredReturnOrderList().get(0), deliveredReturnOrder);
         model.setReturnOrder(model.getFilteredReturnOrderList().get(0), deliveredReturnOrder);
         assertCommandSuccess(deliveredCommand, model, expectedMessage, expectedModel);

@@ -10,7 +10,8 @@
 == Overview
 
 Delino is a desktop application for couriers to manage delivery tasks. The user
-interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and has about 10 kLoC.
+interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -83,7 +84,6 @@ re-looked at and fixed.
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
 include::../UserGuide.adoc[tag=introduction]
 include::../UserGuide.adoc[tag=help]
 include::../UserGuide.adoc[tag=return]
@@ -97,23 +97,64 @@ include::../UserGuide.adoc[tag=product_information]
 |===
 
 == Design
+This whole section on Delino's Design Model can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#Design-Model[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=design_model]
 
 == Features
+This whole section on the Return feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#return[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=return]
+This whole section on the Help feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#help[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=help]
+This whole section on the Delivered feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#delivered[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=delivered]
 
 == Use Cases
+This whole section on use cases for Help can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_help]
+
+This whole section on use cases for Return can be found https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_return]
+
+This whole section on use cases for Delivered can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_delivered]
 
 == Glossary
+This whole section on command prefixes can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=command_prefix]
+
+This whole section on command flags can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=command_flags]
 
 == Appendix G: Instructions for Manual Testing
+This whole section on the delivered feature's instructions for manual testing can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#mark-parcel-as-delivered[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-delivered]
+
+This whole section on the return feature's instructions for manual testing can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#returning-an-order[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-return]
+
+This whole section on the help feature's instructions for manual testing can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#help-2[here].
+This link is provided in the event if some of the cross links are not working, as they refer to
+documents done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-help]

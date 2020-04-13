@@ -21,6 +21,7 @@ import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.returnorder.ReturnOrder;
 
 //@@author JeremyLoh
+
 /**
  * Used to identify orders in the order book, return order book that belong to a given
  * postal sector or area.
@@ -167,7 +168,9 @@ public class NearbyCommand extends Command {
             return getAreaCommandResult(model);
         } else {
             logger.info("Invalid area given");
-            throw new CommandException(MESSAGE_FAILURE_AREA);
+            throw new CommandException(String.format("%s" + NEWLINE + "%s",
+                    MESSAGE_FAILURE_AREA,
+                    MESSAGE_USAGE));
         }
     }
 
@@ -187,13 +190,17 @@ public class NearbyCommand extends Command {
         if (isValidPostalSector(postalSector)) {
             Optional<String> generalLocation = getGeneralLocation(postalSector);
             if (generalLocation.isEmpty()) {
-                throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
+                throw new CommandException(String.format("%s" + NEWLINE + "%s",
+                        MESSAGE_FAILURE_POSTAL_SECTOR,
+                        MESSAGE_USAGE));
             }
             showPostalSectors(model);
             return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
                     generalLocation.get()));
         } else {
-            throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
+            throw new CommandException(String.format("%s" + NEWLINE + "%s",
+                    MESSAGE_FAILURE_POSTAL_SECTOR,
+                    MESSAGE_USAGE));
         }
     }
 

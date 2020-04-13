@@ -21,21 +21,21 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://bit.ly/38Y296W";
     public static final String HELP_MESSAGE = "Delino supports insert, clear, delete, done, edit, exit, search, help,"
-            + " import, list, return, nearby and undo commands.\n"
+            + " import, list, return, show and nearby commands.\n"
             + "Each feature will require a different set of input prefixes.\n"
             + "The examples below will better"
             + " illustrate the usage of the aforementioned commands in Delino.\n"
 
             + "\n 1. Insert a new order to the list of orders based on their order attributes\n"
             + "      Format: insert TRANSACTION_ID NAME ADDRESS PHONE_NUMBER DELIVERY_TIMESTAMP \n"
-            + "              EMAIL WAREHOUSE_ADDRESS CASH_ON_DELIVERY\n"
+            + "                          EMAIL WAREHOUSE_ADDRESS CASH_ON_DELIVERY\n"
             + "      Eg. insert tid/9876543210 n/John Doe a/Blk 572 Hougang st 51 #10-33 S530572"
             + " p/98766789 \n              dts/2020-05-20 1300 e/johndoe@example.com w/Yishun cod/$4 \n"
 
             + "\n 2. Clear all orders/returns while orders are listed \n"
             + "      Format: clear FLAG INDEX \n"
             + "      Eg. clear -o -f (force clear order list without prompt) OR\n"
-            + "      Eg. clear -r -f (force clear return list without prompt)"
+            + "      Eg. clear -r -f (force clear return list without prompt) \n"
 
             + "\n 3. Delete a specified order/return order from the list of orders/return orders \n"
             + "      Format: delete FLAG INDEX \n"
@@ -47,24 +47,26 @@ public class HelpWindow extends UiPart<Stage> {
 
             + "\n 5. Edit a parcel's specified attribute\n"
             + "      Format: edit FLAG INDEX PARCEL_ATTRIBUTE \n"
-            + "      Eg. edit -o 2 n/James Charles (Edit the customer name in the second order of\n"
-            + " the order list to 'James Charles') \n"
+            + "      Eg. edit -o 2 n/James Charles (Edit the customer name in the second order of \n"
+            + "                    the order list to 'James Charles') \n"
 
             + "\n 6. Exit the Delino application\n"
             + "      Format: exit \n"
             + "      Eg. exit OR you may choose to press 'F1' to close the application \n"
 
             + "\n 7. Search for a parcel based on either its attributes \n"
-            + "      Format: search FLAG PARCEL_ATTRIBUTE or search ORDER_ATTRIBUTE \n"
-            + "      Eg. search -o amos (only searches order list) OR\n"
-            + "          search amos (searches both lists) \n"
+            + "      Format: search [FLAG] KEYWORD [MORE_KEYWORDS]... \n"
+            + "      OR      search [FLAG] [ORDER_ATTRIBUTE_PREFIX/KEYWORD [MORE_KEYWORDS]... \n"
+            + "                     [ORDER_ATTRIBUTE_PREFIX/KEYWORD] [MORE_KEYWORDS]... \n"
+            + "      Eg. search -o amos (only searches order list) \n"
+            + "      OR  search amos (searches both lists) \n"
 
             + "\n 8. Provide more information about Delino and its commands\n"
             + "      Format: help \n"
             + "      Eg. help OR you may choose to press 'F2' to open a help window \n"
 
             + "\n 9. Import a list of orders from a given .csv file with the order data format\n"
-            + "      Format: import FILE_NAME"
+            + "      Format: import FILE_NAME \n"
             + "      Eg. import customers_20_02_2020.csv \n"
             + "      Please refer to the User Guide for more information regarding the order data format. \n"
 
@@ -76,7 +78,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "       Format: return TRANSACTION_ID NAME ADDRESS PHONE_NUMBER RETURN_TIMESTAMP WAREHOUSE_LOCATION \n"
             + "                      [COMMENTS] [ITEM_TYPE] \n"
             + "       OR      return TRANSACTION_ID RETURN_TIME_STAMP \n"
-            + "       Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333 Singapore S123456\n"
+            + "       Eg. return tid/ac17s2a n/Bobby Tan a/123 Clementi Rd S120363\n"
             + "                  p/91230456 rts/2020-12-12 1300 w/Jurong Warehouse c/NIL type/glass \n"
             + "       OR  return tid/ac123d rts/2020-12-12 1300 \n"
 
@@ -85,6 +87,18 @@ public class HelpWindow extends UiPart<Stage> {
             + "       Format: nearby POSTAL_SECTOR \n"
             + "       Eg. nearby 14 (View all orders located in the general location of Queenstown & Tiong Bahru)\n"
             + "       Please refer to the User Guide for the respective postal sectors in Singapore. \n"
+
+            + "\n 13. View statistics of Delino's parcels\n"
+            + "       Format: show \n"
+            + "       OR      show START_DATE [END_DATE] \n"
+            + "       OR      show all \n"
+            + "       OR      show today \n"
+            + "       OR      show DATE \n"
+            + "       Eg. show 2020-01-01 2020-12-31 \n"
+            + "       Eg. show all \n"
+            + "       Eg. show today \n"
+            + "       Eg. show 2020-04-10 \n"
+            + "       Please refer to the User Guide for the respective usages of the show command. \n"
 
             + "\n For more information, please refer to Delino's User Guide.";
 
