@@ -1,0 +1,98 @@
+= Amanda Lam - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JelphaBot
+
+'''
+
+== Overview
+
+JelphaBot is a desktop application integrated with various features for managing tasks efficiently, mainly focusing on
+NUS students as our target group. It is specially designed by my talented crew of teammates, together with myself.
+
+JelphaBot was developed for our software engineering module, CS2103T, where we were tasked to morph an address book
+application that manages contact details into something else. As part of the project constraints, user interactions are
+primarily Command-Line Interface (CLI), assisted with a GUI created using JavaFX.
+It is written in Java, and has about 13 kLoC.
+
+== Summary of contributions
+
+This section contains a summary of my coding, documentation, and other helpful contributions to my team project.
+
+* *Major enhancement*: Implemented the Calendar feature
+** What it does: A calendar integrated to display a monthly calendar of overarching tasks due,
+together with a task list panel on the left for detailed tasks to be shown.
+*** Allow users to navigate to other months of their choice.
+*** Allow users to view specific tasks due to be listed on selected dates.
+*** Allow users to navigate directly to today's date of the calendar view, as well as listing out the tasks due today.
+
+** Justification:
+*** The use of a calendar to display a visual view of these information is neat and easy to navigate, making the feature
+more user-friendly.
+*** Integrating a calendar allows users to be able to plan their schedules easily by being able to immediately
+visualise which days are busier with more tasks on hand.
+
+** Highlights:
+*** The overarching view of the tasks displayed on the calendar (shown by the dot indicators) is done by filtering the
+existing main task list.
+*** The implementation was challenging as it required constant updates to be accounted for after other commands
+edits the main task list is input.
+*** Moreover, to avoid user mistakes and increase the feature's usability, the included commands implementation in
+carrying out various functions as listed above uses the same command keyword : `calendar`. This involved the heavy use
+and interaction between the `Ui`, `Logic`, and `Model` components.
+
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/314[#314],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/299[#299],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/297[#297],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/177[#177],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/174[#174],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/165[#165],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/138[#138],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/84[#84]
+
+* *Minor enhancement*: Added in the panel of tabs in the main Ui layout during initial stages.
+This was done for the subsequence integration of our individual features.
+** Pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/78[#78]
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alam8064[View on RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.1` - `v1.3` (2 releases) on GitHub
+*** Updated `SampleDataUtil` to propagate an empty instance of the app with time-sensitive test data to streamline manual testing.
+(Pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/357[#357])
+*** Added the screenshots of the figures in the User Guide
+(Pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/398[#398])
+
+** Documentation:
+*** Added diagrams and documentation for the Calendar feature in the Developer Guide.
+*** Updated diagram for the Ui section, the delete command diagram and the proposed undo feature from AB3 in the Developer Guide.
+*** Added documentation for Calendar feature in the User Guide.
+
+** Community:
+*** Reported bugs and suggestions for other teams:
+https://github.com/alam8064/ped/issues[Reported 11 bugs during PE Dry Run]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+The full User Guide can be found https://ay1920s2-cs2103t-f09-2.github.io/main/UserGuide.html[here]._
+|===
+
+include::../UserGuide.adoc[tag=calendar]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+The full Developer Guide can be found https://ay1920s2-cs2103t-f09-2.github.io/main/DeveloperGuide.html[here]._
+|===
+
+include::../DeveloperGuide.adoc[tag=calendar]
+

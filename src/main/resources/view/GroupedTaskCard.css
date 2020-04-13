@@ -1,0 +1,6 @@
+* {
+    -fx-primary-blue: #FFE1DE;
+    -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}

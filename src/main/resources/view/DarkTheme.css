@@ -1,19 +1,19 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#86C1B9, 20%);
     background-color: #383838; /* Used in the default.html file */
 }
 
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
-}
+/*.label {*/
+/*    -fx-font-size: 11pt;*/
+/*    -fx-font-family: "Segoe UI Semibold";*/
+/*    -fx-text-fill: #555555;*/
+/*    -fx-opacity: 0.9;*/
+/*}*/
 
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 35px;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -79,12 +79,6 @@
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
-}
-
-.split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-view {
@@ -121,8 +115,15 @@
 }
 
 .cell_big_label {
+    /*-fx-background-color: #86C1B9;*/
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
+    -fx-font-size: 17px;
+    -fx-text-fill: #010504;
+}
+
+.cell_medium_label {
+    -fx-font-family: "Segoe UI Historic";
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
 }
 
@@ -349,4 +350,10 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#calendarPane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(cornsilk, 20%);
 }

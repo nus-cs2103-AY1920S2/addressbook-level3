@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author eedenong -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/11">
+    <children>
+        <HBox prefHeight="131.0" prefWidth="406.0">
+            <children>
+                <ImageView fx:id="image" fitHeight="109.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png"/>
+                    </image>
+                </ImageView>
+                <Label prefHeight="96.0" prefWidth="307.0" text="      Welcome to JelphaBot!">
+                    <minWidth>
+                       <Region fx:constant="USE_PREF_SIZE" />
+                   </minWidth>
+                   <font>
+                       <Font name="Segoe UI Semibold" size="25.0" />
+                   </font>
+               </Label>
+           </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+       </HBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <Label styleClass="cell_medium_label" text="Here are your tasks that are due today!" underline="true" />
+            <Label fx:id="tasksDueToday" minHeight="-Infinity" text="\$tasksDueToday" VBox.vgrow="ALWAYS">
+                <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <Label styleClass="cell_medium_label" text="Here are your tasks that you have completed today!" underline="true" VBox.vgrow="ALWAYS" />
+             <Label fx:id="tasksCompletedToday" minHeight="-Infinity" text="\$tasksCompletedToday" VBox.vgrow="ALWAYS">
+                 <minWidth>
+                     <Region fx:constant="USE_PREF_SIZE" />
+                 </minWidth>
+             </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</VBox>

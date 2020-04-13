@@ -11,9 +11,13 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class TaskListPanel
+Class TaskCard
 Class StatusBarFooter
+class CalendarPanel
+class CalendarDayCard
+class ProductivityPanel
+class ProductivityCard
 Class CommandBox
 }
 
@@ -33,25 +37,37 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> TaskListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> CalendarPanel
+MainWindow *-down-> ProductivityPanel
 
-PersonListPanel -down-> PersonCard
+TaskListPanel -down-> TaskCard
+CalendarPanel -down-> CalendarDayCard
+ProductivityPanel -down-> ProductivityCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+TaskListPanel --|> UiPart
+TaskCard --|> UiPart
+CalendarPanel --|> UiPart
+CalendarDayCard --|> UiPart
+ProductivityPanel --|> UiPart
+ProductivityCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+TaskCard ..> Model
+CalendarDayCard ..> Model
+ProductivityCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ProductivityPanel -[hidden]left- CalendarPanel
+CalendarPanel -[hidden]left- TaskListPanel
+TaskListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

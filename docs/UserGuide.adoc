@@ -1,177 +1,845 @@
-= AddressBook Level 3 - User Guide
+= JelphaBot - User Guide
 :site-section: UserGuide
 :toc:
-:toc-title:
-:toc-placement: preamble
+:toc-title: Table of Contents
+:toclevels: 4
+:toc-placement: macro
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
+:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+[.text-center]
+By: `AY1920S2-CS2103T-F09-2`      Since: `Jan 2020`      Licence: `MIT` +
+{blank} +
+{blank} +
+A0190055L Ong Eden +
+A0187819J Amanda Lam +
+A0188384M Lim We Si, Jel +
+A0184679H Yap Dian Hao +
+A0187280Y Thng Yao Jie
+
+<<<
+toc::[]
+<<<
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to JelphaBot! +
+This user guide is written for *new and experienced users of Jelphabot*. This guide will equip you with the basics so that you can quickly enjoy and master the features offered.
+
+If this is not your first time using JelphaBot, you can refer to <<Quick Start>> to get started right away!
+
+=== What is JelphaBot?
+
+JelphaBot is *a desktop app for managing tasks* specially designed by and *for NUS students* that allows you to *recognise important tasks at a glance* so that you can prioritise commitments and manage your time.
+
+You can enter commands in JelphaBot through a *Command Line Interface* (CLI), which means that if you can *type quickly*, JelphaBot can help you get work done faster than a traditional mouse-controlled Graphical User Interface (GUI), *while still retaining the benefits of a beautiful user interface*.
+
+[.text-center]
+.Brief overview of the app
+image::ug_figures/Ui.png[width="600"]
+<<<
+
+=== Overview of features
+The main features of JelphaBot are split into five tabs.
+
+* *<<Summary feature (Eden), Summary>>* -  Summary of the updates to your task list over the past day.
+* *<<Task Management (Yao Jie), Task List>>* - View and manage tasks in your task list.
+* *<<Calendar feature (Amanda), Calendar>>* - View your schedule on a specific day or within a specific month.
+* *<<Productivity feature (Jel), Productivity>>* - Track your overall productivity through metrics such as task completion rate.
+* *<<Reminder feature (Dian Hao), Reminder>>* -  Set and manage your upcoming reminders.
+
+Each tab provides a specific feature aimed to help you manage your tasks and deadlines more productively!
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+=== Using this User Guide
+
+This User Guide is filled with information to help you set up and make the best out of you very own JelphaBot!
+You will be able to learn more about the commands that are available for you, together with examples of how they are used.
+These commands are also consolidated in <<Command Summary>> for your convenience.
+
+[[hyperlink]]
+==== Notation used in this Guide
+
+To aid in your understanding throughout this User Guide, you may find below the different symbols and formatting used throughout this guide. We have also provided <<hyperlink, hyperlinks>> to help you navigate between related sections.
+
+.Common symbols used throughout this guide.
+[width="100%",cols="^40%,<60%,options="header",]
+|=======================================================================
+|*Symbol* | *What does it mean?*
+| `command` | Command that can be typed into the command box
+| kbd:[Key] | A Key that you should press on your keyboard
+ifdef::env-github[]
+| :bulb: | Tips and tricks that might be useful
+| :information_source: | Additional information that is good to know
+| :heavy_exclamation_mark: | Important pointers to take note of
+endif::[]
+ifndef::env-github[]
+| image:icons/bulb.png[width=40] | Tips and tricks that might be useful
+| image:icons/note.png[width=40] | Additional information that is good to know
+| image:icons/Important.png[width=40] | Important pointers to note
+endif::[]
+| <<hyperlink, Hyperlink>> | Link to another section or website
+// also known as TIP, NOTE, IMPORTANT
+|=======================================================================
+
+<<<
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest `jelphabot.jar` link:{repoURL}/releases[here].
+3. Copy the file to the folder you want to use as JelphaBot's home folder.
 +
-image::Ui.png[width="790"]
+[NOTE]
+This is important because it decides where your information is saved! +
+Ensure that JelphaBot has write permissions to that folder.
+4. Double-click the file to start the app.
+The GUI should appear in a few seconds. +
+JelphaBot should initialize with a sample list of tasks as shown in the following diagram.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+Upon running JelphaBot, you will see various components on it's main display screen.
+The components of the main screen is labelled below.
++
+[.text-center]
+.Expected result after running JelphaBot
+image::ug_figures/UiAnnotated.png[]
++
+<<<
++
+5. Some tasks should already be present in JelphaBot.
+[NOTE]
+JelphaBot is initialized with a sample list of tasks, to test if you've installed JelphaBot correctly! +
+If you do not see this, please try deleting JelphaBot and its accompanying files and folders and repeat steps 2 to 4.
+6. Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. To start entering your own commands, use `clear` to reset JelphaBot.
+7. Some example commands you can try:
+* `add d/Assignment 1 dt/10-Mar-2020 23 59 m/CS2103T` : +
+adds a task with description "Assignment 1" to the task list.
+* `list` : lists all tasks.
+* `delete 1` : deletes the 1st task shown in the current list.
+* `exit` : exits the app.
++
+[TIP]
+You can use the kbd:[UP] and kbd:[DOWN] keys to view your last entered commands, +
+and kbd:[Ctrl] + kbd:[Tab] to nagivate to the next tab quickly!
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+Refer to <<Features>> to learn about how each command can help you. +
+A summarized list of commands is available <<Command Summary, here>>. +
+We hope you have a great time using JelphaBot!
 
-.  Refer to <<Features>> for details of each command.
+<<<
 
-[[Features]]
 == Features
 
-====
-*Command Format*
+In this section, you can find details about the commands that JelphaBot supports.
+These include the function of the command, its format, and example usages.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+For easier naviagation, this guide will go through features according to the order of tabs shown on the User Interface.
 
-=== Viewing help : `help`
+=== Common commands
 
+==== Viewing help : `help`
+
+If you can't recall the command you need, you can enter the `help` command in any panel. +
+A help window will appear with a link to this user guide. +
 Format: `help`
 
-=== Adding a person: `add`
+[.text-center]
+.Expected result after running `help`
+image::ug_figures/help.png[width="600]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Exiting the program : `exit`
+
+You can exit the program anytime by entering the `exit` command directly from any panel. +
+Format: `exit`
+
+==== Switching between tabs
+
+You can switch between tabs anytime by pressing kbd:[Ctrl] + kbd:[Tab] on your keyboard to move to the next tab on the right.
+If you are already on the rightmost tab, it wraps around to the leftmost tab.
+You can also move to tabs directly by using the respective shortcut commands.
+These make JelphaBot easier to use for experienced users.
+Easily remember command shortcuts by checking the bolded letter in the title of every panel!
+
+[.text-center]
+.List of applicable Switch Tab commands.
+[width="70%",cols="45%,60%"]
+|===
+|Command |Tab switched to
+
+|`summary`, or `:s`| Summary
+|`list`, or `:t`| Task List
+|`calendar`, or `:c`| Calendar
+|`productivity`, or `:p`|Productivity
+|`remindertab`, or `:r`|Reminder
+|===
+
+<<<
+// tag::summary[]
+=== Summary (Eden)
+
+This will be the first panel you see after entering JelphaBot!
+
+This section gives you a minimalistic overview of the day, namely tasks that you have due within the day, and tasks that you have completed within the day.
+Tasks displayed will only have it's module code as well as their description for simplicity!
+
+==== Viewing the summary tab: `summary`
+
+You can enter the `summary` command or its shortcuts `:S` or `:s` to manually switch to the summary tab.
+Summary panel shows your tasks that are due today, and those that you have completed today.
+Once a task that is due today is marked as done, it will appear under the tasks that you have completed today.
+
+Format: `summary` +
+Shortcut: `:S` or `:s`
+
+[.text-center]
+.Example of expected result after executing `summary`
+image::ug_figures/Ui.png[width="600"]
+
+Summary panel shows the tasks that are Due Today, and Completed Today.
+
+<<<
+
+Once a task under the Due Today header is marked as done, it will appear under the Completed Today tab.
+
+[.text-center]
+.Expected view of the Summary tab after completing the task, ACC1101 Tutorial 4
+image::ug_figures/SummaryViewAfterTaskComplete.png[width="600"]
+
+// end::summary[]
+
+<<<
+// tag::tasklist[]
+=== Task Management (Yao Jie)
+
+JelphaBot allows you to track and manage your tasks comprehensively as well!
+You can view and sort all your tasks from the Task List page. +
+You can enter the `list` command or its shortcuts `:T` or `:t` to instantly switch to the task list tab.
+The task list panel will then display all your tasks sorted into various categories. +
+
+Format: `list` +
+Shortcut: `:T` or `:t`
+
+[.text-center]
+.Example of expected result after executing `list`
+image::ug_figures/TaskListTab.png[width="600"]
+
+<<<
+
+==== Reading the Task List
+
+The task list is formatted so that you can distinguish urgent tasks at first glance.
+The start of every task is labelled with a module code so that you can visually categorize them.
+Tasks are tagged according to their importance:
+
+* Default priority
+* *High Priority* tasks will be *bolded* to denote important tasks.
+* _Low priority_ tasks will be _italicized_ to denote optional tasks.
+
+The start of every task will be labelled with a module code so that you can visually categorize them. +
+Go <<#add, here>> to read more about adding tasks with priority and <<#edit, here>> for editing task priority.
+
+====
+*Command Format for Task list commands*
+
+* Parts of the command in `UPPER_CASE` represent command parameters that have to be supplied by you. +
+e.g. in `add d/DESCRIPTION`, `DESCRIPTION` represents a field where you can provide the appropriate description, such as `add d/Assignment 1`.
+* Parameters in square brackets are optional e.g `d/DESCRIPTION [p/PRIORITY]` can be used as `d/Assignment 1 p/0` or as `d/Assignment 1`.
+* Parameters with a trailing `…` ​can be used as many times as you want, or can also be omitted. +
+e.g. `[t/TAG]...` can be used once as `t/project`, or multiple times like `t/project t/graded`, and so on.
+* Parameters can be in any order e.g. if the command specifies `d/DESCRIPTION p/PRIORITY`, `p/PRIORITY d/DESCRIPTION` is also acceptable.
+====
+// end::tasklist[]
+
+<<<
+// tag::add[]
+[[add]]
+==== Adding a Task: `add`
+
+You can add new tasks to your task list in JelphaBot with the `add` command. This allows you to update your task list with new tasks whenever they arise.
+
+Format: `add d/DESCRIPTION dt/DATETIME m/MODULE_CODE [p/PRIORITY] [t/TAG]...`
+
+[.text-center]
+.Example of an expected result after executing `add d/Assignment 1 dt/Jan-01-2020 23 59 m/CS1231 t/graded`
+image::ug_figures/addCommand.png[width="600"]
+
+<<<
+
+****
+* For dt/DATETIME inputs, please use the format MMM-dd-YYYY HH mm. +
+** MMM: the corresponding month in 3 letters.
+** dd:  the corresponding day in 2 numbers.
+** YYYY: the corresponding year (AD) as 4 numbers.
+** HH: the hour the task is due, in 24-hour format.
+** mm: the minute the task is due.
+
+* Values that p/PRIORITY can take are -1, 0 or 1.
+****
+
+[IMPORTANT]
+Format of the month in DATETIME (MMM) input has to have the first letter in upper-case. +
+E.g `Mar` instead of `mar` when specifying the month of March.
+
+Examples:
+
+* `add d/Assignment 1 dt/Jan-01-2020 23 59 m/CS3230 p/1`
+* `add d/Project TP dt/Jan-01-2020 23 59 m/CS2103T p/1 t/pair t/work`
 
 [TIP]
-A person can have any number of tags (including 0)
+A task can have any number of tags (including 0)! +
+If the priority field is not specified, priority is set to Default priority.
+// end::add[]
 
-Examples:
+<<<
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+// tag::list[]
+==== Listing all Tasks : `list`
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+JelphaBot allows you to list all your current tasks. In order to make it easier for you to view and use JelphaBot, you can group your tasks by some categories. These categories can be specified through optional arguments.
+Format: `list [GROUPING_CATEGORY]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* If no `GROUPING_CATEGORY` is provided, the `date` grouping will be applied by default.
+* Valid `GROUPING_CATEGORY` values are `date` (groups tasks by date) and `module` (Groups tasks by module code)
 ****
 
-Examples:
+===== Grouping Tasks by Date : `list date`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+You can group tasks based on their due date.
+This is also the default interface for the task list tab. +
+Format: `list date`
 
-=== Locating persons by name: `find`
+[.text-center]
+.Example of an expected result after executing `list date`
+image::ug_figures/listByDate.png[width="600"]
 
-Finds persons whose names contain any of the given keywords. +
+<<<
+
+`list date` allows you to group your tasks into the following categories:
+
+* *Overdue*  +
+(Shows tasks which are past their due date)
+* *Due Today* +
+(Shows tasks not overdue and due by the end of the current day)
+* *Due This Week* +
+(Shows tasks due within the next seven days)
+* *Due Someday* +
+(Shows all other tasks that do not fit into prior categories)
+
+These categories are arranged to make it easier for you to see what is immediately due.
+By moving tasks that are due soon to the top of the list, you can decide what to focus your time on.
+
+===== Grouping Tasks by Module : `list module`
+
+You can also group your tasks based on their module code. +
+Format: `list module` +
+[.text-center]
+.Example of an expected result after executing `list module`
+image::ug_figures/listByModule.png[width="600"]
+
+This grouping allows you to manage your time by tracking the amount of time spent on each module.
+You can also see which modules have upcoming projects or assignments due.
+// end::list[]
+
+<<<
+==== Locating Tasks by name: `find`
+
+You can find tasks in your task list with description containing any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[.text-center]
+.Example of an expected result after executing `find tutorial`
+image::ug_figures/findCommand.png[width="600"]
 
+****
+* The search is case insensitive. e.g `tut` will match `Tut`
+* The order of the keywords does not matter. e.g. `project Work` will match `Work project`
+* Only the description is searched.
+* Only full words will be matched e.g. `Tut` will not match `Tutorial`
+* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Project Work` will return `Project Group`, `Work meeting`
+****
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find assignment` +
+Returns `Assignment 1` and `assignment task`
+* `find Tutorial Project MidTerm` +
+Returns any task having descriptions of `Tutorial`, `Project`, or `MidTerm`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+<<<
+// tag::edit[]
+[[edit]]
+==== Editing a Task : `edit`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+If there are changes to existing tasks in JelphaBot, you can edit it with the `edit` command. +
+Format: `edit INDEX [d/DESCRIPTION] [dt/DATETIME] [m/MODULE_CODE] [p/PRIORITY (-1, 0, or 1)] [t/TAG]...`
+
+[.text-center]
+.Example of an expected result after executing `edit 1 m/CS2105 d/Tutorial 2`
+image::ug_figures/editCommand.png[width="500"]
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Edits the task at the specified `INDEX` number shown in the displayed task list.
+* The index provided *must be positive* and the task to edit cannot have a running timer.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values. +
+When tags are edited, all existing tags will be removed and replaced with the new tags.
+****
+Examples:
+
+* `edit 1 m/CS2105 d/Tutorial 2` +
+Edits the Module Code of the first task to `CS2105` and Description to `Tutorial 2`.
+* `edit 2 dt/Jan-2-2020 23 59 t/` +
+Edits the Date and Time of the second task to be `Jan-2-2020 23 59` and clears all existing tags.
++
+[TIP]
+You can remove all the task's tags by typing `t/` without specifying any tags after it.
+// end::edit[]
+
+<<<
+
+==== Completing a Task : `done`
+
+When you complete a task, you can mark it as done in JelphaBot. The task's status will automatically be updated in the display. +
+Format: `done INDEX`
+
+[.text-center]
+.Example of an expected result after executing `done 1`
+image::ug_figures/doneCommand.png[width="600"]
+
+****
+* Marks the task at the specified `INDEX` as done.
+* The index refers to the index number shown in the displayed task list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* The task must not have a running timer.
+****
+
+<<<
+==== Deleting a Task : `delete`
+// tag::delete[]
+
+If you no longer need a task stored in JelphaBot, you can delete it with the `delete` command.
+
+Format: `delete INDEX`
+
+[.text-center]
+.Example of an expected result after executing `delete 1`
+image::ug_figures/deleteCommand.png[width="600"]
+
+****
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Deleting a task deletes any reminders for it too.
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd task in the task list.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
+Deletes the 1st task in the results of the `find` command.
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+<<<
+==== Clearing all Tasks : `clear`
+
+If you want to reset JelphaBot and start over, you can use the `clear` command.
+This command will delete all existing Tasks and Reminders from JelphaBot.
+
 Format: `clear`
 
-=== Exiting the program : `exit`
+[.text-center]
+.Example of an expected result after executing `clear`
+image::ug_figures/clearCommand.png[width="600"]
 
-Exits the program. +
-Format: `exit`
+<<<
+// tag::showcompleted[]
+==== Showing completed Tasks : `show-completed` (Eden)
 
-=== Saving the data
+You can keep a log of all the tasks that have been completed with the `show-completed` command.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[.text-center]
+.Example of an expected result after executing `show-completed`
+image::ug_figures/showCompletedCommand.png[width="600"]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+The figure above shows a task list with a single task completed.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+<<<
 
+If you do not have any currently complete tasks, the displayed list will be empty and a message will be shown telling you that you currently do not have any completed tasks!
+
+[.text-center]
+.Example of an expected result after executing `show-completed`, if the task list does not have any completed tasks
+image::ug_figures/showCompletedCommandNoCompleted.png[width="600"]
+// end::showcompleted[]
+
+The corresponding message is shown in the Results Display.
+
+<<<
+// tag::showincomplete[]
+==== Showing incomplete Tasks: `show-incomplete` (Eden)
+
+You can display all the tasks in your task list that are currently incomplete, so that you can see what you should do next.
+
+[.text-center]
+.Example of an expected result after executing `show-incomplete`
+image::ug_figures/showIncompleteCommand.png[width="600"]
+
+In the example above, there are many overdue tasks. The task list can be further scrolled to view all the tasks.
+
+<<<
+
+If you do not have any tasks that are incomplete in your task list, the displayed list will be empty and a message will be shown telling you that you currently do not have any incomplete tasks!
+
+[.text-center]
+.Example of an expected result after executing `show-incomplete`, if the task list does not have any incomplete tasks
+image::ug_figures/showIncompleteCommandNoIncomplete.png[width="600"]
+
+The corresponding message is shown in the Results Display.
+// end::showincomplete[]
+
+<<<
+
+// tag::ug-pin-sort[]
+[[pin]]
+==== Pinning Important Tasks  : `pin` [Coming in V2.0] (Yao Jie)
+
+You can pin important tasks to the top of the task list with the `pin` command. +
+Pinned tasks will always be displayed in the Pinned Tasks group in the task list. +
+Trying to `pin` a task that is already pinned will unpin it.
+
+==== Sorting Tasks : `sort`  [Coming in V2.0] (Yao Jie)
+
+You can change how tasks are sorted with the `sort` command.
+Format: `sort SORTING_ORDER`
+
+Valid `SORTING_ORDER` values include `date`, `module`, and `priority`.
+// end::ug-pin-sort[]
+
+<<<
+
+// tag::calendar[]
+=== Calendar (Amanda)
+
+JelphaBot also comes with a built-in calendar view that allows you to view your overarching tasks due on a monthly basis.
+Dates that have tasks due would have a dot indicator shown on the calendar.
+You would also be able to navigate to specific dates to view your tasks due for that day of the month!
+
+==== Viewing your calender : `calendar`
+
+You can enter the `calendar` command or its shortcuts `:C` or `:c` to manually switch to the calendar tab.
+The calendar panel will then show you your schedule for the current month with today's date highlighted. +
+
+Format: `calendar` +
+Shorcut: `:C` or `:c`
+
+[.text-center]
+.Example of expected result after executing `calendar`
+image::ug_figures/CalendarTab.png[width="600"]
+
+[NOTE]
+Highlighting of Dates: Today's date would be highlighted in dark blue, while other dates would be in light blue.
+
+<<<
+==== Changing month and year view of your Calendar : `calendar`
+You can navigate the calendar panel to another #month# and year by specifying it. The calendar panel would be updated accordingly
+while highlighting the first day of the month.
+The task list panel on the left will display the tasks due on the first day of the month. +
+Format: `calendar MONTHYEAR`
+
+****
+* For MONTHYEAR format, it should be MMM-YYYY, but it also allows some other formats shown when your format is invalid.
+****
+
+Examples:
+
+* `calendar May-2020`
+
+[.text-center]
+.Example of expected result after executing `calendar May-2020`
+image::ug_figures/CalendarView.png[width="500"]
+
+
+This command should display the calendar for the month of May in the year 2020 in the calendar panel (on the right) and display the corresponding tasks due for 1-May-2020 in the task list (on the left).
+
+[IMPORTANT]
+Format of the month in MONTHYEAR (MMM) input has to have the first letter in upper-case. +
+E.g `Mar` instead of `mar` when specifying the month of March.
+
+[NOTE]
+Dot indicator showing tasks: Dates that have more than 3 tasks due would have a red dot indicator, while dates with at least 1 task but less than 4 tasks due would be represented with a green dot indicator.
+
+<<<
+==== Showing tasks due on a specific date : `calendar`
+
+Displays the tasks due on specified date, while highlighting that day on the calendar +
+Format: `calendar DATE`
+
+****
+* The date specified *must be for a day within the date range displayed in the current Calendar panel* for the corresponding date to be highlighted.
+* For DATE formats, we recommend the format to be MMM-dd-YYYY, but it also allows some other formats shown when you type in the command word.
+****
+
+Examples:
+
+* `calendar Apr-6-2020`
+* `calendar Apr/6/2020` +
+
+[.text-center]
+.Example of expected result after executing `calendar Apr-6-2020`
+image::ug_figures/CalendarDate.png[width="600"]
+
+This command should highlight the 11th of April in the calendar panel (on the right) and display the corresponding tasks due in the task list (on the left).
+
+<<<
+
+==== Navigating directly to today's date on Calendar : `calendar`
+
+You can directly navigate to the current day's date in the calendar view.
+Format: `calendar today`
+
+Examples:
+
+* `calendar today` +
+
+[.text-center]
+.Example of expected result after executing `calendar today` on 13th April, 2020
+image::ug_figures/CalendarToday.png[width="600"]
+
+This command will display the corresponding calendar for this month and highlight today's date in the calendar panel (on the right). The task list panel also will display the corresponding tasks due today (on the left).
+// end::calendar[]
+
+<<<
+// tag::productivitytracker[]
+=== Productivity Tracking (Jel)
+
+JelphaBot automatically tracks your productivity within the day, and displays a progress bar which allows you to track the completion progress of the tasks which are due in the coming week.
+You can see the progress bar fill up as you complete more tasks.
+
+JelphaBot also dynamically provides feedback in response to your achievements and task completion rate.
+Hopefully, this would make you even more productive by encouraging you to get more done!
+
+==== Tracking your productivity : `productivity`
+
+You can enter the `productivity` command or its shortcuts `:P` or `:p` to manually switch to the productivity tab.
+The productivity panel will then show you your productivity for the day. +
+
+Format: `productivity` +
+Shortcut: `:P` or `:p`
+
+[.text-center]
+.Example of expected result after executing `productivity`
+image::ug_figures/ProductivityTab.png[width="600"]
+
+[NOTE]
+The progress bar and the text following it only shows tasks that are due within the week JelphaBot is running.
+
+<<<
+==== Starting the timer for a task : `start`
+
+You can start a timer for your task. +
+Format: `start INDEX`
+
+[.text-center]
+.Example of expected result after executing `start 1`
+image::ug_figures/startCommand.png[width="600"]
+
+****
+* Each task can only have 1 running timer.
+* Starts the timer for the task at the specified `INDEX` if timer was not already running.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* A completed task cannot be timed.
+* New timer entry under "Running Timer(s)" in the productivity tab will be added if execution is successful.
+****
+
+<<<
+==== Stopping the timer for a task : `stop`
+
+You can stop a running timer for your task. +
+Format: `stop INDEX`
+
+[.text-center]
+.Expected result after running `stop 1`
+image::ug_figures/stopCommand.png[width="600"]
+
+****
+* The task has to have a running timer.
+* Stops the timer for the task at the specified `INDEX` if timer was running.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Timer entry under "Running Timer(s)" in the productivity tab will be removed if execution is successful.
+* Time spent on timed task will be added to the respected time spent section in the productivity tab.
+****
+
+[IMPORTANT]
+Exiting the application before stopping any running timer wil cause all recorded time since the timer was started to be lost.
+// end::productivitytracker[]
+
+<<<
+//tag::reminder[]
+=== Set Reminders (Dian Hao)
+JelphaBot allows you to set reminders for tasks and manage your tasks comprehensively!
+You can view all your existing reminders from the reminders tab.
+
+==== Viewing your reminders : `remindertab`
+
+You can enter the `remindertab` command or its shortcuts `:R` or `:r` to manually switch to the reminder tab.
+The reminder panel will then show all the reminders that you have set.
+
+Format: `remindertab` +
+Shortcut: `:R` or `:r`
+
+[.text-center]
+.Example of expected result after executing `remindertab`
+image::ug_figures/remindertab.png[width="600"]
+
+Every `Reminder` will show the `Task` `s module code, description, due date, the days that will be reminded before the deadline, and the hours that will be reminded before the deadline.
+
+<<<
+
+==== Adding reminder : `reminder`
+
+You can add a reminder to your specified task to remind yourself of the task if the current time is within the time-frame specified by you. +
+
+Format: `reminder INDEX days/DAYS hours/HOURS`
+
+[.text-center]
+.Example of expected result after executing `reminder 1 days/1 hours/1`
+image::ug_figures/addReminder.png[width="600"]
+
+
+
+
+****
+* Adds a reminder to the task which is at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ....
+* `DAYS` refers to the number of days before the due date of the task when you want to be reminded of it.
+* `HOURS` refers to the number of hours before the due date of the task when you want to be reminded of it.
+* You can only specify `DAYS` to be in the range 0 - 7 inclusive.
+* You can only specify `HOURS` to be in the range 0 - 24 inclusive.
+* Every `Task` can only have one `Reminder` .
+* A `Task` that is completed cannot have a `Reminder` .
+* A `Task` that is reminded but is not completed after the deadline will still be reminded for.
+* A `Task` will not be reminded if the task is completed but it has a `Reminder` .
+****
+
+<<<
+==== Removing reminder : `delrem`
+If you would like for a task's reminder to be deleted, you can use the `delrem` command to remove the reminder of that task. +
+
+Format: `delrem INDEX`
+
+[.text-center]
+.Example of expected result after executing `delrem 1`
+image::ug_figures/delReminder.png[width="600"]
+
+****
+* Removes a reminder associated to the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ....
+* Whenever a task is deleted, the corresponding reminder will also be removed.
+****
+
+<<<
+==== Reminding you with a popup notification
+
+Whenever you start up JelphaBot after adding your reminders, JelphaBot's reminder window will popup.
+The popup will show a list of tasks that will be overdue soon, and tasks that are past their deadline but have not been completed.
+
+[.text-center]
+.Example of expected result after tasks are being reminded.
+image::ug_figures/reminderpopup.png[width="600"]
+
+****
+* Reminders will persist until you either complete the `Task`, or delete the `Reminder`.
+****
+//end::reminder[]
+
+<<<
+
+=== Colour-coded module codes [Coming in V2.0]
+
+Users can customise the font colours of different modules to better distinguish between different tasks.
+The module codes displayed in the Main Window will be similar to the tags displayed to make it easier for users to view them.
+
+<<<
+// tag::faq[]
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q1*: Is JelphaBot free? +
+*A*: Yes, JelphaBot is completely free to use!
 
+*Q2*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous JelphaBot folder. +
+
+*Q3*: How do I save my data? +
+*A*: JelphaBot automatically saves your data whenever you make a change.
+There is no need to save manually.
+
+*Q4*: Can I add multiple tasks using a command line? +
+*A*: Sorry, we currently do not support this feature.
+We will consider this in v2.0.
+
+*Q5*: How do I add tasks with no deadline or description? +
+*A*: Sorry, we currently do not support task entries with no deadline or descriptions.
+We will consider this in v2.0.
+
+*Q6*: Do I need an Internet connection to use JelphaBot? +
+*A*: No, you don’t.
+JelphaBot works completely offline.
+// end::faq[]
+
+<<<
+// tag::commandSummary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Help*: `help`
+* *Summary*: `summary` or `:s` or `:S`
+* *Add* `[d/DESCRIPTION] [dt/DATETIME] [m/MODULE_CODE] [p/PRIORITY] [t/TAG]…` +
+e.g. `add d/Project TP dt/Jan-01-2020 23 59 m/CS2103T p/1 t/pair work`
+* *List*: `list` or `:t` or `:T`
+* *List by Date*: `list date`
+* *List by Modules*: `list module`
+* *Find*: `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find Tutorial Assignment`
+* *Edit*: `edit INDEX [d/DESCRIPTION] [dt/DATETIME] [m/MODULE_CODE] [p/PRIORITY] [t/TAG]...` +
+e.g. `edit 1 m/CS2105 d/Tutorial 2`
+* *Done*: `done INDEX` +
+e.g. `done 1`
+* *Delete*: `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Clear*: `clear`
+* *Exit*: `exit`
+* *Show Completed Tasks*: `show-completed`
+* *Show Incomplete Tasks*: `show-incomplete`
+* *Add Reminder*: `reminder INDEX days/DAYS hours/HOURS` +
+e.g. `reminder 2 days/1 hours/1`
+* *Delete Reminder*: `delrem INDEX` +
+e.g. `delrem 2`
+* *View Reminders*: `remindertab` or `:r` or `:R` +
+* *Productivity*: `productivity` or `:p` or `:P`
+* *Timer*: `start INDEX` or `stop INDEX` +
+e.g. `start 1` or `stop 1`
+* *Calendar*: `calendar` or `:c` or `:C`
+* *Calendar Date*: `calendar DATE` +
+e.g. `calendar Jan-1-2020`
+* *Change Calendar View*: `calendar MONTHYEAR` +
+e.g. `calendar Apr-2020`
+* *Today's Calendar View*: `calendar today`
+// end::commandSummary[]

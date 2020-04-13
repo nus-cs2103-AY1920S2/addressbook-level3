@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Documentation
+= JelphaBot - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,6 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
+[[Documentation]]
 == Introduction
 
 We use asciidoc for writing documentation.

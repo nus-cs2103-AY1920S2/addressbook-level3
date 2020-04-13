@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="SortedTaskList" stylesheets="@JelphaBotTheme.css"
+      xmlns="http://javafx.com/javafx/8">
+    <ScrollPane fitToWidth="true">
+        <content>
+            <VBox>
+                <children>
+                    <TitledPane animated="false" maxHeight="1.7976931348623157E308" prefWidth="587.0"
+                                text="Pinned Tasks">
+                        <content>
+                            <ListView fx:id="pinnedTaskListView" maxHeight="1.7976931348623157E308" prefWidth="585.0"/>
+                        </content>
+                    </TitledPane>
+                    <TitledPane animated="false" maxHeight="1.7976931348623157E308" text="Overdue Tasks">
+                        <content>
+                            <ListView fx:id="overdueTaskListView" maxHeight="1.7976931348623157E308"/>
+                        </content>
+                    </TitledPane>
+                    <TitledPane animated="false" maxHeight="1.7976931348623157E308" text="Due Today">
+                        <content>
+                            <ListView fx:id="dueTodayTaskListView" maxHeight="1.7976931348623157E308" prefHeight="0.0"
+                                      prefWidth="585.0"/>
+                        </content>
+                    </TitledPane>
+                    <TitledPane animated="false" maxHeight="1.7976931348623157E308" text="Due This Week">
+                        <content>
+                            <ListView fx:id="dueThisWeekTaskListView" maxHeight="1.7976931348623157E308"/>
+                        </content>
+                    </TitledPane>
+                    <TitledPane animated="false" contentDisplay="BOTTOM" maxHeight="1.7976931348623157E308"
+                                text="Due Someday">
+                        <content>
+                            <ListView fx:id="dueSomedayTaskListView"/>
+                        </content>
+                    </TitledPane>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

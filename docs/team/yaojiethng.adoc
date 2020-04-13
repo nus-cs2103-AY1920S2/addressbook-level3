@@ -1,0 +1,103 @@
+= Thng Yao Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JelphaBot
+
+'''
+
+== Overview
+
+JelphaBot is a desktop application to help NUS students manage tasks.
+JelphaBot allows students to track and manage tasks conveniently.
+Users enter commands in JelphaBot through a CLI. However, a GUI is implemented with JavaFX for a smoother user experience.
+It is written in Java, and has about 13 kLoC.
+
+== About this portfolio
+
+This portfolio lists my individual contributions to the JelphaBot.
+It includes a summary of the feature enhancements implemented and contribution to the User Guide and Developer Guide.
+It also details other contributions I made throughout the duration of the project to team-based tasks.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability for users to *group their tasks by time or module code*, as well as *provided interfaces for other developers to implement new grouping categories*.
+** What it does: allows users to change the way their tasks are listed by switching between a list that shows:
+*** Tasks listed by how soon their due date is to the current date.
+*** Tasks listed by their Module Code.
+** *Justification*: Task management is the core feature of JelphaBot.
+This feature improves the task management process significantly because it allows users to see at first glance their most urgent or important tasks.
+** *Highlights*:
+*** This feature involves full-stack development in `Logic`, `Model`, `Storage` and `Ui` components.
+*** As all other features use `Task` as the underlying Model entity, there was high coupling with features implemented by other groupmates.
+*** This enhancement affected existing commands as `GroupedTaskList` listed showed tasks in a different order from the underlying list stored in the model, and this order would vary depending on the `Category` displayed.
+*** It required model objects to be queried from the displayed index in `Ui` instead of the the default order in `Model` (which was the order in which objects were implemented).
++
+<<<
++
+*** The implementation was challenging as it required changes to be made to existing commands while still reducing conflict with other teammates' work.
+This required many design alternatives to be considered.
+*** All non-User-Interface classes added were backed up with tests.
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/122[#122],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/161[#161],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/196[#196],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/204[#204],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/205[#205],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/212[#212],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/219[#219],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/228[#228],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/298[#298],
+
+* *Minor enhancement*: Updated the Ui layout for each Task to allow tasks to be distinguished by priority.
+** Pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/196[#196],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/212[#212]
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaojiethng&tabRepo=AY1920S2-CS2103T-F09-2%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaojiethng&tabRepo=AY1920S2-CS2103T-F09-2%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub.
+*** Refactored `AddressBook 3` to `JelphaBot`
+(Pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/6[6],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/37[#37],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/24[#24],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/41[#41],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/47[#47])
+** Enhancements to existing features:
+*** Updated the code-base to use Java 8 `LocalDateTime` instead of Java 7 `DateTime`, which fixed some deprecation issues.
+(Pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/159[#159])
+*** Updated `SampleDataUtil` to propagate an empty instance of the app with time-sensitive test data to streamline manual testing.
+(Pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/129[#129])
+** Documentation:
+*** Updated Logic section from AB3, added diagrams and documentation for the implementation of Tab Grouping feature in Developer Guide.
+*** Added documentation for Task List panel and List Command in User Guide.
+
+** Tools:
+*** Integrated Github plugins (gh-pages, Travis, Netlify) to the team repository.
+
+<<<
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tasklist]
+
+<<<
+include::../UserGuide.adoc[tag=list]
+
+<<<
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=taskgroups]
+

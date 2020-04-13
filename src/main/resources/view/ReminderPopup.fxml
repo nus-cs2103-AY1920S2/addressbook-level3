@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author yapdianhao -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import java.net.URL?>
+<fx:root minHeight="540" minWidth="400" title="Reminder Popup" type="javafx.stage.Stage"
+         xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11">
+    <icons>
+        <Image url="@/images/reminder.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@JelphaBotTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <VBox>
+                <AnchorPane prefHeight="500.0" prefWidth="400.0">
+                    <children>
+                        <VBox fx:id="taskList" minWidth="140" prefWidth="140.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets left="10" right="10" top="10" />
+                            </padding>
+                            <StackPane fx:id="taskListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                        <children>
+                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <children>
+                                 <ScrollBar layoutX="364.0" layoutY="1.0" orientation="VERTICAL" prefHeight="395.0" prefWidth="16.0" />
+                              </children>
+                           </AnchorPane>
+                        </children></StackPane>
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="50" minHeight="50" prefHeight="50" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                                <padding>
+                                    <Insets bottom="5" left="10" right="10" top="5" />
+                                </padding>
+                            </StackPane>
+                            <ButtonBar maxHeight="40.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="80.0">
+                        <buttons>
+                                 <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="31.0" text="OK" textAlignment="CENTER" />
+                        </buttons>
+                            </ButtonBar>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

@@ -1,0 +1,7 @@
+{
+  "reminders": [ {
+    "index" : "not valid index one",
+    "reminderDay" : "also not valid one",
+    "reminderHour" : "u think this will valid meh?"
+  } ]
+}

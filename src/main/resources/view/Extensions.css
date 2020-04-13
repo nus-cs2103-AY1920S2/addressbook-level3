@@ -5,7 +5,7 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: -fx-background-pink;
 }
 
 .tag-selector {
@@ -17,4 +17,8 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.bold-letter {
+    -fx-font-weight: bold;
 }

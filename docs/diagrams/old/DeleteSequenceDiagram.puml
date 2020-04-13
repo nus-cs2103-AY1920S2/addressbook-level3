@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JelphaBotParser" as JelphaBotParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete 1")
+activate LogicManager
+
+LogicManager -> JelphaBotParser : parseCommand("delete 1")
+activate JelphaBotParser
+
+create DeleteCommandParser
+JelphaBotParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> JelphaBotParser
+deactivate DeleteCommandParser
+
+JelphaBotParser -> DeleteCommandParser : parse("1")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> JelphaBotParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> JelphaBotParser
+destroy DeleteCommandParser
+
+JelphaBotParser --> LogicManager : d
+deactivate JelphaBotParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : deleteTask(1)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+Model -[hidden]-> DeleteCommand
+destroy Model
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

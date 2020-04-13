@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author Clouddoggo -->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox maxHeight="-Infinity" prefHeight="118.0" prefWidth="195.0">
+            <padding>
+                <Insets bottom="4" left="15" right="4" top="3" />
+            </padding>
+            <children>
+                <Label graphicTextGap="0.0" prefHeight="24.0" prefWidth="155.0" styleClass="cell_big_label" text="Productivity Report">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            </children>
+            <HBox prefHeight="26.0" prefWidth="176.0">
+                <children>
+                    <ProgressBar fx:id="tasksCompletionProgress" maxWidth="-Infinity" prefWidth="200.0" progress="0.0" />
+                    <Label fx:id="tasksCompleted" styleClass="cell_medium_label" text="\$tasksCompleted">
+                        <minWidth>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE" />
+                        </minWidth>
+                    </Label>
+                </children>
+            </HBox>
+                <Label fx:id="remark" styleClass="cell_small_label" text="\$remark">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="overdueStatus" styleClass="cell_small_label" text="\$overdueStatus">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            <padding>
+                <Insets bottom="4" left="15" right="4" top="3" />
+            </padding>
+        </VBox>
+        <VBox maxHeight="-Infinity" prefHeight="118.0" prefWidth="195.0">
+            <padding>
+                <Insets bottom="4" left="15" right="4" top="3" />
+            </padding>
+            <children>
+                <Label styleClass="cell_medium_label" text="Time Spent" underline="true">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="timeSpentToday" styleClass="cell_small_label" text="\$timeSpentToday">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            </children>
+        </VBox>
+        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="195.0">
+            <padding>
+                <Insets bottom="4" left="15" right="4" top="3" />
+            </padding>
+            <children>
+                <Label styleClass="cell_medium_label" text="Running Timer(s)" underline="true">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="runningTimers" styleClass="cell_small_label" text="\$runningTimers">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</VBox>

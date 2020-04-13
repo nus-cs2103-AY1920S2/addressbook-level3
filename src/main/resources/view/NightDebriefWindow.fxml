@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author eedenong -->
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
+
+<fx:root minHeight="540" minWidth="400" title="Night Debrief" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@JelphaBotTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <VBox>
+                <AnchorPane prefHeight="500.0" prefWidth="400.0">
+                    <children>
+                        <VBox fx:id="taskList" minWidth="140" prefWidth="140.0" styleClass="pane-with-border"
+                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets left="10" right="10" top="10" />
+                            </padding>
+                            <StackPane fx:id="taskListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100"
+                                       prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                                <padding>
+                                    <Insets bottom="5" left="10" right="10" top="5" />
+                                </padding>
+                            </StackPane>
+                            <ButtonBar maxHeight="40.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="80.0">
+                                <buttons>
+                                    <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="31.0" text="OK" textAlignment="CENTER" />
+                                </buttons>
+                            </ButtonBar>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

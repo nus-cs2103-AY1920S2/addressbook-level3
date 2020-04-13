@@ -1,0 +1,77 @@
+= Yap Dian Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JelphaBot
+
+'''
+
+== Overview
+JelphaBot is a desktop application to help NUS students manage tasks.
+JelphaBot allows students to track and manage tasks conveniently.
+Users enter commands in JelphaBot through a CLI. However, a GUI is implemented with JavaFX for a smoother user experience.
+It is written in Java, and has about 13 kLoC.
+
+== Summary of contributions
+* *Major enhancement*: added *the ability for users to add reminders to certain tasks*.
+** What it does: allows users to add or remove reminders to remind tasks that will due soon to increase users' efficiency, including:
+*** Tasks that are uncompleted
+*** Tasks that will due within a week
+** Justification: As our target users are students with a lot of commitments, students may miss out several
+commitments over time. Therefore, they will need to manage their tasks and schedule upcoming tasks accordingly. Therefore,
+we have decided to include a reminding feature in JelphaBot to address this need. I implemented jelphaBot's ability
+to link tasks and reminders, and combined them to maximize users' efficiency in fulfilling their commitments. This adds
+significant feature to JelphaBot, as a task manager and a task reminder.
+** Highlights:
+*** This feature introduces a new class, `Reminder`, which plays the similar significance to `Task`.
+The `Reminder` class is leveraged on the Object-Oriented paradigm that a `Task` needs to be reminded by a `Reminder`,
+therefore they are closely relatable to each other. To successfully design such a class that transcends a wide
+range of components, a complete understanding and thorough analysis of the whole application is required.
+*** Challenging as it requires real time synchronization and integration between GUI and internal logic components.
+For instance, a user, when deletes a `Task`, should observe the deletion of its corresponding `Reminder` from the UI as well.
+*** This feature is implemented in a way that it undergoes the whole application's main components' development, in front-end
+and back-end. It involves the `Ui`, `Logic`, `Model`, and `Storage`, with over 3k lines of functional and test code.
+
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/88[#88],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/149[#149],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/167[#167],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/179[#179],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/207[#207],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/309[#309],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/346[#346]
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=yapdianhao&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View on Reposense]
+
+* *Minor enhancement*: Increased code coverage from 58% to 62% through writing new tests and improved existing tests.
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/33[#33],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/76[#76]
+
+* *Other contributions*:
+** Enhancement to existing features:
+*** Updated the GUI color scheme: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/222[#222]
+** Documentation:
+*** Updated JelphaBot's architecture diagram for Developer Guide.
+*** Updated the `Storage` component's sequence diagram for Developer Guide.
+*** Added Use Case 7 and 8 for Developer Guide.
+*** Added screenshots and descriptions as visual aids for User Guide.
+** Community:
+*** Contributed to forum discussions: requesting usage for third-party libraries (controlsfx) https://github.com/nus-cs2103-AY1920S2/forum/issues/81[#81]
+*** Reviewed pull requests: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/13[#13], https://github.com/AY1920S2-CS2103T-F09-2/main/pull/17[#17]
+*** Reported bugs and suggestions for another team in PE dry run: https://github.com/yapdianhao/ped/issues[Reported 15 bugs]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=reminder]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=reminder]

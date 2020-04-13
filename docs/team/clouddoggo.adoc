@@ -1,0 +1,78 @@
+= Jel Lim – Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+JelphaBot is a desktop Task Manager that aids NUS students in tracking tasks efficiently. The user interacts with it using a CLI, but it has a GUI created with JavaFX.
+It is written in Java, and has about 13 kLoC.
+
+=== Summary of contributions
+* Code contributed: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=clouddoggo&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View on RepoSense]]
+
+* Major enhancement:
+Added the start and stop a timer feature for tasks as well as a viewing panel for the user’s overall productivity for the day.
+
+** What it does: `start <index>` command allows the user to start a timer for the task specified by the index provided.
+The user may stop this timer with `stop <index>` command. The productivity panel will show the total time spent on as well as the number of tasks completed that are due today.
+
+** Justification: If the user wants to gauge the amount of time spent on their tasks and how many tasks they have completed or an overview of their productivity in that day, it is easy to view all this information in one tab.
+
+** Highlights: This enhancement works with existing as well as future commands. An in-depth analysis of design alternatives was necessary to decide the layout of the productivity panel and how effective it was in improving overall user experience.
+The implementation was also challenging as it was difficult to decide how much data to present to users.
+
+** Credits: Stop and Start command classes were adapted from existing commands such as Edit command.
+
+* Minor enhancement:
+Added a command history that allows the user to navigate to previous commands using up/down keys.
+
+=== Other contributions:
+
+* Issues management:
+** Out of a total of 95 issues from versions 1.0 to 1.4. I managed 42 of them on GitHub (examples: https://github.com/AY1920S2-CS2103T-F09-2/main/issues/163[#163] https://github.com/AY1920S2-CS2103T-F09-2/main/issues/263[#263]).
+
+* User stories management:
+** There was a total of 30 user stories, for versions 1.0 to 1.4. I managed 10 of them.
+
+* Documentation:
+** Developer Guide:
+*** Section 3.1, Delete Sequence diagram, whole section of 3.3, 4.1, 4.4, 4.7 +
+*** Appendix C, Use Case diagram, whole section of appendix C8, C9, D, E, F7, F8, F9, F10
+** Language improvements to User Guide : PR https://github.com/AY1920S2-CS2103T-F09-2/main/pull/283[#283], https://github.com/AY1920S2-CS2103T-F09-2/main/pull/300[#300], https://github.com/AY1920S2-CS2103T-F09-2/main/pull/316[#316]
+** Replaced existing UML diagrams to ones that corresponds with our final product: PR https://github.com/AY1920S2-CS2103T-F09-2/main/pull/198[#198], https://github.com/AY1920S2-CS2103T-F09-2/main/pull/326[#326]
+** Added Use Case diagram and Activity diagrams for start command: PR https://github.com/AY1920S2-CS2103T-F09-2/main/pull/326[#326]
+** Added Sequence diagram for stop command: PR https://github.com/AY1920S2-CS2103T-F09-2/main/pull/328[#328]
+
+* Enhancement to existing features:
+** Added DateTime model to Task model to integrate deadlines.
+** Added
+
+* Community:
+** Reviewed Pull Request: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/19[#19]
+** Reported 13 bugs and offered suggestions during PE dry run: https://github.com/Clouddoggo/ped/issues[issues]
+** Reviewed other team's DG: (examples: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/25/files#r398983142[1],
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/25/files#r398989484[2], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/25/files#r398987630[3])
+
+* Tools:
+** Integrated CI/CD tools (Appveyor and Coveralls) to the team repository.
+
+<<<
+
+== Contributions to User Guide (Extracts)
+
+|===
+|_Below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=productivitytracker]
+
+<<<
+
+== Contributions to Developer Guide (Extracts)
+
+|===
+|_Below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../DeveloperGuide.adoc[tag=productivityImplementation]
+include::../DeveloperGuide.adoc[tag=productivityFunctions]

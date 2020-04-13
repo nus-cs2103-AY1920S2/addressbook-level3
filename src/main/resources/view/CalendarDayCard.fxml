@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author alam8064 -->
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="calendarGridDay" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11">
+    <children>
+        <Circle fx:id="circleDay" fill="#ffffff00" radius="20.0" stroke="#ffffff00" strokeType="INSIDE"/>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+            <children>
+                <Label fx:id="calendarDay" alignment="CENTER" contentDisplay="CENTER" text="\$day"
+                       textAlignment="CENTER"/>
+                <Circle fx:id="dotTasks" fill="#ffffff00" radius="2.5" stroke="#ffffff00" strokeType="INSIDE"/>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

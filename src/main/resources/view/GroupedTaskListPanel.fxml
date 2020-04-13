@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" id="groupedTaskListPanel" fx:id="groupedTaskListPanel"
+            fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" stylesheets="@NewTheme.css" maxWidth="1.7976931348623157E308" minViewportHeight="400.0" minViewportWidth="600.0" xmlns="http://javafx.com/javafx/11">
+   <content>
+      <ListView id="taskListGroups" fx:id="taskListGroups" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="600.0" />
+   </content>
+</ScrollPane>

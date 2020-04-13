@@ -1,0 +1,83 @@
+= Ong Eden - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JelphaBot
+
+
+== Overview
+
+JelphaBot is a desktop application that serves as a simple yet comprehensive task manager for NUS students.
+Interactions with the application and commands are entered through CLI. For a better user experience, JavaFX was used to create and enhance the GUI.
+It is writtren in Java, and has about 13 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for users to have a summary view of their tasks due and completed within the day*.
+** What it does: allows the user to have a simplified view of all the tasks that are due to be completed within the day, as well as the tasks that the user have completed within the day, under one page. This page is shown upon the startup of the application, and can be accessed anytime
+while using the app by entering the `summary` command.
+** Justification: In the event the user wishes to have a quick look at what tasks he/she has remaining to complete within the day, or to see what tasks he/she has completed
+within the day, the user can easily do so and view this information all under the same page, with just a single command.
+This feature improves the product significantly with the convenience that it provides to the user in obtaining a quick but comprehensive overview of the above-mentioned tasks.
+** Highlights:
+*** This enhancement works with existing commands and commands to be added in future. It required an in-depth analysis of design alternatives so as to determine the optimal layout of the UI of the Summary panel to enhance the user experience as much as possible.
+*** The implementation too was challenging as it required the creation of special predicates to filter the tasks in the user's task list to be displayed, as well as deciding on what information from the tasks to display to the users.  Eventually, I decided to display only the Module Code and the Description of the task.
+*** Another challenge during the implementation was ensuring that the tasks that were completed within the day were still displayed when the user exits the application, and starts it again within the same day. This required extra data to be stored and hence required modification of classes in `Storage` to ensure that
+the data was stored correctly.
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/80[#80],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/172[#172],
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/230[#230]
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/243[#243]
+** Credits: The structure and the classes in the summary package (under `Model`) were inspired by that of the productivity package, which is under `Model` as well.
+* *Minor enhancement*: added a `done` command that allows the user to mark a task with the given index as completed.
+** Relevant pull requests:
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/71[#71]
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=eedenong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=eedenong&tabRepo=AY1920S2-CS2103T-F09-2%2Fmain%5Bmaster%5D[Functional Code]
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=eedenong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=eedenong&tabRepo=AY1920S2-CS2103T-F09-2%2Fmain%5Bmaster%5D[Test Code]
+
+
+== Other contributions:
+
+---
+
+* Issues management:
+** Managed issues on GitHub:
+https://github.com/AY1920S2-CS2103T-F09-2/main/issues/92[#92],
+https://github.com/AY1920S2-CS2103T-F09-2/main/issues/97[#97],
+https://github.com/AY1920S2-CS2103T-F09-2/main/issues/101[#101],
+https://github.com/AY1920S2-CS2103T-F09-2/main/issues/113[#113]
+
+* Enhancements to existing features:
+** Updated and shifted task list filtering logic in relevant Model and Logic classes and APIs so as to not break abstraction between the classes and roles of the classes.
+https://github.com/AY1920S2-CS2103T-F09-2/main/pull/170[#170]
+* Documentation:
+** Replaced the Model class diagrams of the User Guide to make them the consistent with the structure of JelphaBot: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/189[#189]
+** Added documentation for SummaryCommand, ShowCompletedCommand and ShowIncompleteCommand in User Guide: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/189[#189]
+** Added documentation and sequence diagrams for SummaryCommand to Developer Guide: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/294[#294], https://github.com/AY1920S2-CS2103T-F09-2/main/pull/336[#336]
+** Added Use Cases UC4 to UC6: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/58[#58]
+* Community:
+** PRs reviewed: https://github.com/AY1920S2-CS2103T-F09-2/main/pull/32[#32]
+** Reviewed other team's application to find and report https://github.com/eedenong/ped/issues[bugs].
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=summary]
+
+include::../UserGuide.adoc[tag=showcompleted]
+
+include::../UserGuide.adoc[tag=showincomplete]
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=summary]

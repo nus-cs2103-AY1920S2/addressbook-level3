@@ -1,0 +1,81 @@
+{
+  "_comment": "JelphaBot save file which contains the same Task values as in TypicalTasks#getTypicalJelphaBot()",
+  "tasks" : [ {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "HIGH",
+    "tagged" : [ "school" ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Online Midterm Assessment",
+    "moduleCode" : "MA1101R"
+  }, {
+    "status" : "COMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ "project", "school" ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Book Report 1",
+    "moduleCode" : "GES1028"
+  }, {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Yoga class",
+    "moduleCode" : "YG1011"
+  }, {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Daniel Meier",
+    "moduleCode" : "DT1101"
+  }, {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Milk errand",
+    "moduleCode" : "MYB1101"
+  }, {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ "school" ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Open book finals",
+    "moduleCode" : "CS3230"
+  }, {
+    "status" : "INCOMPLETE",
+    "dateTime" : "Feb-1-2020 11 00",
+    "doneTime" : "2000-01-01T00:00:00",
+    "priority" : "MEDIUM",
+    "tagged" : [ "project", "school" ],
+    "timeSpent" : {
+      "duration" : "PT7M"
+    },
+    "description" : "Group project meeting",
+    "moduleCode" : "CS2103T"
+  } ]
+}

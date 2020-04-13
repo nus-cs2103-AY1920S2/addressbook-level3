@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author alam8064 -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" alignment="CENTER_LEFT" fillHeight="false"
+      maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0"
+      spacing="16.0" xmlns="http://javafx.com/javafx/11">
+    <Label fx:id="id" styleClass="cell_big_label">
+        <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE"/>
+        </minWidth>
+    </Label>
+    <Label fx:id="moduleCode" alignment="CENTER" maxWidth="-Infinity" prefWidth="70.0" styleClass="cell_big_label"
+           text="\$moduleCode"/>
+    <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="105.0" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="105.0" spacing="4.0" GridPane.columnIndex="0">
+            <padding>
+                <Insets left="16.0" right="8.0"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="16.0">
+                <Label fx:id="description" styleClass="cell_medium_label" text="\$first"/>
+                <Label fx:id="status" styleClass="cell_small_label" text="\$status"/>
+            </HBox>
+            <Label fx:id="timeSpent" styleClass="cell_small_label" text="\$timeSpent"/>
+            <FlowPane fx:id="tags"/>
+        </VBox>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER"/>
+        </rowConstraints>
+    </GridPane>
+<!--    <Label fx:id="dateTime" styleClass="cell_medium_label" text="\$dateTime"/>-->
+    <padding>
+        <Insets left="16.0" right="16.0"/>
+    </padding>
+</HBox>
