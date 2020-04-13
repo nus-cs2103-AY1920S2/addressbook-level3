@@ -1,3 +1,5 @@
+//@@author fatin99
+
 package tatracker.ui;
 
 import java.util.logging.Logger;
@@ -239,6 +241,8 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author Eclmist
+
     /**
      * Opens the statistic window or focuses on it if it's already opened.
      */
@@ -261,6 +265,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticWindow.show();
         statisticWindow.focus();
     }
+
+    //@@author fatin99
 
     void show() {
         primaryStage.show();
@@ -285,6 +291,8 @@ public class MainWindow extends UiPart<Stage> {
             statisticWindow.hide();
         }
     }
+
+    //@@author PotatoCombat
 
     /**
      * Alternates the focus on the command box.
@@ -381,6 +389,8 @@ public class MainWindow extends UiPart<Stage> {
         }
         currentStudentViewList.requestFocus();
     }
+
+    //@@author fatin99
 
     /**
      * Executes the command and returns the result.
