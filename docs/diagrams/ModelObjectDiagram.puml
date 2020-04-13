@@ -1,7 +1,27 @@
 @startuml
+!include style.puml
+skinparam classBackgroundColor WHITE
 
-package Student {
-    class Student1 as "__irfan:Student__" #MistyRose {
+skinparam class {
+    HeaderBackgroundColor<<Student>> Brown
+    BorderColor<<Student>> Brown
+
+    HeaderBackgroundColor<<Group>> DarkMagenta
+    BorderColor<<Group>> DarkMagenta
+
+    HeaderBackgroundColor<<Module>> DarkSlateBlue
+    BorderColor<<Module>> DarkSlateBlue
+
+    HeaderBackgroundColor<<Session>> SeaGreen
+    BorderColor<<Session>> SeaGreen
+}
+
+show members
+hide methods
+hide stereotype
+
+
+    class Student1 as "__irfan:Student__" <<Student>> {
         name = "Irfan Ibrahim"
         matric = "A0180474R"
         rating = 2
@@ -10,25 +30,25 @@ package Student {
         tag = "classmates"
     }
 
-    class Student2 as "__jeffry:Student__" #MistyRose {
-      name = "Jeffry Lum"
-      matric = "A0195558H"
-      rating = 5
-      email = "Jeffry@u.nus.edu"
-      phone = "65162727"
-      tag = "tutors"
+    class Student2 as "__jeffry:Student__" <<Student>> {
+        name = "Jeffry Lum"
+        matric = "A0195558H"
+        rating = 5
+        email = "Jeffry@u.nus.edu"
+        phone = "65162727"
+        tag = "tutors"
     }
 
-    class Student3 as "__alex:Student__" #MistyRose {
-            name = "Alex Yeoh"
-            matric = "A0187945J"
-            rating = 4
-            email = "alexyeoh@example.com"
-            phone = "87438807"
-            tag = "classmates"
+    class Student3 as "__alex:Student__" <<Student>> {
+        name = "Alex Yeoh"
+        matric = "A0187945J"
+        rating = 4
+        email = "alexyeoh@example.com"
+        phone = "87438807"
+        tag = "classmates"
     }
 
-    class Student4 as "__charlotte:Student__" #MistyRose {
+    class Student4 as "__charlotte:Student__" <<Student>> {
       name = "Charlotte Oliveiro"
       matric = "A0187565N"
       rating = 5
@@ -36,29 +56,28 @@ package Student {
       phone = "93210283"
       tag = "neighbours"
     }
-}
 
-package Group {
-    class Group1 as "__g02:Group__" #PowderBlue {
+
+    class Group1 as "__g02:Group__" <<Group>> {
         id = "G02"
         group_type = RECITATION
     }
 
-    class Group2 as "__g03:Group__"  #PowderBlue {
+    class Group2 as "__g03:Group__" <<Group>> {
         id = "G03"
         group_type = OTHER
     }
-}
 
-package Module {
-    class Module1 as "__cs2103t:Module__"  #PHYSICAL {
+
+
+    class Module1 as "__cs2103t:Module__" <<Module>> {
         id = "CS2103T"
         name = "Software Engineering"
     }
-}
 
-package Session {
-    class Session1 as "__tutorial:Session__" #AliceBlue {
+
+
+    class Session1 as "__tutorial:Session__" <<Session>> {
         session_type = TUTORIAL
         date = "2020-06-26"
         start = "14:00"
@@ -67,7 +86,7 @@ package Session {
         week = 1
     }
 
-    class Session2 as "__grading:Session__" #AliceBlue {
+    class Session2 as "__grading:Session__" <<Session>> {
         session_type = GRADING
         date = "2020-03-21"
         start = "09:30"
@@ -75,37 +94,61 @@ package Session {
         notes = "grade group 1 first"
         week = 0
     }
-}
 
-hide Student1 circle
-hide Student2 circle
-hide Student3 circle
-hide Student4 circle
-hide Group1 circle
-hide Group2 circle
-hide Module1 circle
-hide Session1 circle
-hide Session2 circle
 
-Group1 -- Module1
-Group2 -- Module1
+'hide Student1 circle
+'hide Student2 circle
+'hide Student3 circle
+'hide Student4 circle
+'hide Group1 circle
+'hide Group2 circle
+'hide Module1 circle
+'hide Session1 circle
+'hide Session2 circle
 
-Student1 -- Group2
-Student2 -- Group2
-Student3 -- Group1
-Student4 -- Group1
+'Session1 -up- Module1
+'Session2 -up- Module1
 
-Session1 -up- Module1
-Session2 -up- Module1
+'Session1 -down[hidden]- Session2
+'Group1 -down[hidden]- Group2
 
-hide Student1 circle
-hide Student2 circle
-hide Student3 circle
-hide Student4 circle
-hide Group1 circle
-hide Group2 circle
-hide Module1 circle
-hide Session1 circle
-hide Session2 circle
+'Student3 -down[hidden]- Student4
+'Student4 -down[hidden]- Student1
+'Student1 -down[hidden]- Student2
+
+'Student1 -down[hidden]- Student2
+'Student2 -down[hidden]- Student3
+
+
+Module1 -up[#DarkSlateBlue]-> Session1
+Module1 -up[#DarkSlateBlue]-> Session2
+
+'Group1 -- Module1
+'Group2 -- Module1
+
+Module1 -down[#DarkSlateBlue]-> Group1
+Module1 -down[#DarkSlateBlue]-> Group2
+
+'Student1 -- Group2
+'Student2 -- Group2
+'Student3 -- Group1
+'Student4 -- Group1
+
+Group2 -down[#DarkMagenta]-> Student1
+Group2 -down[#DarkMagenta]-> Student2
+Group1 -down[#DarkMagenta]-> Student3
+Group1 -down[#DarkMagenta]-> Student4
+
+
+
+'hide Student1 circle
+'hide Student2 circle
+'hide Student3 circle
+'hide Student4 circle
+'hide Group1 circle
+'hide Group2 circle
+'hide Module1 circle
+'hide Session1 circle
+'hide Session2 circle
 
 @enduml

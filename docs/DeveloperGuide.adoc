@@ -997,7 +997,7 @@ image::DoneSessionSequenceDiagram.png[]
 [horizontal]
 * The lifeline for `SessionCommandParser` and `DoneSessionCommandParser` should end at the
 destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-===
+====
 
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
@@ -1144,7 +1144,7 @@ image::FilterStudentSequenceDiagram.png[]
 [horizontal]
 * The lifeline for `StudentCommandParser` and `FilterStudentCommandParser` should end at the
 destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
-===
+====
 
 Given below is an example scenario where the user enters a command to filter students.
 
@@ -2630,7 +2630,14 @@ navigate through the app and get an idea of what to test. We suggest you use thi
 conjunction with our User Guide to test the product thoroughly.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+====
+These instructions only provide a starting point for testers to work on; testers
+are expected to do more _exploratory_ testing.
+
+All of these test cases assume that you have launched TA-Tracker for the first time
+and have not changed the sample data provided for you. We also assume that you are doing
+the tests in this order. Therefore modules added in previous steps can be used, etc.
+====
 
 [discrete]
 === Launch and Shutdown
@@ -2638,7 +2645,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Move to the folder and enter the command `java -jar TaTracker.jar` in the terminal +
+.. Open the folder containing the jar and enter the command `java -jar TaTracker.jar` in the terminal +
    Expected: TA-Tracker should start in a few seconds.
 
 . Saving window preferences
@@ -2679,63 +2686,70 @@ Expected: Opens the student tab.
 . Adding a module from any view.
 
 .. Test Case: `module add m/CS1101S n/Programming Methodology I` +
- Expected: A module with the module code `CS1101S` and name `Programming Methodology I`
-is added to the module list on student view. If you were on a different tab, you are
-automatically switched to *Student View*.
-.. Test Case: `module add m/CS1101S n/PE2` +
- Expected: You will see an error message that this module already exists. (Assuming you
-added a module with module code CS1101S)
+Expected: A module with the module code `CS1101S` and name `Programming Methodology I`
+is added to the module list in the *Student View*.
+If you were on a different tab, you are automatically switched to the *Student View*.
 
-[NOTE]
-====
-The test cases after this assume that your TA-Tracker has a module with module code
-CS1101S.
-====
+.. Test Case: `module add m/CS1101S n/PE2` +
+Expected: You will see an error message that this module already exists.
+(Assuming you have added a module with module code `CS1101S`)
 
 [discrete]
 === Adding a group to a module
 
 . Adding a group to a module.
+.. Test Case: `group add g/G07 m/CS1101S t/tutorial` +
+Expected: A group with group code `G07` of type `tutorial` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
 
-.. Test Case: `group add g/G06 m/CS1101S t/lab` +
-Expected: A group with group code `G06` of type `lab` will be added to the module
-`CS1101S`. If you were on a different tab, you are
-automatically switched to *Student View*.
-.. Test Case: `group add g/G06 m/CS1101S t/lab` +
-Expected: You will see an error message that this group already exists in the module. (Assuming you
-added a group with group code G06 to the module CS1101S)
-.. Test Case: `group add g/G06 m/CS3243 t/lab` +
-Expected: Assuming a module with module code `CS3243` exists in the TA-Tracker and
-doesn't contain a group with group code `G06`,
-A group with group code `G06` of type `lab` will be added to the module
-`CS3243`.
+.. Test Case: `group add g/G08 m/CS1101S t/lab` +
+Expected: A group with group code `G08` of type `lab` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
 
-[NOTE]
-====
-The test cases after this assume that your TA-Tracker has a group with group code
-`G06` in the module CS1101S.
-====
+.. Test Case: `group add g/G07 m/CS3243 t/lab` +
+Expected: A group with group code `G07` of type `lab` will be added to the module `CS3243`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add t/tutorial m/CS3243 g/G08` +
+Expected: A group with group code `G08` of type `lab` will be added to the module `CS3243`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add g/G07 m/CS3243 t/tutorial` +
+Expected: You will see an error message saying that this group already exists in the module.
+(Assuming you added a group with group code `G07` to the module `CS3243`)
+
+.. Test Case: `group add g/G07 m/CS2030 t/lab` +
+Expected: You will see an error message saying that this module does not exists in the module.
+(Assuming that you have not added a module with module code `CS2030`)
+
+.. Test Case: `group add g/G07 m/CS3243 t/lunch` +
+Expected: You will see an error message saying that provided group type was not valid.
 
 [discrete]
 === Adding students to a group
 
 . Adding a student to a group.
 
-.. Test Case: `student add id/A0123456X g/G06 m/CS1101S n/Jane Doe` +
+.. Test Case: `student add id/A0123456X g/G06 m/CS3243 n/Jane Doe` +
 Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
-to the group `G06` of the module `CS1101S` with a default rating of `3`.
+to the group `G06` of the module `CS3243` with a default rating of `3`.
 
-.. Test Case: `student add id/A0123457X g/G06 m/CS1101S n/John Doe r/5` +
-Expected: A student named `John Doe` with matriculation number `A0123457X` is added
-to the group `G06` of the module `CS1101S` with a rating of `5`.
+.. Test Case: `student add id/A9876543K g/G06 m/CS3243 n/John Doe r/5` +
+Expected: A student named `John Doe` with matriculation number `A9876543K` is added
+to the group `G06` of the module `CS3243` with a rating of `5`.
+
+.. Test Case: `student add id/A9876543K g/G06 m/CS3243 n/Donald Trump r/5` +
+Expected: You will see an error message saying that this student already exists in the group.
+(Assuming you added a student with matriculation number `A9876543K`
+into the group `G06`, which in turn is inside the module `CS3243`)
 
 [discrete]
 === Editing a module's name
 
 . Edits the name of a module.
 
-.. Test Case: `module edit m/CS1101S n/New Name`
-Expected: The name of the module with module code `CS1101S` will change to `New Name`
+.. Test Case: `module edit m/CS3243 n/New Name`
+Expected: The name of the module with module code `CS3243` will change to `New Name`
 but the groups and students inside it will remain intact.
 
 [discrete]
@@ -2743,50 +2757,20 @@ but the groups and students inside it will remain intact.
 
 . Editing a group in a module.
 
-.. Test Case: `group edit g/G06 m/CS1101S nt/tutorial` +
-Expected: The group with group code `G06` will be changed to type `tutorial` from the module
-`CS1101S`. The students inside the group will be unchanged. If you were on a different
-tab, you are automatically switched to *Student View*.
+.. Test Case: `group edit g/G06 m/CS3243 nt/tutorial` +
+Expected: The group with group code `G06` will be changed to type `tutorial` inside the module
+`CS3243`. The students inside the group will be unchanged.
+If you were on a different tab, you are automatically switched to *Student View*.
 
 [discrete]
 === Editing a student
 
 . Editing a student in a group.
 
-.. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
-Expected: Changes the rating of the student with matric number `A123456X` to `4`.
+.. Test Case: `student edit g/G06 m/CS3243 id/A0187613T r/5` +
+Expected: Changes the rating of the student with matric number `A123456X` to `5`.
 
-[discrete]
-=== Deleting a module
 
-. Deleting a module.
-
-.. Test Case: `module delete m/CS3243` +
-Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
-this would delete the module with module code m/CS3243. This would also delete all
-groups, students and sessions related to this module.
-.. Test Case: `module delete m/CS3243` +
-Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
-this would show you an error message.
-
-[discrete]
-=== Deleting a student
-
-. Deleting a student from a group
-
-.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
-Expected: Deletes the student with matric number `A123456X` from the group `G06`
-of the module `m/CS1101S`.
-
-[discrete]
-=== Deleting a group
-
-. Deleting a group from a module.
-
-.. Test Case: `group delete g/G06 m/CS1101S` +
-Expected: The group with group code `G06`` will be deleted from the module
-`CS1101S`. The students inside the group will be deleted. If you were on a different
-tab, you are automatically switched to *Student View*.
 
 [discrete]
 === Viewing a specific module
@@ -2794,7 +2778,7 @@ tab, you are automatically switched to *Student View*.
 . Allows you to view groups in a particular module.
 
 .. Test Case: `student filter m/CS2103T`
-Expected: You can now view the groups of the module `CS1101S`. You will see the students
+Expected: You can now view the groups of the module `CS2103T`. You will see the students
 of the group at index 1 of the module's group list.
 
 [discrete]
@@ -2803,8 +2787,8 @@ of the group at index 1 of the module's group list.
 . Allows you to view students in a particular group of a particular module.
 
 .. Test Case: `student filter g/G03 m/CS2103T`
-Expected: You can now view the groups of the module `CS1101S`. You will see the students
-of the group `G06`.
+Expected: You can now view the groups of the module `CS2103T`. You will see the students
+of the group `G03`.
 
 [discrete]
 === Sorting a group
@@ -2812,7 +2796,7 @@ of the group `G06`.
 . Sorting students in a group.
 
 .. Test Case: `sort group g/G03 m/CS2103T t/alpha` +
-Expected: Sorts all the students in the group `G06` of the module `CS1101S` alphabetically.
+Expected: Sorts all the students in the group `G03` of the module `CS2103T` alphabetically.
 
 [discrete]
 === Sorting a module
@@ -2820,8 +2804,8 @@ Expected: Sorts all the students in the group `G06` of the module `CS1101S` alph
 . Sorting students in a module.
 
 .. Test Case: `sort module m/CS2103T t/alpha` +
-Expected: Sorts all the students in all the groups of the module `CS1101S` alphabetically.
-You will see the students in the group at index 1 of the group list of  the module `CS1101S`.
+Expected: Sorts all the students in all the groups of the module `CS2103T` alphabetically.
+You will see the students in the group at index 1 of the group list of the module `CS2103T`.
 
 [discrete]
 === Sorting all modules
@@ -2840,9 +2824,9 @@ at index 1 of the module list.
 
 .. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
  t/consultation n/with Alice and Bob` +
-Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
-recurring every two weeks will be added to the sessions list. It will be associated
-with the module `CS1101S` and be a `consultation` with Alice and Bob.
+Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`, which has also been
+set to recur every two weeks, will be added to the sessions list. It will be associated
+with the module `CS2103T` and be a `consultation` with Alice and Bob.
 
 [discrete]
 === Marking a session as done
@@ -2875,11 +2859,11 @@ Expected: Edits the session at index `1` of the session list to be of type `lab`
 
 . Filtering sessions based on keywords.
 
-.. Test Case: `session filter m/CS1101S` +
-Expected: Shows all sessions associated with the *module* `CS1101S`.
+.. Test Case: `session filter m/CS3243` +
+Expected: Shows all sessions associated with the *module* `CS3243`.
 .. Test Case: `session filter t/tutorial` +
 Expected: Shows all sessions that are of *type* `tutorial`.
-.. Test Case: `session filter d/2020-06-26` +
+.. Test Case: `session filter d/2020-03-20` +
 Expected: Shows all sessions on the *date* `2020-03-20`.
 .. Test Case: `session filter d/2020-03-20 t/tutorial m/CS1101S` +
 Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `tutorial`
@@ -2892,7 +2876,7 @@ _or_ *module code* `CS1101S`.
 
 .. Test Case: `claims filter m/CS3243` +
 Expected: Shows all sessions that have been marked as done
-(aka claims) associated with the module `CS1101S`.
+(aka claims) associated with the module `CS3243`.
 
 [discrete]
 === Listing sessions and claims
@@ -2918,8 +2902,8 @@ changed accordingly.
 
 .. Test Case: `report` +
 Expected: Displays the statistics report showing statistics of all modules.
-.. Test Case: `report CS1101S` +
-Expected: Displays the statistics report of the module `CS1101S`.
+.. Test Case: `report CS2103T` +
+Expected: Displays the statistics report of the module `CS2103T`.
 
 [discrete]
 === Applying syntax highlighting on the user input
@@ -2957,6 +2941,37 @@ Expected: The input is highlighted in red, and the _command usage_ is displayed.
 
 .. Test Case: `session edit m/CS3243` +
 Expected: The input is highlighted in red, and the _constraint for index numbers_ is displayed.
+
+[discrete]
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
+this would delete the module with module code m/CS3243. This would also delete all
+groups, students and sessions related to this module.
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
+this would show you an error message.
+
+[discrete]
+=== Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G02 m/CS2103T id/A0181137L` +
+Expected: Deletes the student with matric number `A0181137L` from the group `G02`
+of the module `CS2103T`.
+
+[discrete]
+=== Deleting a group
+
+. Deleting a group from a module.
+
+.. Test Case: `group delete g/G02 m/CS2103T` +
+Expected: The group with group code `G02` will be deleted from the module
+`CS2103T`. The students inside the group will be deleted.
 
 [discrete]
 === Exiting the program
