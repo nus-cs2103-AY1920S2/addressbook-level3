@@ -13,6 +13,7 @@ import nasa.model.Model;
 import nasa.model.activity.Event;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Adds an event activity to a module's list.
  */

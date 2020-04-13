@@ -17,6 +17,7 @@ import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteModuleCommand}.

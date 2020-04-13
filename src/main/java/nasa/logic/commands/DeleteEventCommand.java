@@ -10,6 +10,7 @@ import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Command to delete event command.
  */

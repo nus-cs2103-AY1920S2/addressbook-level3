@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import nasa.model.Model;
 import nasa.model.NasaBook;
 
+//@@author kester-ng
 /**
  * Clears the nasa book.
  */

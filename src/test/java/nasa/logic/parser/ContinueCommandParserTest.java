@@ -14,6 +14,7 @@ import nasa.commons.core.index.Index;
 import nasa.logic.commands.ContinueCommand;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 public class ContinueCommandParserTest {
 
     private ContinueCommandParser parser = new ContinueCommandParser();

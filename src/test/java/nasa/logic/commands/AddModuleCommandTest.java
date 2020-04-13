@@ -19,6 +19,7 @@ import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.model.module.UniqueModuleList;
 
+//@@author kester-ng
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */

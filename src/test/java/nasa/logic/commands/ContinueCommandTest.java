@@ -18,6 +18,7 @@ import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 public class ContinueCommandTest {
 
     private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),

@@ -19,6 +19,7 @@ import nasa.model.UserPrefs;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 import nasa.testutil.NasaBookBuilder;
 
+//@@author kester-ng
 public class FindCommandTest {
 
     private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new HistoryBook<>(),
