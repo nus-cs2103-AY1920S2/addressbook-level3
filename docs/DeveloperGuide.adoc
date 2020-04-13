@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F11-1/main
 
-By: `Team F11-1`      Since: `March 2020`      Licence: `MIT`
+By: `Team F11-1`      Since: `March 2020`      Licence: `MIT`
 
 *Table of Contents*:
 
@@ -139,14 +139,15 @@ NOTE: The lifeline for `DeleteCommandParser` and `DeleteCommand` should end at t
 [[Design-Model]]
 === Model component
 
+[[Model-Component]]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/life/calgo/model/Model.java[`Model.java`]
 
 . `Model` stores user's preferences in a `UserPref` object.
-. `Model` also stores Food Record data.
-. This component exposes both `ObservableList<Food>` and `ObservableList<ConsumedFood>`. The data stored in
+. `Model` also stores Food Record and Consumption Record data.
+. This component exposes both `ObservableList<Food>` and `ObservableList<DisplayFood>`. The data stored in
 these two list objects is reflected in UI. Therefore, any changes made to the data in these lists are shown in the UI in
 real-time.
 . To update the `Model` (and hence reflect the changes in the UI), `Food` attributes need to satisfy certain `Predicates`, which represent these changes.
@@ -196,38 +197,46 @@ Classes used by multiple components are in the `life.calgo.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag:: Report[]
 [[Implementation-InsightsReport]]
-=== Generate insights report
-This feature allows a user to generate a report that contains statistics and deliverable insights based on
-personal food consumption patterns.
+=== Generating consumption statistics and insights report +
+(by Vineeth)
 
-The functionality can be invoked by entering the `report d/DATE` command.
-This command generates a report that is based on the food consumed by
-the user on the specified date.
+This feature allows a user to automatically generate a report that contains statistics and personalised insights based on
+his or her food consumption pattern on a given date. Do note that the generated report is a .txt file.
+
+The user can invoke this functionality by entering the `report` command, which follows the following format: `report d/DATE`. +
+
+This section explains: +
+
+* how the `report` command works and the crucial method it invokes during execution (In the Implementation subsection).
+* the various aspects that were deliberated over when coming up with the design of the statistics and insights report feature (In the Design Considerations subsection).
+* a summary that shows a simplified Activity Diagram that captures the essential logic in the execution of the  `report` command (In the Summary subsection).
+
+Before moving on to learn how the feature works, if you want to see what the report includes, you can refer to our <<UserGuide#, User Guide>>.
 
 ==== Implementation
-The specified feature is facilitated by `ReportGenerator` class in the `Storage` component.
-In this section, the implementation features of the `ReportGenerator` class will be further explained.
 
-`ReportGenerator` class implements the following operation:
+The specified feature is facilitated by a `ReportGenerator` object. If you are interested in how `ReportGenerator` fits into the architecture of Calgo,
+refer to this <<Design-Storage, section>>.
 
-* `ReportGenerator#generateReport()` - Creates report containing an analysis of all food consumed by user on the
-given date when inputting the `report` command.
+To learn how the `report` command works, the most important method that you need to know is the `generateReport()` method from the `ReportGenerator` class.
 
-Whenever the `report d/DATE` command is given by the user, the `ReportGenerate#generateReport()` operation is called.
+Refer to the sequence diagram below to understand the top-level execution of the `generateReport()` operation after the user enters a valid `report` command.
 
-<<<
-
-The following sequence diagram illustrates the top-level execution of the `generateReport()` operation:
-
+.Sequence Diagram for `report` command: generating 2020-03-27_report.txt
 image::ReportFeatureSequenceDiagram.png[]
 
-Step 1: User inputs `report d/2020-03-27` to generate the insights report based on food consumption of 27 March 2020. +
+
+[NOTE]
+The lifelines for the `ReportCommandParser` object, `ReportCommand` object, `ReportGenerator` object should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+
+From the above diagram, creating a report for the consumption patterns on 27th of March 2020 involves the following steps:
+
+Step 1: User inputs `report d/2020-03-27` to generate the insights report based on food consumption of the abovementioned date. +
 
 Step 2: This input is saved as a `String` and passed into the `LogicManager`. +
 
-Step 3: The `String` input is parsed by `CalgoParser`, which removes the "d/" prefix tag and sends
+Step 3: The `String` input is parsed by `CalgoParser`, which removes the "d/" `Prefix` and sends
 the date input to `ReportCommandParser`. +
 
 Step 4: Once the `ReportCommandParser` checks that the given date is valid, it creates a `ReportCommand` object and
@@ -235,48 +244,144 @@ returns it to `LogicManager`.
 
 Step 5: `LogicManager` then executes the `ReportCommand`.
 
-Step 6: From `Model`, `ReportCommand` retrieves the `DailyFoodLog` object that stores all `Food` consumed on the input date.
+Step 6: From `Model`, `ReportCommand` retrieves the required objects to construct an instance of `ReportGenerator`.
 
-Step 7: From `Model`, `ReportCommand` also retrieves `DailyGoal` object, which stores the daily number of calories the user wants to consume.
-
-Step 8: With the relevant objects retrieved from Steps 6 and 7, `ReportCommand` constructs a
+Step 7: With the relevant objects retrieved from Steps 6, `ReportCommand` constructs a
 `ReportGenerator` object.
 
-Step 9: Using the `ReportGenerator` object, `ReportCommand` calls `#generateInsights()`, which prints metainformation
-, food-wise statistics, aggregate statistics and insights based on the `DailyFoodLog` of the input date.
+Step 8: Using the `ReportGenerator` object, `ReportCommand` invokes the *crucial* method `generateInsights()`, which prints
+neatly organised sections of analysed data based on the `DailyFoodLog` of the input date. For the section that gives insights related to
+the user's favourite `Food`, the past seven days of `DailyFoodLog` objects are analysed.
 
-Step 10: This newly generated report is saved in the `/reports` folder. If the report is successfully generated,
+Step 9: This newly generated report is saved in the `data/reports` folder. If the report is successfully generated,
 the `CommandResult` is true. Otherwise, it is false. This `CommandResult` object is finally returned to `LogicManager`,
-to signify the end of the command.
+to signify the end of the command and GUI shows a result message to the user.
 
 <<<
 
 ==== Design considerations
 
-===== Aspect: How generate report executes
+Many of the design considerations made for `report` command are similar to that of the `export` command. You can check
+out the similar design considerations over <<Design-Export, here>>.
 
-* *Alternative 1 (current choice):* Print insights into a .txt file.
+In addition to those design considerations, the following consideration is specific to the functionality of the `report` command.
 
-** Pros: The implementation allows users to easily edit the contents of the report should they have realised they
-did not log in certain food items on that day.
-** Cons: Users could cheat by modifying values in the report. This defeats the purpose of the report to improve their
-self-awareness of their food consumption patterns.
+===== Aspect: How many days of past data should be used to analyse user's favourite `Food` for the suggestions section of the report.
 
-* *Alternative 2:* Print insights into a pdf file.
-** Pros: The insights appear more legitimate and neatly formatted.
+* *Alternative 1 (current choice): Analyse past seven days of consumption data*
 
-** Cons: Requires use of external libraries, which occupy memory of the App. PDF files generally require
-more memory than .txt files as well.
+** Pros: This implementation is more efficient as it does not have to churn out all existing consumption data produced by the user so far.
+** Cons: The reliability of the suggestions may be impacted due to certain special events such as buffet celebrations, in which the user may consume
+`Food` that he or she does not usually eat.
+
+* *Alternative 2: Analyse all data*
+** Pros: The insights will be much more reliable and more tolerant of outlier data points.
+
+** Cons: The efficiency of the `report` command gets worse over time and may cause dissatisfaction to the user.
 
 ==== Summary
-The following activity diagram summarizes what happens when user executes a `report d/DATE` command: +
+The following activity diagram summarizes what happens when user executes a `report d/DATE` command with a correctly formatted date: +
 
 .Activity Diagram for Report command
 image::ReportActivityDiagram.png[]
 
+You can check out this code snippet to see how the `ReportCommand` object determines if there are no `Food` entries present
+in the given date:
+
+----
+// if there is no food consumed on the given date, do not execute command
+if (!model.hasLogWithSameDate(queryDate) || model.getLogByDate(queryDate).getFoods().size() == 0) {
+   throw new CommandException(MESSAGE_REPORT_FAILURE + "\n" + String.format(NO_SUCH_DATE, queryDate))
+}
+----
+
 //tag:: Goal[]
 [[Implementation-GoalFeature]]
-=== Setting Goal Feature
+=== Setting daily calorie goals for motivation
+(by Vineeth)
+
+This feature helps a user chunk his or her long term goal of developing a healthy lifestyle into smaller daily goals.
+Psychologically, this helps to motivate them as the perceived difficulty of achieving the long term goal reduces.
+
+The user can set a daily calorie goal with the `goal` command, which follows the following format: `goal GOAL`.
+
+This section addresses how the `goal` command works.
+
+==== Implementation
+
+In addition to the `GoalCommandParser`, the `goal` command relies heavily on the `DailyGoal` class, which is part of the
+`Model` component. Refer to the `Model` component diagram <<Model-Component, here>>.
+
+To address the issue where a user does not want to set up a daily calorie goal, Calgo places a `DUMMY_VALUE` of 0 calories,
+as shown in the code snippet below, from `DailyGoal` class. To cater to a wide range of users, it also has a broad range of acceptable
+values, ranging from 1 to 99999. However, to guide users towards a healthy lifestyle, the App does display a warning
+message whenever a user sets a goal below the `MINIMUM_HEALTHY_CALORIES`.
+
+----
+    // Values used for GoalCommandParser when parsing user inputted goals.
+    public static final int MINIMUM_HEALTHY_CALORIES = 1200;
+
+    public static final int MINIMUM_ACCEPTABLE_CALORIES = 1;
+
+    public static final int MAXIMUM_ACCEPTABLE_CALORIES = 99999;
+
+    // Default value, when user does not input a goal.
+    public static final int DUMMY_VALUE = 0;
+----
+
+Refer to the sequence diagram below to understand how a `goal` command is executed.
+.Sequence Diagram for `goal` command: updating daily calorie goal to 2000 calories.
+
+image::GoalSequenceDiagram.png[]
+
+[NOTE]
+The lifelines of the `GoalCommandParser` object, `GoalCommand` object and `DailyGoal` object should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+
+The following steps explain the sequence diagram: +
+
+Step 1: User inputs `goal 2000` to update his or her goal to 2000 calories. +
+
+Step 2: This input is saved as a `String` and passed into the `LogicManager`. +
+
+Step 3: The `String` input is parsed by `CalgoParser`, which sends the `goal` value input to `GoalCommandParser`. +
+
+Step 4: Once the `GoalCommandParser` checks that the given value is valid, it converts the input to an `Integer` and creates a `GoalCommand` object and
+returns it to `LogicManager`.
+
+Step 5: `LogicManager` then executes the `GoalCommand`, which in turn invokes `updateDailyGoal` method of `Model`.
+
+Step 6: In `Model`, the `updateDailyGoal` method is a static method that generates a new `DailyGoal` object with the corresponding input. This `DailyGoal` object is returned to `Model`
+, which replaces the existing `DailyGoal` attribute of the `ModelManager` with the newly generated `DailyGoal` object.
+
+==== Design Considerations
+
+===== Aspect: Type of user input data that is required for goal command
+
+* **Alternative 1 (current choice):** Use a simple goal feature that accepts the user's inputted value.
+** Pros: +
+- The user is not daunted by the large amount of information he or she needs to provide to set a goal.
+- The user will not feel paranoid as Calgo does not ask for personal data such as height, weight, gender and age.
+
+** Cons: +
+- The goal may not be effective unless the user diligently checks online for a appropriate goal and then enters it into Calgo.
+
+* **Alternative 2:** Use a scientific method to calculate the basal metabolic rate of the user.
+** Pros: +
+- The goal is very effective because it matches their body type.
+** Cons: +
+- A lot of data is required to be inputted by the user.
+- May cause users to avoid setting goals because of the large amount of personal data they need to store in Calgo.
+- User feeling uncomfortable about setting a goal will also affect effectiveness of `report` command.
+
+==== Summary
+
+In essence, the `goal` command is a fun feature that is used to motivate the user and generate specific insights if the
+user were to invoke the `report` command after setting a daily calorie goal.
+
+Refer to the Activity Diagram below for a visual summary of the logic behind the execution of the `goal` command.
+
+.Activity Diagram for `goal` command.
+image::GoalActivityDiagram.png[]
 
 // tag::categoricalsubstringfindsearch[]
 [[Implementation-FindList]]
@@ -576,6 +681,7 @@ Step 3: `ExportCommand` then calls the `generateExport` method of `ExportGenerat
 
 Step 4: A new `CommandResult` object indicating the result of the execution is then constructed and reflected in the GUI.
 
+[[Design-Export]]
 ==== Design considerations
 
 ===== Aspect: Type of file to create.
@@ -638,31 +744,89 @@ image::ExportActivityDiagram.png[]
 
 [[Implementation-ConsumptionManagement]]
 === `Food` consumption management
-
 (by Ruicong)
 
+This section addresses how `nom`, `vomit`, and `stomach` commands work. They are the 3 commands that you will use
+to interact with `ConsumptionRecord`. `nom` allows you to add `Food`, `vomit` allows you to remove `Food`, and `stomach`
+gives you a way to browse a list of `Food` within the `ConsumptionRecord` at a different date. `ConsumptionRecord` is an important
+component because it serves as a backend for features such as `goal`, `report` and `graph`.
+//Link to other ppls components
 
-In Calgo, you will find that there is a date associated with each list of `ConsumedFood`.
-When adding food to be consumed, removing food, or displaying food consumed on certain days,
-a `FilteredList` will be populated with relevant `ConsumedFood`.
+The high level idea of how `Food` consumption is managed is that `ConsumptionRecord` stores all the `Food` consumed.
+Whenever `nom`, `vomit`, or `stomach` is used, a list will be retrieve and sent to a FilteredList. Such a list consists of `DisplayFood` objects,
+for the purpose of displaying information compiled from each `Food`.
+The FilteredList is an observable, so whenever it is updated, the GUI will be informed and display the contents accordingly.
 
 ==== Implementation
-The `nom`, `vomit` and `stomach` commands are facilitated by the `FoodRecord`.  +
-`FoodRecord` contains a `UniqueDateToLogMap`, which maps a `LocalDate` to a `DailyFoodLog`. +
-`DailyFoodLog` contains a `LinkedHashMap` storing `Food` in the sequence that they were consumed and maps those `Food` to a `Double` portion.
+In this section, I will be walking you through the implementation of the `ConsumptionRecord`, what happens on App startup,
+and what happens when a consumption related command is called. I will be talking about the `nom` command more specifically.
+This is because `vomit` and `stomach` work very similarly, and you will see that it's easy to understand once you have read through this
+section.
 
-This section covers how the `nom` command is implemented. The `vomit` and `stomach` commands work in very similar way, hence their implementation is omitted for brevity.
+[[ConsumptionRecord-desc]]
+In Calgo, you will find that the GUI `ConsumptionRecord` use a `uniqueDateToLogMap` to map each `LocalDate` to a `DailyFoodLog`.
+As you can guess, `LocalDate` keys are unique. +
+Each `DailyFoodLog` is related to a `LocalDate` object and contains 2 `LinkedHashMap`, one to map `Food` consumed to their portion,
+another to map `Food` to an `ArrayList` of `Integer`, which represents the ratings given to that `Food` item consumed on that day.
 
-A top-level illustration of the execution of a `nom` command is given in the sequence diagram below:
+// note that directs to main diagram and say it might be useful?
 
-image:NomSequenceDiagram.png[]
+On App startup, `initModelManager` of `MainApp` class is invoked. This will cause `storage` to read consumption record data from a `.json` file
+which stores App data. The `.json` file stores `JsonAdaptedDailyFoodLog`, which is similar to `DailyFoodLog` in every way,
+but deals with `JsonAdaptedFood` class instead of `Food`. Notice that there are a chain of `toModelType` commands
+called as we dive deeper into the method call stack. `toModelType` is actually the method to return a working counterpart of `JsonSerializable` and `JsonAdapted` classes
+that will be delivered to the model of Calgo.
 
-Step 1: User enters a command, which is saved as a `String` and passed into the `LogicManager`. +
-Step 2: The `String` cascades down the layers of abstraction until `NomCommandParser` handles it and creates a
-`DailyFoodLog` which reflects the consumption. +
-Step 3: A `NomCommand` is created and executed, updating both `ModelManager` and `FoodRecord` about the consumed food. +
-Step 4: A `FilteredList` in `ModelManger` will then check with `FoodRecord` to create `ConsumedFood` items to display in the Graphical User Interface (GUI). +
-Step 5: The GUI automatically detects changes in `FilteredList` and refreshes to display updated content.
+[NOTE]
+So you might ask, what does `JsonAdapted` mean? Well, `JsonAdapted` classes are specially formatted versions
+of their counterparts that makes it easy for the `Jackson` API to read and write to.
+
+Here is what happens when different classes call `toModelType`: +
+
+* `JsonSerializableConsumptionRecord` returns its equivalent copy of `ConsumptionRecord.`
+* `JsonAdaptedDailyFoodLog` returns its equivalent copy of `DailyFoodLog`.
+
+Below shows the high level view of the initialization process:
+
+.Sequence Diagram for loading of Consumption Record
+image::ConsumptionRecordSequenceDiagram.png[]
+
+Now that the `ConsumptionRecord` has been initialized, the App can start interacting with the user.
+
+Whenever the user enters a `nom` command into the GUI, a sequence of events occur.
+Here is a a step-by-step guide to what happens in such a scenario: +
+
+Step 1: `UI` component `MainWindow` receives the input as a `String`. That `String` is then passed into LogicManager,
+which calls the `parseCommand` of `CalgoParser`. Suppose the `String` is "nom n/Apple d/2020-04-12 portion/2 r/7"
+`CalgoParser` detects that this is a `nom` command. `CalgoParser` then delegates this job by creating
+a new `NomCommandParser` object which will parse this `String`. +
+
+Step 2: `NomCommandParser` gets relevant values from `Prefixes` of input `String`, and then checks with the `ModelManager`.
+It specifically checks if there exists a `DailyFoodLog` with the same `LocalDate` as what was parsed so that it can use existing information if
+they are already present. From all these information, a `DailyFoodLog` object representing the result of consuming a `Food` is created, and supplied to create
+`NomCommand`. The diagram below shows how this happens:
+
+[NOTE]
+For the subsequent sequence diagrams in the section,
+the lifelines for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+.Sequence Diagram for parsing of Nom command
+image::NomCommandParserSequenceDiagram.png[]
+
+Step 3: `NomCommand` updates the `ModelManager` with the `DailyFoodLog` obtained during its execution by `LogicManager`.
+Such information cascades down the layers of abstraction until it reaches `ConsumptionRecord`,
+which updates its underlying 'uniqueDateToLogMap' aforementioned <<ConsumptionRecord-desc, here>>.
+
+.Sequence Diagram of how Nom command executes
+image::NomCommandSequenceDiagram.png[]
+
+Step 4: `NomCommand` then informs the `ModelManager` to update its `FilteredList`, which gets information from the updated `ConsumptionRecord`.
+Since the `FilteredList` is a wrapper of `ObservableList`, its update will inform the UI components that utilise JavaFx of changes.
+This results in the GUI automatically updating to reflect the changes.
+
+Step 5: A new `commandResult` object is created an passed back to `MainWindow`, and displayed in `Result Display`.
+
+Step 6: Finally, the changes in `ConsumptionRecord` are saved to `StorageManager`.
 
 <<<
 
@@ -670,13 +834,15 @@ Step 5: The GUI automatically detects changes in `FilteredList` and refreshes to
 
 ===== Aspect: How `nom` executes
 
-* **Alternative 1 (current choice):** Create a new `DailyFoodLog` to pass into `ModelManager` and `FoodRecord`.
-** Pros: Maintain comprehensive layers of abstraction and allows code to be easily testable.
+* **Alternative 1 (current choice):** Create a new `DailyFoodLog` to pass into `ModelManager` and then `ConsumptionRecord`.
+** Pros:
+- Maintain comprehensive layers of abstraction
+- Allows code to be easily testable.
 ** Cons: Difficult for newcomers or even existing users to trace because of long execution path.
 
-* **Alternative 2:** Bypass `ModelManager` or even not use `FoodRecord` for storage of data during runtime by allowing everything to be done
+* **Alternative 2:** Bypass `ModelManager` or even not use `ConsumptionRecord` for storage of data during runtime by allowing everything to be done
 from parser.
-** Pros: Reduce dependencies on `ModelManager` and `FoodRecord`, and make code contained in a single class file easier to navigate.
+** Pros: Reduce dependencies on `ModelManager` and `ConsumptionRecord`, and make code contained in a single class file easier to navigate.
 ** Cons: Violates layers of abstraction set in place by previous structure of AddressBook3. Violates Single Responsibility Principle and reduce
 cohesiveness of code.
 
@@ -692,12 +858,34 @@ a consumption related command is used.
 ** Cons: May have performance issue in terms of storage because it requires many lists to be stored in addition to `LinkedHashMap`
 in `DailyFoodLog` for each `LocalDate`.
 
+===== Aspect: Selecting items to delete from `ConsumptionRecord` using `Vomit` command
+
+* **Alternative 1 (current choice):** Use index to select item to delete.
+** Pros: When the list is short, user can quickly identify the entry to delete.
+** Pros: Convenient for user as he is required to type less.
+** Pros: User need not spend effort remembering names.
+** Cons: When there are too many records, user is required to scroll through records.
+
+* **Alternative 2:** Use name to select item to delete
+** Pros: Can utilise the `Result Display` suggestion to improve user experience.
+** Cons: User face the hassle of memorising names and typing more.
+
 ==== Summary
 
-The `nom` command adds a `Food` item consumed by the user into the `stomach`. The following activity diagram summarizes what happens when the user executes a `nom` command.
+This section is a summary on all the above discussed. I would do so with the aid of a few activity diagrams so that you
+are clear about the flow of the processes covered.
 
-.Activity Diagram for Nom
-image::NomActivityDiagram.png[]
+.Activity Diagram for the 3 consumption related command
+image::OverallConsumptionActivityDiagram.png[]
+
+The 2 diagrams below serves as (rakes), which shows more details.
+
+.Activity Diagram for Nom command
+image::NomActiivityDiagram.png[]
+
+.Activity Diagram for Vomit command
+image::VomitCommandActivityDiagram.png[]
+
 
 // tag::modifyingfoodrecord[]
 
@@ -1176,7 +1364,7 @@ Refer to the guide <<DevOps#, here>>.
 * Is reasonably comfortable using `CLI` Apps
 * Wants to have, or already has, a lifestyle of eating healthy
 * Manages a significant number of `Food` items
-* Prefers desktop Apps over other types
+* Prefers desktop Apps over other types of Apps (such as mobile or tablet)
 * Prefers typing over mouse input
 
 *Value proposition*:
@@ -1438,7 +1626,7 @@ Use case ends.
 Use case ends.
 
 *1b. Inputted `date` in wrong format.* +
-1b1. Calgo shows a message indicating the correct format for the `date`.
+1b1. Calgo shows a message indicating the correct format for the `date`. +
 1b2. User enters `report` command with the `date` in the correct format. +
 
 Use case resumes from step 2.
@@ -1448,6 +1636,29 @@ Use case resumes from step 2.
 
 Use case ends.
 
+[discrete]
+=== Use case: consuming food on a on a specific day with `nom`.
+
+*MSS*
+
+1. User wants to record their `Food` consumption on a particular day.
+2. User enters `nom` command with the appropriate `Prefixes` and values.
+3. Calgo processes the command and update display.
+
+*Extensions*
+
+[none]
+*2a. User misspells the command or `Prefix`* +
+2a1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
+
+*2b. The `Food` does not exist in `FoodRecord`* +
+2b1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
+
+*2c. User enters invalid value for particular `Prefix`* +
+2c1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
 
 [appendix]
 == Non Functional Requirements
@@ -1456,15 +1667,19 @@ Use case ends.
 .  Should be able to hold up to 1000 `Food` items without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Calgo should work on both 32-bit and 64-bit environments.
-.  The product expects users to initially find out about `Food` items and their respective nutritional values for creating `Food` item entries for the first time.
 .  The minimum screen size for the App window to fully display its GUI is 1250 x 600.
-.  The product should be for a single-user.
+.  Calgo should be designed for a single-user (i.e. Calgo should not be a multi-user App).
 .  The product should be developed incrementally over the project duration.
-.  The software should follow the OOP.
+.  The software's codebase should adhere to OOP.
+.  The product should have minimal network usage. Therefore, it is expected that users will find out about the
+respective nutritional values of a `Food` entry whenever they want to `update` it into the `FoodRecord` for the first time.
 
 
 [appendix]
 == Glossary
+
+[[application-user-interface]] Application User Interface (API)::
+A set of tools for building software application.
 
 [[command-line-interface]] Command Line Interface (CLI)::
 Text-based user interface used to view and manage computer files.
@@ -1511,15 +1726,58 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+. Download the jar file and copy into an empty folder
+. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the App by double-clicking the jar file. +
+. Resize the window to an optimum size. Move the window to a different location. Close the window.
+. Re-launch the App by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+=== Getting help
+
+. Displays a guide for all commands. Can also display only commands containing the given command word.
+
+. Prerequisites: Launch `Calgo` succesfully.
+. Test case: `help` +
+   Expected: A help window pops up and shows you how to use each command.
+. Test case: `help abcd` +
+   Expected: A help window pops up and shows you how to use each command anyway, but tells you abcd does not exist.
+
+=== Creating a `Food`
+
+. Adding a `Food` item to the `FoodRecord`
+
+. Prerequisites: Launch `Calgo` successfully
+. Test case `update n/Apple cal/50 p/3 c/2 f/45`
+. Expected: Updated all foods into Food Record:
+Apple Calories: 50 Proteins (g): 3 Carbohydrates (g): 2 Fats (g): 45
+. Test case: `update x`
+. Expected: +
+Invalid command format. update: Updates the food entered into the Food Record. If the food entered already exists, it will be overwritten by input values.
+Parameters: n/NAME cal/CALORIES p/PROTEIN c/CARBOHYDRATE f/FAT [t/TAG]...
+Example: update n/Kiwi cal/150 p/2 c/25 f/3 t/Green t/Sweet
+. Other incorrect commands to try: `update n/Apple c/2 f/45` (where parameters are missing) +
+Expected: Similar to previous.
+
+=== Editing a `Food`
+
+. Editing a `Food` item in the `FoodRecord`
+
+. Prerequisites: Launch `Calgo` successfully and `Food` already exists in `FoodRecord`.
+. Test case `update n/Apple cal/53 p/3 c/3 f/45`
+. Expected: +
+Updated all foods into Food Record: Updated existing food item in Food Record:
+Apple Calories: 50 Proteins (g): 3 Carbohydrates (g): 3 Fats (g): 45
+. Test case: `update x`
+. Expected: Invalid command format.
+update: Updates the food entered into the Food Record. If the food entered already exists, it will be overwritten by input values.
+Parameters: n/NAME cal/CALORIES p/PROTEIN c/CARBOHYDRATE f/FAT [t/TAG]...
+Example: update n/Kiwi cal/150 p/2 c/25 f/3 t/Green t/Sweet
+. Other incorrect commands to try: `update n/Apple c/2 f/45` (where parameters are missing) +
+Expected: Similar to previous.
 
 === Deleting a `Food`
 
@@ -1527,27 +1785,109 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: Launch Calgo successfully and a `Food` item Apple already exists in `FoodRecord`
 .. Test case: `delete n\Apple` +
-   Expected: `Food` item Apple is deleted from `FoodRecord`. Details of the deleted `Food` shown in the status message.
-.. Test case: `delete 0` +
+. Test case: `delete 0` +
    Expected: No food is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete n/Banana` (where `Food` banana does not exists in `FoodRecord`) +
+. Other incorrect delete commands to try: `delete`, `delete n/Banana` (where `Food` banana does not exists in `FoodRecord`) +
    Expected: Similar to previous.
 
 
 === Listing all `Food` entries
 
 . Listing down all entries, regardless of previous commands
-.. Prerequisites: Launch Calgo successfully.
-.. Test case: `list` +
+. Prerequisites: Launch `Calgo` successfully.
+. Test case: `list` +
 Expected: The GUI will show all `Food` entries existing in the `FoodRecord`.
+
+=== Navigating `Food record`
+
+. Searches through the Calgo’s Food entries and displays relevant ones based on the specifications entered.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being searched exists in `Food Record`
+. Test case: `find n/Apple` +
+   Expected: `Food` having name that partially match "Apple" will be displayed
+. Test case: `find t/sWeet +
+   Expected: `Food` having tag that partially match "sweet" will be displayed
+. Test case: `find t/swEeT n/Apple` +
+   Expected: Please specify 1 and only 1 correct parameter for filtering using the find command.
+. Other incorrect commands to try: `find n/` +
+   Expected: Names should only contain alphanumeric characters and spaces, and it should not be blank.
+
+=== Adding `Food` to consumption record
+
+. Adds a Food to a specific day’s Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being consumed exists in `Food Record`
+. Test case: `nom n/chicken d/2020-03-04 portion/1.5 r/8` +
+   Expected: Successfully consumed Chicken Calories: 32 Proteins (g): 20 Carbohydrates (g): 1 Fats (g): 11
+. Test case: `nom n/chickn d/2020-03-04 portion/1.5 r/8` +
+   Expected: You can't eat that because it does not exist in food record.
+. Other incorrect commands to try: `nom n/chicken d/2020-03-04 portion/-1 r/8` +
+   Expected: Portion should be a positive number.
+
+=== Removing a portion of `Food` from consumption record
+
+. Deletes a portion of a specific Food from the Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being consumed exists in `Consumption Record`
+. Test case: `vomit num/1 d/2020-03-04` +
+   Expected: Successfully throw up Chicken Calories: 32 Proteins (g): 20 Carbohydrates (g): 1 Fats (g): 11
+. Test case: `vomit num/` +
+   Expected: Position should be a positive integer!
+. Other incorrect commands to try: `vomit num/-1` +
+   Expected: Position required an integer within range of list!
+
+=== Navigating `Consumption Record`
+
+. Deletes a portion of a specific Food from the Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and have eaten something on the day you want to browse.
+. Test case: `stomach d/` +
+   Expected: Display all food consumed. (As long as you ate on that day before, applies even if your record is empty due to using vomit)
+. Test case: `stomach d/1930-04-01` +
+   Expected: Your consumption record is empty because you have not consumed food on 1930-04-01 before
+
+=== Setting a goal
+
+. Sets your daily calorie goal.
+. Prerequisite: Launch `Calgo` succesfully.
+. Test case: `goal 69` +
+   Expected: That is a really low goal to set. Warning: You may suffer from malnutrition.
+We'll accept this now because Calgo will eventually help you to reach a daily calorie count of
+1200, which is the minimum calories you should eat to stay moderately healthy.
+. Test case: `goal 0` +
+   Expected: Please key in a whole number that is at least 1 calorie and at most 99999 calories.
+
+=== Generating report for the day
+
+. Generates consumption report for a given date.
+. Prerequisite: Launch `Calgo` succesfully, and have eaten something on the day you want to generate report on.
+. Test case: `report d/` +
+   Expected: Successfully generated a report in the data/reports folder for the following date: 2020-04-13.
+. Test case: `report d/2070-04-12` +
+   Expected: Did not manage to generate report. There was no food consumed on 2070-04-12.
+
+=== Generating a copy of your `Food Record`
+
+. Generates a neat and editable file containing the current Food entries.
+. Prerequisite: Launch `Calgo` succesfully
+. Test case: `export` +
+   Expected: Successfully generated FoodRecord.txt in the data/exports folder.
+
+=== Clearing `Food Record` data
+
+. Clears all food entries from Calgo. Note that data in Consumption Record is not deleted.
+
+. Test case: `clear` +
+    Expected: Food Record has been cleared! Use the update command to add new food into your Food Record.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing/corrupted data files.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Calgo will start from a fresh state if your files are corrupted.
 
-_{ more test cases ... }_
+. Warning: You can edit the `.json` files in the `/data` folder. Be careful, if the files you
+edit ends up with invalid format, you risk losing all existing data.
 
 [appendix]
 == Effort
@@ -1568,15 +1908,16 @@ Due to the COVID-19 situation, there was a lot of uncertainty and our style of m
 
 * Product Design
 ** Our team successfully morphed AB3 and its relevant tests into the Calgo you see today.
-** Our team’s project idea was validated and appreciated by peers and tutors, most notably from our presentation, demo and testing.
+** Our team’s project idea was validated and appreciated by peers and tutors, most notably from our CS2101 presentation, CS2103T demo and PE-Dry Run testing.
+It also has potential to be collaborated with other peer projects such as FitBiz (Group F11-2).
 * Implementation
 ** Ambitious in experimenting with new interesting features. For e.g. intelligent insights and graphs.
 ** Implemented features consistently and incrementally, allowing us to make changes to past features and
-** Experimented with new workflow and decided on one, Agile(Scrum), which we liked the most.
-** Put in additional effort in making the GUI different and novel, despite it being not part of the grading scheme. This is another example of how we go an extra mile just for the sake of user centric-ness. For e.g. we tried out new JavaFX APIs like LineChart and TableView.
+** Experimented with new workflow before deciding on one, Agile(Scrum), which we liked the most.
+** Put in additional effort in making the GUI different and novel, even though it is not part of the grading rubric. This is another example of how we go the extra mile to make our product more user-centric. For e.g. we tried out new JavaFX APIs like LineChart and TableView.
 * Project Management
-** Predominantly followed the forking workflow
-** Diligently created issues and assigned them
-** Plan and incrementally implemented our user stories throughout different milestones.
-** Regularly review each other’s code on and off Github.
+** Predominantly followed the forking workflow.
+** Diligently created issues and assigned them on GitHub, while also consistently communicating with each other on Telegram.
+** Planned and incrementally implemented our user stories throughout different milestones.
+** Regularly reviewed each other’s code on and off Github.
 
