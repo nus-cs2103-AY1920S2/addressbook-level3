@@ -140,7 +140,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 [[Design-Model]]
 === Model component
-`[written by: Raivat Bhupesh Shah]`
+`[section modified by: Raivat Bhupesh Shah]`
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -164,6 +164,7 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+`[section modified by: Raivat Bhupesh Shah]`
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
