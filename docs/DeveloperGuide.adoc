@@ -179,7 +179,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `cs2103_w14_2.inventory.commons` package.
 
 == Implementation
 

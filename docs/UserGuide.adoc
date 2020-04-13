@@ -238,6 +238,9 @@ should be used instead.
 Displays all the suppliers selling the specified goods, sorted in increasing price. +
 Format: `source g/GOOD_NAME`
 
+
+
+
 // tag::setthreshold[]
 === Setting minimum quantity for goods: `warn` (By Fang Shao Hua)
 
