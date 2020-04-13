@@ -199,6 +199,7 @@ Classes used by multiple components are in the `life.calgo.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::reportCommandDG[]
 [[Implementation-InsightsReport]]
 === Generating consumption statistics and insights report +
 (by Vineeth)
@@ -296,10 +297,11 @@ if (!model.hasLogWithSameDate(queryDate) || model.getLogByDate(queryDate).getFoo
    throw new CommandException(MESSAGE_REPORT_FAILURE + "\n" + String.format(NO_SUCH_DATE, queryDate))
 }
 ----
+//end::reportCommandDG[]
 
 <<<
 
-//tag:: Goal[]
+//tag::goalCommandDG[]
 [[Implementation-GoalFeature]]
 === Setting daily calorie goals for motivation
 (by Vineeth)
@@ -388,6 +390,7 @@ Refer to the Activity Diagram below for a visual summary of the logic behind the
 
 .Activity Diagram for `goal` command.
 image::GoalActivityDiagram.png[]
+//end::goalCommandDG[]
 
 <<<
 
