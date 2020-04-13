@@ -18,6 +18,8 @@ class Recipe
 PlannedBook *-down->"1" UniquePlannedList
 PlannedBook *-down->"1" PlannedRecipeMap
 UniquePlannedList o--> "*" Plan
+PlannedRecipeMap o--> "*" Plan
+PlannedRecipeMap o--> "*" Recipe
 Plan o--> "1" Recipe
 Plan o--> "1" Date
 

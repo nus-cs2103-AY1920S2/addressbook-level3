@@ -28,7 +28,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
-##
+
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -176,8 +176,6 @@ This section describes some noteworthy details on how certain features are imple
 // tag::basic[]
 === Basic commands
 
-==== Help command
-
 
 ==== Switch command
 
@@ -193,6 +191,13 @@ image::SwitchActivityDiagram.png[]
 
 
 ==== Edit command
+The edit command
+.Edit sequence diagram focusing on Logic
+image::EditSequenceDiagram.png[]
+
+
+.Edit sequence diagram focusing on Model
+image::EditModelSequenceDiagram.png[]
 
 
 ==== Delete command
@@ -260,7 +265,7 @@ and/or 2) if the magnitude of a single commit is large (ie. the database is huge
 
 
 // tag::advancedfilter[]
-=== Filter command
+=== Filter command (Brian)
 The advanced filter feature uses the `filter` command to search for recipes according to the set of keywords provided
 by the user. Think of it as a greatly enhanced and more robust version of the `find` command, which only allows the
 user to find recipes by their name.
@@ -311,13 +316,18 @@ on top of the existing prefixes. This is double work for the user.
 // end::advancedfilter[]
 
 // tag::planning[]
-=== Planning feature
-==== Proposed Implementation
-The planning feature uses the `PlannedRecipeMap` to store a `Recipe` at a `Date`.
+=== Planning feature (Beatrice)
+==== Implementation
+The planning feature uses the `UniquePlannedList` to store and display all plans and the `PlannedRecipeMap` to
+navigate between recipes and plans.
 
-Given below is a sequence diagram on how a recipe can be scheduled on a date.
+The `UniquePlannedList` provides the UI with an unmodifiable observable list that can be 'observed' and displayed.
+Meanwhile, the `PlannedRecipeMap` maintains a mapping from `Recipe` to `Plan` so that a `Plan` can be easily
+updated when a `Recipe` is changed.
 
-image::PlanningSequenceDiagram.png[]
+Given below is a sequence diagram on how a `Plan` is updated when a `Recipe` is changed.
+
+image::abc.png[]
 
 ==== Design Considerations
 
