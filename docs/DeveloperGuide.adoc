@@ -174,24 +174,22 @@ This section describes some noteworthy details on how certain features are imple
 
 .Sequence of executing a sort command
 image::SortSequenceDiagram.png[]
-The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will be of the highest sort order. The Model will then set the aggregated comparator on the `TaskList`.
+The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will be of the highest sort order. The `Model` will then set the aggregated comparator on the `TaskList`.
 
 .Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-We use a new SortedList from JavaFx within TaskList because FilteredList does not allow for sorting. As such we have the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList. By warpping the lists around another, this allows the SortedList and FilteredList to read changes to the UniqueTaskList and perform the appropriate filtering and sorting.
+We use a new `SortedList` from JavaFx within `TaskList` because `FilteredList` does not allow for sorting. As such we have the `FilteredList` reference the `SortedList` and the `SortedList` refernce the `UniqueTaskList`. By warpping the lists around another, this allows the `SortedList` and `FilteredList` to read changes to the `UniqueTaskList` and perform the appropriate filtering and sorting.
 
 .Sequence of initializing the Sorted List
 image::SortInitliazeDiagram.png[]
 
-Due to the requirements mentioned, this is how we generate our FilteredList. We set FilteredList to reference the SortedList and then the SortedList to reference the UniqueTaskList.
+Due to the requirements mentioned, this is how we generate our `FilteredList`. We set `FilteredList` to reference the `SortedList` and then the `SortedList` to reference the `UniqueTaskList`.
 
 ==== Updating UI
 .Sequence of how sort updates the UI
 image::SortUiSequenceDiagram.png[]
 
-Meanwhile to update the UI on the newest sorting order, the latest sortOrder is set on the `TaskList`. The LogicManager is then able to access the sort order through the Model and provide the `MainWindow` with the sort order. The MainWindow then sets it on the `TaskListPanel`.
-
-SortCommandResult extends CommandResult and contains an additional String attribute `sortOrder`.
+Meanwhile to update the UI on the newest sorting order, the latest sortOrder is set on the `TaskList`. The `LogicManager` is then able to access the sort order from the `TaskList` throgh the `Model` and provide the `MainWindow` with the sort order. The `MainWindow` then sets it on the `TaskListPanel`.
 
 === AutoComplete
 Auto complete is triggered when users press tab while focussed on the command line.
@@ -202,17 +200,17 @@ Auto complete is triggered when users press tab while focussed on the command li
 .AutoComplete Sequence Diagram
 image::ACSequenceDiagram.png[]
 
-When a user presses tab on the command line, a key event handler in the CommandBox calls the suggestCommand function of MainWindow with the user input. The MainWindow then passes the user input through the LogicManager to the CommandCompletor. +
+When a user presses tab on the command line, a key event handler in the `CommandBox` calls the suggestCommand function of `MainWindow` with the user input. The `MainWindow` then passes the user input through the `LogicManager` to the CommandCompletor. +
 
-The input is pass through the LogicManager so that we can get TaskList details from the LogicManager and transfer it to the CommandCompletor (e.g. taskList length). The CommandCompletor then parses the input and returns one of three things which lead to different changes to the UI:
+The input is pass through the `LogicManager` so that we can get TaskList details from the `LogicManager` and transfer it to the CommandCompletor (e.g. taskList length). The CommandCompletor then parses the input and returns one of three things which lead to different changes to the UI:
 
-. CompletorResult
-.. Will cause CommandBox to setSuccess on CommandTextField
-. CompletorDeletionResult [inherits from CompletorResult]
+. `CompletorResult`
+.. Will cause `CommandBox` to setSuccess on `CommandTextField`
+. `CompletorDeletionResult` [inherits from `CompletorResult`]
 .. Contains deleted input which will be shown as feedback
-.. Will cause MainWindow to call setWarning on ResultDisplay
-. CompletorException
-.. Will cause CommandBox to setFailure on CommandTextField
+.. Will cause `MainWindow` to call setWarning on `ResultDisplay`
+. `CompletorException`
+.. Will cause `CommandBox` to setFailure on `CommandTextField`
 
 ==== Auto Complete Overview
 .Activity diagram of auto complete
@@ -234,7 +232,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 
 ===== Argument checks overview
 
-. If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes.
+. If the input is an add/edit/pom command then `CommandCompletor` will attempt to add prefixes.
 .. add/edit command -> add priority and reminder prefixes
 ... Edit auto complete will only add prefixes after the second word to avoid adding a prefix to the compulsory INDEX field of edit commands
 .. pom command -> add timer prefix
@@ -254,7 +252,7 @@ As seen from the activity diagram above:
 ... `CompletorDeletionResult` is returned
 . Unknown Command UI is displayed when:
 .. Command word provided is not recognized
-... CompletorException` is raised
+... `CompletorException` is raised
 
 ==== Known Command UI
 
@@ -283,7 +281,7 @@ Here we take a closer look at how prefix completion is implemented. We iterate t
 ==== Index Completion
 image::ACIndexActivityDiagram.png[]
 
-Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
+Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed `TaskList` size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
 
 ==== Sort field Completion
 Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<criteria, criteria>>.
@@ -297,7 +295,7 @@ We've built upon the existing find function in AB-3 to filter tasks based on phr
 .Find Command Sequence diagram
 image::FindSequenceDiagram.png[]
 
-* After setting the predicate on the model and FilteredList, the FilteredList will apply the Test method of the predicate.
+* After setting the predicate on the model and `FilteredList`, the `FilteredList` will apply the Test method of the predicate.
 ** The test method calculates a score for every task and only displays tasks with score < 2.
 * A comparator is then retrived from the Predicate by comparing Tasks based on their score and is used to sort the filtered list to show the more relevant searches first
 ** Lower scores means a more relevant task to the search term.
