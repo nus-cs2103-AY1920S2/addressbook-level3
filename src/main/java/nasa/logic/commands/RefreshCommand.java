@@ -48,7 +48,7 @@ public class RefreshCommand extends Command {
                     model.setDeadline(module.getModuleCode(), deadline, deadlineCopy);
                 }
                 for (Event event : events) {
-                    Event eventCopy =new Event(event.getName(),
+                    Event eventCopy = new Event(event.getName(),
                         event.getStartDate(), event.getEndDate(), event.getNote());
                     eventCopy.setSchedule(event.getSchedule());
                     model.setEvent(module.getModuleCode(), event, eventCopy); // auto set to its done
