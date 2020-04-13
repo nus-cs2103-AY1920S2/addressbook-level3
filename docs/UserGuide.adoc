@@ -195,15 +195,15 @@ Valid Example: +
 
 *Main Menu:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::main_help.png[width="890", height="200"]
 
 *Diet Tracker Mode:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::diethelp.png[width="890", height="200"]
 
 *Expense Splitter Mode:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::splithelp.png[width="890", height="200"]
 
 *Additional notes and tips* +
 
@@ -857,7 +857,7 @@ Example: +
 [[donereceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+image::donereceipt.png[width="890", height="200"]
 
 [NOTE]
 ====
@@ -985,7 +985,7 @@ Valid Example: +
 [[splitbackexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::expenseback.png[width="890", height="200"]
 //end::splitback[]
 
 '''
@@ -1012,7 +1012,7 @@ Valid Example: +
 [[exitexpectedoutcome]]
 *Expected outcome:*
 
-image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
+image::exit.png[width="890", height="200"]
 //end::exit[]
 
 '''
