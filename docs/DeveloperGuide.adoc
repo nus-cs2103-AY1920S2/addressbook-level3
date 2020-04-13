@@ -30,6 +30,8 @@ Welcome on-board the Software Development Team for Calgo! Together, we will insp
 
 Refer to the guide <<SettingUp#, here>>.
 
+<<<
+
 == Design
 
 [[Design-Architecture]]
@@ -295,6 +297,8 @@ if (!model.hasLogWithSameDate(queryDate) || model.getLogByDate(queryDate).getFoo
 }
 ----
 
+<<<
+
 //tag:: Goal[]
 [[Implementation-GoalFeature]]
 === Setting daily calorie goals for motivation
@@ -353,6 +357,8 @@ Step 5: `LogicManager` then executes the `GoalCommand`, which in turn invokes `u
 Step 6: In `Model`, the `updateDailyGoal` method is a static method that generates a new `DailyGoal` object with the corresponding input. This `DailyGoal` object is returned to `Model`
 , which replaces the existing `DailyGoal` attribute of the `ModelManager` with the newly generated `DailyGoal` object.
 
+<<<
+
 ==== Design Considerations
 
 ===== Aspect: Type of user input data that is required for goal command
@@ -383,6 +389,8 @@ Refer to the Activity Diagram below for a visual summary of the logic behind the
 .Activity Diagram for `goal` command.
 image::GoalActivityDiagram.png[]
 
+<<<
+
 // tag::categoricalsubstringfindsearch[]
 [[Implementation-FindList]]
 === Searching for specific `Food` via categories and substrings
@@ -402,6 +410,8 @@ For more information on lexicographical ordering, please refer to its relevant s
 
 The above commands rely on the `FindCommand` and `ListCommand` objects respectively. Objects of both classes use a `Predicate<Food>` object to filter through the current `Food` objects, where `Food` objects will be displayed in the GUI's `Food Record` should they evaluate these predicates to be true.
 
+<<<
+
 ==== Implementation
 To search via a particular `Food` attribute, we use a `FindCommandParser` to create the corresponding `Predicate<Food>` based on which `Food` attribute the `Prefix` entered represents. This predicate is then used to construct a new `FindCommand` object, which changes the GUI display when executed. +
 
@@ -411,6 +421,8 @@ The class diagram below shows the relevant `Predicate<Food>` classes used in the
 image::FindListCommandPredicateClassDiagram.png[]
 
 As seen in the above class diagram, each `Predicate<Food>` is indeed representative of either `Name`, `Calorie`, `Protein`, `Carbohydrate`, `Fat`, or `Tag`. Moreover, it should be noted that each of these predicates test against a `Food` object, and therefore have a dependency on `Food`.
+
+<<<
 
 The sequence diagram below demonstrates how the `find` command works, for both categorical and substring search:
 
@@ -449,6 +461,8 @@ Step 1: `LogicManager` executes the user input, using `CalgoParser` to realise t
 Step 2: `LogicManager` then calls the `execute` method of this `ListCommand`, which uses `Model.PREDICATE_SHOW_ALL_FOODS` to evaluate to true for all `Food` objects in the `FoodRecord`.
 
 Step 3:  `LogicManager` then returns a new `CommandResult` object to reflect the status of the execution, in the GUI. The GUI's `Food Record` reflects the above changes to show all `Food` entries once again.
+
+<<<
 
 ==== Design considerations
 
@@ -503,6 +517,8 @@ In essence, this section focuses on searching which is implemented via `find` an
 The `find` command performs a categorical search if a value from a nutritional category (`Calorie`, `Protein`, `Carbohydrate`, `Fat`) is specified. Otherwise, a substring search is performed to find `Food` objects that contain the entered substring in their `Name` or in one of their `Tag` s. These rely on the `Predicate<Food>` object used in constructing the `FindCommand`, which depend on the `Prefix` entered by the user. +
 
 Meanwhile, the `list` command simply uses the predicate already defined in `Model` to display all `Food` objects. +
+
+<<<
 
 The above can be summarised in the activity diagram below:
 
@@ -635,6 +651,8 @@ The `UniqueFoodList` facilitates the lexicographical ordering of `Food` objects 
 .Activity Diagram for Lexicographical Ordering
 image::LexicographicalOrderingActivityDiagram.png[]
 // end::lexicographicalordering[]
+
+<<<
 
 // tag::exportfoodrecord[]
 [[Implementation-Export]]
