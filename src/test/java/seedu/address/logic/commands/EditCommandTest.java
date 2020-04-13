@@ -176,7 +176,6 @@ public class EditCommandTest {
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_PROFILE_SUCCESS,
                     profileManagerWithEmptyProfile.getFirstProfile().getName()));
         } catch (CommandException e) {
-            System.out.println(e.getMessage());
             fail();
         }
     }

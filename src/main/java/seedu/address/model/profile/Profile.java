@@ -4,12 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
@@ -29,7 +29,7 @@ import seedu.address.model.profile.exceptions.MaxModsException;
 public class Profile {
 
     // Identity fields
-    private HashMap<Integer, ModuleList> semModHashMap;
+    private TreeMap<Integer, ModuleList> semModTreeMap;
     private int currentSemester = 0;
     private FocusArea focusArea;
     private Name name;
@@ -48,27 +48,27 @@ public class Profile {
         this.courseName = courseName;
         this.currentSemester = currentSemester;
         this.focusArea = focusArea;
-        this.semModHashMap = new HashMap<>();
+        this.semModTreeMap = new TreeMap<>();
         this.cap = new Cap();
     }
 
 
     /**
-     * Adds a module to the hashmap with the key being the semester
+     * Adds a module to the TreeMap with the key being the semester
      */
     public void addModule(Integer semester, Module module) throws MaxModsException {
-        if (!semModHashMap.isEmpty() && semModHashMap.containsKey(semester)) {
-            if (semModHashMap.get(semester).size() == 10) {
+        if (!semModTreeMap.isEmpty() && semModTreeMap.containsKey(semester)) {
+            if (semModTreeMap.get(semester).size() == 10) {
                 throw new MaxModsException();
             }
-            semModHashMap.get(semester).addModule(module);
+            semModTreeMap.get(semester).addModule(module);
         } else {
             ModuleList moduleList = new ModuleList();
             moduleList.addModule(module);
-            semModHashMap.put(semester, moduleList);
+            semModTreeMap.put(semester, moduleList);
         }
 
-        int id = semModHashMap.get(semester).getModuleList().size();
+        int id = semModTreeMap.get(semester).getModuleList().size();
         module.setTag(id);
 
     }
@@ -140,37 +140,37 @@ public class Profile {
     }
 
     public ModuleList getModules(Integer semester) throws ParseException {
-        if (!semModHashMap.containsKey(semester)) {
+        if (!semModTreeMap.containsKey(semester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        return semModHashMap.get(semester);
+        return semModTreeMap.get(semester);
     }
 
     public List<ModuleCode> getAllModuleCodesBefore(int semester) {
         List<ModuleCode> moduleCodes = new ArrayList<>();
-        for (int sem: semModHashMap.keySet()) {
+        for (int sem: semModTreeMap.keySet()) {
             if (sem < semester) {
-                moduleCodes.addAll(semModHashMap.get(sem).getModuleCodes());
+                moduleCodes.addAll(semModTreeMap.get(sem).getModuleCodes());
             }
             //moduleCodes.addAll(moduleList.getModuleCodes());
         }
         return moduleCodes;
     }
 
-    public HashMap<Integer, ModuleList> getAllModules() {
-        return semModHashMap;
+    public TreeMap<Integer, ModuleList> getAllModules() {
+        return semModTreeMap;
     }
 
     public Set<Map.Entry<Integer, ModuleList>> getMappings() {
-        return semModHashMap.entrySet();
+        return semModTreeMap.entrySet();
     }
 
-    public HashMap<Integer, ModuleList> getSemModHashMap() {
-        return semModHashMap;
+    public TreeMap<Integer, ModuleList> getSemModTreeMap() {
+        return semModTreeMap;
     }
 
     public List<Deadline> getDeadlines() {
-        ModuleList modules = semModHashMap.get(currentSemester); // Deadlines should only be from the current semester
+        ModuleList modules = semModTreeMap.get(currentSemester); // Deadlines should only be from the current semester
         deadlineList = new ArrayList<>();
 
         if (modules != null) {
@@ -183,7 +183,7 @@ public class Profile {
 
 
     public void updateCap() {
-        cap.updateCap(semModHashMap);
+        cap.updateCap(semModTreeMap);
     }
 
     public Cap getCap() {
@@ -191,12 +191,12 @@ public class Profile {
     }
 
     public ModuleList getCurModules() {
-        return semModHashMap.get(currentSemester);
+        return semModTreeMap.get(currentSemester);
     }
 
     public int getModuleSemester(ModuleCode moduleCode) {
-        for (int semester: semModHashMap.keySet()) {
-            for (Module module: semModHashMap.get(semester)) {
+        for (int semester: semModTreeMap.keySet()) {
+            for (Module module: semModTreeMap.get(semester)) {
                 if (module.getModuleCode().equals(moduleCode)) {
                     return semester;
                 }
@@ -206,7 +206,7 @@ public class Profile {
     }
 
     public Module getModule(ModuleCode moduleCode) throws ModuleNotFoundException {
-        for (ModuleList moduleList: semModHashMap.values()) {
+        for (ModuleList moduleList: semModTreeMap.values()) {
             for (Module module: moduleList) {
                 if (module.getModuleCode().equals(moduleCode)) {
                     return module;
@@ -220,7 +220,7 @@ public class Profile {
      * Returns true if a module with module code {@code moduleCode} exists in {@code moduleHash}.
      */
     public boolean hasModule(ModuleCode moduleCode) {
-        for (ModuleList moduleList: semModHashMap.values()) {
+        for (ModuleList moduleList: semModTreeMap.values()) {
             if (moduleList.hasModuleWithModuleCode(moduleCode)) {
                 return true;
             }
@@ -234,7 +234,7 @@ public class Profile {
     public void deleteModule(ModuleCode moduleCode) throws ModuleNotFoundException {
         if (hasModule(moduleCode)) {
             int semester = getModuleSemester(moduleCode);
-            semModHashMap.get(semester).removeModuleWithModuleCode(moduleCode);
+            semModTreeMap.get(semester).removeModuleWithModuleCode(moduleCode);
             return;
         }
         throw new ModuleNotFoundException(name.toString() + " is not taking " + moduleCode.toString());

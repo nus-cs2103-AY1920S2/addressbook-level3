@@ -15,9 +15,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
@@ -123,8 +123,8 @@ public class EditCommand extends Command {
 
         if (editModule) {
 
-            HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
-            if (hashMap.isEmpty()) { // No modules have been added to any semester at all
+            TreeMap<Integer, ModuleList> treeMap = profileToEdit.getSemModTreeMap();
+            if (treeMap.isEmpty()) { // No modules have been added to any semester at all
                 throw new CommandException(MESSAGE_EMPTY_MODULE_DATA);
             }
 
@@ -133,11 +133,11 @@ public class EditCommand extends Command {
             Module existingModule = null;
             int oldSemester = 0;
 
-            for (ModuleList moduleList: hashMap.values()) {
+            for (ModuleList moduleList: treeMap.values()) {
                 for (Module moduleItr: moduleList) {
                     if (module.isSameModule(moduleItr)) {
                         existingModule = moduleItr;
-                        oldSemester = getKey(hashMap, moduleList);
+                        oldSemester = getKey(treeMap, moduleList);
                     }
                 }
             }
@@ -157,7 +157,7 @@ public class EditCommand extends Command {
 
             if (oldSemester != 0 && editSemester != 0) {
                 try {
-                    hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
+                    treeMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
                 } catch (ModuleNotFoundException e) { // Will not happen
                     throw new CommandException("Error deleting existing module.");
                 }
@@ -276,9 +276,9 @@ public class EditCommand extends Command {
      */
     private void updateStatus(Profile profileToEdit) {
         int currentSemester = profileToEdit.getOverallSemester();
-        HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
-        for (ModuleList list: hashMap.values()) {
-            int semester = getKey(hashMap, list);
+        TreeMap<Integer, ModuleList> treeMap = profileToEdit.getSemModTreeMap();
+        for (ModuleList list: treeMap.values()) {
+            int semester = getKey(treeMap, list);
             for (Module moduleItr: list) {
                 if (semester < currentSemester) {
                     moduleItr.getPersonal().setStatus("completed");

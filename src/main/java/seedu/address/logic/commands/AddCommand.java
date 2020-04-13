@@ -11,9 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CourseManager;
@@ -144,14 +144,14 @@ public class AddCommand extends Command {
         boolean hasModule = false;
         int semesterOfModule = 0;
 
-        // Check whether this module has been added to Profile semester HashMap
-        for (ModuleList semesterList: profile.getSemModHashMap().values()) {
+        // Check whether this module has been added to Profile semester TreeMap
+        for (ModuleList semesterList: profile.getSemModTreeMap().values()) {
             for (Module moduleInSem: semesterList) {
                 if (moduleToAdd.isSameModule(moduleInSem)) {
                     hasModule = true;
                     moduleToAdd = moduleInSem;
-                    HashMap<Integer, ModuleList> hashMap = profile.getSemModHashMap();
-                    semesterOfModule = getKey(hashMap, semesterList);
+                    TreeMap<Integer, ModuleList> treeMap = profile.getSemModTreeMap();
+                    semesterOfModule = getKey(treeMap, semesterList);
                 }
             }
         }
