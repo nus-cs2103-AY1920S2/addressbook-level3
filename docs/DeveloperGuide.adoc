@@ -425,6 +425,14 @@ In details, users can add and delete a diary entry, display a particular diary e
 . Finds the list of diary entries the match a given date
 . tagging a entry with mood or weather
 
+.Class diagram of structure and relations of DiaryBook, DiaryEntry and relevant classes.
+image::DiaryClass.png[width="790"]
+
+- As shown in the class diagram above, diary entries are created by `DiaryEntry` class. Every instance of `DiaryEntry` contains a `LocalDate`, a `Mood` object (optional) and a `Weather` object (optional).
+- Different types of `Mood` such as `CalmMood`, `HappyMood` extends from the abstract class `Mood`. Similar subtype relation holds for different types of weather and the abstract class `Weather`.
+- List of diary entries are managed by the `DiaryBook` class. All relevant actions such as adding, deleting as described above are implemented inside `DiaryBook`. This can be seen from the methods of `DiaryBook` in the class diagram above.
+
+
 
 === Logging
 
