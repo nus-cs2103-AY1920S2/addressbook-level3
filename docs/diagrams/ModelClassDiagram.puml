@@ -5,23 +5,34 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyTaskList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class TaskList
+Class ReadOnlyTaskList
+Class ReadOnlyPet
+Class ReadOnlyStatistics
+Class ReadOnlyPomodoro
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class Pet
+Class Pomodoro
+Class Statistics
+Class CustomQueue
+Class DayData
+Class Date
+Class PomDurationData
+Class TasksDoneData
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Task {
+Class Task
+Class Description
+Class Reminder
 Class Name
-Class Phone
-Class UniquePersonList
+Class Priority
+Class UniqueTaskList
 }
 
 Package Tag {
@@ -32,25 +43,39 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+TaskList .up.|> ReadOnlyTaskList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" TaskList
+ModelManager o-right-> "1" Pet
+ModelManager o--> "1" Pomodoro
+ModelManager o--> "1" Statistics
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Pet ..|> ReadOnlyPet
+Pomodoro ..|> ReadOnlyPomodoro
+Statistics ..|> ReadOnlyStatistics
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Statistics o--> "1" CustomQueue
+CustomQueue o--> "7" DayData
+DayData *--> Date
+DayData *--> PomDurationData
+DayData *--> TasksDoneData
 
-ModelManager -->"1" Person : filtered list
+
+TaskList *--> "1" UniqueTaskList
+UniqueTaskList o--> "*" Task
+Task *--> Name
+Task *--> Priority
+Task *--> Reminder
+Task *--> Description
+Task *--> "*" Tag
+
+Name -[hidden]right-> Priority
+Priority -[hidden]right-> Description
+Description -[hidden]right-> Reminder
+
+ModelManager -->"1" Task : filtered list
 @enduml
