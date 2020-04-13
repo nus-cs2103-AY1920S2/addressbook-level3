@@ -688,8 +688,10 @@ Use case ends.
 +
 [none]
 ** 1a1. Naggy Joel shows an error message.
+** 1a2. User enters new data
+** Steps 1a1 and 1a2 are repeated until the data entered are correct
+** Use case resumes at step 2.
 +
-Use case ends.
 
 [discrete]
 === Use case: Finding restaurants to hang out
@@ -746,24 +748,23 @@ Use case ends.
 
 *MSS*
 
-1. User requests to know all the free time in his schedule for the next upcoming period (can be the next day, week or month)
-2. Naggy Joel displays all the pockets of free time in the user's schedule for the next upcoming period.
-3. User chooses a period of free time as shown by Duke.
-4. Naggy Joel prompts the user to create a social event happening during this period of free time.
-5. User creates social event and inputs just the description of social event.
-6. Naggy Joel creates the social event and adds it to the list of upcoming social events.
+1. User requests to know his schedule for the upcoming period (can be the next day, week or month)
+2. Naggy Joel generates and displays the user's schedule for the upcoming period.
+3. User chooses a period of free time as shown by Naggy Joel.
+4. User creates social event and inputs just the description of social event.
+5. Naggy Joel creates the social event and adds it to the list of upcoming social events.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 5a. User cancels creating a social event.
+* 4a. User cancels creating a social event.
 +
 [none]
-** 5a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.
-** 5a2. User affirms cancellation.
-** 5a3. Naggy Joel cancels the creation of the social event.
+** 4a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.
+** 4a2. User affirms cancellation.
+** 4a3. Naggy Joel cancels the creation of the social event.
 +
 Use case ends.
 
