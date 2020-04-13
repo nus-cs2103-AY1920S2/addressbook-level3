@@ -101,7 +101,6 @@ public class EditCommand extends Command {
         }
 
         model.showAllTasks();
-        // editedTask.triggerRecurringIfPresent(model, index);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
