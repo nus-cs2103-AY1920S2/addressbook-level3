@@ -155,6 +155,7 @@ You can try to enter keywords for `NAME` that are more specific to the client yo
 ==== Other UG contributions
 - https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#add-a-clients-exercise-add-e[`add-e`]
 - https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#edit-a-clients-exercise-edit-e[`edit-e`]
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#command-summary[command summary]
 
 include::../UserGuide.adoc[tag=delete]
 
@@ -319,6 +320,11 @@ Moreover, storing the exercise data from client data does not provide any perfor
 Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients. The application is meant to be used by a single user and not an organisation. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
 
 Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in charge of the client's information and the exercises. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
+
+==== Other DG contributions
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`UI` Component]
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/DeveloperGuide.adoc#Design-Storage[`Storage` Component]
+- https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/DeveloperGuide.adoc#adding-an-exercise[Adding an exercise]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
