@@ -1543,10 +1543,12 @@ sessions with the *specified type*.
 
 * `DATE` - filtering by a date will show you only the sessions on that date.
 
-The keyword is case-insensitive.
+When you use multiple filters, the filters will have an *or* relationship. For example,
+for the command `session filter m/CS3243 t/grading` you will be shown sessions that
+either belong to the module `CS3243` or are of type `grading`.
 
-When you execute a new filter command, any previous filters applied on the sessions will
-be removed and only the filters from the latest command will be applied on the sessions
+When you execute a new filter command, *any previous filters applied on the sessions will
+be removed and only the filters from the latest command will be applied* on the sessions
 list. The filters that are currently being applied are shown at the top of the *Session View*
 
 If you were on a different `tab`, you will automatically be switched to the `session tab`.
@@ -1561,16 +1563,11 @@ Example:
 image::SessionFilter.png[width="790"]
 All sessions in the *Session View* with module code `CS3243` are displayed.
 
-* `session filter m/CS3243 t/tutorial`
-+
-All sessions in the *Session View* with module code `CS2103T`,
-*or* session type `Tutorial` will be shown.
-
-* `session filter m/CS3243`
+* `session filter m/CS3243 t/grading`
 +
 image::SessionFilterMultiple.png[width="790"]
-All sessions in the *Session View* with module code  `CS2103T`
-will be shown.
+All sessions in the *Session View* with module code `CS3243`,
+*or* session type `Grading` will be shown.
 ====
 
 [NOTE]
