@@ -304,7 +304,20 @@ Even if you mistype, Notably tries its best to correct the typo automatically, a
 image::demo/Correction.png[]
 
 === Response text
+Notably also displays a response text which enables you to understand the meaning of the input you type and shows
+an error message when your input is invalid.
 
+For example, if you type `open /CS`, the response text will indicates that you are trying to `Open a note titled "/CS"`,
+as seen in the figure below.
+
+.Demo for the response text feature: open command
+image::demo/ResponseText1.png[]
+
+On the other hand, if you key in an invalid command, the response text will display an error message as seen in the figure
+below.
+
+.Demo for the response text feature: invalid command
+image::demo/ResponseText2.png[]
 
 == FAQ
 
