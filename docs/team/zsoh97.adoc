@@ -40,8 +40,8 @@ This was a challenging task as the functionality of our app required the storage
 * *Major Enhancement:* Implemented the GUI for the application.
 
 * *Testing:* Did JUnit testing for `ITINERARY` (with Nguyen)
-** Highlights: I added JUnit tests for itinerary's commands and parsers, while Zeke
-added JUnit tests for itinerary's model and storage.
+** Highlights: I added JUnit tests for itinerary's model and storage, while Nguyen
+added JUnit tests for itinerary's commands and parsers.
 
 * *Other Contributions*
 ** Documentation
@@ -53,13 +53,13 @@ added JUnit tests for itinerary's model and storage.
 * Transferred early stage user guide in google doc to adoc.
 * https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#introduction-zeke[Section 1. Introduction]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#Features[Section 3. Features]
-* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-home-page-zeke[Section 4.4. Commands for the Home Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-home-page-zeke[Section 4.4. Commands for the `Home` Page]
 * Formatted command summary to table form
 
 === Contributions to Developer Guide
 ==== Sections Written
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Storage[3.5 Storage component]
-* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#adding-a-trip-in-home-page[4.3. Adding a trip in Home Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#adding-a-trip-in-home-page[4.3. Adding a trip in `Home` Page]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#sorting-entries-in-journal-page[4.4. Sorting Entries in `JOURNAL` Page]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#deleting-trip-in-home-page[4.5. Deleting Trip in `HOME` Page]
 * https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#refreshing-trips-in-home-page[4.8. Refreshing trips in `HOME` page]
