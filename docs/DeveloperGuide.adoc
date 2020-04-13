@@ -115,41 +115,82 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Simplified Structure of the Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/recipe/model/Model.java[`Model.java`]
 
-The `Model`,
+The diagram above has been simplified in order to provide a clearer Overview of the Model component. +
+The `Model` consists of 4 main sections: recipe, plan, record and quote. +
+For more details on each of the main sections of the `Model`, please refer to the corresponding models
+illustrated in the next few sections of this document.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores a `RecipeBook` object that stores all recipes.
-* stores a `PlannedBook` object that stores all plans.
-* stores a `CookedRecordBook` object that stores the records of all the cooked recipes.
-* stores a `QuoteBook` object that stores all quotes.
-* exposes four unmodifiable lists that can be 'observed' +
-1. `ObservableList<Recipe>`
-2. `ObservableList<Plan>`
-3. `ObservableList<Record>`
-4. `ObservableList<Quote>` +
-e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
-* does not depend on any of the other three components.
+The `Model` component stores a,
+
+* `UserPref` object that represents the user's preferences.
+* `RecipeBook` object that stores all recipes.
+* `PlannedBook` object that stores all plans.
+* `CookedRecordBook` object that stores the records of all the cooked recipes.
+* `QuoteBook` object that stores all quotes.
+
+It also exposes four unmodifiable lists that can be 'observed' by the `UI`: +
+
+* `ObservableList<Recipe>`
+* `ObservableList<Plan>`
+* `ObservableList<Record>`
+* `ObservableList<Quote>` +
+The `UI` can be bound to these lists so that the `UI` automatically updates when the data in the list changes. +
+
+The `Model` does not depend on any of the other three components. +
 
 ==== Recipe Model
 .Structure of the Recipe Model
 image::ModelRecipeClassDiagram.png[]
 
+The Recipe Model stores the `UniqueRecipeList` containing all recipes.
+
+Each `Recipe` consists of,
+
+* One `Name`
+* One `Time`
+* Any number of `Step`
+* At least one `Ingredient`
+
+For a more comprehensive description on the structure of a Recipe, please refer to
+<<UserGuide#, The Anatomy of a Recipe>> in our User Guide.
+
 ==== Plan Model
 .Structure of the Plan Model
 image::ModelPlanClassDiagram.png[]
+
+The Plan Model stores the,
+
+* `UniquePlannedList` which contains all plans
+* `PlannedRecipeMap` which  maintains the mapping from `Recipe` to all the plans that uses this `Recipe`
+
+Each `Plan` consists of,
+
+* One `Date`
+* One `Recipe`
 
 ==== Record Model
 .Structure of the Record Model
 image::ModelRecordClassDiagram.png[]
 
+The Record Model stores the `UniqueRecordList` which contains all records.
+
+Each `Record` consists of,
+
+* One `Date`
+* One `Name` from a `Recipe`
+
 ==== Quote Model
 .Structure of the Quote Model
 image::ModelQuoteClassDiagram.png[]
+
+The Quote Model stores the `UniqueQuoteList` which contains all quotes.
+
+Each `Quote` consists of one `Content`.
 
 [[Design-Storage]]
 === Storage component
@@ -160,6 +201,7 @@ image::StorageClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/recipe/storage/Storage.java[`Storage.java`]
 
 In the figure above, we can see that we are maintaining 5 different storages. These storages aim to keep the memory of:
+
 * `UserPrefs`
 * `RecipeBook`
 * `PlannedBook`
@@ -188,16 +230,9 @@ This section describes some noteworthy details on how certain features are imple
 
 image::SwitchActivityDiagram.png[]
 
-==== List command
-
-
-==== Find command
-
-
 ==== Add command
 
-
-==== Edit command
+==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
 
 This feature is facilitated by the `EditCommand` class. +
@@ -230,6 +265,13 @@ The following sequence diagram summarizes the steps taken so far:
 .Edit sequence diagram
 image::EditSequenceDiagram.png[]
 
+[NOTE]
+The lifeline for EditCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+[WARNING]
+The details of some methods, like the the usage of `EditRecipeDecriptor`, was omitted to reduce clutter in the diagram.
+
 The edited recipe will be updated in both the list of recipes and plans.
 The following section explains in detail the implementation behind how each list is updated in the
 `RecipeBook` and `PlannedBook` class.
@@ -237,17 +279,59 @@ The following section explains in detail the implementation behind how each list
 1. Continuing off from Step 8, `ModelManager#setRecipe()` will be called to replace the target `Recipe` with the
 edited `Recipe`. (`ModelManager` implements `Model`)
 
-2. These arguments will then be passed into `RecipeBook#setRecipe()` and `UniqueRecipeList#setRecipe()`
+2. The target and edited `Recipe` is passed into `RecipeBook#setRecipe()` and `UniqueRecipeList#setRecipe()`, which
+will replace the target with the edited `Recipe` in the recipe list.
 
-2.
+3. The same arguments are then passed into `PlannedBook#setRecipe()` which will get a list of all the plans that uses
+the target `Recipe` from `PlannedRecipeMap` and update each plan.
 
 
-The following sequence diagram illustrates how the `Recipe` is updated and how each `Plan`
-that uses this `Recipe` is updated.
-
+The following sequence diagram summarizes how the `Recipe` and all its related `Plan` are updated
+when the `Recipe` is edited.
 
 .Edit sequence diagram focusing on Model
 image::EditModelSequenceDiagram.png[]
+===== Design Considerations
+
+====== Aspect: How recipes are edited
+
+* **Alternative 1 (current choice):** The `EditRecipeDescriptor` class is used to make sense of user input and mimics
+the `Recipe` class with the same properties.
+** Pros: Multiple fields can be edited in one go.
+** Cons: Might make testing harder since there are many properties in a Recipe and an edit command can take on any
+combination of each property.
+
+* **Alternative 2:** Allow each property in the `Recipe` to have its own `edit` command.
+** Pros: Implementation of each command will be simpler.
+** Cons: Editing a recipe will be harder and more troublesome for the user.
+
+We decided to stick with alternative 1, which is the implementation inherited by AB3, as we believe that being able
+to edit multiple fields in one go provides much more versatility and convenience to the user. Additionally, although
+there are many properties to test, it is still a finite number and testing can be done with adequate time.
+
+====== Aspect: Data structure to support the recipes and plans
+
+* **Alternative 1 (current choice):** The recipes and plans are maintained in an `ObservableList` by the
+`UniqueRecipeList` and `UniquePlannedList` class respectively. The lists are unmodifiable outside of these classes.
+`PlannedRecipeMap` maintains the mapping from `Recipe` to all plans that use this `Recipe`.
+** Pros: The `ObservableList` allows the UI to 'listen' in and be updated when the lists change. +
+The unmodifiable property also safeguards the data in the lists from being corrupted. +
+The `PlannedRecipeMap` eases the cost of iterating through the entire list of plans in the `UniquePlannedList` and
+checking whether each plan uses the `Recipe` being edited.
+** Cons: Performance might not be optimised by using a List instead of other data structures like a LinkedList or
+HashMap for the `UniqueRecipeList` and `UniquePlannedList`.
+
+* **Alternative 2:** Maintain the recipes and plans in an `ObservableMap` instead.
+** Pros: Performance will be better by using a Map than a List.
+** Cons: There are no official javafx classes that supports an sorted `ObservableMap` or a filtered `ObservableMap`.
+We will have to write and maintain our own implementation or import from pre-existing libraries.
+
+We decided to use alternative 1, as the cons of alternative 2 are too heavy. Many aspects of our program require
+filtering and sorting to be supported. For example, plans need to be sorted in chronological order, and the advanced
+recipe list needs to be filtered for our filter feature. +
+Additionally, we would not have enough time in the scope of this project to write our own implementation, and importing from pre-existing
+libraries gives the risk of running into bugs in the future if the the dependencies were not maintained.
+
 
 
 ==== Delete command
@@ -407,7 +491,7 @@ on top of the existing prefixes. This is double work for the user.
 // end::advancedfilter[]
 
 // tag::planning[]
-=== Planning feature (Beatrice)
+=== Add plan command (Beatrice)
 ==== Implementation
 The planning feature uses the `UniquePlannedList` to store and display all plans and the `PlannedRecipeMap` to
 navigate between recipes and plans.
@@ -446,6 +530,40 @@ corresponds to the date we are interested in.
 
 // tag::goals[]
 === Goals feature
+The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, `edit`, `editIngredient`,
+ `cooked`, `listGoals` and 'removeGoals'. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, `edit` or `editIngredient` is executed.
+
+The following sequence diagram shows how goals are generated through the example of `addIngredient` command execution
+
+.Add command sequence diagram
+image::AddSequenceDiagram.png[]
+.Reference Frame for Add command sequence diagram
+image::AddRefSequenceDiagram.png[]
+
+A recipe is initially created with an empty goals set from parser and `calculateGoals()` is then called in the `AddCommand`.
+
+Each ingredient type that is associated with a goal (`Vegetable`, `Protein`, `Fruit`, `Grain`) is listed as an enum type
+in MainIngredientType. This ensures that invalid goals are not created and simplifies the mapping between `MainIngredientType`
+and `Goal`.
+
+The calculation of goals then occurs through looping through each ingredient type and executing the method call to
+`Recipe#calculateIngredientQuantity()`.
+This would obtain the total quantity for each ingredient, firstly by calling `Ingredient#getMainIngredientType()`
+to ensure the validity of ingredients beings calculated (e.g. any instance of 'Other' ingredient would throw an `InvalidStateException`).
+Secondly, by obtaining the quantity in grams through the method calls to `Ingredient#getQuantity()' and 'Quantity#convertToGram()`.
+
+After the calculation for each main ingredient type is completed, an instance of `MainIngredientTypeMagnitude` is created.
+It acts as a container to store the quantities and conduct the checks for whether these quantities meet the minimum quantity
+requirement for their respective food group. This calculation and checks are done through the method call to
+`MainIngredientTypeMagnitude#getMainTypes()` which would then return a set of `MainIngredientType` that successfully met the
+minimum requirement.
+
+Lastly, after looping through this set and creating each goal with the mapping from `MainIngredientType` to `Goal` done
+(e.g. `MainIngredientType.FRUIT` leads to the creation of goal with goal name generated as "Fruity Fiesta"), the goals will
+be updated in the particular instance of `Recipe r` and `Model#addRecipe(r)` would then update `RecipeBook` in storage.
+
+The immutability of each object is supported to ensure the correctness of undo and redo functionality.
+
 ==== Proposed Implementation
 
 ==== Design Considerations
