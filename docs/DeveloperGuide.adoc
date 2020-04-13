@@ -116,6 +116,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 ---
 
+// tag::xue1[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -162,7 +163,9 @@ will subscribe and listen to the `ViewModel` through the logic layers.
 . Each of these classes will correspond to the observableMap in `ViewModel`
 . When there is a change to the model, the `ViewModel` will update its observableMap
 . As each of these classes in `View` subscribe to the `ViewModel`, the UI will update automatically.
+// end::xue1[]
 
+// tag::xue2[]
 === ViewController/Logic component [Sim Sheng Xue]
 
 [[fig-LogicClassDiagram]]
@@ -186,7 +189,7 @@ the `LogicManager` to moify both the View and Storage.
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `View`.
 . In addition, the `CommandResult` object can also instruct the `View` to perform certain actions, such as displaying help to the user.
 
-
+// end::xue2[]
 [[Design-ViewController]]
 === ViewModel component [Hieu]
 image::ViewModelDiagram.png[]
@@ -250,6 +253,7 @@ Benefits::
 .. Easier implementation since lower level implementations can be abstracted away
 .. More decoupling which will lead to be better testability and easier debugging
 
+// tag::xue3[]
 [[Design-Storage]]
 === Storage component [Sim Sheng Xue]
 
@@ -269,6 +273,8 @@ be update to maintain consistency. For example, when a Course is deleted,
 the DeleteEntitySyncEvent will trigger the storage to remove the Course from
 every Student assigned to this Course.
 
+// end::xue3[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -278,6 +284,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::xue4[]
 === Unique Identification of Entities [Sim Sheng Xue]
 . `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
 
@@ -299,6 +306,7 @@ can delete the Finance object). +
 Hence, this means that if the ID is not unique among deleted objects, there may be inconsistent
 information located in the Finance objects.
 
+// end::xue4[]
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
@@ -715,6 +723,7 @@ To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`
 
 Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
+// tag::xue5[]
 === Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Sim Sheng Xue]
 ==== Implementation
 
@@ -741,8 +750,9 @@ Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook`
 
 All three Finance types will create a `Finance` object to store the transaction,
 which will be saved in the `FinanceAddressBook`.
+// end::xue5[]
 
-
+// tag::xue6[]
 === Navigation among command history in the command box [Sim Sheng Xue]
 .Activity diagram of Command History
 image::CommandHistory.png[]
@@ -767,7 +777,7 @@ The command will be added to the Left Stack, and this command will also be
 shown in the command box. This allows the user to navigate back to
 the command after with an [UP ARROW] key command. The process will then
 come to an end.
-
+// end::xue6[]
 === Logging
 
 We are using `java.util.logging` package for logging.

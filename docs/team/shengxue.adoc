@@ -78,6 +78,13 @@ all add, edit, delete, assign, unassign, find, list, switch, clear-all commands
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=xue1]
+include::../DeveloperGuide.adoc[tag=xue2]
+include::../DeveloperGuide.adoc[tag=xue3]
+include::../DeveloperGuide.adoc[tag=xue4]
+include::../DeveloperGuide.adoc[tag=xue5]
+include::../DeveloperGuide.adoc[tag=xue6]
+
 == Contributions to the User Guide
 
 
