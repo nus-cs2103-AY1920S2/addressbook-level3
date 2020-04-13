@@ -844,14 +844,11 @@ bypassing the updating of the `Requirement(s)`.
 
 '''
 
+anchor:anchor-tag-c[]
 
 //end::requirement-yijie[]
 === Requirement Feature
 Section by: https://github.com/yjskrs[Yijie]
-
-anchor:anchor-tag-c[]
-
-=== Requirements Feature
 
 The `Requirement` feature bridges the connection between a `Module` and a `Course`. A `Requirement` represents
 a category with a set amount of modular credits needed to be fulfilled in order to graduate. By
