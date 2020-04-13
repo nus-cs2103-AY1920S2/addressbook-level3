@@ -93,10 +93,3 @@ include::../UserGuide.adoc[tag=viewtopsellingproducts]
 include::../DeveloperGuide.adoc[tag=manageitem]
 
 include::../DeveloperGuide.adoc[tag=getprofitrevenue]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
