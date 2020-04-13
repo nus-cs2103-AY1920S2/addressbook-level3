@@ -135,7 +135,7 @@ image::DeleteDeadlineLogicDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 // end::logic[]
-
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -149,7 +149,7 @@ The `Model`,
 * stores a `ModuleList` of modules taken in each semester in a `HashMap`
 * exposes an unmodifiable `ObservableList<Deadline>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
-
+// end::model[]
 // tag::storage[]
 [[Design-Storage]]
 === Storage component
