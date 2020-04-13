@@ -35,9 +35,9 @@ public class JsonStatisticsStorageTest {
                 .readStatistics(addToTestDataPathIfNotNull(filePath));
     }
 
-    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
-        return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+    private Path addToTestDataPathIfNotNull(String statisticsFileInTestDataFolder) {
+        return statisticsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER.resolve(statisticsFileInTestDataFolder)
                 : null;
     }
 
@@ -75,7 +75,7 @@ public class JsonStatisticsStorageTest {
         DayData newDay0 =
                 new DayDataBuilder(DAY0).withPomDurationData(VALID_POM_DURATION_DATA).build();
 
-        original.updatesDayData(newDay0);
+        original.updateDayData(newDay0);
         jsonStatisticsStorage.saveStatistics(original, filePath);
         readBack = jsonStatisticsStorage.readStatistics(filePath).get();
         assertEquals(original, new Statistics(readBack));
