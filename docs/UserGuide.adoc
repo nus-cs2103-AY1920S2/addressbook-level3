@@ -210,6 +210,7 @@ Stopped workout session: Push Day at 13 Apr 2020, 3:36:17 PM
 
 //end::session[]
 
+// tag::exercise[]
 === Managing Your Exercises
 The commands in this section allows you to manage your customised exercises in ZeroToOne. These exercises will eventually be the building blocks of a workout.
 
@@ -397,6 +398,7 @@ Deleted Exercise: Deadlift
 NOTE:
 * EXERCISE_ID refers to the index of the exercise in `exercise list`
 ```
+// end::exercise[]
 
 // tag::workout[]
 === Managing Your Workouts
