@@ -654,7 +654,7 @@ We wanted to build the statistics feature to be flexible. This is why we decided
 Due to this flexibility we had to think hard of sensible defaults for this date range if they were not specified. We eventually decided on the flow specified by the activity diagram below.
 
 .Log sensible date range defaults
-image::developer-guide/glog/LogDateRangeSensibleDefaults.png[]
+image::developer-guide/log/LogDateRangeSensibleDefaults.png[]
 
 * **Alternative 1:** Do not support date range in log command
 ** Pros: Easy to implement.

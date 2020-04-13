@@ -5,9 +5,85 @@
 
 == PROJECT: ZeroToOne
 
-.Screenshot
-image::user-guide/UgLogList.png[]
-
 == Overview
 
-ZeroToOne is a desktop application that serves as an all-in-one exercise tracker and personal aide. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 26 kLoC.
+ZeroToOne is a desktop fitness planner and tracker application used for monitoring and gaining insights into your personal fitness. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 26 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: *Add graphical analysis of workout performance*
+** What it does: allow users to generate performance metrics over a time period such as total workout time and average workout time per day.
+** Justification: Allows users to monitor progress made over time in an engaging in and graphical method.
+** Highlights: This feature allows users to specify the time period to analyse. Also, designed to be extensible and allows for more metrics and data points to be added in the future.
+
+* *Major enhancement*: *Add log viewer tab*
+** What it is: the log tab that allows users to view their past completed workouts as well as find and delete workouts.
+** Justification: Users need a place to go to manage and track their completed workouts.
+** Highlights: Pretty user interfaces which clearly shows the user the timings of each set as well as whether it was skipped or completed.
+** Minor enhancement: Increased code coverage from *56%* to *69%*
+
+* *Code contributed*:
+
+** *Overview*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jiachen247&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Reposense 4k+ loc]
+
+** *Functional code*:
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/107[#107]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/174[#174]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/184[#184]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/185[#185]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/196[#196]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/209[#209]
+
+** *Test code*:
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/197[#197]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/205[#205]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/208[#208]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/215[#215]
+
+---
+
+* *Other contributions*:
+
+** *Project management*:
+*** Facilitated task delegation at the inception of the tP.
+*** Assisted in helping to manage and stear team meetings
+*** Help brainstorm and model then initial domain models
+
+*** *Fix bugs + regression test*
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/211[#211]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/231[#231]
+
+** *Documentation*:
+*** Create initial PPP for each team member
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/2[#2]
+*** Logs documentation
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/248[#248]
+https://github.com/AY1920S2-CS2103T-W16-2/main/pull/222[#222]
+
+** *Community*:
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W16-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Ajiachen247[24 reviews]
+
+*** Contributed to forum discussions: https://github.com/nus-cs2103-AY1920S2/forum/issues/101[#101]
+
+** *Tools*:
+*** Integrated a third party library (FontAwesome) to the project (https://github.com/AY1920S2-CS2103T-W16-2/main/pull/184[184])
+*** Setup the initial Github Organization
+*** Manage and administer Github Repository (Permissions and branching workflow)
+*** Integrated a new Github plugin (TravisCI) to the team repo
+*** Added pre-push and commit git hook to run CI checks for the entire team
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=log]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=log]
