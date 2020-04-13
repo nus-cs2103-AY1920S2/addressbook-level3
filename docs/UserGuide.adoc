@@ -122,6 +122,7 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 .Demo for the `exit` command
 image::demo/Exit.png[]
 
+//tag::new[]
 === Create a new note: `new`
 
 If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
@@ -165,6 +166,7 @@ image::demo/New2.png[]
 [[New3]]
 .Step 3 - Demo for the `new` command (after creating both notes)
 image::demo/New3.png[]
+//end:new[]
 
 === Open an existing note: `open`
 
@@ -208,6 +210,7 @@ If you want to change the `BODY` content of the currently opened note, use the `
 .Demo for the `edit` command
 image::demo/Edit.png[]
 
+//tag:delete[]
 === Delete a note: `delete`
 
 If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
@@ -234,6 +237,7 @@ image::demo/Delete1.png[]
 
 .Demo for the `delete` command (after deletion)
 image::demo/Delete2.png[]
+//end::delete[]
 
 === Find a note based on certain keywords: `search`
 
