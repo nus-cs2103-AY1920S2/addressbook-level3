@@ -40,29 +40,22 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
-            + "by the index number used in the displayed entry list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "by the index number used in the displayed entry list. \n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
-            + PREFIX_INDEX + "INDEX (one-based) "
+            + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_LOCATION + "LOCATION] "
             + "[" + PREFIX_CALORIE + "CALORIE] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_REMARK + "REMARK]"
-            + "[" + PREFIX_DURATION + "DURATION]...\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_TYPE + "sports "
-            + PREFIX_INDEX + "1 "
-            + PREFIX_NAME + "running "
-            + PREFIX_STATUS + "Done"
-            + PREFIX_DURATION + "1.5";
+            + "[" + PREFIX_DURATION + "DURATION]\n";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the location book.";
-    public static final String MESSAGE_TIME_CLASHES = "Maximum one entry can have time clashes";
+    public static final String MESSAGE_TIME_CLASHES = "No entries can have time clashes";
 
     private static final String MESSAGE_COMMIT = "Edit an entry";
 

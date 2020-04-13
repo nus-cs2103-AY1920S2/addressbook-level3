@@ -96,8 +96,13 @@ LogicManager -> MainWindow : commandResult
 deactivate LogicManager
 
 MainWindow -> MainWindow : showPage(commandResult)
+activate MainWindow
+MainWindow --> MainWindow
+deactivate MainWindow
 MainWindow -> MainWindow : showTodayPage()
 activate MainWindow
+MainWindow --> MainWindow
+deactivate MainWindow
 
 MainWindow -> TodayPage : getRoot()
 activate TodayPage
