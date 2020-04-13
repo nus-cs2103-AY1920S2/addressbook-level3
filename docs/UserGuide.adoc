@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `Paths` are used to specify the directory you want `Commands` to be executed.
 * There are 2 types of  `Path` namely:
-- AbsolutePath (which takes reference from the root)
+- AbsolutePath (which takes reference from the root, as shown in <<PathExample1, Figure 2>> below)
 - RelativePath (which takes reference from the current directory)
 
 The Relative Path operates similarly to the command line input that you may be familiar with.
@@ -76,6 +76,7 @@ The title of a Note can take in alphanumeric variables, symbols (except ` and -)
 The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
 
 .DataStructure example to illustrate Path
+[[PathExample1]]
 image::PathExample1.png[width="790"]
 
 The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../CS2101`
@@ -85,8 +86,13 @@ Thus `open /CS2101` and `open ../CS2101` would yield the same result.
 [NOTE]
 Paths are used by the `open` and `delete` command
 
+[NOTE]
+The Root simply serves as a way for Notably to hierarchically organise your notes. It will not be
+visible to you while you are using the application.
+
 [WARNING]
-We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+remind you of this.
 // end::paths[]
 ====
 [[Markdown]]
