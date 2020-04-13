@@ -26,13 +26,14 @@ I have also made notable contributions to the User Guide and Developer Guide.
 === Major enhancements:
 * *Major enhancement #1*: Implemented group features - `add_group`, `delete_group`, `edit_group` and `list_groups`
 ** What they do: They allow the user of CoderLifeInsights to add a social group, delete a social group or edit the
-group for adding/removing members or changing the name of the group.
+group for adding/removing members or changing the name of the group. The `list_group` command lists all the groups in the app.
+It was planned and implemented in anticipation of a `find_group` command in the future that could change the group list view in the app.
 ** Justification: A social group is a crucial aspect of the
 CoderLifeInsights app as it allows the users to distinguish between time spent in group interactions and individual,
-one-to-one interactions. They are implemented similar to `add_person`, `delete_person` and `edit_person`
-features of the addressbook3 due to the robust design and defensive programming style.
-** Highlights: This enhancement functions well with existing commands as it adds more CoderLifeInsights into the list,
-all the other features such as groups, and events are updated as well. It required an in-depth analysis
+one-to-one interactions. The group features are essential to record and track data regarding social groups. The commands
+are implemented similar to `add_person`, `delete_person` and `edit_person`
+features of the addressbook3 due to the clear design and defensive programming style.
+** Highlights: This enhancement functions well with existing commands and adds a crucial ability to add social groups. It required an in-depth analysis
 of design alternatives.
 ** Credits: As highlighted above, the group features take inspiration from the person features of addressbook3. Thus,
 credits go to the previous developers of addressbook3 for the system design and class structures.
@@ -55,7 +56,7 @@ between Java Classes such as `Group` and `Event` and JSON implementations which 
 ** What is does: Allows the user to store a specific time spent in terms of number of hours and minutes.
 ** Justification: The constraints the in the class allow for efficient management of time format, which suites the
 customised need of the app.
-** Highlights: This enhancement functions well with all the classes that depend upon it and use it. This required an
+** Highlights: This enhancement functions well with all the classes that depend upon it and use it. This required a
 thorough understanding of the different use cases.
 
 * *Code contributed*:[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=raivatshah&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP Dashboard]]
@@ -69,7 +70,7 @@ thorough understanding of the different use cases.
 
 * *Test Code Contributed:*
 
-** Model: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/GroupTest.java[GroupTest], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/UniqueGroupListTest.java[UniqueGroupList]].
+** Model: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/GroupTest.java[GroupTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/model/group/UniqueGroupListTest.java[UniqueGroupList]].
 ** Logic: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/AddGroupCommandTest.java[AddCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/ListGroupCommandTest.java[ListGroupCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteGroupCommandTest.java[DeleteGroupCommandTest]], [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/logic/commands/EditGroupCommandTest.java[EditGroupCommandTest]] and parser tests.
 ** TestUtil: [https://github.com/AY1920S2-CS2103-W14-4/main/blob/master/src/test/java/seedu/address/testutil/GroupBuilder.java[GroupBuilder]],
 
@@ -93,11 +94,14 @@ https://github.com/AY1920S2-CS2103-W14-4/main/issues/130[#130].
 *** Added contents of the Developer Guide (Pull requests: https://github.com/AY1920S2-CS2103-W14-4/main/pull/26[#26], https://github.com/AY1920S2-CS2103-W14-4/main/pull/76[#76], https://github.com/AY1920S2-CS2103-W14-4/main/pull/167[#167], https://github.com/AY1920S2-CS2103-W14-4/main/pull/174[#174])
 
 ** Community:
-*** PRs reviewed: https://github.com/AY1920S2-CS2103-W14-4/main/pull/132[#132],
-https://github.com/AY1920S2-CS2103-W14-4/main/pull/95[#95]
+*** Reviewed and Merged PRs such as: https://github.com/AY1920S2-CS2103-W14-4/main/pull/74[#74],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/95[#95],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/132[#132],
+https://github.com/AY1920S2-CS2103-W14-4/main/pull/166[#166].
+
 
 ** Tools:
-*** Integrated Codeacy to automate code quality checks
+*** Integrated https://www.codacy.com/[Codacy] to automate code quality checks
 *** Used Creately to create initial class diagrams to visualise the relationship between Objects (Person, Group, Event)
 and their UniqueLists. The diagram can be viewed https://app.creately.com/diagram/SaOxsebie1n/[here.]
 
