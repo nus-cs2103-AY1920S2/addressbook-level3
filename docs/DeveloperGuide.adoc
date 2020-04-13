@@ -346,7 +346,7 @@ For the actual execution of an assign/un-assign command, 2 main steps are perfor
 
 ===== Step 1: Preprocess Entities
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command to ensure
 that all entity links are in correct state before command execution.
@@ -357,7 +357,7 @@ This means that either
 
 There should be no instance where Course has an Assignment/Student/Staff's ID but they do not have the Course's ID or vice versa.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is an activity diagram showing the pre-processing performed for assign commands.
 The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the second stage instead.
@@ -377,11 +377,11 @@ Notice that there are 2 main exit points in the activity diagram.
 
 ===== Step 2: Assign IDs via EdgeManager
 
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order to ensure correct and consistent assigning of objects.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
@@ -406,7 +406,7 @@ NOTE: This sequence diagram can be generalized for `un-assign command` as well.
 Instead of adding IDs, un-assign will remove each other's ID from the respective objects.
 
 [[Design-Assign-Copy]]
-====== +++<u>Design Considerations</u>+++
+====== +++Design Considerations+++
 
 . Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObjectTags`.
 Pros::
@@ -446,7 +446,7 @@ The `Progress` of students is managed exclusively by the `ProgressManager` class
 *API* : link:{repoURL}/src/main/java/seedu/address/manager/ProgressManager.java[`ProgressManager.java`]
 
 ==== Student Progress Creation/Removal
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 
 New `Progress` objects must be created in 2 main scenarios.
 
@@ -456,7 +456,7 @@ New `Progress` objects must be created in 2 main scenarios.
 The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
 `Progress` objects need to be removed instead.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 
 Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook when a `AssignStudentToCourse` command is run.
 
@@ -491,14 +491,14 @@ The table below shows the summary of method calls from `ProgressManager` for eac
 image::Ivan-ProgressSummary.png[]
 
 ==== Marking Progress as `Done`/`Undone`
-====== +++<u>Rationale</u>+++
+====== +++Rationale+++
 When a `Student` finishes an `Assignment` that is allocated to him, you want to be able to mark his work
 as `Done`.
 
 Similarly, if an `Assignment` has been mistakenly marked as `Done` or is actually `Undone`, you want to be able
 to mark the `Assignment` as `Undone`.
 
-====== +++<u>Current Implementation</u>+++
+====== +++Current Implementation+++
 .Sequence Diagram for Progress Manager's Handling of Done Command
 image::Ivan-SequenceDiagramDoneCommand.png[]
 
@@ -515,7 +515,7 @@ The implementation of `Done` command is very straight-forward. Only 2 parameter 
 
 With this, the implementation of `Undone` command is about the same, we just have to call `P'#undone()` instead.
 
-====== +++<u>Design Consideration</u>+++
+====== +++Design Consideration+++
 There is 1 main considerations when implementing `Progress` objects.
 
 1. Is there a need to separate `Assignment` and `Progress`?

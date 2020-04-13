@@ -93,4 +93,10 @@ include::../UserGuide.adoc[tag=donecommand]
 
 include::../DeveloperGuide.adoc[tag=modelcomponent]
 
+---
+
 include::../DeveloperGuide.adoc[tag=entitylinking]
+
+---
+
+include::../DeveloperGuide.adoc[tag=progressmgmt]
