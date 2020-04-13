@@ -239,6 +239,7 @@ image::demo/Delete1.png[]
 image::demo/Delete2.png[]
 //end::delete[]
 
+//tag::search[]
 === Find a note based on certain keywords: `search`
 
 If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
@@ -258,12 +259,14 @@ search -s Computer science
 
 .Demo for the `search` command
 image::demo/Search.png[]
+// end::search[]
 
 === Save the data
 
 Notes data are saved in the hard disk automatically after any command that changes the data. +
 There is no need for you to save manually.
 
+//tag::suggestions[]
 === Auto suggestions
 
 As you type, Notably will provide you suggestions. You can then press kbd:[Enter] to select the first suggestion.
@@ -274,6 +277,7 @@ image::demo/Suggestions.png[]
 ==== (Coming in v2.0) Suggestion response text when opening or deleting a parent note
 Variations of path with `../` (e.g. `open ../`, `open Note/../Note`, etc.) will not generate a comprehensive response text.
 Currently, typing `open ../` will generate a response text of `Open a note titled "../"` instead of `Open a parent note`.
+// end::suggestions[]
 
 === Auto correct
 
