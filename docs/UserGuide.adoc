@@ -226,6 +226,11 @@ image::find_success.png[width=790]
 ==== Tag Command
 ===== Command :`tags`
 
+You can view all existing tags in BB Productive by entering the Tag command!
+
+.Tags success
+image::tag_success.png[width=790]
+
 ==== Delete Command
 ===== Command: `delete <<index, INDEX>> INDEX...`
 You can delete multiple tasks.
