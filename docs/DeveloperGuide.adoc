@@ -282,6 +282,19 @@ open, delete, or search.
 
 ==== Current implementation
 
+[width="75%",cols="23%,<33%,<25%",options="header",]
+|=======================================================================
+| |SuggestionArgHandler |SuggestionHandler
+
+| Purpose | Handles the arguments part of the user input and updates the `responseText` in the `Model` according to the user's command input |
+Updates the `responseText` in the `Model` according to the user's command input
+
+| Commands | `open`, `delete`, `search`, `new` | `edit`, `exit`, `help`
+
+| Suggestion Generation | Yes, by `SuggestionGenerator` (except for `new` command, since suggestions are generated based on the existing data in the app) | No
+
+|=======================================================================
+
 1. `Logic` uses the `SuggestionEngine` class, to handle the user input.
 2. According to the command the user inputs, `SuggestionEngine` will create a `XYZSuggestionArgHandler` or `ABCSuggestionHandler` object
 which implements `SuggestionArgHandler` and `SuggestionHandler` interface respectively. `XYZSuggestionArgHandler` are for commands that
