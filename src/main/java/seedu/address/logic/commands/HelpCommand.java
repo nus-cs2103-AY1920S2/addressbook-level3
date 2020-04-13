@@ -49,18 +49,17 @@ public class HelpCommand extends Command {
             + DeleteRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
             + "23. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "24. " + FindRestaurantCommand.COMMAND_WORD + ": " + FindRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "25. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "\nSchoolwork Tracker Commands:\n"
-            + "26. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "27. " + EditAssignmentCommand.COMMAND_WORD + ": " + EditAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "28. " + DeleteAssignmentCommand.COMMAND_WORD + ": " + DeleteAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "29. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "30. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
+            + "25. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "26. " + EditAssignmentCommand.COMMAND_WORD + ": " + EditAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "27. " + DeleteAssignmentCommand.COMMAND_WORD + ": " + DeleteAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "28. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "29. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
             + "\nEvent Tracker Commands:\n"
-            + "31. " + AddEventCommand.COMMAND_WORD + ": " + AddEventCommand.COMMAND_FUNCTION + "\n"
-            + "32. " + EditEventCommand.COMMAND_WORD + ": " + EditEventCommand.COMMAND_FUNCTION + "\n"
-            + "33. " + DeleteEventCommand.COMMAND_WORD + ": " + DeleteEventCommand.COMMAND_FUNCTION + "\n"
-            + "34. " + ListEventCommand.COMMAND_WORD + ": " + ListEventCommand.COMMAND_FUNCTION + "\n";
+            + "30. " + AddEventCommand.COMMAND_WORD + ": " + AddEventCommand.COMMAND_FUNCTION + "\n"
+            + "31. " + EditEventCommand.COMMAND_WORD + ": " + EditEventCommand.COMMAND_FUNCTION + "\n"
+            + "32. " + DeleteEventCommand.COMMAND_WORD + ": " + DeleteEventCommand.COMMAND_FUNCTION + "\n"
+            + "33. " + ListEventCommand.COMMAND_WORD + ": " + ListEventCommand.COMMAND_FUNCTION + "\n";
 
     public static final ArrayList<String> COMMANDS = new ArrayList<>();
     public static final ArrayList<String> LIST_OF_COMMANDS = commandList(COMMANDS);
@@ -107,16 +106,15 @@ public class HelpCommand extends Command {
         commands.add("22. " + DeleteRestaurantNoteCommand.MESSAGE_USAGE + "\n");
         commands.add("23. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("24. " + FindRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("25. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("26. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("27. " + EditAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("28. " + DeleteAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("29. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("30. " + ScheduleCommand.MESSAGE_USAGE + "\n");
-        commands.add("31. " + AddEventCommand.MESSAGE_USAGE + "\n");
-        commands.add("32. " + EditEventCommand.MESSAGE_USAGE + "\n");
-        commands.add("33. " + DeleteEventCommand.MESSAGE_USAGE + "\n");
-        commands.add("34. " + ListEventCommand.MESSAGE_USAGE + "\n");
+        commands.add("25. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("26. " + EditAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("27. " + DeleteAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("28. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("29. " + ScheduleCommand.MESSAGE_USAGE + "\n");
+        commands.add("30. " + AddEventCommand.MESSAGE_USAGE + "\n");
+        commands.add("31. " + EditEventCommand.MESSAGE_USAGE + "\n");
+        commands.add("32. " + DeleteEventCommand.MESSAGE_USAGE + "\n");
+        commands.add("33. " + ListEventCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }
