@@ -305,7 +305,7 @@ kbd:[CMD/CTRL] + kbd:[v] respectively.
 
 [WARNING]
 ====
-* You are not allowed to `edit` the root note, i.e is the currently opened path is ``"/"``
+* You are not allowed to `edit` the root note, i.e when your currently opened path is ``"/"``
 ====
 
 //tag:delete[]
@@ -503,6 +503,7 @@ image::demo/ResponseText2.png[]
 
 // tag::markdown[]
 
+[[Markdown]]
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
@@ -528,8 +529,8 @@ Currently, only unordered lists are supported. In addition, only the hyphen `-` 
 ----
 - List item
 - Another list item
-- A nested list item
-- A deeper nested list item
+  - A nested list item
+    - A deeper nested list item
 - Last list item
 ----
 * https://github.github.com/gfm/#paragraph[Paragraphs] +
