@@ -164,6 +164,14 @@ This section describes some noteworthy details on how certain features are imple
 ==== Add(Permas)
 
 ==== Edit(Arthur)
+The edit feature allows the user to edit the task, adding or updating fields in a task accordingly.
+
+===== Implementation
+The edit command is done in 2 parts. `EditCommandParser` as well as `EditCommand` itself.
+
+`EditCommandParser` parses the user input including the `index` and the relevant prefixes that will be edited. This is done by checking the prefixes for each of the different task fields and calling the relevant parser for it. The parser then returns the relevant field, be it `name`, `priority`, `reminder` etc and this is set in the `EditTaskDescriptor` instance. This `EditTaskDescriptor` instance is a container for the updated fields. This instance is passed in the constructor of a new `EditCommand`.
+
+`EditCommand` is executed. During execution, an edited task is created from retrieving the stored updated fields data from `EditTaskDescriptor` and copying the field from the original task to edit for the unchanged fields. This updated task is set in the `Model` for storage. Subsequently, a new `CommandResult` is generated to display that the task has been edited in the result display to the user.
 
 ==== Done and Delete (Fyon)
 
@@ -1103,8 +1111,8 @@ Expected: After 60 seconds, the done is set back to unfinished, with the tick be
 
 
 _{ more test cases ... }_
-
 === Saving data
+
 
 . Dealing with missing/corrupted data files
 
