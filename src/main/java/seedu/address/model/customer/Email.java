@@ -11,6 +11,7 @@ public class Email {
 
     public static final int MAX_LENGTH = 40;
 
+    public static final String DEFAULT_VALUE = "N/A";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
@@ -47,7 +48,8 @@ public class Email {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
+        return test.equals(DEFAULT_VALUE)
+                || (test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH);
     }
 
     @Override

@@ -147,7 +147,7 @@ Red: 0.2
 ==== Adding a customer: `addc`
 
 Adds a customer to the customer list +
-Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
+Format: `addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 
 ****
 * A customer can have up to 5 tags (including 0). +
@@ -157,6 +157,10 @@ Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 * The phone field can be between 3 to 15 characters long and contain only integers. +
 * The  email field can take up to 40 characters and should be a valid email format.
 ****
+
+[TIP]
+The email field [e/] is optional, and will be recorded as N/A if left empty. +
+The address field [a/] is optional, and will be recorded as N/A if left empty.
 
 Examples:
 
@@ -322,7 +326,7 @@ Edits the sales of the 2nd product in the list to be $1000.
 ==== Finding products : `findp`
 
 Finds products whose description contains a certain keyword +
-Format: `findp [KEYWORD]`
+Format: `findp KEYWORD [KEYWORD]...`
 
 ****
 * The search is case insensitive. e.g blue will match Blue
@@ -531,7 +535,7 @@ Displays and updates the top-selling and worst-selling products (sorted by profi
 This is a passive feature.
 // end::viewtopsellingproducts[]
 
-image::TopSellingProducts.png[TopSellingProducts,650,650]
+image::TopSellingProducts.png[width="650"]
 
 // tag::viewproductsalesquantity[]
 ==== Viewing the product sales and quantity histogram.
@@ -544,13 +548,13 @@ Plots 2 graphs: +
 [NOTE]
 This is a passive feature.
 
-image::ViewInventory2.png[ViewInventory2,600,600]
+image::ViewInventory2.png[width="600"]
 // end::viewproductsalesquantity[]
 
 // tag::revenue[]
 ==== Getting the revenue made in a certain period : `revenue`
 
-Gets the revenue made in a selected period. +
+Gets the revenue made in a selected period. (start date to end date, both inclusive) +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
@@ -568,7 +572,7 @@ Returns the revenue from Jan 1 2020 10am to Dec 31 2020 10:01am
 // tag::profit[]
 ==== Getting the profit made in a certain period : `profit`
 
-Gets the profit made in a selected period. +
+Gets the profit made in a selected period (start date to end date, both inclusive). +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
 
 ****
@@ -639,7 +643,7 @@ Plots a graph with the sales of the selected product between 20th Feb 10am and 2
 * `plotsales 1` +
 Plots a graph with the sales of the selected product in the past week.
 
-image::SalesPlot.png[SalesPlot,500,500]
+image::SalesPlot.png[width="500"]
 // end::plotsales[]
 
 == FAQ
@@ -652,23 +656,23 @@ image::SalesPlot.png[SalesPlot,500,500]
 
 == Command Summary
 
-* *Adding customer* : `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` +
+* *Adding customer* : `addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…` +
 e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * *Listing all customers* : `listc`
 * *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
 e.g. `editc 1 p/91234567 e/johndoe@example.com`
-* *Finding customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]` +
+* *Finding customers* : `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]` +
 e.g. `findc n/John`
 * *Deleting a customer* : `deletec INDEX` +
 e.g. `findc n/Betsy` +
 `deletec 1`
 * *Clearing all customers* : `clearc`
-* *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
-e.g. `addp d/iphone x pr/1000 q/10`
+* *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]` +
+e.g. `addp d/iphone x pr/1000 cp/800 q/10`
 * *Listing all products* : `listp`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
-* *Finding products* : `findp KEYWORD` +
+* *Finding products* : `findp KEYWORD [KEYWORD]...` +
 e.g. `findp black`
 * *Deleting a product* : `deletep INDEX` +
 e.g. `listp` +
@@ -679,7 +683,7 @@ e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
 * *Listing all transactions* : `listt`
 * *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
-* *Finding transactions* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
+* *Finding transactions* : `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAME]...] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07 10:00`
 * *Undo a transaction* : `undot INDEX` +
 e.g. `findt dt/2020-01-03 10:00` +

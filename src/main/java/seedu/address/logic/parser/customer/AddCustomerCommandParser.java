@@ -38,20 +38,36 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Email email = getEmail(argMultimap);
+        Address address = getAddress(argMultimap);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Customer customer = new Customer(name, phone, email, address, tagList);
 
         return new AddCustomerCommand(customer);
+    }
+
+    private Address getAddress(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
+            return ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        } else {
+            return new Address(Address.DEFAULT_VALUE);
+        }
+    }
+
+    private Email getEmail(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
+            return ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        } else {
+            return new Email(Email.DEFAULT_VALUE);
+        }
     }
 
     /**
@@ -68,5 +84,4 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
             return true;
         });
     }
-
 }
