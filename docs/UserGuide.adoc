@@ -993,12 +993,12 @@ Marks a `Note` at a specific index from the current note list as `done`.
 
 *Outcome:*
 
-. The first command lists out all `notes`. Assuming that you want to mark the first `note` in the list as `done`.
+. The first command lists out all `note` items.
 +
 .List of all note items
 image::ListAllNotes.png[width="450"]
 
-. The second command marks this `note` as done, by updating the tick box.
+. Assuming that you want to mark the first `note` in the list as `done`. The second command will achieve this, and you will be notified by the updating tick box.
 +
 .List of all note items after `done` command is executed
 image::note-done.png[width="450"]
