@@ -3,7 +3,9 @@ package com.notably.logic.suggestion.handler;
 import static com.notably.commons.parser.CliSyntax.PREFIX_SEARCH;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.parser.ArgumentMultimap;
 import com.notably.commons.parser.ArgumentTokenizer;
 import com.notably.commons.parser.ParserUtil;
@@ -19,6 +21,8 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
     private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
     private static final String RESPONSE_MESSAGE_WITH_KEYWORD = "Search through all notes based on keyword \"%s\"";
 
+    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionArgHandler.class);
+
     private Model model;
 
     public SearchSuggestionArgHandler(Model model) {
@@ -33,6 +37,8 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
      */
     @Override
     public Optional<SearchSuggestionGenerator> handleArg(String userInput) {
+        logger.info("Starting handleArg method inside SearchSuggestionArgHandler");
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_SEARCH);
 
@@ -45,6 +51,7 @@ public class SearchSuggestionArgHandler implements SuggestionArgHandler<SearchSu
         }
 
         if (keyword.isEmpty()) {
+            logger.info("keyword is empty");
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
         }

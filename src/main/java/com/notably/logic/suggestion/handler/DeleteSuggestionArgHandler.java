@@ -3,7 +3,9 @@ package com.notably.logic.suggestion.handler;
 import static com.notably.commons.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.parser.ArgumentMultimap;
 import com.notably.commons.parser.ArgumentTokenizer;
 import com.notably.commons.parser.ParserUtil;
@@ -25,6 +27,8 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
 
+    private static final Logger logger = LogsCenter.getLogger(DeleteSuggestionArgHandler.class);
+
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
@@ -41,6 +45,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
      */
     @Override
     public Optional<DeleteSuggestionGenerator> handleArg(String userInput) {
+        logger.info("Starting handleArg method inside DeleteSuggestionArgHandler");
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
@@ -54,6 +59,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
 
         if (title.isEmpty()) {
             model.setResponseText(RESPONSE_MESSAGE);
+            logger.info("title is empty");
             return Optional.empty();
         }
 
@@ -61,6 +67,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
+            logger.warning(String.format(ERROR_MESSAGE_CANNOT_DELETE_NOTE, title));
             model.setResponseText(String.format(ERROR_MESSAGE_CANNOT_DELETE_NOTE, title));
             return Optional.empty();
         }
@@ -69,6 +76,7 @@ public class DeleteSuggestionArgHandler implements SuggestionArgHandler<DeleteSu
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            logger.warning(String.format("Failed to correct \"%s\".", title));
             return Optional.empty();
         }
 

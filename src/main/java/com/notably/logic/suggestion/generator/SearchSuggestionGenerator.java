@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.commands.exceptions.CommandException;
@@ -21,6 +23,8 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to search through all the notes based on keyword.
  */
 public class SearchSuggestionGenerator implements SuggestionGenerator {
+    private static final Logger logger = LogsCenter.getLogger(SearchSuggestionGenerator.class);
+
     private String keyword;
 
     public SearchSuggestionGenerator(String keyword) {
@@ -31,10 +35,12 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
     @Override
     public void execute(Model model) {
         Objects.requireNonNull(model);
+        logger.info("Executing SearchSuggestionGenerator");
 
         List<SuggestionItem> suggestions = getSuggestions(model);
         sortSuggestions(suggestions);
         model.setSuggestions(suggestions);
+        logger.info("Search suggestions are saved to model");
     }
 
     /**
@@ -105,6 +111,7 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
             } catch (CommandException ex) {
                 /* notes suggested will definitely be able to be opened,
                 as the block actually exists. AssertionError would never be thrown */
+                logger.severe("AssertionError inside the runnable action should never be thrown.");
                 throw new AssertionError(ex.getMessage());
             }
         };
@@ -122,12 +129,14 @@ public class SearchSuggestionGenerator implements SuggestionGenerator {
         Collections.sort(suggestions, (suggestion1, suggestion2) -> {
             if (!suggestion1.getProperty("frequency").isPresent()
                     || !suggestion2.getProperty("frequency").isPresent()) {
+                logger.severe("All search suggestion item must contain the \"frequency\" property");
                 throw new AssertionError("All search suggestion item must contain the \"frequency\" "
                         + "property");
             }
 
             if (!suggestion1.getProperty("displayText").isPresent()
                     || !suggestion2.getProperty("displayText").isPresent()) {
+                logger.severe("All search suggestion item must contain the \"displayText\" property");
                 throw new AssertionError("All search suggestion item must contain the \"displayText\" "
                         + "property");
             }
