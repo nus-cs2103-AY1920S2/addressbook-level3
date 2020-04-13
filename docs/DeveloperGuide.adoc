@@ -156,9 +156,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-.Task Class Diagram
-image::TaskClassDiagram.png[]
-
 // // tag::undoredo[ ]
 // === [Proposed] Undo/Redo feature
 // ==== Proposed Implementation
@@ -300,23 +297,38 @@ This data is captured and stored in the `Pomodoro` class in `seedu.address.model
 === Reminders
 The user's reminder functionality is achieved by calculating the time delay from the current time and the time from the user input. This time delay as well as the Task name and description is passed to the MainWindow for the reminder to be triggered as a pop up at the right time.
 
-A DateTimeFormatter is used to parse the date time from the user input, which is just the date in the r/ flag when adding or editing a task, into a LocalDateTime object. This LocalDateTime is used to store the date and time information. When the reminder is instantiated, a setDelay method is called setting in motion the calculation of time delay, and triggering of reminder on the MainWindow. The reminder class is stored as an OptionalReminder in the Task class itself.
+==== Implementation
+A `DateTimeFormatter` is used to parse the date time from the user input, which is just the date in the r/ flag when adding or editing a task, into a `LocalDateTime` object. This `LocalDateTime` is used to store the date and time information. When the reminder is instantiated, a `setDelay` method is called setting in motion the calculation of time delay between the current time and the reminder time, and triggering of reminder on the `MainWindow`. The reminder class is stored as an `Optional` in the Task class itself.
 
-Reminder is stored as a string in the JsonAdaptedTask. This string contains the exact format of the date and time that the user inputs, this allows the same constructor to be used when the data is read and changed to a task and thus reminder object.
+Reminder is stored as a string in the `JsonAdaptedTask`. This string contains the exact format of the date and time that the user inputs, this allows the same constructor to be used when the data is read and changed to a task and thus reminder object. A sequence diagram of the reminder flow is shown below for reference.
 
 .Reminder Sequence Diagram
 image::ReminderSequenceDiagram.png[width=790]
 
 
 === Recurring
-The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval.
-
-After the recurring type is parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted. The first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the same interval afterwards.
-
-The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set. When the recurring behaviour is triggered, the result display will show a message that the recurring task has been reset.
+The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below. 
 
 .Recurring Activity Diagram
 image::RecurringActivityDiagram.png[width=790]
+
+==== Implementation
+The logic is mainly implemented in the `Recurring` class and `ModelManager` class in `seedu.address.model`, which interacts with the app’s storage system especially with respect to task storage. This `Recurring` instance is stored in `Task` as an optional field.
+
+In the `Recurring` class, whenever a task is added or edited, the recurring type is then parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted in the `Recurring` instance itself. This ensures that the first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the same interval afterwards. 
+
+The recurring behaviour is orchestrated in `ModelManager` whenever a task is added or edited, a `setTask` method is called that will generate a `Timer` and `TimerTask`. A `TimerTask` is the logic run to update the task, namely resetting the done and the reminder accordingly. The `Timer` schedules `TimerTasks` at a fixed rate based on the the time interval chosen, if it is daily it will be every 24 hours (but for testing purposes it will be every 60 seconds) and if it is weekly it will be every 7 days. There is only 1 `Timer` for the `ModelManager` that handles the scheduling of each `TimerTask` that corresponds to every task that has a recurring behaviour. On boot the `Timer` is canceled and replaced with a new instance, subsequently all the tasks are iterated through. Every task with a recurring attribute will have a `TimerTask` generated and scheduled accordingly.
+
+The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set. When the recurring behaviour is triggered, the result display will show a message that the recurring task has been reset.
+
+Additionally, a flag has been made to check if the task needs to be changed, if it does not it will not be unnecessarily updated in the `Model`. A class diagram of the tasks and all its attributes is shown below.
+
+Recurring is stored as a string in the `JsonAdaptedTask`. This string contains the LocalDateTime information for the reference date as well as the type of interval itself. A special constructor for this string is used to reconstruct the recurring attribute when reading from storage.
+
+
+
+.Task Class Diagram with all aforementioned attributes including recurring and reminder
+image::TaskClassDiagram.png[width=790]
 
 === Logging
 
