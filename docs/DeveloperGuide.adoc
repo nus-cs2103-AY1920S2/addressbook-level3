@@ -209,7 +209,7 @@ The `Storage` component,
 //end::design-storage[]
 
 [[Design-Commons]]
-=== Common classes
+=== Commons component
 
 Classes used by multiple components are in the `com.notably.commons` package.
 
