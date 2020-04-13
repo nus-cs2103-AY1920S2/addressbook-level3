@@ -667,7 +667,7 @@ Valid Example: +
 [[dietbackexpectedoutcome]]
 *Expected outcome:*
 
-image::placeholder.png[]
+image::dietTrackerBackCommandSuccessPhoto.png[]
 //end::diettrackerback[]
 
 '''
@@ -780,7 +780,7 @@ Valid Example: +
 [[listreceiptexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+image::listreceipt.png[width="890", height="200"]
 
 *Additional notes and tips* +
 
@@ -818,7 +818,7 @@ Valid example: +
 [[listamountexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+image::listamount.png[width="890", height="200"]
 
 *Additional notes and tips* +
 
@@ -907,7 +907,7 @@ Valid examples: +
 [[paidcommandexpectedoutcome]]
 *Expected outcome:*
 
-image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
+image::paid.png[width="890", height="200"]
 
 *Additional notes and tips*
 
