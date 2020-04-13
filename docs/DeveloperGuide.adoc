@@ -992,6 +992,13 @@ when the user enters the command
 ._Sequence Diagram_ for Done Session
 image::DoneSessionSequenceDiagram.png[]
 
+[NOTE]
+====
+[horizontal]
+* The lifeline for `SessionCommandParser` and `DoneSessionCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+===
+
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
 2. The `TaTrackerParser` sees that the command is a `Session` command and passes the command
@@ -1131,6 +1138,13 @@ the `Logic` and `Model` components of the Ta-Tracker when the user enters the co
 
 ._Sequence Diagram_ for Filter Student Command
 image::FilterStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+* The lifeline for `StudentCommandParser` and `FilterStudentCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+===
 
 Given below is an example scenario where the user enters a command to filter students.
 
