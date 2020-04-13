@@ -59,7 +59,6 @@ include::../UserGuide.adoc[tag=Calendar]
 
 include::../UserGuide.adoc[tag=Notes]
 
-include::../UserGuide.adoc[tag=Command Summary]
 
 == Contributions to the Developer Guide
 
@@ -67,7 +66,7 @@ include::../UserGuide.adoc[tag=Command Summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Notes Feature]
+include::../DeveloperGuide.adoc[tag=UIDiagram]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Xinwei]
 

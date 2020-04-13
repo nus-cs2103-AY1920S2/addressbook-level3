@@ -66,6 +66,7 @@ image::LogicClassDiagram.png[width="790"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `moduleAdd m/CS2103T`.
 
+// tag::UIDiagram[]
 .Component interactions for `moduleAdd m/CS2103T` command
 image::ArchitectureSequenceDiagram.png[width="790"]
 
@@ -74,8 +75,10 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="790"]
+// end::UIDiagram[]
 
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -217,7 +220,7 @@ i.e. Any modification in module tasks will be updated in `Task` which is the mai
 
 ==== Design Considerations
 
-
+// tag::Xinwei[]
 === Calendar Feature (Xinwei)
 NUSProductivity consist of a calendar feature that provides an overarching view of all tasks, allowing user to view their uncompleted tasks and whether there is a task present on the date itself.
 
@@ -343,7 +346,7 @@ Not as flexible. Referring to the above diagram,
 Accessing the *Documents* folder will require the user to input `loc/../../Documents`, this may not be as intuitive to people with no programming background.
 Using `loc/Documents abs/abs` will allow the user to access any folder from anywhere.
 
-
+// end::Xinwei[]
 
 === Diary
 - `diaryAdd` and `diaryLog` extends from `Command` class
