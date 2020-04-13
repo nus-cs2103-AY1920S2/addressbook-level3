@@ -58,10 +58,12 @@ image::Ui-annotated.png[]
 If this is your first time using FitBiz and you have just started up the application, you may realise that the *Client View* section is missing. This is because you are currently not viewing a client. Refer to <<view-c-command>> for more information about what you need to do.
 
 // tag::understanding-the-cli[]
+
 === Understanding the Command Line Interface (CLI) --- Aaron Choo
 
 Even though FitBiz comes with a GUI, it is mainly used to display data. Most of the user interaction occurs via the CLI, which in FitBiz is comprised of the *Command Box* and *Result Box*. We understand that CLIs have higher barriers of entry and may scare some inexperienced users away. As such, we have provided some features common to most modern CLIs to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocomplete** feature, and learn how to effectively utilise them.
 
+[[command-history]]
 ==== Command History
 
 Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:[&darr;] arrow key to cycle through their previously entered commands. If you have prior experience in using a CLI, feel free to skip this section as this should be second nature to you. If not, here is a quick tutorial on how to use this time saving feature.
@@ -85,7 +87,8 @@ Now, you can also see your more recent commands by pressing the kbd:[&darr;] arr
 [TIP]
 If you are not currently browsing the history, you can press the kbd:[&darr;] arrow key to immediately clear what you are currently typing in the *Command Box*.
 
-==== Command Autocompletion
+[[command-autocomplete]]
+==== Command Autocomplete
 
 Again, similar to most modern CLIs, users of FitBiz can press the kbd:[Tab] key to autocomplete commands that they have partially typed. If the partially typed letters uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command will automatically appear in the Command Box. Otherwise, a list of all commands similar to the ambiguous letters will appear in the *Result Box*.
 
@@ -684,7 +687,7 @@ Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
 * `DAY` is not case-sensitive
 
 // tag::export-command[]
-
+[[export-command]]
 === Export as CSV: `export` --- Aaron Choo
 
 `export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can then view and open in other programmes like Microsoft Excel, or Google Sheets (as shown in the example later).

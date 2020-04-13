@@ -337,7 +337,7 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
+Similar to <<Command History --- Aaron Choo, Command History>>, this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
 
 .Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
