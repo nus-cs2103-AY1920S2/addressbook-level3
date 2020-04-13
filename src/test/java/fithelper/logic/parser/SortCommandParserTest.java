@@ -32,7 +32,7 @@ public class SortCommandParserTest {
     private SortCommandParser parser = new SortCommandParser();
 
     @Test
-    public void parseOnlySortByFieldPresentSuccess() {
+    public void parse_onlySortByFieldPresent_success() {
         // type and order not specified, sort by specified in full name
         assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + TIME,
                 new SortCommand(null, new SortBy(TIME), false));
@@ -51,7 +51,7 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parseAllFieldsPresentSuccess() {
+    public void parse_allFieldsPresent_success() {
         // order of input varies, types are specified in full name or acronym
         assertParseSuccess(parser, WHITE_SPACE + PREFIX_SORT_BY + TIME
                         + WHITE_SPACE + PREFIX_TYPE + SPORTS_ACRONYM
@@ -68,7 +68,7 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parseNoSortByFieldFailure() {
+    public void parse_missingSortByField_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, WHITE_SPACE + PREFIX_SORT_ORDER + ASCENDING
@@ -77,7 +77,7 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parseInvalidFieldValuesFailure() {
+    public void parse_invalidFieldValues_failure() {
         // invalid sort by category
         assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + SPORTS
                 + WHITE_SPACE + PREFIX_SORT_BY + INVALID
@@ -95,7 +95,7 @@ public class SortCommandParserTest {
     }
 
     @Test
-    public void parseDuplicateFieldsPresentSuccess() {
+    public void parse_duplicateFieldsPresent_success() {
         // for all cases where there are duplicate inputs for the same field, only the last input is read and parsed
 
         // duplicate sort by category

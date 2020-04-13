@@ -24,7 +24,7 @@ public class CheckCommandParserTest {
     private CheckCommandParser parser = new CheckCommandParser();
 
     @Test
-    public void parseFieldsMissingFailure() {
+    public void parse_fieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE);
 
         // type missing
@@ -38,14 +38,14 @@ public class CheckCommandParserTest {
     }
 
     @Test
-    public void parseInvalidFieldValuesFailure() {
+    public void parse_invalidFieldValues_failure() {
         // invalid type
         assertParseFailure(parser, WHITE_SPACE + PREFIX_TYPE + "exercise" + WHITE_SPACE + PREFIX_KEYWORD
                 + APPLE, Type.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parseDuplicateFieldsPresentSuccess() {
+    public void parse_duplicateFieldsPresent_success() {
         // for all cases where there are duplicate inputs for the same field, only the last input is read and parsed
 
         // duplicate type

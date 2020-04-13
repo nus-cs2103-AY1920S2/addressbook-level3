@@ -19,12 +19,12 @@ import fithelper.model.entry.Type;
 public class CheckCommandTest {
 
     @Test
-    public void createCommand_withoutKeywords_throwsNullPointerException() {
+    public void createCommand_withoutKeywords_exceptionThrown() {
         assertThrows(NullPointerException.class, () -> new CheckCommand(new Type("food"), null));
     }
 
     @Test
-    public void createCommand_withoutCheckType_throwsNullPointerException() {
+    public void createCommand_withoutCheckType_exceptionThrown() {
         assertThrows(NullPointerException.class, () -> new CheckCommand(null, "apple"));
     }
 
@@ -64,7 +64,7 @@ public class CheckCommandTest {
         assertCommandSuccess(command, model, expectedMessage, model);
     }
 
-    private class ModelStubWithMatchingResults extends ModelStub {
+    private static class ModelStubWithMatchingResults extends ModelStub {
         @Override
         public Set<CalorieDatum> searchFoodCalorieTable(String keywords) {
             Set<CalorieDatum> result = new LinkedHashSet<>();

@@ -19,12 +19,12 @@ import fithelper.model.entry.Type;
 public class SortCommandTest {
 
     @Test
-    public void createCommand_withoutSortBy_throwsNullPointerException() {
+    public void createCommand_withoutSortBy_exceptionThrown() {
         assertThrows(NullPointerException.class, () -> new SortCommand(new Type(FOOD), null, false));
     }
 
     @Test
-    public void createCommand_withSortBy_successful() throws IllegalValueException {
+    public void createCommand_withSortBy_success() throws IllegalValueException {
         Model model = new ModelStub();
 
         // all fields present
