@@ -214,38 +214,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String customer} into an {@code Customer}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code customer} is invalid.
-     */
-    public static String parseCustomer(String customer) throws ParseException {
-        requireNonNull(customer);
-        String trimmedCustomer = customer.trim();
-        //        if (!Sales.isValidSales(trimmedSales)) {
-        //            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
-        //        }
-        //        return new Sales(trimmedSales);
-        return trimmedCustomer;
-    }
-
-    /**
-     * Parses a {@code String product} into an {@code product}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code product} is invalid.
-     */
-    public static String parseProduct(String product) throws ParseException {
-        requireNonNull(product);
-        String trimmedProduct = product.trim();
-        //        if (!Sales.isValidSales(trimmedSales)) {
-        //            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
-        //        }
-        //        return new Sales(trimmedSales);
-        return trimmedProduct;
-    }
-
-    /**
      * Parses a {@code String product} into an {@code product}.
      * Leading and trailing whitespaces will be trimmed.
      *

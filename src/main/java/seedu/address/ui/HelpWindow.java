@@ -4,9 +4,6 @@ import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.media.MediaException;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -21,9 +18,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
-
-    @FXML
-    private Button copyButton;
 
     @FXML
     private WebView webView;
@@ -84,27 +78,10 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the help window.
-     */
-    public void hide() {
-        getRoot().hide();
-    }
-
-    /**
      * Focuses on the help window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
 }

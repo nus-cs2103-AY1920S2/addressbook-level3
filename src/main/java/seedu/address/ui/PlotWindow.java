@@ -77,13 +77,4 @@ public class PlotWindow extends UiPart<Stage> {
     public void focus() {
         getRoot().requestFocus();
     }
-
-
-    /**
-     * Hides the plot window.
-     */
-    public void hide() {
-        getRoot().hide();
-    }
-
 }
