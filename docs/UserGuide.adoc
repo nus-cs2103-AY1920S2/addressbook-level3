@@ -843,7 +843,7 @@ e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
 ** diaryAdd ec/ENTRY_CONTENT +
 e.g. `diaryAdd ec/I had a weird dream today.`
 ** diaryLog +
-e.g. 'diaryLog`
+e.g. `diaryLog`
 ** diaryDelete id/ENTRY_ID +
 e.g. `diaryDelete id/1`
 ** diaryShow id/ENTRY_ID or diaryShow date/DATE +
