@@ -2,7 +2,6 @@ package nasa.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -26,26 +25,23 @@ public class ModuleCard extends UiPart<Region> {
      */
 
     public final Module module;
-    public final int id;
     private DeadlineListPanel deadlineListPanel;
     private EventListPanel eventListPanel;
 
     @FXML
-    private Pane cardPane;
+    private VBox cardPane;
     @FXML
     private Label code;
     @FXML
-    private Label events;
-    @FXML
-    private Label deadlines;
-    @FXML
     private VBox activityListPanelPlaceholder;
 
-
-    public ModuleCard(Module module, int displayedIndex) {
+    public ModuleCard(Module module, int width) {
         super(FXML);
         this.module = module;
-        this.id = displayedIndex;
+        cardPane.setMinWidth(width);
+        cardPane.setMaxWidth(width);
+        cardPane.setMaxHeight(Double.MAX_VALUE);
+
         code.setText(module.getModuleCode().toString() + " " + module.getModuleName().toString());
         deadlineListPanel = new DeadlineListPanel(module.getFilteredDeadlineList());
         eventListPanel = new EventListPanel(module.getFilteredEventList());
@@ -67,7 +63,6 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return id == card.id
-                && module.equals(card.module);
+        return module.equals(card.module);
     }
 }

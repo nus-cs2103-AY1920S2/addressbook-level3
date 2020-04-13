@@ -76,15 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         quotePanel = new QuotePanel();
 
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
-            //Overriding default redo
-            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
-                //event.consume();
-                handleRedo();
-                //Overriding default undo
-            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
-                //event.consume();
-                handleUndo();
-            } else if (event.getCode() == KeyCode.TAB) {
+            if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();
             }
         });
@@ -210,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void getHint(String input) {
-        hintWindow.getInput(input);
+        hintWindow.setInput(input);
         hintWindow.show(getPrimaryStage());
     }
 
