@@ -3,7 +3,6 @@ start
 :Check new input in CommandBox;
 
 if () then ([empty input])
-    :Clear ResultDisplay;
 
 else if () then ([invalid command word])
     :Highlight input in red;

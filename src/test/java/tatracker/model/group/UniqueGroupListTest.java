@@ -17,6 +17,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.model.group.exceptions.DuplicateGroupException;
+import tatracker.model.group.exceptions.GroupNotFoundException;
+
 public class UniqueGroupListTest {
 
     private final UniqueGroupList uniqueGroupList = new UniqueGroupList();

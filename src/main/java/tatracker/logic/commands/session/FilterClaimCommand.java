@@ -22,7 +22,7 @@ import tatracker.model.Model;
  */
 public class FilterClaimCommand extends Command {
 
-    //@@author PotatoCombat
+    //@@author potatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLAIM,
             CommandWords.FILTER_MODEL,

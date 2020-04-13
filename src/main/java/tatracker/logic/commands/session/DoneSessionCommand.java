@@ -1,3 +1,4 @@
+// @@author Eclmist
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -23,6 +24,8 @@ import tatracker.model.session.SessionType;
  */
 public class DoneSessionCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.DONE_SESSION,
@@ -31,6 +34,8 @@ public class DoneSessionCommand extends Command {
             List.of(),
             INDEX
     );
+
+    // @@author Eclmist
 
     public static final String MESSAGE_DONE_SESSION_SUCCESS = "Session completed: %s";
     public static final String MESSAGE_REPEAT_SESSION_SUCCESS = "\nRepeating session: %s - %s";
@@ -58,6 +63,7 @@ public class DoneSessionCommand extends Command {
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
 
+        // @@author Chuayijing
         if (session.getRecurring() > 0) {
 
             int recurring = session.getRecurring();
@@ -86,6 +92,8 @@ public class DoneSessionCommand extends Command {
                 Action.DONE);
     }
 
+    // @@author Eclmist
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -102,6 +110,8 @@ public class DoneSessionCommand extends Command {
         DoneSessionCommand e = (DoneSessionCommand) other;
         return index.equals(e.index);
     }
+
+    // @@author potatocombat
 
     private String getRepeatMessage(Session session) {
         String doneMessage = String.format(MESSAGE_DONE_SESSION_SUCCESS, session.getMinimalDescription());

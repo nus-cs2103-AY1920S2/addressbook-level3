@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.logic.parser.session;
 
 import java.util.regex.Matcher;

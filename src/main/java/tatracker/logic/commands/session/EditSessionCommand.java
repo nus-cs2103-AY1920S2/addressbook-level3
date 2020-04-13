@@ -1,3 +1,5 @@
+// @@author Eclmist
+
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -36,6 +38,8 @@ import tatracker.model.session.SessionType;
  */
 public class EditSessionCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.EDIT_MODEL,
@@ -44,6 +48,8 @@ public class EditSessionCommand extends Command {
             List.of(MODULE, START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
+
+    // @@author Eclmist
 
     public static final String MESSAGE_EDITED_SESSION_SUCCESS = "Edited session: %s";
 
@@ -86,6 +92,8 @@ public class EditSessionCommand extends Command {
                 Action.GOTO_SESSION);
     }
 
+    // @@author potatocombat
+
     /**
      * Creates and returns a {@code Session} with the details of {@code sessionToEdit}
      * edited with {@code editSessionDescriptor}.
@@ -114,6 +122,8 @@ public class EditSessionCommand extends Command {
         return new Session(startDateTime, endDateTime, type, isRecurring, moduleCode, description);
     }
 
+    // @@author Eclmist
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -131,6 +141,8 @@ public class EditSessionCommand extends Command {
         return index.equals(e.index)
                 && editSessionDescriptor.equals(e.editSessionDescriptor);
     }
+
+    // @@author Eclmist
 
     /**
      * Stores the details to edit the student with. Each non-empty field value will replace the
@@ -178,6 +190,8 @@ public class EditSessionCommand extends Command {
             return hasRecurring() || otherVariables;
         }
 
+        // @@author potatocombat
+
         public void setDate(LocalDate date) {
             this.newDate = date;
         }
@@ -201,6 +215,8 @@ public class EditSessionCommand extends Command {
         public Optional<LocalTime> getEndTime() {
             return Optional.ofNullable(newEndTime);
         }
+
+        // @@author Eclmist
 
         public void setRecurring(int isRecurring) {
             this.newRecurring = isRecurring;

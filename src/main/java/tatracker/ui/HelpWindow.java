@@ -1,10 +1,11 @@
+//@@author potatoCombat
+
 package tatracker.ui;
 
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,7 +26,7 @@ import tatracker.logic.commands.CommandDictionary;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/TA-Tracker/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/main/UserGuide.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -59,19 +60,20 @@ public class HelpWindow extends UiPart<Stage> {
         HelpListPanel helpListPanel = new HelpListPanel(COMMAND_DETAILS);
         helpListPanelPlaceholder.getChildren().add(helpListPanel.getRoot());
 
-        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                logger.info("escaped");
+        //@@author fatin99
 
-                if (t.getCode() == KeyCode.ESCAPE) {
-                    getRoot().show();
-                    logger.info("click on escape");
-                    root.close();
-                }
+        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            logger.info("escaped");
+
+            if (event.getCode().equals(KeyCode.ESCAPE)) {
+                getRoot().show();
+                logger.info("click on escape");
+                root.close();
             }
         });
     }
+
+    //@@author PotatoCombat
 
     /**
      * Creates a new HelpWindow.

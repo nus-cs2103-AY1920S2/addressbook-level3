@@ -23,7 +23,7 @@ import tatracker.model.session.SessionType;
  */
 public class FilterSessionCommand extends Command {
 
-    //@@author PotatoCombat
+    //@@author potatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,

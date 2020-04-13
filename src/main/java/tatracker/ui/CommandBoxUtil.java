@@ -1,3 +1,5 @@
+//@@author potatocombat
+
 package tatracker.ui;
 
 import static java.util.Objects.requireNonNull;

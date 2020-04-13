@@ -4,20 +4,19 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
-participant ":FilterStudentViewCommandParser" as FilterStudentViewCommandParser LOGIC_COLOR
-participant "d:FilterStudentViewCommand" as FilterStudentViewCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":FilterStudentCommandParser" as FilterStudentViewCommandParser LOGIC_COLOR
+participant "d:FilterStudentCommand" as FilterStudentViewCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "m:Student" as Student MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
 [-> LogicManager : execute("student filter \nm/CS2103T g/G06")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("student filter \nm/CS2103T g/G06")
+LogicManager -> TaTrackerParser : parse("student filter \nm/CS2103T g/G06")
 activate TaTrackerParser
 
 create StudentCommandParser
@@ -30,10 +29,19 @@ deactivate StudentCommandParser
 TaTrackerParser -> StudentCommandParser : parse("filter \nm/CS2103T g/G06")
 activate StudentCommandParser
 
+create FilterStudentViewCommandParser
+StudentCommandParser -> FilterStudentViewCommandParser
+activate FilterStudentViewCommandParser
+FilterStudentViewCommandParser --> StudentCommandParser
+deactivate FilterStudentViewCommandParser
+
+StudentCommandParser -> FilterStudentViewCommandParser : parse("m/CS2103T g/G03")
+activate FilterStudentViewCommandParser
+
 create FilterStudentViewCommand
-FilterStudentViewCommandParser -> FilterStudentViewCommand : FilterStudentViewCommand(m, g)
+FilterStudentViewCommandParser -> FilterStudentViewCommand : FilterStudentCommand("CS2103T", "G03")
 activate FilterStudentViewCommand
-FilterStudentViewCommand --> FilterStudentViewCommandParser
+FilterStudentViewCommand --> FilterStudentViewCommandParser : d
 deactivate FilterStudentViewCommand
 
 FilterStudentViewCommandParser --> StudentCommandParser : d
@@ -59,14 +67,14 @@ Model --> FilterStudentViewCommand : true
 FilterStudentViewCommand -> Model : hasGroup("G06", "CS2103T")
 Model --> FilterStudentViewCommand : true
 
-FilterStudentViewCommand -> Model : setFilteredStudentList(CS2103T, G06);
+FilterStudentViewCommand -> Model : setFilteredStudentList(CS2103T, G06)
 Model --> FilterStudentViewCommand
 deactivate Model
 
 create CommandResult
 FilterStudentViewCommand -> CommandResult : CommandResult()
 activate CommandResult
-CommandResult --> FilterStudentViewCommand
+CommandResult --> FilterStudentViewCommand : result
 deactivate CommandResult
 
 FilterStudentViewCommand --> LogicManager : result

@@ -1,3 +1,5 @@
+//@@author potatocombat
+
 package tatracker.ui;
 
 import java.util.List;
@@ -215,7 +217,6 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void handleNoInput() {
         resetCommandDetails();
         setStyleToDefault();
-        resultDisplay.setFeedbackToUser("");
     }
 
     private void handleInvalidInput() {

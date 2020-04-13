@@ -1,3 +1,5 @@
+//@@author fatin99
+
 package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
@@ -20,6 +22,8 @@ import tatracker.model.Model;
  */
 public class GotoCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GOTO,
             "Switches to the specified tab",
@@ -27,6 +31,8 @@ public class GotoCommand extends Command {
             List.of(),
             TAB_NAME
     );
+
+    // @@author fatin99
 
     /**
      * Represents the name of a tab view in TA-Tracker.
@@ -39,6 +45,8 @@ public class GotoCommand extends Command {
         public static final String MESSAGE_CONSTRAINTS =
                 "These are the only tab names: student, session, claims";
 
+        // @@author potatocombat
+
         private static final Map<String, Tab> TABS = Arrays.stream(values())
                 .collect(Collectors.toUnmodifiableMap(tab -> tab.name().toLowerCase(), tab -> tab));
 
@@ -50,6 +58,8 @@ public class GotoCommand extends Command {
             requireNonNull(tabName);
             return TABS.get(tabName.toLowerCase());
         }
+
+        // @@author fatin99
 
         @Override
         public String toString() {

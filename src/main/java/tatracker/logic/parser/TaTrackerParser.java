@@ -55,6 +55,7 @@ public class TaTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        //@@author aakanksha-rai
         /* Student View */
         case CommandWords.MODULE:
             return new ModuleCommandParser().parseCommand(arguments);
@@ -62,12 +63,15 @@ public class TaTrackerParser {
         case CommandWords.GROUP:
             return new GroupCommandParser().parseCommand(arguments);
 
+        //@@author potatocombat
         case CommandWords.STUDENT:
             return new StudentCommandParser().parseCommand(arguments);
 
+        //@@author aakanksha-rai
         case CommandWords.SORT:
             return new SortCommandParser().parse(arguments);
 
+        //@@author Chuayijing
         /* Session View */
         case CommandWords.SESSION:
             return new SessionCommandParser().parseCommand(arguments);
@@ -85,23 +89,28 @@ public class TaTrackerParser {
         case CommandWords.CLEAR:
             return new ClearCommand();
 
+        //@@author fatin99
         /* Navigation */
         case CommandWords.GOTO:
             return new GotoCommandParser().parse(arguments);
 
+        //@@author Eclmist
         case CommandWords.REPORT:
             return new ShowStatisticCommandParser().parse(arguments);
 
+        //@@author
         case CommandWords.HELP:
             return new HelpCommand();
 
         case CommandWords.EXIT:
             return new ExitCommand();
 
+        //@@author fatin99
         /* Others */
         case CommandWords.SET_RATE:
             return new SetRateCommandParser().parse(arguments);
 
+        //@@author
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

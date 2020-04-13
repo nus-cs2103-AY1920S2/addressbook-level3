@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.model.session;
 
 import java.time.Duration;
@@ -13,6 +15,8 @@ import java.util.Objects;
  */
 public class Session implements Comparable<Session> {
 
+    //@@author Chuayijing
+
     public static final String CONSTRAINTS_RECURRING_WEEKS = "Recurring weeks must be an unsigned number";
 
     // Default constructor has been removed to reduce the number of test cases.
@@ -20,19 +24,28 @@ public class Session implements Comparable<Session> {
     public static final SessionType DEFAULT_SESSION_TYPE = SessionType.OTHER;
     public static final String DEFAULT_DESCRIPTION = "Default Session";
 
+    //@@author potatocombat
+
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
 
     /** For formatting sessions with minimal notation. */
     private static final String FORMAT_MIN_DESCRIPTION = "%s (%s)\nStart: %s\nEnd: %s";
 
+    //@@author Eclmist
+
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String moduleCode;
     private SessionType type;
     private String description;
-    private int recurring;
     private boolean isDone;
+
+    //@@author Chuayijing
+
+    private int recurring;
+
+    //@@author Eclmist
 
     /**
      * Constructs a Session object.
@@ -47,12 +60,17 @@ public class Session implements Comparable<Session> {
 
         this.startDateTime = start;
         this.endDateTime = end;
-        this.recurring = recurring;
         this.moduleCode = moduleCode;
         this.type = type;
         this.description = description;
         this.isDone = false;
+
+        //@@author Chuayijing
+
+        this.recurring = recurring;
     }
+
+    //@@author potatocombat
 
     /**
      * Returns true if both sessions have the same date, timing, module, and type.
@@ -64,6 +82,8 @@ public class Session implements Comparable<Session> {
                 && moduleCode.equals(s.moduleCode)
                 && type.equals(s.type);
     }
+
+    //@@author Eclmist
 
     public LocalDate getDate() {
         return this.startDateTime.toLocalDate();
@@ -81,27 +101,6 @@ public class Session implements Comparable<Session> {
      */
     public LocalDateTime getEndDateTime() {
         return this.endDateTime;
-    }
-
-    /**
-     * Returns a value that states how long a session will occur. weekly basis.
-     */
-    public int getRecurring() {
-        return this.recurring;
-    }
-
-    /**
-     * Returns true if session is already completed; false otherwise.
-     */
-    public boolean getIsDone() {
-        return this.isDone;
-    }
-
-    /**
-     * Marks the session as done.
-     */
-    public void done() {
-        this.isDone = true;
     }
 
     /**
@@ -124,6 +123,31 @@ public class Session implements Comparable<Session> {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Returns true if session is already completed; false otherwise.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Marks the session as done.
+     */
+    public void done() {
+        this.isDone = true;
+    }
+
+    //@@author Chuayijing
+
+    /**
+     * Returns a value that states how long a session will occur. weekly basis.
+     */
+    public int getRecurring() {
+        return this.recurring;
+    }
+
+    //@@author potatocombat
 
     /**
      * Returns the duration of the session to the nearest hour.
@@ -166,6 +190,8 @@ public class Session implements Comparable<Session> {
         return sameTiming || timeClash;
     }
 
+    //@@author Eclmist
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -204,6 +230,7 @@ public class Session implements Comparable<Session> {
         return Objects.hash(startDateTime, endDateTime, moduleCode, type);
     }
 
+    //@@author Chuayijing
 
     /**
      * Compare Sessions based on the session that will occur first.

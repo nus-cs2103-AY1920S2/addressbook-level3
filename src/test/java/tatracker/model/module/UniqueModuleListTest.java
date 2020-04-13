@@ -17,6 +17,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.model.module.exception.DuplicateModuleException;
+import tatracker.model.module.exception.ModuleNotFoundException;
+
 public class UniqueModuleListTest {
 
     private final UniqueModuleList uniqueModuleList = new UniqueModuleList();
@@ -120,7 +123,7 @@ public class UniqueModuleListTest {
 
     @Test
     public void setModule_nullUniqueModuleList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueModuleList.setModule((Module) null, CS2103T));
+        assertThrows(NullPointerException.class, () -> uniqueModuleList.setModule(null, CS2103T));
     }
 
     @Test

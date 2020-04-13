@@ -1,3 +1,4 @@
+// @@author Eclmist
 package tatracker.commons.core;
 
 import java.awt.AWTException;
