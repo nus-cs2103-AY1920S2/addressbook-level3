@@ -500,51 +500,6 @@ versioned databases and commands.
 result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-==== Proposed Implementation
-The data encryption adn decryption mechanism is facilitated by `FileCryptoUtil`. The crypto algorithm employed is Advanced
-Encryption Standard (AES) under symmetric encryption algorithm, where both the encryption and decryption uses same key.
-
-`FileCryptoUtil` will implement the following operations:
-`FileCryptoUtil#encryptFile()` -- encrypts human readable Json file into unreadable encrypted file.
-`FileCryptoUtil#decryptFile()` -- decrypts unreadable file back to readable json file.
-
-These methods are public static and are exposed to all for now.
-
-Given below is an example on how the encryption and decryption behave at each step.
-
-** *Encryption*:
-
-Whenever the user enters a valid command, under the `LogicManager#execute()`, the data is firstly convert to JsonAdaptedObject and stored in a Json file.
-Next, `FileCryptoUtil#encryption()` is called. A cipher will be initiated based on the specific SecretKey,
- the algorithm used for encryption, and the transformation of the data.
-The data in the json file will be read by bit and encrypted to unreadable format. The encrypted data is then stored in the encrypted file.
-
-[NOTE]
-If the command cannot be executed successfully in `LogicManager#execute()`, then exception will be thrown before `FileCryptoUtil#encryption()`,
- and the encryption will not be activated.
-
-** *Decryption* :
-
-When the user launches the application. `FileCryptoUtil#decryption()` will be called before the reading Json file into `StorageManager`.
-A cipher will be initiated based on same SecretKey, algorithm and transformation used in the encryption of the data.
-The data in the encrypted file is then read by bit and decrypted by the cipher into readable Json format.
-The readable Json data is then stored in the Json file, which can be read by `JsonUtil#readJsonFile()` to JsonAdaptedObject.
-
-==== Design Considerations
-
-===== Aspect: Key management for cipher
-
-* **Alternative 1 (current choice):** Set a default key within the application.
-** Pros: Easy to implement.
-** Cons: Key cannot be changed, expose to possible brute force attack.
-* **Alternative 2:** Set password requirement for the application and use password use the key.
-** Pros: User can change the key regularly, which strengthen data security.
-** Cons: Hard to implement to password feature. The password has to be further strengthen by PBKDF2 to enhance the complexity of the key.
-
-// end::dataencryption[]
-
 //tag::autoexpiry[]
 
 === [Proposed] Automatic Batch Expiry and Warning
@@ -1339,6 +1294,30 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Add a valid supplier, `undo`, add a different valid supplier, and finally `redo` +
    An error is shown, indicating that redo cannot be done from latest state.
 
+=== Set threshold quantity for good
 
+.. Prerequisites: One buy command to add good into the inventory. Buy quantity set as 100.
+.. Test case: `warn 1 q/10000` +
+   Expected: First good will be under alert with red colour background, as the quantity is lower than the threshold quantity.
+.. Test case: `warn 1 q/99` +
+   Expected: No effect is shown, as the current quantity of good is greater than the threshold quantity.
+.. Test case: `warn 1 q/99` followed by sell command to sell quantity of 10 +
+   Expected: First good will be under alert with red colour background, as the quantity is lower than the threshold quantity after selling.
+.. Test case: `warn` +
+   Expected: An error is shown, indicating that the format of the command is wrong.
+.. Other incorrect warn commands to try: `warn abc`, `warn x q/abc` (where x is larger than the list size) +
+   Expected: Similar to previous.
 
+=== Find transaction
 
+.. Prerequisites: List transaction command.
+.. Test case: `find-t buy` +
+   Expected: All buy transaction will be listed.
+.. Test case: `find-t buy n/Alice` +
+   Expected: All buy transaction with Alice being the supplier will be listed.
+.. Test case: `find-t buy n/Alice g/apple` +
+   Expected: All buy transaction with Alice being the supplier and the good bought being apple will be listed.
+.. Test case: `find-t abc` +
+   Expected: An error is shown, indicating that the format of the command is wrong.
+.. Other incorrect warn commands to try: `find-t`, `find-t x` (where x is not "buy" or "sell") +
+   Expected: Similar to previous.
