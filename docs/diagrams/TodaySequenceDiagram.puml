@@ -29,6 +29,9 @@ activate LogicManager
 LogicManager -[LOGIC_COLOR]> LogicManager : execute("today")
 activate LogicManager
 
+LogicManager -[LOGIC_COLOR]-> LogicManager
+deactivate LogicManager
+
 LogicManager -[LOGIC_COLOR]> FitHelperParser : parseCommand("today")
 activate FitHelperParser
 

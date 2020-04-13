@@ -19,7 +19,7 @@ public class ReminderCommand extends Command {
             + ": Display all undone plans specified by the date keyword.\n"
             + "If not specified, all undone entries are displayed.\n"
             + "Parameters: "
-            + PREFIX_DATE + "Date (optional)"
+            + PREFIX_DATE + "DATE "
             + "Example: " + COMMAND_WORD
             + PREFIX_DATE + "2020-03-25 ";
 

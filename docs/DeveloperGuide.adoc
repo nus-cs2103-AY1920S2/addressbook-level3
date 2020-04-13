@@ -432,12 +432,11 @@ Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `curr
 
 image::UndoRedoState5.png[width = 35%]
 
+// end::undoredo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[width = 30%]
-
-// end::undoredo[]
 
 
 // tag::calendar[]

@@ -31,16 +31,11 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update the value of the profile attribute identified "
-            + "by given the profile attribute name. "
-            + "Existing values will be overwritten by the input values only with flag -f.\n"
+            + "by given the profile attribute name. \n"
             + "Parameters: "
             + "[" + FLAG_FORCE + "(if force to update)] "
             + "[" + PREFIX_ATTRIBUTE + "ATTRIBUTE_NAME] "
-            + "[" + PREFIX_VALUE + "NEW_VALUE]\n"
-            + "Example: " + COMMAND_WORD
-            + FLAG_FORCE
-            + PREFIX_ATTRIBUTE + "Target weight"
-            + PREFIX_VALUE + "49.0";
+            + "[" + PREFIX_VALUE + "NEW_VALUE]\n";
 
     public static final String MESSAGE_UPDATE_VALUE_SUCCESS = "Your profile has been successfully updated!";
     public static final String MESSAGE_NOT_UPDATED = "You are not updating any attribute in your profile.";
