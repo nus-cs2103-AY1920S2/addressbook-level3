@@ -210,7 +210,7 @@ observableMap, which in turn will automatically update the corresponding `Detail
 === Model component [Tee Jun Jie Ivan]
 
 .Structure of the Model Component
-image::Ivan-ModelClassDiagram.png[scaledWidth="75%"]
+image::Ivan-ModelClassDiagram.png[scaledwidth="75%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
