@@ -260,6 +260,7 @@ image::SwitchActivityDiagram.png[]
 
 ==== Add command
 
+// tag::editcommand[]
 ==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
 
@@ -360,7 +361,7 @@ filtering and sorting to be supported. For example, plans need to be sorted in c
 recipe list needs to be filtered for our filter feature. +
 Additionally, we would not have enough time in the scope of this project to write our own implementation, and importing from pre-existing
 libraries gives the risk of running into bugs in the future if the the dependencies were not maintained.
-
+// end::editcommand[]
 
 
 ==== Delete command
@@ -888,6 +889,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
+* university students
 * wishes to lead a healthier lifestyle
 * has trouble thinking about what to cook
 * prefer desktop apps over other types
@@ -896,6 +898,8 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
+Focuses on healthy, simple recipes with short cooking time with ingredients filter to
+minimise food wastage.
 
 [appendix]
 == User Stories
@@ -960,8 +964,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |motivational user |add custom quotes to app online |motivate other users with different quotes
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1030,40 +1032,6 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add goal
-
-*MSS*
-
-1.  User requests to see list of goals
-2.  HealthyBaby shows a list of goals
-3.  User requests to add a specific goal in the list
-4.  HealthyBaby starts tracking the goal
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The given goal is invalid.
-+
-[none]
-** 3a1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The given goal is already being tracked.
-+
-[none]
-** 3b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: Find recipe
 
 *MSS*
@@ -1084,12 +1052,13 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Schedule a recipe
+=== Use case: Plan for a recipe
 
 *MSS*
 
-1.  User enters which recipe index and date they would like to schedule
-2.  HealthyBaby shows the recipe scheduled under the given date
+1.  User enters the recipe index and date that they would like to plan for
+2.  HealthyBaby adds the new plan to the list of plans
+3.  HealthyBaby displays the success message, switches to the planning tab and displays the updated list of plans.
 +
 Use case ends.
 
@@ -1111,71 +1080,24 @@ Use case ends.
 +
 Use case ends.
 
+[none]
+* 2c. A similar plan with the same recipe and date already exists in the list.
++
+[none]
+** 2c1. HealthyBaby shows an error message.
++
+Use case ends.
+
 [discrete]
 === Use case: Clear entire recipe list
 
 *MSS*
 
 1.  User enters the clear command
-2.  User will be prompted with a confirmation question
-3.  User inputs "Y" (Yes) to confirm decision
-4.  HealthyBaby clears the entire recipe list
+2.  HealthyBaby clears the entire recipe and plans list
 +
 Use case ends.
 
-*Extensions*
-
-[none]
-* 3a. User inputs "N" (No) to cancel the clear command.
-+
-Use case ends.
-
-[none]
-* 3b. User inputs an invalid response to the confirmation question.
-+
-[none]
-** 3b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Compare prices
-
-*MSS*
-
-1.  User requests to compare prices
-2.  HealthyBaby shows price of food delivery vs user cooking the food themselves with the specified name
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The name/time/ingredients fields are empty.
-+
-[none]
-** 2a1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-
-[none]
-* 2b. The given food does not exists in database.
-+
-[none]
-** 2b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-* 2c. The given food is not available in delivery services.
-+
-[none]
-** 2c1. HealthyBaby shows an error message.
-+
-Use case resumes at step 1.
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1193,25 +1115,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[main-nutritional-food-group]] Main Nutritional Food Group::
+HYBB identifies Grain, Vegetable, Protein and Fruit to be the main nutritional food groups.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1224,37 +1129,142 @@ These instructions only provide a starting point for testers to work on; testers
 === Launch and Shutdown
 
 . Initial launch
-
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
-
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a recipe
-
-. Deleting a recipe while all recipes are listed
-
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+. Deleting a recipe while all recipes are listed and no plans exist
+.. Prerequisites: List all recipes using the `list` command. +
+Multiple recipes in the list must be present. If required, add recipes by using the `add` command. +
+Plan list is empty. If required, clear plans by using the `clearPlan` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First recipe is deleted from the list. Name of the deleted recipe shown in the result box.
 .. Test case: `delete 0` +
-   Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No recipe is deleted. Error details shown in the result box.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+. Deleting a recipe while all recipes are listed and plans exist
+.. Prerequisites: List all recipes using the `list` command. +
+Multiple recipes in the list must be present. If required, add recipes by using the `add` command. +
+Plan list contains a plan for the recipe at recipe index 1. If required, add a plan using the `plan` command.
+.. Test case: `delete 1` +
+   Expected: First recipe is deleted from the list. Name of the deleted recipe shown in the result box.
+The plan for recipe 1 is removed from the list of plans in the 'Planning' tab.
+
+=== Clearing the recipe list
+. Clearing the list while plans are present.
+
+.. Prerequisites: Plan a recipe using the `plan` command.
+.. Test case: `clear` +
+   Expected: All recipes and plans are cleared from the list.
+
+. Clearing the list while plans are not present.
+.. Prerequisites: No plans are present. Clear the plans by using the `clearPlan` command.
+.. Test case: `clear` +
+   Expected: All recipes are cleared from the list.
+
+=== Adding plans
+. Adding a plan to an empty plan list.
+.. Prerequisites: No plans are present. If required, clear the plans by using the `clearPlan` command. +
+At least one recipe exist in the recipe list. If required, add recipes by using the `add` command.
+.. Test case: `plan 1 d/2020-05-20` +
+   Expected: Recipe at index 1 is planned on 20 May 2020.
+.. Test case: `plan -1 d/2020-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+Other incorrect plan commands to try: `plan`, `plan 0`, `plan x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+.. Test case: `plan 1 d/2019-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+
+. Adding multiple plans to an empty plan list.
+.. Prerequisites: No plans are present. If required, clear the plans by using the `clearPlan` command. +
+Multiple recipes exist in the recipe list. If required, add recipes by using the `add` command.
+.. Test case: `plan 1 2 3 d/2020-05-20` +
+   Expected: Recipes at indexes 1, 2 and 3 are planned on 20 May 2020.
+.. Test case: `plan 1 -2 3 d/2020-05-20` +
+   Expected: No plans are added. Error details shown in the result box.
+.. Test case: `plan 1 2 3 d/2019-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+
+. Adding plan(s) to a plan list that is not empty.
+.. Prerequisites: A plan for the recipe at recipe index 1 exists. If required, plan for the recipe by using the `plan` command.
+.. Test case: `plan 1 d/2020-05-20` +
+   Expected: No plans are added. Duplicate message is shown in the result box.
+.. Test case: `plan 1 -2 3 d/2020-05-20` +
+
+=== Deleting plans
+. Deleting a plan while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `deletePlan 1` +
+   Expected: Plan at plan index 1 is deleted.
+.. Test case: `deletePlan -1` +
+   Expected: Plan is not deleted. Error details shown in the result box.
+Other incorrect plan commands to try: `deletePlan`, `deletePlan 0`, `deletePlan x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a plan while multiple plans exist.
+.. Prerequisites: More than one plan are present. If required, add plans by using the `plan` command.
+.. Test case: `deletePlan 1 2` +
+   Expected: Plan at plan indexes 1 and 2 are deleted.
+.. Test case: `deletePlan 1 -2` +
+   Expected: Plan is not deleted. Error details shown in the result box.
+Other incorrect plan commands to try: `deletePlan 1 0`, `deletePlan 2 x`, (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Clearing plans
+. Clearing plans while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `clearPlan` +
+   Expected: All plans in the plan list are cleared.
+
+=== Obtaining grocery list
+. Obtain grocery list while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `groceryList` +
+   Expected: A window appears, listing all the ingredients used for the recipes in the plans.
+
+. Obtain grocery list while no plans exist.
+.. Prerequisites: Plan list is empty. If required, clear plans by using the `clearPlan` command.
+.. Test case: `groceryList` +
+   Expected: No window appears. Error details shown in the result box.
+
+. Update and show grocery list while grocery list window is minimised.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+Grocery list window is opened then minimised. If required, open the window first by using the `groceryList` command,
+then minimise that window.
+.. Test case: `groceryList` +
+   Expected: Window with updated grocery list appears.
+
 
 _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing data files.
+.. Close the jar file.
+.. Delete one or more files from the data folder.
+.. Double-click the jar file. +
+   Expected: Deleting the files would result in these corresponding results:
+... Recipebook: Default recipes in 'Recipes'
+... Quotebook: Default quotes in 'Achievements'
+... Plannedbook: An empty plan list in 'Planning'
+... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Dealing with corrupted data files.
+.. Close the jar file.
+.. Type '~!@' in any of the files in the data folder and save the file.
+.. Double-click the jar file. +
+   Expected: Adding corrupted data into the files would result in these corresponding results:
+... Recipebook: An empty recipe list in 'Recipes' as well as an empty plan list in 'Planning'
+... Quotebook: Default quotes in 'Achievements'
+... Plannedbook: An empty plan list in 'Planning'
+... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 
 _{ more test cases ... }_

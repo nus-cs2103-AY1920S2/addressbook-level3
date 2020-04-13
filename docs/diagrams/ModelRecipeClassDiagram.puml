@@ -20,7 +20,7 @@ Class Time
 Class Step
 Class UniqueRecipeList
 
-Package Ingredient {
+Package Ingredient <<Rectangle>> {
 Class "{abstract}\nIngredient" as Ingredient
 Class Grain
 Class Vegetable
@@ -29,28 +29,42 @@ Class Fruit
 Class Other
 Class Quantity
 Enum Unit <<enumeration>>
+
+Class HiddenOne #FFFFFF
+Class HiddenTwo #FFFFFF
+Class HiddenThree #FFFFFF
+Class HiddenFour #FFFFFF
 }
 }
 
 HiddenOutside ...> Model
-ModelManager o--> "1" RecipeBook
+ModelManager o-- "1" RecipeBook
 ModelManager .up.|> Model
 ModelManager --> "1" Recipe : filtered list
 
-RecipeBook *--> "1" UniqueRecipeList
-UniqueRecipeList o--> "*" Recipe
-Recipe *--> "1" Name
-Recipe *--> "1" Time
-Recipe *--> "*" Step
-Recipe *--> "1..*" Ingredient
+RecipeBook *-- "1" UniqueRecipeList
+UniqueRecipeList o-- "                  *" Recipe
+Recipe *-- "1" Name
+Recipe *-- "1" Time
+Recipe *-- "             *" Step
+Recipe *-- "1..*   " Ingredient
 
-Ingredient <|--- Grain
-Ingredient <|-- Vegetable
+HiddenOne -down- Grain
+HiddenTwo -down- Vegetable
 Ingredient <|-- Protein
-Ingredient <|-- Fruit
-Ingredient <|-- Other
+HiddenThree -down- Fruit
+HiddenFour -down- Other
 
-Ingredient *--> "1" Quantity
+'HiddenOne -right- HiddenFour
+
+Grain -[hidden]right-> Vegetable
+Vegetable -[hidden]right-> Protein
+Protein -[hidden]right-> Fruit
+Fruit -[hidden]right-> Other
+
+'will be formatting this outside PUML instead
+
+Ingredient *-right- "1" Quantity
 Quantity -up-> "1" Unit
 Name -[hidden]right-> Time
 Time -[hidden]right-> Step
