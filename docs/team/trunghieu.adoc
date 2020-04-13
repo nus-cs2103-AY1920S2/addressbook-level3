@@ -1,6 +1,7 @@
 = Le Trung Hieu - Project Portfolio
+:site-section: AboutUs
 :imagesDir: ../images
-:stylesDir: ../stylessheets
+:stylesDir: ../stylesheets
 
 == Project: CodeCampX
 
@@ -58,8 +59,8 @@ to ensure the overall architecture flow and design principles are met and consis
 *** Helped others and ensure on Git strategies.
 *** Ensure code quality through reviews on Github
 **** Some examples:
-https://github.com/AY1920S2-CS2103-W14-1/main/pull/109
-https://github.com/AY1920S2-CS2103-W14-1/main/pull/113
+Pull request [https://github.com/AY1920S2-CS2103-W14-1/main/pull/109[#109]],
+Pull request [https://github.com/AY1920S2-CS2103-W14-1/main/pull/113[#113]]
 *** Set up continuous integration on Travis CI
 
 == Contributions to the User Guide
