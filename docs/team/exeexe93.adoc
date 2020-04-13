@@ -28,17 +28,14 @@ retrieve from the data. Considerations have to be made to differentiate the data
 have different attributes in their models.
 
 ** Add return order book for storage (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/186[#186])
-*** What it does: Stores return orders.
+*** What it does: Stores return orders in json file.
 *** Justification: The storage of return orders is important, as the return orders are required to be separate from
 orders and store as a separate json file in the hard disk from the orders.
 *** Highlights: Considerations are to be made for how to store and retrieve the return order data from the json file
 which is stored in hard disk.
 
 ** Modify the `clear` command (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/180[#180], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218])
-*** What it does: Gives the user three options to clear:
-**** Only order list
-**** Only return order list
-**** Both order list and return order list
+*** What it does: Gives the user to clear either both order lists or only one of them.
 *** Justification: This is an essential update, which prevent the user from having the trouble clearing the orders or return orders one by one.
 *** Highlights: Considerations are to be made for the clearing either one of the list or both order list and return order list,
 as clearing the wrong list, the data in that list would be lost permanently.
@@ -50,17 +47,12 @@ as clearing the wrong list, the data in that list would be lost permanently.
 
 ** Add `comment` field into the model(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/172[#172])
 *** What it does: Allows orders and return orders to store customer comment.
-*** Justification: This is an essential update, which allows the courier to be able to take note about +
-the customer's request, such as sending a message to notify the customer that the courier will be sending +
-their parcel on that day.
+*** Justification: This is an essential update, which allows the courier to be able to take note about
+the customer's request for that delivery.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=exeexe93&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true[Functional code & Test code]]
 
 * *Other contributions*:
-
-** Enhancements to existing GUI:
-** Modified the `Clear Window` to suit the needs for the modified `clear` command. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/180[#180])
-** Replaced the address book icon to Delino icon. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226/commits/d7c029f7cdf8a11f42bbae6d3f5c49f6a0f19eee[226])
 
 ** Project management:
 *** Co-team lead of the project, in charge of defining, assigning, and tracking project tasks.
@@ -71,7 +63,6 @@ Furthermore, ensure project deliverables are done on time and in the right forma
 *** Edited various parts of the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/173[#173], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226[#226])
 *** Added use cases and updated the Storage and Implementation part of the Developer Guide for saving, import
 and clear features (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/186[#186], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/197[#197], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218])
-
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/126[#126],
@@ -87,31 +78,15 @@ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.co
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-== Features
+=== Features
 
-=== Clear feature
-This whole section on Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#clear[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=clear]
-
-=== Import feature
-This whole section on Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#import[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=import]
 
-== Command Summary
-This whole section on command summary can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command-summary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
+=== Command Summary
+
 include::../UserGuide.adoc[tag=command_summary]
-
-== Command Prefix
-This whole section on command prefix can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_prefix[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=command_prefix]
-
-== Command Flags
-This whole section on command flags can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/UserGuide.html#command_flags[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../UserGuide.adoc[tag=command_flags]
 
 == Contributions to the Developer Guide
@@ -120,48 +95,21 @@ include::../UserGuide.adoc[tag=command_flags]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== Storage Design
-This whole section on storage design can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#Design-Storage[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
+=== Design
 include::../DeveloperGuide.adoc[tag=Design-Storage]
 
-== Clear feature
-This whole section on Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#clear-feature[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
-
+=== Features
 include::../DeveloperGuide.adoc[tag=clear]
-
-== Import feature
-This whole section on Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#import[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=import]
 
-== Use Case for Clear feature
-This whole section on Use Case for Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
+=== Use Cases
 include::../DeveloperGuide.adoc[tag=use_case_clear]
-
-== Use Case for Import feature
-This whole section on Use Case for Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#use-cases[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=use_case_import]
 
-== Command Prefix
-This whole section on command prefix can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
+=== Glossary
 include::../DeveloperGuide.adoc[tag=command_prefix]
-
-== Command Flags
-This whole section on command flags can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#glossary[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=command_flags]
 
-== Clear feature
-This whole section on Manual Testing for Clear feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#clear-orders[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
+=== Instruction of Manual Testing
 include::../DeveloperGuide.adoc[tag=appendix-clear]
-
-== Import feature
-This whole section on Manual Testing for Import feature can be found at https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#import-orders[here]. This link is provided in the event if some of the cross links are not working, as they refer to documents
-done by another team member.
 include::../DeveloperGuide.adoc[tag=appendix-import]
