@@ -890,6 +890,17 @@ The following activity diagram illustrates what happens when a user executes the
 .Add Item Command Activity Diagram
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
 
+{nbsp}
+
+*Structure of Add Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `AddItemCommand`.
+
+.Add Item Command Class Diagram
+image::ExpenseSplitterAddItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `AddItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `AddItemCommand`.
+
 *Implementation of Add Item Command*
 
 The following is a detailed explanation of the operations `AddItemCommand` performs. +
@@ -948,6 +959,17 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Delete Item Command Activity Diagram
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
+
+{nbsp}
+
+*Structure of Delete Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `DeleteItemCommand`.
+
+.Delete Item Command Class Diagram
+image::ExpenseSplitterDeleteItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `DeleteItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `DeleteItemCommand`.
 
 *Implementation*
 
@@ -1260,6 +1282,17 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Clear Receipt Command Activity Diagram
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
+
+{nbsp}
+
+*Structure of Clear Receipt Command*
+
+In this section, you will learn more about the relationships between objects related to the `ClearReceiptCommand`.
+
+.Clear Receipt Command Class Diagram
+image::ExpenseSplitterClearReceiptCommandClassDiagram.png[]
+The above class diagram shows the structure of the `ClearReceiptCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `ClearReceiptCommand`.
 
 *Implementation of Clear Receipt Command*
 
