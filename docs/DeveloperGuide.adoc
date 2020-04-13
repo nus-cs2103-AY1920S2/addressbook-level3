@@ -216,7 +216,7 @@ Step 1. The user launches the application for the first time.
 The `CouponStash` will be initialized with the initial coupon stash state, and
 the `currStateIndex` pointing to that single coupon stash state.
 
-.CouponStash will be initialized with the initial coupon stash state.
+.`CouponStash` will be initialized with the initial coupon stash state.
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the
@@ -227,6 +227,7 @@ executes to be saved in the `couponStashStateList`, and the `delete 5` command
 text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to
 the newly inserted coupon stash state.
 
+.`currStateIndex` is shifted to the newly inserted coupon stash state.
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add n/OMO STORE ...` to add a new coupon.
@@ -234,6 +235,7 @@ The `add` command also calls `Model#commitCouponStash(String commandText)`,
 causing another modified coupon stash state and command text to be saved into
 the `couponStashStateList` and `commandTextHistory` respectively.
 
+.Modified coupon stash state and command text are saved into the `couponStashStateList` and `commandTextHistory` respectively.
 image::UndoRedoState2.png[]
 
 [NOTE]
@@ -249,6 +251,7 @@ state, and restores the coupon stash to that state. Plus, the command text is
 returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
+.`currStateIndex` shifted once to the left
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -261,6 +264,7 @@ the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo operation sequence diagram.
 image::UndoSequenceDiagram.png[]
 
 The `redo` command does the opposite -- it calls `Model#redoCouponStash()`,
@@ -282,6 +286,7 @@ Commands that do not modify the coupon stash, such as `list`, will  not call
 `Model#commitCouponStash()`.
 Thus, the `couponStashStateList` remains unchanged.
 
+.`couponStashStateList` remains unchanged.
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitCouponStash()`.
@@ -289,14 +294,16 @@ Since the `currStateIndex` is not pointing at the end of the
 `couponStashStateList`, all coupon stash states and command text history after
 the `currStateIndex` will be purged.
 We designed it this way because it no longer makes sense to redo the `add n/OMO
-STORE ...` command.
+                                                                      STORE ...` command.
 This is the behavior that most modern desktop applications follow.
 
+.Command text history after the `currStateIndex` is purged.
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a
-new command:
+new command text:
 
+.
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -314,6 +321,15 @@ deleted).
 ** Cons: We must ensure that the implementation of each individual command is
 correct.
 
+Alternative 1 was chosen due to its relative simplicity and extensibility.
+Little to no modification needs to be made to each command that can be
+undone, thus reducing chances of new bugs surfacing. Addtionally, the ability
+to undo operations such as `clear` will require alternative 2 to copy the
+entire coupon stash too, so both alternatives will have the same memory
+footprint in such a context. Finally, the real world performance impact of
+copying all coupons vs copying one is not very huge. Thus, the more
+extensible and simpler alternative 1 was chosen.
+
 // address pros and cons
 // end::undoredo[]
 
@@ -330,7 +346,7 @@ by using the `goto` command.
 
 Each `DateCell` represents each date of the month that is currently on display. Each `DateCell` uses the
 `ObservableList<Coupon>` to keep a list of the coupon(s) that expires on each date. A `DateCell` with coupon(s) expiring
-on the date are highlighted in red and a `Datecell` that represents today's date is highlighted blue.
+on the date are highlighted in red and a `Datecell` that represents the `system's date` is highlighted blue.
 
 The `ObservableList<Coupon>` is the list of filtered coupons that are currently on display in the `CouponListPanel`.
 They are obtained by calling the `Logic#getFilteredCouponList()` method. The list can be filtered to view all active,
@@ -345,8 +361,10 @@ image::CalendarClassDiagram.png[]
 
 The sequence diagrams below show how the Calendar works:
 
-.Seqeunce diagram for calendar.
+.Sequence diagram representation of the Calendar on the start up of Coupon Stash
 image::CalendarSequenceDiagram.png[]
+
+.Sequence diagram representation of the Set details of DateCell ref frame of Calendar
 image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[]
 
 The two scenarios below are examples of how the Calendar mechanism behaves at
@@ -376,6 +394,7 @@ observable coupon list will not be altered and the calendar will not be altered.
 
 The following sequence diagram shows how the Calendar updates with the observable coupon list:
 
+.Sequence diagram representation of the Calendar for the "find chicken" Command
 image::CalendarFindCommandSeqDiagram.png[]
 
 ===== Updating the Calendar with a Different Month View
@@ -386,7 +405,7 @@ implemented.
 Step 1. The user launches the application for the first time.
 
 The Calendar displayed will render the saved coupon data, triggered by the initiation of the UiManager. The default
-calendar display will be set to today's month year.
+calendar display will be set to the `system's month year`.
 
 Step 2. The user executes a command that alters the `ObservableMonthView` (any command listed above).
 
@@ -405,7 +424,7 @@ month year with the command.
 year on display to September 2020.
 
 * `list` command
-** For the `list` command, the Calendar will be updated to today's month year.
+** For the `list` command, the Calendar will be updated to the `system's month year`.
 [NOTE]
 If a command fails its execution, it will not call the `ObservableMonthView#setValue(String)` method. Hence, the
 observable month view will not be altered and the calendar will not be altered.
@@ -456,6 +475,9 @@ date in the `CouponListPanel`
 We decided on alternative 1, for the calendar to update with the list in the `CouponListPanel`. This is because this
 follows the Observer Pattern Design Principle. Furthermore, this will not confuse the user when the user sees a
 highlighted date on the Calendar when there is no coupon expiring on that date in the `CouponListPanel`.
+
+// end::calendar[]
+
 
 // tag::archiving[]
 [[Implementation-Coupon-Archiving]]
@@ -600,6 +622,7 @@ Step 1. The user launches the application for the first time. The
 with a stack containing only an empty string (`""`), and the `currIndex`
 is set to `0`.
 
+.Stack containing only an empty string
 image::UpDownHistory0.png[]
 
 Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will
@@ -612,6 +635,7 @@ onto the stack again, thus ensuring that
 the empty string stays at the top of the stack. Note that `currIndex` is not
 affected.
 
+.Stack after executing `delete 1`
 image::UpDownHistory1.png[]
 
 Step 3. The user executes `delete 2`. `CommandBox#handleCommandEntered()` will
@@ -620,6 +644,7 @@ the stack contained in `CommandTextHistory`. As in the previous step, the new
 command is pushed to the top of the stack,
 just below the empty string.
 
+.Stack after executing `delete 2`.
 image::UpDownHistory2.png[]
 
 Step 3. Now, the user decides to delete the second coupon again. We press the
@@ -630,6 +655,7 @@ The `currIndex` is incremented, and then the command text pointed to by
 `currIndex` is returned and
 displayed in the program command box.
 
+.After pressing "up" arrow key.
 image::UpDownHistory3.png[]
 
 Step 4. The user then executes the retrieved command (`delete 2`). As in the
@@ -638,6 +664,7 @@ is pushed to the top of the stack just below the empty string. However, in such
 a case when the `currIndex` is not `0` and
 does not point to the top of the stack, it is reset to `0`.
 
+.Stack after executing `delete 2` again.
 image::UpDownHistory4.png[]
 
 [NOTE]
@@ -708,7 +735,7 @@ order decided by the passed in `comparator`.
 * `SortedList#setComparator(Comparator<Coupon> comparator)` - Sets the
 comparator that determines the order of the coupons inside the sorted list.
 
-.Overview of the class diagram representation of the coupon sorting implementation
+.Overview of the class diagram representation of the coupon sorting implementation.
 image::SortingClassDiagram.png[]
 
 When a `sort` command is executed, the field to sort by is indicated by the
@@ -738,7 +765,7 @@ persistent approach shines here as restoring the original order of the coupon
 stash is as trivial as reopening the program.
 ** Cons: If a user prefers a particular default sorting order for their
 coupons, they have to retype the `sort` command each time the program is
-launched.
+launched or each time a coupon is added or edited.
 
 * *Alternative 2:* Make sorting persistent.
 ** Pros: Gives users more freedom over the default order of their coupons.
@@ -747,65 +774,44 @@ a coupon's addtion time just so users can revert to the default order.
 Additionally, it can be confusing to users when there are so many different
 ways to sort.
 
+In our usage during testing, we have never had the urge to have a default
+sorting order when the program is launched. Plus, we feel that the simplicity
+of excluding a sort by default order function will be well favored by users,
+and thus we chose alternative 1.
+
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
 Coupon Stash reminds the user through a pop-up window, upon launching the
 application.
 
-To achieve this feature, the following methods in `RemindDate` class of a
-coupon,
-`RemindCommand` and `RemindWindow` are used,
+To achieve this feature, the following methods in the `RemindDate` and
+`RemindWindow` classes are used.
 
-* `RemindDate#setRemindDate()` - To set a specific remind date of a coupon. By
-default, every coupons's remind date are set to 3 days before the expiry date.
-* `RemindCommand#checkReminder()` - To evaluate all coupons' remind date against
-system's current date.
-* `RemindWindow#displayRemind()`- To display the pop up box with coupons that
-needs
-to be reminded
+* `RemindDate#isToday()` - Check if the `RemindDate` is today.
+* `RemindWindow#filterRemindCoupons()` - Filters out all `RemindDates` that
+are not today from `RemindWindow`.
+* `RemindWindow#constructRemindCoupons()` - Creates a `String` of coupons
+that have their `RemindDates` today. This `String` is used in the displayed
+reminder window.
+* `RemindWindow#showIfAny()` - Shows the reminder window if there are coupons
+to be reminded of today. If there are no coupons that have to be reminded
+today, no window will be shown.
 
+.Overview of the class diagram representation of the reminder checking implementation.
 image::RemindClassDiagram.png[]
 
 
-To make sense of how coupon reminder function, let's dive into the specifics of
+To make sense of how coupon reminder functions, let's dive into the specifics of
 RemindDate
 class, RemindCommand class and RemindWindow class.
 
-==== Class structure of RemindDate field
 
-It is mandatory that each Coupon has a `RemindDate` object, that
-represent a date to be reminded. `RemindDate` class is heavily reliant of
-the expiry date of the coupon.
-
-Images are provided below to help understand the above said connectivity and
-to identify which are valid input remind date.
-
-Given below are two ways of a coupon's remind date are be derived from.
-
-**Default remind date**
-
-Whenever a new coupon without specifying a remind date is added,
-the default reminder will be set on 3 days before its expiry date.
-
-**Pre-determined remind date**
-
-Whenever the user has a specific remind date for a coupon, he/she can either
-
-* add a new coupon, specifying the remind date
-
-* use the remind command to set the remind field of an existing coupon
-
-
-==== Implementation of RemindCommand
-Depending of user's preference, there are two ways to use the remind command to
-set a coupon's remind date. The user can choose to input a specific remind date
-or
-input X amount of days before the expiry date.
+==== Implementation of editing a coupon's RemindDate
 
 The following activity diagram depicts what happens when the user runs a
-`remind` command.
+`edit` command to edit a coupons's `RemindDate`.
 
-image::RemindActivityDiagram.png[]
+image::EditRemindActivityDiagram.png[]
 
 ==== Implementation of reminder pop up
 
@@ -1113,7 +1119,6 @@ debugging e.g. print the actual list instead of just its size
 Certain properties of the application can be controlled (e.g user prefs file
 location, logging level) through the configuration file (default:
 `config.json`).
-
 
 == Documentation
 
@@ -1623,7 +1628,7 @@ Expected: Shows the GUI with a set of sample coupons.
 
 .. Test case: `add n/Popular Bookstore e/31-12-2020 s/10%` +
 Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
-today's date, while the Remind Date is set to 3 days before the specified
+the `system's date`, while the Remind Date is set to 3 days before the specified
 `Expiry Date`. In this case, it would be 28-12-2020.
 
 === Listing coupons
