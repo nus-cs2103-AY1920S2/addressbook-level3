@@ -553,7 +553,7 @@ if (dateComparision > 0) {
 }
 ----
 
-`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is O(nlogn). This custom insertion sort will guarantee an O(n) time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
 
 ==== Design Considerations
 
