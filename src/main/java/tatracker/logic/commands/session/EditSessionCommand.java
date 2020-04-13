@@ -3,6 +3,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_TIMES;
 import static tatracker.logic.parser.Prefixes.DATE;
@@ -21,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import tatracker.commons.core.index.Index;
-import tatracker.commons.exceptions.IllegalValueException;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
@@ -80,11 +80,13 @@ public class EditSessionCommand extends Command {
         }
 
         Session sessionToEdit = lastShownList.get(index.getZeroBased());
-        Session editedSession;
+        Session editedSession = createEditedSession(sessionToEdit, editSessionDescriptor);
 
-        try {
-            editedSession = createEditedSession(sessionToEdit, editSessionDescriptor);
-        } catch (IllegalValueException ive) {
+        if (!model.hasModule(editedSession.getModuleCode())) {
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+        }
+
+        if (editedSession.getStartDateTime().isAfter(editedSession.getEndDateTime())) {
             throw new CommandException(MESSAGE_INVALID_SESSION_TIMES);
         }
 
@@ -101,8 +103,7 @@ public class EditSessionCommand extends Command {
      * Creates and returns a {@code Session} with the details of {@code sessionToEdit}
      * edited with {@code editSessionDescriptor}.
      */
-    private static Session createEditedSession(Session sessionToEdit, EditSessionDescriptor editSessionDescriptor)
-            throws IllegalValueException {
+    private static Session createEditedSession(Session sessionToEdit, EditSessionDescriptor editSessionDescriptor) {
         assert sessionToEdit != null;
 
         LocalDate parsedDate = editSessionDescriptor.getDate().orElse(sessionToEdit.getDate());
@@ -116,10 +117,6 @@ public class EditSessionCommand extends Command {
         // If the date is not specified, the time arguments change the timing for the current day.
         LocalDateTime startDateTime = LocalDateTime.of(parsedDate, parsedStartTime);
         LocalDateTime endDateTime = LocalDateTime.of(parsedDate, parsedEndTime);
-
-        if (startDateTime.isAfter(endDateTime)) {
-            throw new IllegalValueException(MESSAGE_INVALID_SESSION_TIMES);
-        }
 
         int isRecurring = editSessionDescriptor.getRecurring().orElse(sessionToEdit.getRecurring());
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
