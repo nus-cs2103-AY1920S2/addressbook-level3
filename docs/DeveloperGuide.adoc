@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F11-1/main
 
-By: `Team F11-1`      Since: `March 2020`      Licence: `MIT`
+By: `Team F11-1`      Since: `March 2020`      Licence: `MIT`
 
 *Table of Contents*:
 
@@ -146,8 +146,8 @@ image::ModelClassDiagram.png[]
 *API* : link:{repoURL}/blob/master/src/main/java/life/calgo/model/Model.java[`Model.java`]
 
 . `Model` stores user's preferences in a `UserPref` object.
-. `Model` also stores Food Record data.
-. This component exposes both `ObservableList<Food>` and `ObservableList<ConsumedFood>`. The data stored in
+. `Model` also stores Food Record and Consumption Record data.
+. This component exposes both `ObservableList<Food>` and `ObservableList<DisplayFood>`. The data stored in
 these two list objects is reflected in UI. Therefore, any changes made to the data in these lists are shown in the UI in
 real-time.
 . To update the `Model` (and hence reflect the changes in the UI), `Food` attributes need to satisfy certain `Predicates`, which represent these changes.
@@ -744,31 +744,89 @@ image::ExportActivityDiagram.png[]
 
 [[Implementation-ConsumptionManagement]]
 === `Food` consumption management
-
 (by Ruicong)
 
+This section addresses how `nom`, `vomit`, and `stomach` commands work. They are the 3 commands that you will use
+to interact with `ConsumptionRecord`. `nom` allows you to add `Food`, `vomit` allows you to remove `Food`, and `stomach`
+gives you a way to browse a list of `Food` within the `ConsumptionRecord` at a different date. `ConsumptionRecord` is an important
+component because it serves as a backend for features such as `goal`, `report` and `graph`.
+//Link to other ppls components
 
-In Calgo, you will find that there is a date associated with each list of `ConsumedFood`.
-When adding food to be consumed, removing food, or displaying food consumed on certain days,
-a `FilteredList` will be populated with relevant `ConsumedFood`.
+The high level idea of how `Food` consumption is managed is that `ConsumptionRecord` stores all the `Food` consumed.
+Whenever `nom`, `vomit`, or `stomach` is used, a list will be retrieve and sent to a FilteredList. Such a list consists of `DisplayFood` objects,
+for the purpose of displaying information compiled from each `Food`.
+The FilteredList is an observable, so whenever it is updated, the GUI will be informed and display the contents accordingly.
 
 ==== Implementation
-The `nom`, `vomit` and `stomach` commands are facilitated by the `FoodRecord`.  +
-`FoodRecord` contains a `UniqueDateToLogMap`, which maps a `LocalDate` to a `DailyFoodLog`. +
-`DailyFoodLog` contains a `LinkedHashMap` storing `Food` in the sequence that they were consumed and maps those `Food` to a `Double` portion.
+In this section, I will be walking you through the implementation of the `ConsumptionRecord`, what happens on App startup,
+and what happens when a consumption related command is called. I will be talking about the `nom` command more specifically.
+This is because `vomit` and `stomach` work very similarly, and you will see that it's easy to understand once you have read through this
+section.
 
-This section covers how the `nom` command is implemented. The `vomit` and `stomach` commands work in very similar way, hence their implementation is omitted for brevity.
+[[ConsumptionRecord-desc]]
+In Calgo, you will find that the GUI `ConsumptionRecord` use a `uniqueDateToLogMap` to map each `LocalDate` to a `DailyFoodLog`.
+As you can guess, `LocalDate` keys are unique. +
+Each `DailyFoodLog` is related to a `LocalDate` object and contains 2 `LinkedHashMap`, one to map `Food` consumed to their portion,
+another to map `Food` to an `ArrayList` of `Integer`, which represents the ratings given to that `Food` item consumed on that day.
 
-A top-level illustration of the execution of a `nom` command is given in the sequence diagram below:
+// note that directs to main diagram and say it might be useful?
 
-image:NomSequenceDiagram.png[]
+On App startup, `initModelManager` of `MainApp` class is invoked. This will cause `storage` to read consumption record data from a `.json` file
+which stores App data. The `.json` file stores `JsonAdaptedDailyFoodLog`, which is similar to `DailyFoodLog` in every way,
+but deals with `JsonAdaptedFood` class instead of `Food`. Notice that there are a chain of `toModelType` commands
+called as we dive deeper into the method call stack. `toModelType` is actually the method to return a working counterpart of `JsonSerializable` and `JsonAdapted` classes
+that will be delivered to the model of Calgo.
 
-Step 1: User enters a command, which is saved as a `String` and passed into the `LogicManager`. +
-Step 2: The `String` cascades down the layers of abstraction until `NomCommandParser` handles it and creates a
-`DailyFoodLog` which reflects the consumption. +
-Step 3: A `NomCommand` is created and executed, updating both `ModelManager` and `FoodRecord` about the consumed food. +
-Step 4: A `FilteredList` in `ModelManger` will then check with `FoodRecord` to create `ConsumedFood` items to display in the Graphical User Interface (GUI). +
-Step 5: The GUI automatically detects changes in `FilteredList` and refreshes to display updated content.
+[NOTE]
+So you might ask, what does `JsonAdapted` mean? Well, `JsonAdapted` classes are specially formatted versions
+of their counterparts that makes it easy for the `Jackson` API to read and write to.
+
+Here is what happens when different classes call `toModelType`: +
+
+* `JsonSerializableConsumptionRecord` returns its equivalent copy of `ConsumptionRecord.`
+* `JsonAdaptedDailyFoodLog` returns its equivalent copy of `DailyFoodLog`.
+
+Below shows the high level view of the initialization process:
+
+.Sequence Diagram for loading of Consumption Record
+image::ConsumptionRecordSequenceDiagram.png[]
+
+Now that the `ConsumptionRecord` has been initialized, the App can start interacting with the user.
+
+Whenever the user enters a `nom` command into the GUI, a sequence of events occur.
+Here is a a step-by-step guide to what happens in such a scenario: +
+
+Step 1: `UI` component `MainWindow` receives the input as a `String`. That `String` is then passed into LogicManager,
+which calls the `parseCommand` of `CalgoParser`. Suppose the `String` is "nom n/Apple d/2020-04-12 portion/2 r/7"
+`CalgoParser` detects that this is a `nom` command. `CalgoParser` then delegates this job by creating
+a new `NomCommandParser` object which will parse this `String`. +
+
+Step 2: `NomCommandParser` gets relevant values from `Prefixes` of input `String`, and then checks with the `ModelManager`.
+It specifically checks if there exists a `DailyFoodLog` with the same `LocalDate` as what was parsed so that it can use existing information if
+they are already present. From all these information, a `DailyFoodLog` object representing the result of consuming a `Food` is created, and supplied to create
+`NomCommand`. The diagram below shows how this happens:
+
+[NOTE]
+For the subsequent sequence diagrams in the section,
+the lifelines for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+.Sequence Diagram for parsing of Nom command
+image::NomCommandParserSequenceDiagram.png[]
+
+Step 3: `NomCommand` updates the `ModelManager` with the `DailyFoodLog` obtained during its execution by `LogicManager`.
+Such information cascades down the layers of abstraction until it reaches `ConsumptionRecord`,
+which updates its underlying 'uniqueDateToLogMap' aforementioned <<ConsumptionRecord-desc, here>>.
+
+.Sequence Diagram of how Nom command executes
+image::NomCommandSequenceDiagram.png[]
+
+Step 4: `NomCommand` then informs the `ModelManager` to update its `FilteredList`, which gets information from the updated `ConsumptionRecord`.
+Since the `FilteredList` is a wrapper of `ObservableList`, its update will inform the UI components that utilise JavaFx of changes.
+This results in the GUI automatically updating to reflect the changes.
+
+Step 5: A new `commandResult` object is created an passed back to `MainWindow`, and displayed in `Result Display`.
+
+Step 6: Finally, the changes in `ConsumptionRecord` are saved to `StorageManager`.
 
 <<<
 
@@ -776,13 +834,15 @@ Step 5: The GUI automatically detects changes in `FilteredList` and refreshes to
 
 ===== Aspect: How `nom` executes
 
-* **Alternative 1 (current choice):** Create a new `DailyFoodLog` to pass into `ModelManager` and `FoodRecord`.
-** Pros: Maintain comprehensive layers of abstraction and allows code to be easily testable.
+* **Alternative 1 (current choice):** Create a new `DailyFoodLog` to pass into `ModelManager` and then `ConsumptionRecord`.
+** Pros:
+- Maintain comprehensive layers of abstraction
+- Allows code to be easily testable.
 ** Cons: Difficult for newcomers or even existing users to trace because of long execution path.
 
-* **Alternative 2:** Bypass `ModelManager` or even not use `FoodRecord` for storage of data during runtime by allowing everything to be done
+* **Alternative 2:** Bypass `ModelManager` or even not use `ConsumptionRecord` for storage of data during runtime by allowing everything to be done
 from parser.
-** Pros: Reduce dependencies on `ModelManager` and `FoodRecord`, and make code contained in a single class file easier to navigate.
+** Pros: Reduce dependencies on `ModelManager` and `ConsumptionRecord`, and make code contained in a single class file easier to navigate.
 ** Cons: Violates layers of abstraction set in place by previous structure of AddressBook3. Violates Single Responsibility Principle and reduce
 cohesiveness of code.
 
@@ -798,12 +858,34 @@ a consumption related command is used.
 ** Cons: May have performance issue in terms of storage because it requires many lists to be stored in addition to `LinkedHashMap`
 in `DailyFoodLog` for each `LocalDate`.
 
+===== Aspect: Selecting items to delete from `ConsumptionRecord` using `Vomit` command
+
+* **Alternative 1 (current choice):** Use index to select item to delete.
+** Pros: When the list is short, user can quickly identify the entry to delete.
+** Pros: Convenient for user as he is required to type less.
+** Pros: User need not spend effort remembering names.
+** Cons: When there are too many records, user is required to scroll through records.
+
+* **Alternative 2:** Use name to select item to delete
+** Pros: Can utilise the `Result Display` suggestion to improve user experience.
+** Cons: User face the hassle of memorising names and typing more.
+
 ==== Summary
 
-The `nom` command adds a `Food` item consumed by the user into the `stomach`. The following activity diagram summarizes what happens when the user executes a `nom` command.
+This section is a summary on all the above discussed. I would do so with the aid of a few activity diagrams so that you
+are clear about the flow of the processes covered.
 
-.Activity Diagram for Nom
-image::NomActivityDiagram.png[]
+.Activity Diagram for the 3 consumption related command
+image::OverallConsumptionActivityDiagram.png[]
+
+The 2 diagrams below serves as (rakes), which shows more details.
+
+.Activity Diagram for Nom command
+image::NomActiivityDiagram.png[]
+
+.Activity Diagram for Vomit command
+image::VomitCommandActivityDiagram.png[]
+
 
 // tag::modifyingfoodrecord[]
 
@@ -1554,6 +1636,29 @@ Use case resumes from step 2.
 
 Use case ends.
 
+[discrete]
+=== Use case: consuming food on a on a specific day with `nom`.
+
+*MSS*
+
+1. User wants to record their `Food` consumption on a particular day.
+2. User enters `nom` command with the appropriate `Prefixes` and values.
+3. Calgo processes the command and update display.
+
+*Extensions*
+
+[none]
+*2a. User misspells the command or `Prefix`* +
+2a1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
+
+*2b. The `Food` does not exist in `FoodRecord`* +
+2b1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
+
+*2c. User enters invalid value for particular `Prefix`* +
+2c1. A message prompting the user to enter a valid input is shown. +
+Use case resumes from Step 2.
 
 [appendix]
 == Non Functional Requirements
@@ -1573,13 +1678,16 @@ respective nutritional values of a `Food` entry whenever they want to `update` i
 [appendix]
 == Glossary
 
+[[application-user-interface]] Application User Interface (API)::
+A set of tools for building software application.
+
 [[command-line-interface]] Command Line Interface (CLI)::
 Text-based user interface used to view and manage computer files.
 
 [[food]] Food::
-A `Food` item entered by the user represents a real life food.
-`Food` contains nutritional values such as `Calorie` s, number of grams of `Protein` s, `Carbohydrate` s and `Fat` s.
-It can also contains a series of `Tag` s.
+`Food` items entered by the user to represent a real life Food.
+This contains nutritional values of each of their `Calorie` s, number of grams of `Protein` s, `Carbohydrate` s and `Fat` s.
+They can also contains a series of `Tag` s.
 
 [[gui-food-records-entry]] Food Entry::
 An entry in the GUI's `Food Record` box, which shows all details for one `Food` object.
@@ -1618,15 +1726,58 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+. Download the jar file and copy into an empty folder
+. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the App by double-clicking the jar file. +
+. Resize the window to an optimum size. Move the window to a different location. Close the window.
+. Re-launch the App by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+=== Getting help
+
+. Displays a guide for all commands. Can also display only commands containing the given command word.
+
+. Prerequisites: Launch `Calgo` succesfully.
+. Test case: `help` +
+   Expected: A help window pops up and shows you how to use each command.
+. Test case: `help abcd` +
+   Expected: A help window pops up and shows you how to use each command anyway, but tells you abcd does not exist.
+
+=== Creating a `Food`
+
+. Adding a `Food` item to the `FoodRecord`
+
+. Prerequisites: Launch `Calgo` successfully
+. Test case `update n/Apple cal/50 p/3 c/2 f/45`
+. Expected: Updated all foods into Food Record:
+Apple Calories: 50 Proteins (g): 3 Carbohydrates (g): 2 Fats (g): 45
+. Test case: `update x`
+. Expected: +
+Invalid command format. update: Updates the food entered into the Food Record. If the food entered already exists, it will be overwritten by input values.
+Parameters: n/NAME cal/CALORIES p/PROTEIN c/CARBOHYDRATE f/FAT [t/TAG]...
+Example: update n/Kiwi cal/150 p/2 c/25 f/3 t/Green t/Sweet
+. Other incorrect commands to try: `update n/Apple c/2 f/45` (where parameters are missing) +
+Expected: Similar to previous.
+
+=== Editing a `Food`
+
+. Editing a `Food` item in the `FoodRecord`
+
+. Prerequisites: Launch `Calgo` successfully and `Food` already exists in `FoodRecord`.
+. Test case `update n/Apple cal/53 p/3 c/3 f/45`
+. Expected: +
+Updated all foods into Food Record: Updated existing food item in Food Record:
+Apple Calories: 50 Proteins (g): 3 Carbohydrates (g): 3 Fats (g): 45
+. Test case: `update x`
+. Expected: Invalid command format.
+update: Updates the food entered into the Food Record. If the food entered already exists, it will be overwritten by input values.
+Parameters: n/NAME cal/CALORIES p/PROTEIN c/CARBOHYDRATE f/FAT [t/TAG]...
+Example: update n/Kiwi cal/150 p/2 c/25 f/3 t/Green t/Sweet
+. Other incorrect commands to try: `update n/Apple c/2 f/45` (where parameters are missing) +
+Expected: Similar to previous.
 
 === Deleting a `Food`
 
@@ -1634,27 +1785,109 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: Launch Calgo successfully and a `Food` item Apple already exists in `FoodRecord`
 .. Test case: `delete n\Apple` +
-   Expected: `Food` item Apple is deleted from `FoodRecord`. Details of the deleted `Food` shown in the status message.
-.. Test case: `delete 0` +
+. Test case: `delete 0` +
    Expected: No food is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete n/Banana` (where `Food` banana does not exists in `FoodRecord`) +
+. Other incorrect delete commands to try: `delete`, `delete n/Banana` (where `Food` banana does not exists in `FoodRecord`) +
    Expected: Similar to previous.
 
 
 === Listing all `Food` entries
 
 . Listing down all entries, regardless of previous commands
-.. Prerequisites: Launch Calgo successfully.
-.. Test case: `list` +
+. Prerequisites: Launch `Calgo` successfully.
+. Test case: `list` +
 Expected: The GUI will show all `Food` entries existing in the `FoodRecord`.
+
+=== Navigating `Food record`
+
+. Searches through the Calgo’s Food entries and displays relevant ones based on the specifications entered.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being searched exists in `Food Record`
+. Test case: `find n/Apple` +
+   Expected: `Food` having name that partially match "Apple" will be displayed
+. Test case: `find t/sWeet +
+   Expected: `Food` having tag that partially match "sweet" will be displayed
+. Test case: `find t/swEeT n/Apple` +
+   Expected: Please specify 1 and only 1 correct parameter for filtering using the find command.
+. Other incorrect commands to try: `find n/` +
+   Expected: Names should only contain alphanumeric characters and spaces, and it should not be blank.
+
+=== Adding `Food` to consumption record
+
+. Adds a Food to a specific day’s Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being consumed exists in `Food Record`
+. Test case: `nom n/chicken d/2020-03-04 portion/1.5 r/8` +
+   Expected: Successfully consumed Chicken Calories: 32 Proteins (g): 20 Carbohydrates (g): 1 Fats (g): 11
+. Test case: `nom n/chickn d/2020-03-04 portion/1.5 r/8` +
+   Expected: You can't eat that because it does not exist in food record.
+. Other incorrect commands to try: `nom n/chicken d/2020-03-04 portion/-1 r/8` +
+   Expected: Portion should be a positive number.
+
+=== Removing a portion of `Food` from consumption record
+
+. Deletes a portion of a specific Food from the Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and `Food` being consumed exists in `Consumption Record`
+. Test case: `vomit num/1 d/2020-03-04` +
+   Expected: Successfully throw up Chicken Calories: 32 Proteins (g): 20 Carbohydrates (g): 1 Fats (g): 11
+. Test case: `vomit num/` +
+   Expected: Position should be a positive integer!
+. Other incorrect commands to try: `vomit num/-1` +
+   Expected: Position required an integer within range of list!
+
+=== Navigating `Consumption Record`
+
+. Deletes a portion of a specific Food from the Consumption Record.
+
+. Prerequisite: Launch `Calgo` succesfully, and have eaten something on the day you want to browse.
+. Test case: `stomach d/` +
+   Expected: Display all food consumed. (As long as you ate on that day before, applies even if your record is empty due to using vomit)
+. Test case: `stomach d/1930-04-01` +
+   Expected: Your consumption record is empty because you have not consumed food on 1930-04-01 before
+
+=== Setting a goal
+
+. Sets your daily calorie goal.
+. Prerequisite: Launch `Calgo` succesfully.
+. Test case: `goal 69` +
+   Expected: That is a really low goal to set. Warning: You may suffer from malnutrition.
+We'll accept this now because Calgo will eventually help you to reach a daily calorie count of
+1200, which is the minimum calories you should eat to stay moderately healthy.
+. Test case: `goal 0` +
+   Expected: Please key in a whole number that is at least 1 calorie and at most 99999 calories.
+
+=== Generating report for the day
+
+. Generates consumption report for a given date.
+. Prerequisite: Launch `Calgo` succesfully, and have eaten something on the day you want to generate report on.
+. Test case: `report d/` +
+   Expected: Successfully generated a report in the data/reports folder for the following date: 2020-04-13.
+. Test case: `report d/2070-04-12` +
+   Expected: Did not manage to generate report. There was no food consumed on 2070-04-12.
+
+=== Generating a copy of your `Food Record`
+
+. Generates a neat and editable file containing the current Food entries.
+. Prerequisite: Launch `Calgo` succesfully
+. Test case: `export` +
+   Expected: Successfully generated FoodRecord.txt in the data/exports folder.
+
+=== Clearing `Food Record` data
+
+. Clears all food entries from Calgo. Note that data in Consumption Record is not deleted.
+
+. Test case: `clear` +
+    Expected: Food Record has been cleared! Use the update command to add new food into your Food Record.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing/corrupted data files.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Calgo will start from a fresh state if your files are corrupted.
 
-_{ more test cases ... }_
+. Warning: You can edit the `.json` files in the `/data` folder. Be careful, if the files you
+edit ends up with invalid format, you risk losing all existing data.
 
 [appendix]
 == Effort
