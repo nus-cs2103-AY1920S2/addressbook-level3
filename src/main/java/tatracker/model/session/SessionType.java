@@ -20,7 +20,6 @@ public enum SessionType {
     PREPARATION,
     OTHER;
 
-    // TODO: Add Recitations to report
     public static final int NUM_SESSION_TYPES = values().length;
 
     public static final String MESSAGE_CONSTRAINTS =
