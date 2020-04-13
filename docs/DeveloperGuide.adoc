@@ -153,7 +153,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::schedule[]
+tag::schedule[]
 
 === Schoolwork Tracker
 [.text-justify]
@@ -303,7 +303,7 @@ _Fig 10. Sequence Diagram showing how the generated schedule is retrieved_
 ** Pros: Easier to handle and more accurate comparisons can be made as compared to when floats are used as floating point arithmetic is not exact.
 ** Cons: A lot of unnecessary ‘loss’ in allocated and available time due to rounding errors.
 
-//end::schedule[]
+end::schedule[]
 
 // tag::get[]
 === Detailed Contact Viewer
