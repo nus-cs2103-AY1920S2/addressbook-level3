@@ -21,7 +21,7 @@ interface Parser<T extends Command> <<Interface>> {
 
 class DeleteItemCommand extends Command {
     /' Fields '/
-    - Index : targetIndex
+    - targetIndex : Index
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult
@@ -65,7 +65,7 @@ class Index {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + deleteEntry(index : int) : void
@@ -74,8 +74,8 @@ class SplitterModelManager implements SplitterModel {
 
 class Receipt {
     /' Fields '/
-    - ArrayList<Entry> : receipt
-    - boolean : isDone
+    - receipt : - ArrayList<Entry>
+    - isDone : boolean
 
     /' Methods '/
     + deleteEntry(entry : Entry) : void

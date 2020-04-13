@@ -40,7 +40,7 @@ interface SplitterModel <<Interface>> {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + clearReceipt() : void
@@ -50,8 +50,8 @@ class SplitterModelManager implements SplitterModel {
 
 class Receipt {
     /' Fields '/
-    - ArrayList<Entry> : receipt
-    - boolean : isDone
+    - receipt : ArrayList<Entry>
+    - isDone : boolean
 
     /' Methods '/
     + clearReceipt() : void
@@ -60,7 +60,7 @@ class Receipt {
 
 class PersonAmountBook {
     /' Fields '/
-    - UniquePersonList : persons
+    - persons : UniquePersonList
 
     /' Methods '/
     + deleteAllEntries(receipt : Receipt) : void
