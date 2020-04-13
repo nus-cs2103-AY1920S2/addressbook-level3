@@ -15,7 +15,8 @@ public class ReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "reminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display all undone plans specified by the date keyword.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Display all undone plans specified by the date keyword.\n"
             + "If not specified, all undone entries are displayed.\n"
             + "Parameters: "
             + PREFIX_DATE + "Date (optional)"

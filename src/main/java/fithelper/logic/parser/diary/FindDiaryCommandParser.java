@@ -8,7 +8,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.FindCommand;
 import fithelper.logic.diary.FindDiaryCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
@@ -34,7 +33,7 @@ public class FindDiaryCommandParser implements Parser<FindDiaryCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_KEYWORD);
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_KEYWORD)) {
-             return new FindDiaryCommand(null, null);
+            return new FindDiaryCommand(null, null);
         }
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             DiaryDate diaryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
