@@ -1667,6 +1667,112 @@ Generate and display a report of sessions and students from the module CS3243.
 //end::statistics[]
 //tag::glossary[]
 
+=== Timed Session - Coming in V2.0
+(Contributed by Haoyi)
+
+In V2.0, you will be able to add timed sessions. Timed sessions include sessions that will notify
+and remind you as the sessions start time approaches. Timed sessions also include sessions that can
+be started and stopped as they happen, such that their start/end time will no longer need to be
+explicitly specific.
+
+
+//tag::reminders[]
+[[Reminders]]
+==== Set Reminders : `reminder`
+(Contributed by Haoyi)
+
+You can use this command to set a reminder.
+
+Format: `reminder set s/START [e/END] [m/MOD_CODE] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
+
+
+[TIP]
+====
+. Reminders are very similar to Sessions. See <<#AddSession>>.
+
+====
+
+====
+Examples:
+
+* `reminder set m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation`
++
+Adds a new reminder with:
+
+** `START_TIME` at 14:00 in `24hr` format
+** `END_TIME` at 16:00 in `24hr` format
+** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
+** `WEEK` recurring period of 2 weeks: Once this reminder has been marked as done, a new reminder will
+be created with `DATE d/2020-07-04` (2 weeks later from the date of the original reminder)
+** `MOD_CODE` of CS3243
+** `TYPE` consultation
+
+At 13:45, a system notification will remind you that a consultation is scheduled in 15 minutes.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[]
+====
+//end::reminders[]
+
+//tag::sessionstart[]
+[[SessionStart]]
+==== Start Sessions : `session start`
+(Contributed by Haoyi)
+
+You can use this command to start a session at the current time. A session will be created at
+your current system time.
+
+Format: `session start [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+
+
+[TIP]
+====
+. Once you have started a session, they will go on indefinitely. You should stop a session manually after
+you have completed it. See <<#SessionStop>>.
+. If you start a new session before stopping the previous session, the previous, currently in-progress
+session will be stopped automatically.
+
+====
+
+====
+Examples:
+
+* `session start m/CS3243 t/consultation`
++
+Creates a new session with:
+
+** `START_TIME` at the current system time.
+** `MOD_CODE` of CS3243
+** `TYPE` consultation
+====
+//end::sessionstart[]
+
+//tag::sessionstop[]
+[[SessionStop]]
+==== Stop Sessions : `session stop`
+(Contributed by Haoyi)
+
+You will need to stop any sessions that you start. To do this, simply enter the command `session stop`. This
+will stop sessions that are currently in-progress.
+
+[TIP]
+====
+. If there are no in-progress sessions, `session stop` will display an error. See <<#SessionStart>> to first start a session.
+. Sessions that are stopped will automatically be marked as done.
+====
+
+====
+Examples:
+
+* `session stop`
++
+Stops the currently in-progress session. The end time of the stopped session will be set to the system time,
+and the session will be marked as done.
+
+====
+//end::sessionstop[]
+
+
 == Glossary
 
 [width="%",cols="<20%,<40,options="header",]
@@ -1794,4 +1900,10 @@ mark their assignments. You will see this feature in our next release.
 
 === Statistics
 * *Generate Statistics Report:* `report [MOD_CODE]`
+
+=== Timed Sessions - Coming in V2.0
+* *Set Reminders:* `reminder set s/START [e/END] [m/MOD_CODE] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
+* *Start Sessions:* `session start [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+* *Stop Sessions:* `session stop`
+
 //end::summary[]
