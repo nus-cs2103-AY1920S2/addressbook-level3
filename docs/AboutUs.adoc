@@ -38,7 +38,7 @@ Responsibilities:
 
 === CHUA YI JING
 image::chuayijing.png[width="150", align="left"]
-{empty}[https://github.com/chuayijing[github]] [<<Chuayijing#, portfolio>>]
+{empty}[https://github.com/chuayijing[github]] [<<chuayijing#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
