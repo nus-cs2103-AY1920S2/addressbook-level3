@@ -194,11 +194,13 @@ image::NusModuleClassDiagram.png[width="790"]
 - As shown in the class diagram above, modules are created by a class called `NusModule`. Every instance of `NusModule` contains a `ModuleCode` object, a
 `Grade` object (optional) and a list of `ModuleTask` objects.
 
+- `Grade` and `Priority` are enumerations. `Grade` contains all possible grades student can get in NUS. Every `ModuleTask` instance has a `Priority` attribute which indicates how important it is.
+
 [NOTE]
 The module book only accept modules that are provided in NUS and will check the module code the user want to add is valid or not by using the search feature mentioned above.
 
 - All possible actions mentioned above such as creating modules, deleting modules and adding tasks to modules are implemented through
-the `ModuleBook` class.
+the `ModuleBook` class by calling corresponding methods of it such as `addModule`, `getModule`.
 
 - The program will automatically save any modification to module book after each command is executed by calling the `saveModuleBook` method
 in `Storage`.
