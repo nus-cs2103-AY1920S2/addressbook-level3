@@ -1627,7 +1627,7 @@ testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
-. Initial launch
+* Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Head over to your local Command Line Interface (CLI), and change to the
@@ -1637,7 +1637,7 @@ Expected: Shows the GUI with a set of sample coupons.
 
 === Adding a coupon
 
-. Adding a coupon
+* Adding a coupon
 
 .. Test case: `add n/Popular Bookstore e/31-12-2020 s/10%` +
 Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
@@ -1645,7 +1645,7 @@ the `system's date`, while the Remind Date is set to 3 days before the specified
 `Expiry Date`. In this case, it would be 28-12-2020.
 
 === Listing coupons
-. List different type of coupons
+* List different type of coupons
 .. Test case: `list` +
 Expected: All active coupons are displayed on the list.
 .. Test case: `list a/` +
@@ -1655,7 +1655,7 @@ Expected: All previously used coupons are displayed on the list.
 
 === Deleting a coupon
 
-. Deleting a coupon while all coupons are listed
+* Deleting a coupon while all coupons are listed
 
 .. Prerequisites: List all coupons using the `list` command. Have at least one
 coupon in the list.
@@ -1672,7 +1672,7 @@ Expected: Similar to previous.
 
 === Editing a Coupon
 
-. Editing a coupon while all coupons are listed
+* Editing a coupon while all coupons are listed
 
 .. Prerequisites: List all coupons using the `list` command. Have at least one
 coupon in the list.
@@ -1687,3 +1687,205 @@ Expected: An error message will be thrown, explaining that usage cannot be edite
 .. Test case: `edit 1 s/$10 s/Water Bottle` +
 Expected: The first coupon will have its savings changed to $10, and include
 a Water Bottle item.
+
+=== Finding a coupon
+
+* Finds certain coupons by name in Coupon Stash.
+
+.. Prerequisites: Have some coupons in Coupon Stash,
+preferably the sample data.
+
+.. Test case: `find adidas` +
+Expected: Only the coupon named "Adidas" shows up.
+
+.. Test case: `find grabfood` +
+Expected: Only the coupon named "GrabFood" shows up.
+
+=== Sorting the Coupon Stash
+
+* Sorts coupons by name, expiry date or remind date
+in Coupon Stash.
+
+.. Prerequisites: Have some coupons in Coupon Stash,
+preferably the sample data. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `sort n/` +
+Expected: The Coupon Stash appears in this order:
+Adidas, Gong Cha, GrabFood, Lazada, LiHO, Shopee
+
+.. Test case: `sort e/` +
+Expected: The Coupon Stash appears in this order:
+GrabFood (30-04-2020), LiHO (31-05-2020),
+Gong Cha (30-06-2020), Lazada (30-09-2020),
+Shopee (31-10-2020), Adidas (31-12-2020)
+
+.. Test case: `sort r/` +
+Expected: The Coupon Stash appears in this order:
+GrabFood (27-04-2020), LiHO (28-05-2020),
+Gong Cha (27-06-2020), Lazada (27-09-2020),
+Shopee (28-10-2020), Adidas (28-12-2020)
+
+=== Listing all expiring coupons
+
+* Shows coupons that are expiring on a certain date
+or a certain month.
+
+.. Prerequisites: Have some coupons in Coupon Stash,
+preferably the sample data. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `expiring e/31-10-2020` +
+Expected: Shopee (expires on 31-10-2020) appears as
+the only coupon.
+
+.. Test case: `expiring my/4-2020` +
+Expected: GrabFood (expires 30-04-2020) appears as
+the only coupon
+
+=== Viewing savings
+
+* Views savings accumulated in the application
+
+.. Prerequisites: Have some coupons in Coupon Stash,
+preferably the sample data. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `saved` +
+Expected: The command result box displays "In total,
+you have saved $60.00 as well
+as earned 1x USB-C cable, 1x iPhone case."
+
+.. Test case: `saved d/11-3-2020` +
+Expected: The command result box displays "You
+saved $7.30 on 11 March 2020." (this savings
+record is attached to the "Gong Cha" coupon).
+
+.. Test case: `saved sd/16-3-2020 e/23-3-2020` +
+Expected: The command result box displays "You
+saved $17.00 between 16 March 2020 and 23 March 2020."
+
+=== Using a coupon
+
+* Marks a coupon as used and registers the savings.
+Depending on whether the coupon is a percentage or
+monetary amount, you may be required to enter in
+the original price of the item.
+
+.. Prerequisites: Have some coupons in Coupon Stash
+that have usage not at the limit,
+preferably the sample data. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `list`, `used 6 $100` +
+Expected: The command result box displays "Used Coupon:
+GrabFood" and sayings for today increases by $40
+(40% of $100 saved).
+
+=== Archiving a coupon
+
+* Marks a coupon as archived and hides it from the
+normal view.
+
+.. Prerequisites: Have some coupons in Coupon Stash
+that are not already archived. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `list`, `archive 5` +
+Expected:  The command result box displays "Archived Coupon:
+LiHO" and LiHO disappears from the displayed coupons.
+
+.. Test case: `list a/`, `unarchive 1` +
+Expected: The command result box displays "Unarchived Coupon:
+LiHO" and LiHO reappears in the displayed coupons.
+
+=== Copying a coupon
+
+* Recreates a coupon as an add command that can be
+copied and shared to other users of Coupon Stash.
+
+.. Prerequisites: Have some coupons in Coupon Stash
+that are not already archived. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `list`, `copy 1` +
+Expected: Command result box displays "Copied coupon: Adidas"
+and `add n/Adidas p/30ADIDAS e/31-12-2020 s/30.0% s/Adidas Cap l/1`
+is added to the operating system's clipboard.
+
+=== Sharing a coupon
+
+* Takes an image of the coupon as it appears in Coupon Stash
+and opens the file save dialogue box of your operating system
+so you can save the image to your computer.
+
+.. Prerequisites: Have some coupons in Coupon Stash
+that are not already archived. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `list`, `share 2` +
+Expected: The operating system prompts you to save
+"Gong Cha.png" to a location on your computer.
+
+=== Undoing a command
+
+* Undoes the previous command entered, only if the
+command resulted in a change to the coupons.
+
+.. Prerequisites: At least one command that
+modified a coupon was previously entered.
+
+.. Test case: `add n/Test e/1-1-5050 s/$40`, `undo`
+Expected: A new coupon named "Test" is added, and then
+removed again once `undo` is run.
+
+=== Going to a month on the calendar
+
+* Navigates the calendar to jump to a certain month and year,
+without the need for clicking buttons in the User Interface.
+
+.. Prerequisites: None
+
+.. Test case: `goto my/4-5678` +
+Expected: The calendar shows the month of April, in
+the year 5678.
+
+=== Expanding a coupon
+
+* Opens a new window with full details of the
+Coupon, such as a list of all the saveable items.
+
+.. Prerequisites: Have at least one coupon displayed
+in Coupon Stash. The following test cases
+assumes the commands are run on a set of unmodified sample data.
+
+.. Test case: `list`, `expand 2` +
+Expected: A window appears that shows the full
+history of coupon usage for the Gong Cha coupon.
+
+=== Setting currency symbol
+
+* Changes the currency symbol used by Coupon Stash
+when displaying amounts saved and when interpreting
+monetary amounts in commands.
+
+.. Prerequisites: None. The following test cases
+assumes the commands are run with the unmodified
+sample user preferences.
+
+.. Test case: `setcurrency ms/RM` +
+Expected: Command result box displays "Money
+symbol changed from $ to RM!" and coupons shown are
+updated to display savings in RM instead of $.
+
+
+=== Viewing help page
+
+* Opens the user guide of Coupon Stash in
+another window.
+
+.. Prerequisites: None.
+
+.. Test case: `help` +
+Expected: A web browser window opens, showing
+the Coupon Stash User Guide.
