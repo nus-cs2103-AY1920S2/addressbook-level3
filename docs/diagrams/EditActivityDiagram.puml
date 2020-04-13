@@ -15,9 +15,9 @@ else ([else])
 
         else ([else])
             :Edit recipe;
-            if () then ([Plans exists for recipe])
+            if () then ([Plans exists \nfor recipe])
                 :Edit plans;
-            else ([else])
+            else (    [else])
             endif
         endif
     endif

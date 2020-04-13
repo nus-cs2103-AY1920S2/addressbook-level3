@@ -577,8 +577,15 @@ and the `Recipe` that is being planned into the `UniquePlannedList` and `Planned
 
 6. The success message will be returned to the user by the `CommandResult`.
 
+The diagram below summarises the steps taken:
+
 .Plan sequence diagram
 image::PlanningSequenceDiagram.png[]
+
+[NOTE]
+The lifeline for EditCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
 
 ==== Design Considerations
 
