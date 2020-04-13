@@ -95,9 +95,9 @@ public class ModuleListTest extends ModuleList {
         assertThrows(ParseException.class, () -> moduleList.removeModuleWithModuleCode(moduleCode));
     }
 
-    @Test
-    public void removeModuleWithModuleCode_nullModuleCode_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> moduleList.removeModuleWithModuleCode(null));
-    }
+//    @Test
+//    public void removeModuleWithModuleCode_nullModuleCode_throwsNullPointerException() {
+//        assertThrows(NullPointerException.class, () -> moduleList.removeModuleWithModuleCode(null));
+//    }
 
 }
