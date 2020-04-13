@@ -21,12 +21,12 @@ import fithelper.testutil.EntryBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructornullPersonthrowsNullPointerException() {
+    public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void executeentryAcceptedByModeladdSuccessful() throws Exception {
+    public void execute_entryAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingEntryAdded modelStub = new ModelStubAcceptingEntryAdded();
         Entry validEntry = new EntryBuilder().build();
 
@@ -37,7 +37,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void executeduplicateEntrythrowsCommandException() {
+    public void execute_duplicateEntry_throwsCommandException() {
         Entry validEntry = new EntryBuilder().build();
         AddCommand addCommand = new AddCommand(validEntry);
         ModelStub modelStub = new ModelStubWithEntry(validEntry);

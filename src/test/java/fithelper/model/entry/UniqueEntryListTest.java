@@ -24,23 +24,23 @@ public class UniqueEntryListTest {
     private final UniqueEntryList uniqueEntryList = new UniqueEntryList();
 
     @Test
-    public void containsnullEntrythrowsNullPointerException() {
+    public void contains_nullEntry_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.contains(null));
     }
 
     @Test
-    public void containsentryNotInListreturnsFalse() {
+    public void contains_entryNotInList_returnsFalse() {
         assertFalse(uniqueEntryList.contains(FOOD));
     }
 
     @Test
-    public void containsentryInListreturnsTrue() {
+    public void contains_entryInList_returnsTrue() {
         uniqueEntryList.add(FOOD);
         assertTrue(uniqueEntryList.contains(FOOD));
     }
 
     @Test
-    public void containsentryWithDifferentFieldsInListreturnsFalse() {
+    public void contains_entryWithDifferentFieldsInList_returnsFalse() {
         uniqueEntryList.add(FOOD);
         Entry editedFood = new EntryBuilder(FOOD).withLocation(VALID_LOCATION_SPORTS).withType(VALID_TYPE_SPORTS)
                 .build();
@@ -48,33 +48,33 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void addnullEntrythrowsNullPointerException() {
+    public void add_nullEntry_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.add(null));
     }
 
     @Test
-    public void addduplicateEntrythrowsDuplicateEntryException() {
+    public void add_duplicateEntry_throwsDuplicateEntryException() {
         uniqueEntryList.add(FOOD);
         assertThrows(DuplicateEntryException.class, () -> uniqueEntryList.add(FOOD));
     }
 
     @Test
-    public void setEntrynullTargetEntrythrowsNullPointerException() {
+    public void setEntry_nullTargetEntry_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.setEntry(null, FOOD));
     }
 
     @Test
-    public void setEntrynullEditedEntrythrowsNullPointerException() {
+    public void setEntry_nullEditedEntry_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.setEntry(FOOD, null));
     }
 
     @Test
-    public void setEntrytargetEntryNotInListthrowsEntryNotFoundException() {
+    public void setEntry_targetEntryNotInList_throwsEntryNotFoundException() {
         assertThrows(EntryNotFoundException.class, () -> uniqueEntryList.setEntry(FOOD, FOOD));
     }
 
     @Test
-    public void setEntryeditedEntryIsSameEntrysuccess() {
+    public void setEntry_editedEntryIsSameEntry_success() {
         uniqueEntryList.add(FOOD);
         uniqueEntryList.setEntry(FOOD, FOOD);
         UniqueEntryList expectedUniqueEntryList = new UniqueEntryList();
@@ -83,14 +83,14 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void setEntryeditedEntryHasNonUniqueIdentitythrowsDuplicateEntryException() {
+    public void setEntry_editedEntryHasNonUniqueIdentity_throwsDuplicateEntryException() {
         uniqueEntryList.add(SPORTS);
         uniqueEntryList.add(FOOD);
         assertThrows(DuplicateEntryException.class, () -> uniqueEntryList.setEntry(SPORTS, FOOD));
     }
 
     @Test
-    public void removenullEntrythrowsNullPointerException() {
+    public void remove_nullEntry_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.remove(null));
     }
 
@@ -100,7 +100,7 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void removeexistingEntryremovesEntry() {
+    public void remove_existingEntry_removesEntry() {
         uniqueEntryList.add(FOOD);
         uniqueEntryList.remove(FOOD);
         UniqueEntryList expectedUniqueEntryList = new UniqueEntryList();
@@ -108,12 +108,12 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void setEntriesnullUniqueEntryListthrowsNullPointerException() {
+    public void setEntries_nullUniqueEntryList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.setEntries((UniqueEntryList) null));
     }
 
     @Test
-    public void setEntriesuniqueEntryListreplacesOwnListWithProvidedUniqueEntryList() {
+    public void setEntries_uniqueEntryList_replacesOwnListWithProvidedUniqueEntryList() {
         uniqueEntryList.add(FOOD);
         UniqueEntryList expectedUniqueEntryList = new UniqueEntryList();
         expectedUniqueEntryList.add(SPORTS);
@@ -122,12 +122,12 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void setEntriesnullListthrowsNullPointerException() {
+    public void setEntries_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueEntryList.setEntries((List<Entry>) null));
     }
 
     @Test
-    public void setEntrylistreplacesOwnListWithProvidedList() {
+    public void setEntry_list_replacesOwnListWithProvidedList() {
         uniqueEntryList.add(FOOD);
         List<Entry> entryList = Collections.singletonList(SPORTS);
         uniqueEntryList.setEntries(entryList);
@@ -137,13 +137,13 @@ public class UniqueEntryListTest {
     }
 
     @Test
-    public void setEntrieslistWithDuplicateEntriesthrowsDuplicateEntryException() {
+    public void setEntries_listWithDuplicateEntries_throwsDuplicateEntryException() {
         List<Entry> listWithDuplicateEntries = Arrays.asList(FOOD, FOOD);
         assertThrows(DuplicateEntryException.class, () -> uniqueEntryList.setEntries(listWithDuplicateEntries));
     }
 
     @Test
-    public void asUnmodifiableObservableListmodifyListthrowsUnsupportedOperationException() {
+    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
                 uniqueEntryList.asUnmodifiableObservableList().remove(0));
     }

@@ -21,27 +21,27 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasEntrynullPersonthrowsNullPointerException() {
+    public void hasEntry_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasEntry(null));
     }
 
     @Test
-    public void hasEntryentryNotInFitHelperreturnsFalse() {
+    public void hasEntry_entryNotInFitHelper_returnsFalse() {
         assertFalse(modelManager.hasEntry(FOOD));
     }
 
     @Test
-    public void hasEntryentryInFitHelperreturnsTrue() {
+    public void hasEntry_entryInFitHelper_returnsTrue() {
         modelManager.addEntry(FOOD);
         assertTrue(modelManager.hasEntry(FOOD));
     }
 
     @Test
-    public void getFilteredFoodEntryListmodifyListthrowsUnsupportedOperationException() {
+    public void getFilteredFoodEntryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredFoodEntryList().remove(0));
     }
     @Test
-    public void getFilteredSportsEntryListmodifyListthrowsUnsupportedOperationException() {
+    public void getFilteredSportsEntryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSportsEntryList().remove(0));
     }
 
