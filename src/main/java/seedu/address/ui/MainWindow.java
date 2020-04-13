@@ -37,10 +37,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CompletorDeletionResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.DoneCommandResult;
-import seedu.address.logic.commands.FindCommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SetCommandResult;
-import seedu.address.logic.commands.SortCommandResult;
 import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -299,41 +297,19 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            // Handle tabs
-            int tabToSwitchIndex = getTabIndexFromCommand(commandResult);
-            tabPanePlaceholder.getSelectionModel().select(tabToSwitchIndex);
-
-            // Update StatisticsDisplay when stats tab is selected
-            if (tabToSwitchIndex == STATS_TAB_INDEX) {
-                statisticsManager.updateStatisticsDisplayValues();
-                this.updateStatisticsDisplay();
-            }
-
-            // Sort Command related results
-            if (commandResult instanceof SortCommandResult) {
-                SortCommandResult sortCommandResult = (SortCommandResult) commandResult;
-                taskListPanel.setSortOrder(sortCommandResult.getSortOrder());
-            }
-
-            // Find Command related results
-            if (commandResult instanceof FindCommandResult) {
-                taskListPanel.removeSortOrder();
-            }
+            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
+            taskListPanel.setSortOrder(logic.getTaskList().getSortOrder());
 
             // Done Command related results
-            try {
-                DoneCommandResult doneCommandResult = (DoneCommandResult) commandResult;
-                //// increment Pet EXP after completing a task
+            if (commandResult instanceof DoneCommandResult) {
+                // increment Pet EXP after completing a task
                 petManager.incrementExp();
                 updateMoodWhenDoneTask();
                 updatePetDisplay();
-            } catch (ClassCastException ce) {
-
             }
 
-            // Set Command related results
-            try {
+            // set Command related results
+            if (commandResult instanceof SetCommandResult) {
                 SetCommandResult setCommandResult = (SetCommandResult) commandResult;
 
                 PetName petName = setCommandResult.getPetName();
@@ -357,13 +333,24 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
                 settingsDisplay.update();
+                tabPanePlaceholder.getSelectionModel().select(SETTINGS_TAB_INDEX);
+            }
 
-            } catch (ClassCastException ce) {
-
+            // Switch tabs related results
+            if (commandResult instanceof SwitchTabCommandResult) {
+                SwitchTabCommandResult switchTabCommandResult =
+                        (SwitchTabCommandResult) commandResult;
+                tabPanePlaceholder
+                        .getSelectionModel()
+                        .select(switchTabCommandResult.getTabToSwitchIndex());
+                if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
+                    statisticsManager.updateStatisticsDisplayValues();
+                    this.updateStatisticsDisplay();
+                }
             }
 
             // Pomodoro related results
-            try {
+            if (commandResult instanceof PomCommandResult) {
                 PomCommandResult pomCommandResult = (PomCommandResult) commandResult;
 
                 if (pomCommandResult.getIsNormal()) {
@@ -374,8 +361,6 @@ public class MainWindow extends UiPart<Stage> {
                             pomCommandResult.getOriginList(),
                             pomCommandResult.getTaskIndex());
                 }
-            } catch (ClassCastException ce) {
-
             }
 
             if (commandResult.isShowHelp()) {

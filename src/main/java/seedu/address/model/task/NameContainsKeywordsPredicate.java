@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,20 +15,21 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     private final Set<Tag> tags;
     private final int threshold = 1;
 
-    public NameContainsKeywordsPredicate(
-            List<String> keywords, Set<Tag> tags) { // if second list is available
+    public NameContainsKeywordsPredicate(List<String> keywords, Set<Tag> tags) {
         this.keywords = keywords;
         this.tags = tags;
     }
 
-    public NameContainsKeywordsPredicate(List<String> keywords) { // if second list is available
+    public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
         this.tags = new HashSet();
     }
 
     /**
-     * score is -1 if keywords is empty else if edit distance calculated is larger than threshold,
-     * score will be Integer.MAX_VALUE
+     * Predicate has been enhanced to return true if the final score < 2.
+     * final score is calculated by nameScore - tagCount
+     * nameScore is given by getEditDistacne
+     * tagCount is given by countTag function
      */
     @Override
     public boolean test(Task task) { // change test to return an int value as the edit distance
@@ -39,10 +41,28 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
                 break;
             }
         }
-        return (score != -1 && score != Integer.MAX_VALUE) || hasTag;
+        return score <= threshold || hasTag;
     }
 
-    public int countTag(Task task) {
+    /**
+     * returns a comparator by getting the score of a task. Comaprator sorts tasks in ascending order of task score.
+     */
+    public Comparator<Task> getSearchOrderComparator() {
+        return new Comparator<>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                int score1 = getEditDistance(task1) - countTag(task1);
+                int score2 = getEditDistance(task2) - countTag(task2);
+                if (score1 == score2) {
+                    return 0;
+                }
+                return score1 < score2 ? -1 : 1;
+            }
+        };
+    }
+
+    /** Counts the number of tags in the task that match a tag given by the user in the find parameters */
+    private int countTag(Task task) {
         int count = 0;
         for (Tag t : tags) {
             if (task.hasTag(t)) {
@@ -53,27 +73,23 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     }
 
     /**
-     * Predicate has been enhanced to be return true based on three cases: 1.Complete match
-     * this.score set to 0 2.Partial match from the start (i.e. Dist matches Distance search)
-     * this.score set to 1 3.Any word with an edit disatnce of <= 2 [Used Levenshtein distance to
-     * calculate this value] this.score set to result from levenshtein distance algorithm
-     *
-     * <p>For case 3, we calculate the distance by chunking the task name to segments of length ==
-     * number of words in the search phrase. The score is then set to the minimum score of all task
-     * name chunks.
-     *
-     * <p>Threshold of edit distance refers to the maximum edit distance allowed. It is set at 2 so
-     * that phrases that are too dissimilar will not show up.
-     *
-     * <p>Order of Task search results will be based on the score. Tasks will be displayed in
-     * ascending order of score.
+     * A chunk is a subsequence of the taskname that has as many words as in the search phrase.
+     * We go through all chunks of the task name and calculate a score for each chunk. 
+     * The minimum of all chunk scores is then taken as the name score
+     * 
+     * <p>Chunk score is calculated by: 1. A partial name match where input matches start of chunk => score set to 1 
+     * 2. A match where chunk and input have edit distance < 2 => score set to 1 
+     * 3. A full chunk between input and task name => score set to 0
+     * <p>
+     * 
+     * The edit distance threshold is set at 2 so that phrases that are too dissimilar will not show up.
      */
-    public int getEditDistance(Task task) {
+    private int getEditDistance(Task task) {
         if (keywords.size() == 0) {
-            return -1; // TODO maybe throw error
+            return threshold + 1;
         }
 
-        int score = Integer.MAX_VALUE;
+        int score = threshold + 1;
         String joinnedKeywords = String.join(" ", keywords).toLowerCase();
         String taskName = task.getName().fullName.toLowerCase();
         String[] splitTaskName = taskName.split("\\s+");

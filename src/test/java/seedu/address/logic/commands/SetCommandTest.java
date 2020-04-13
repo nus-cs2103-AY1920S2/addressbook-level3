@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -87,11 +86,6 @@ public class SetCommandTest {
         }
 
         @Override
-        public void sortList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setTaskList(ReadOnlyTaskList newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -127,7 +121,7 @@ public class SetCommandTest {
         }
 
         @Override
-        public Set<Tag> getTagSet() {
+        public String[] getTagNames() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,12 +151,12 @@ public class SetCommandTest {
         }
 
         @Override
-        public void setComparator(Comparator<Task> compare) {
+        public void setComparator(Comparator<Task> comparator, String sortOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortSearchByRelevance(Comparator<Task> comparator) {
+        public void setSearchResultOrder(Comparator<Task> compare) {
             throw new AssertionError("This method should not be called.");
         }
 

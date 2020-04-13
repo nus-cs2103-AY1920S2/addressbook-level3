@@ -71,11 +71,11 @@ public class SortCommand extends Command {
             aggregateComparator = aggregateComparator.thenComparing(comparatorList.get(i));
         }
 
-        model.setComparator(aggregateComparator);
+        model.setComparator(aggregateComparator, fields[0]);
 
         String commandFeedback = String.format(MESSAGE_SUCCESS, String.join(" ", fields));
 
-        return new SortCommandResult(commandFeedback, fields[0]);
+        return new CommandResult(commandFeedback);
     }
 
     private Comparator<Task> getPriorityComparator() {

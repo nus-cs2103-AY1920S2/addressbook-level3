@@ -29,7 +29,7 @@ public interface Logic {
      *
      * @param userInput Input from user
      * @return the result of completion
-     * @throws CompletorException If no command is detected
+     * @throws CompletorException If no command is detected or command is in the wrong format
      */
     CompletorResult suggestCommand(String userInput) throws CompletorException;
 

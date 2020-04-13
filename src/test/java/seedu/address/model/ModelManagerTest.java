@@ -12,7 +12,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.util.TaskBuilder;
 import seedu.address.testutil.TaskListBuilder;
 
 public class ModelManagerTest {
@@ -73,6 +75,32 @@ public class ModelManagerTest {
     @Test
     public void hasTask_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasTask(null));
+    }
+
+    @Test
+    public void hasTag_returnsTrue() {
+        modelManager.addTask(HOMEWORK10);
+        assertTrue(modelManager.hasTag(new Tag("MA1521")));
+        TaskBuilder lowerCaseTag = new TaskBuilder(HOMEWORK10).withTags("ma1521");
+        modelManager.setTask(HOMEWORK10, lowerCaseTag.build());
+        assertTrue(modelManager.hasTag(new Tag("MA1521")));
+    }
+
+    @Test
+    public void multipleTag_returnsTrue() {
+        modelManager.addTask(HOMEWORK10);
+        for (int i = 0; i < 100; i++) {
+            TaskBuilder lowerCaseTag =
+                    new TaskBuilder(HOMEWORK10).withName(String.format("task %d", i));
+            modelManager.addTask(lowerCaseTag.build());
+        }
+        assertTrue(modelManager.hasTag(new Tag("MA1521")));
+        for (int i = 0; i < 100; i++) {
+            modelManager.deleteTask(modelManager.getFilteredTaskList().get(0));
+        }
+        assertTrue(modelManager.hasTag(new Tag("MA1521")));
+        modelManager.deleteTask(modelManager.getFilteredTaskList().get(0));
+        assertFalse(modelManager.hasTag(new Tag("MA1521")));
     }
 
     @Test

@@ -92,33 +92,34 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Uses argMultimap to detect existing prefixes used so that it won't add double prefixes. Adds
-     * priority and reminder prefixes
+     * priority and reminder prefixes. Note that we ignore the second word when adding prefixes as
+     * it should be the index Also note that if the index is invalid, an exception is thrown
      *
      * @param input trimmed
      * @param listSize
      * @return contains userFeedback and suggestedCommand
-     * @throws CompletorException throws an exception when index provided is not an int or out of
-     *     list range
+     * @throws CompletorException throws an exception when index is invalid
      */
     public CompletorResult completeCommand(String input, int listSize) throws CompletorException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, TASK_PREFIXES);
-        boolean hasReminder = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_REMINDER);
-        boolean hasPriority = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRIORITY);
-
-        StringBuilder prefixesBuilder = new StringBuilder();
-
         String[] trimmedInputs = input.split("\\s+");
 
-        if (trimmedInputs.length > 1 && StringUtil.isNonZeroUnsignedInteger(trimmedInputs[1])) {
-            int editIndex = Integer.parseInt(trimmedInputs[1]);
-            if (editIndex > listSize) {
-                String errorMessage =
-                        String.format(
-                                Messages.COMPLETE_INDEX_OUT_OF_RANGE_FAILURE,
-                                trimmedInputs[1].toString());
+        if (trimmedInputs.length > 1) {
+            String errorMessage =
+                    String.format(Messages.COMPLETE_INDEX_OUT_OF_RANGE_FAILURE, trimmedInputs[1]);
+            if (StringUtil.isNonZeroUnsignedInteger(trimmedInputs[1])) {
+                int editIndex = Integer.parseInt(trimmedInputs[1]);
+                if (editIndex > listSize) {
+                    throw new CompletorException(errorMessage);
+                }
+            } else {
                 throw new CompletorException(errorMessage);
             }
         }
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, TASK_PREFIXES);
+        boolean hasReminder = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_REMINDER);
+        boolean hasPriority = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRIORITY);
+        StringBuilder prefixesBuilder = new StringBuilder();
 
         for (int i = trimmedInputs.length - 1; i > 1; i--) {
             String currentArgument = trimmedInputs[i];
@@ -134,6 +135,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 prefixesBuilder.append(" ");
             }
         }
+
         String newCommand = String.join(" ", trimmedInputs);
         String prefixesAdded = prefixesBuilder.length() == 0 ? "nil" : prefixesBuilder.toString();
         String feedbackToUser = String.format(Messages.COMPLETE_PREFIX_SUCCESS, prefixesAdded);

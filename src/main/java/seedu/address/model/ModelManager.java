@@ -38,7 +38,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final TagSet tagSet;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task> comparator;
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -194,8 +193,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<Tag> getTagSet() {
-        return this.tagSet.getTags();
+    public String[] getTagNames() {
+        return this.tagSet.getTagNames();
     }
 
     @Override
@@ -224,9 +223,8 @@ public class ModelManager implements Model {
     public void addTask(Task task) {
         taskList.addTask(task);
         this.tagSet.addTask(task);
-        this.sortList();
+        this.showAllTasks();
         setTimer(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     /** sortList after task is edited so that edited task will follow the existing sort order */
@@ -238,7 +236,6 @@ public class ModelManager implements Model {
         taskList.setTask(target, editedTask);
         cancelTimerTask(target);
         setTimer(editedTask);
-        this.sortList();
         if (taskSaver != null) {
             this.taskSaver.saveTask(this.taskList);
         }
@@ -272,7 +269,6 @@ public class ModelManager implements Model {
     @Override
     public void showAllTasks() {
         filteredTasks.setPredicate(PREDICATE_SHOW_ALL_TASKS);
-        this.sortList();
     }
 
     @Override
@@ -281,32 +277,23 @@ public class ModelManager implements Model {
         filteredTasks.setPredicate(predicate);
     }
 
-    /** Used when a predicate is applied to show the more relevant serach results */
-    @Override
-    public void sortSearchByRelevance(Comparator<Task> comparator) {
-        requireAllNonNull(comparator);
-        Comparator<Task> searchThenNormalOrder = comparator;
-        if (this.comparator != null) {
-            searchThenNormalOrder = searchThenNormalOrder.thenComparing(this.comparator);
-        }
-        this.taskList.sort(searchThenNormalOrder);
-    }
-
     // ================ Sort list methods
 
     /** Used when for the sort command when sorting by multiple fields */
     @Override
-    public void setComparator(Comparator<Task> comparator) {
+    public void setComparator(Comparator<Task> comparator, String sortOrder) {
         requireNonNull(comparator);
-        this.comparator = comparator;
-        this.sortList();
+        requireNonNull(sortOrder);
+        this.taskList.setComparator(comparator);
+        this.taskList.setSortOrder(sortOrder);
     }
 
+    /** Used when a predicate is applied to show the more relevant serach results */
     @Override
-    public void sortList() {
-        if (comparator != null) {
-            this.taskList.sort(comparator);
-        }
+    public void setSearchResultOrder(Comparator<Task> comparator) {
+        requireNonNull(comparator);
+        this.taskList.setComparator(comparator);
+        this.taskList.setSortOrder("");
     }
 
     @Override

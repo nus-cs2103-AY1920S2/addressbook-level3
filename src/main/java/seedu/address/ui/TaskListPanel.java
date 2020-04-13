@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,9 +30,13 @@ public class TaskListPanel extends UiPart<Region> {
         this.taskListView.setItems(newTaskList);
     }
 
-    public void setSortOrder(String sortOrder) {
-        String capitalized = StringUtil.capitalizeWord(sortOrder);
-        this.tasksHeader.setText(String.format("Tasks by %s", capitalized));
+    public void setSortOrder(Optional<String> sortOrder) {
+        if (sortOrder.isPresent()) {
+            String capitalized = StringUtil.capitalizeWord(sortOrder.get());
+            this.tasksHeader.setText(String.format("Tasks by %s", capitalized));
+        } else {
+            this.tasksHeader.setText("Tasks");
+        }
     }
 
     public void removeSortOrder() {
