@@ -345,7 +345,7 @@ below.
 
 .Demo for the response text feature: invalid command
 image::demo/ResponseText2.png[]
-=======
+
 === Markdown (GitHub Flavored Markdown)
 
 [NOTE]
