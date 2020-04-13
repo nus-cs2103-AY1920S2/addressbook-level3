@@ -27,8 +27,7 @@ public class AddDiaryCommand extends Command {
             + PREFIX_DIARY_CONTENT + "DIARY CONTENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2020-03-31"
-            + PREFIX_DIARY_CONTENT + "Today is my birthday. I ate a huge birthday cake, but I also went to the gym with"
-            + " my friends. Everything was just perfect. In my twenty, I'm gonna turn heat up.";
+            + PREFIX_DIARY_CONTENT + "I ate a huge birthday cake today.";
 
     public static final String MESSAGE_SUCCESS = "New Diary added: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in FitHelper";

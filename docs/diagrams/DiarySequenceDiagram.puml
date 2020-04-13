@@ -29,6 +29,9 @@ activate LogicManager
 LogicManager -[LOGIC_COLOR]> LogicManager : execute("diary")
 activate LogicManager
 
+LogicManager -[LOGIC_COLOR]-> LogicManager
+deactivate LogicManager
+
 LogicManager -[LOGIC_COLOR]> FitHelperParser : parseCommand("diary")
 activate FitHelperParser
 

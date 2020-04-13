@@ -26,15 +26,13 @@ public class AppendDiaryCommand extends Command {
 
     public static final String COMMAND_WORD = "appendDiary";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends new content to the diary identified."
-            + "Existing values will remain unchanged.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends new content to the diary identified. \n"
             + "Parameters: "
             + PREFIX_DATE + "DATE "
             + PREFIX_DIARY_CONTENT + "DIARY CONTENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2020-03-31"
-            + PREFIX_DIARY_CONTENT + "Today is my birthday. I ate a huge birthday cake, but I also went to the gym with"
-            + " my friends. Everything was just perfect. In my twenty, I'm gonna turn heat up.";
+            + PREFIX_DIARY_CONTENT + "I start to feel guilty now.";
 
     public static final String MESSAGE_APPEND_DIARY_SUCCESS = "Appended Diary: %1$s";
 

@@ -25,7 +25,7 @@ public class FindDiaryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all diaries whose names contain any of "
             + "the specified date "
-            + "or the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "or the specified keywords. "
             + "If neither DATE nor KEYWORD is specified, all diaries will be listed. \n"
             + "Parameters: "
             + PREFIX_DATE + "DATE (optional)"
