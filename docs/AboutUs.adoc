@@ -4,10 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-ExpenseLa was developed by the https://AY1920S2-CS2103-T09-3.github.io/docs/Team.html[AY1920S2-CS2103-T09-3] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+ExpenseLa was developed by the AY1920S2-CS2103-T09-3 team
+ based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
@@ -16,7 +14,7 @@ image::huberthalim.png[width="150", align="left"]
 {empty}[https://github.com/HubertHalim[github]] [<<huberthalim#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Travis integration, git issuing, version tracking and data management. Also inspects the quality of member's code.
 
 '''
 
@@ -24,8 +22,8 @@ Responsibilities: Dev Ops + Threading
 image::benfheng.png[width="150", align="left"]
 {empty}[http://github.com/BenFheng[github]] [<<benfheng#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Backend Integration and UI/UX +
+Responsibilities: Ensures quality of documents and keeps track of project deliverables. Also responsible for the testing of application functionalities.
 
 '''
 
@@ -33,8 +31,8 @@ Responsibilities: Data
 image::chlalstjr.png[width="150", align="left"]
 {empty}[http://github.com/chlalstjr[github]] [<<chlalstjr#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Analytics and Backend Management +
+Responsibilities: Software integration and testing of member's code.
 
 '''
 
@@ -42,7 +40,7 @@ Responsibilities: UI
 image::pangkimjin.png[width="150", align="left"]
 {empty}[http://github.com/PangKimJin[github]] [<<kimjin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Algorithm Management and UI/UX +
+Responsibilities: Ensures that all code adheres to the coding standard and the quality of project documents.
 
 '''
