@@ -592,6 +592,8 @@ Pros: Reduce a lot of memory issue.
 
 Cons: Harder to implement
 
+// tag::OppositeCommandForEdit[]
+
 ==== Opposite Command for edit [Dat]
 In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
 
@@ -604,6 +606,8 @@ Method `generateOppositeCommand()` will generate another `EditCommand` (which
 is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
+
+// end::OppositeCommandForEdit[]
 
 [[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
@@ -699,6 +703,7 @@ that the students have without the progresses of this course that the student cu
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
+// tag::Staff[]
 
 === Managing Staff Feature [Dat]
 ==== Implementation
@@ -728,8 +733,9 @@ Certain approaches have some certain pros and cons. It depends on how the user w
 ==== Implementation
 
 
-.Class diagram of CourseStudent and CourseTeacher
-image::FinanceDiagram.png[]
+Finance type `Miscellaneous` or `m` add command will add a `Finance` with a given Name (description) from the user.
+The amount is sign sensitive, meaning miscellaneous can take in a positive amount or a negative amount corresponding to
+earning or expense depending on the user.
 
 Miscellaneous transactions can either be payments or earnings,
 such as purchases of stationary or
@@ -778,6 +784,7 @@ shown in the command box. This allows the user to navigate back to
 the command after with an [UP ARROW] key command. The process will then
 come to an end.
 // end::xue6[]
+
 === Logging
 
 We are using `java.util.logging` package for logging.

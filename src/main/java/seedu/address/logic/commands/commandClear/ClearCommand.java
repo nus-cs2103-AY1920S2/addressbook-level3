@@ -16,7 +16,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear-all";
-    public static final String MESSAGE_SUCCESS = "All databases have been removed!";
+    public static final String MESSAGE_SUCCESS = "All databases have been removed! You cannot undo/redo anything else after clear-all command.\"";
 
     @Override
     public CommandResult execute(Model model) {
