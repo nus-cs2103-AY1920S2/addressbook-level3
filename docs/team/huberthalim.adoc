@@ -136,30 +136,14 @@ This command will rectify that issue.
 
 === Analysis of transactions : `toggleview`
 
-Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
-
-Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view
-
 image::ListView.png[width="790"]
 image::ChartView.png[width="790"]
 
 
 === Export transaction data to csv : `export`
 
-Export the filtered transaction list to a csv file
-
-Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
-will be exported to the csv file.
 
 image::Csv.png[width="790"]
-
-
-=== Import transaction data from csv : `import`
-
-Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
-
-Expected Outcome: All transactions in the csv that is in the correct format and does not exist in the current transaction lsit
-will be added to transaction list
 
 
 === Clear all data : `clear`
@@ -523,5 +507,3 @@ Use case ends.
 == PROJECT: PowerPointLabs
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_

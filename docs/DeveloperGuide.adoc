@@ -1327,7 +1327,7 @@ Expected: No filter is applied and no transactions listed. Error details are sho
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No transaction is deleted. Error details shown in the status message. 
+   Expected: No transaction is deleted. Error details shown in the status message.
 .. Test Case: `delete` +
 Expected: No transaction is deleted. Error details are shown in the Command Result.
 

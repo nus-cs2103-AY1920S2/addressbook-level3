@@ -9,28 +9,28 @@
 
 == Overview
 
-ExpenseLa is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLa maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances, and provides financial analytics to provides insights on your spending. ExpenseLa is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). 
+ExpenseLa is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLa maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances, and provides financial analytics to provides insights on your spending. ExpenseLa is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
 
 == Summary of contributions
 
 * *Major enhancement*: Adding Transactions and Editing Transactions
-** What it does: It allows users to add and customize their daily expenses into the transactions list, which is displayed in the Ui of the software. 
+** What it does: It allows users to add and customize their daily expenses into the transactions list, which is displayed in the Ui of the software.
 ** Justification: This feature is the quintessential function of the application which all of the other features rely on. It enables users to key in and record their transactions daily and view them whenever they require to.
 ** Depth of enhancement & completeness: Transaction list is sorted by date, the categories are reflected in colour coded tags. The transaction provides comprehensive information, with the transaction amounts correctly reflected as positive or negative. The only required information is the name and amount if users are in a hurry where the rest are optional. The other information has default inputs which will automatically be filled in if the user does not input. It is complete as the feature is intuitive, easy to use with very little hassle.
 ** Difficulties: Ensuring that all the information is easily accessible by the other features (MonthlyData, analytics and filter). Also ensuring that the application’s functionality is not affected by having optional inputs for transaction.
 
 * *Major enhancement*: Adding recurring transactions
-** What it does: It allows users add a transaction that is recurring for every subsequent month.  
+** What it does: It allows users add a transaction that is recurring for every subsequent month.
 ** Justification: This feature will allow users to set their monthly outgoing or incoming expenses such as insurance or their monthly income. It eases the need to constantly input the same transactions every month.
-** Highlights: This enhancement makes it more efficient and easier to use for users as they don’t have to constantly key in the transactions that recur every month. 
-** Depth of enhancement & completeness: Recurring transactions are all stored in the Global Data. Only when the user’s computer date reaches the new month, the new monthly recurring transactions are added to the transactions list. These changes are also automatically reflected in the monthly data panel. 
+** Highlights: This enhancement makes it more efficient and easier to use for users as they don’t have to constantly key in the transactions that recur every month.
+** Depth of enhancement & completeness: Recurring transactions are all stored in the Global Data. Only when the user’s computer date reaches the new month, the new monthly recurring transactions are added to the transactions list. These changes are also automatically reflected in the monthly data panel.
 ** Difficulties: Ensuring that the recurring transactions will not prematurely affect the monthly data.
 
 * *Major enhancement*: Import transactions from external file
-** What it does: It allows users to import their transactions from previously saved transaction lists.   
-** Justification: This feature will allow users to transfer their previous transactions from another device into different devices. 
+** What it does: It allows users to import their transactions from previously saved transaction lists.
+** Justification: This feature will allow users to transfer their previous transactions from another device into different devices.
 ** Highlights: This enhancement makes it easier for users to save and reload their data anytime they require and view their expense statements.
-** Depth of enhancement & completeness: It works perfectly in tandem with the export function to help users to transfer their stored transactions to other devices, or just plain saving the information into csv files. 
+** Depth of enhancement & completeness: It works perfectly in tandem with the export function to help users to transfer their stored transactions to other devices, or just plain saving the information into csv files.
 
 * *Minor enhancement*: Overhauled the UI of the application to make it more visually appealing to users.
 
@@ -38,7 +38,7 @@ ExpenseLa is for money-conscious NUS students who wish to track their spending, 
 
 * *Other contributions*:
 
-** Contributions to User Guide: 
+** Contributions to User Guide:
 ***	Product Overview, Add Transaction, Delete transaction, Edit transaction, Clear Recurring command, Import transactions command.
 
 ** Contributions to Developer Guide:
