@@ -221,11 +221,11 @@ Classes used by multiple components are in the `seedu.eylah.commons` package.
 
 This section describes some noteworthy details on how the features in EYLAH are implemented.
 
-// tag::undoredo[]
+// tag::diettrackerintro[]
 === DietTracker feature
 
 The Diet Tracker feature is designed to aid our users in maintaining a healthy lifestyle. The feature comprises
-of 9 Commands.
+of 10 Commands.
 
 * <<Add-Command, `AddCommand`>> - Creates a new Food object with its attributes (Name, Calories) and adds it to the FoodBook Storage.
 * <<Delete-Command, `DeleteCommand`>> - Deletes the Food specified by the input index from FoodBook Storage.
@@ -237,14 +237,13 @@ based on their user input.
 * <<Bmi-Command, `BmiCommand`>> - Calculates the BMI.
 * <<Mode-Command, `ModeCommand`>> - Allows users to toggle between different modes of the diet tracker.
 * <<Metrics-Command, `MetricsCommand`>> - Allows users to check their health metrics, like their Height, Weight and Dieting Mode.
-* <<Help-Command, `HelpCommand`>> - Provides a help guide for users based on what commands are available.
+//end::diettrackerintro[]
 
-Below are some diagrams to explain how our team implemented this portion.
-
-
+//tag::diettrackeractivitydiagram[]
 *Activity Diagram* of Diet Tracker: +
 
 image::DietTrackerActivityDiagram.png[]
+//end::diettrackeractivitydiagram[]
 
 [[Add-Command]]
 ==== Add Command
@@ -301,7 +300,6 @@ image::DietTrackerAddCommandSequenceDiagram.png[]
 
 [[Delete-Command]]
 ==== Delete Command
-
 
 In this section, we will learn more about how the `delete` command is implemented.
 
@@ -467,9 +465,9 @@ The following sequence diagram summarizes what happens during the execution of `
 .Edit Command Sequence Diagram
 image::DietTrackerEditCommandSequenceDiagram.png[]
 
+//tag::diettrackerbmi[]
 [[Bmi-Command]]
 ==== Bmi Command
-
 
 In this section, we will learn more about how the `bmi` command is implemented.
 
@@ -496,6 +494,16 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Bmi Command Activity Diagram
 image::DietTrackerBmiCommandActivityDiagram.png[]
+
+*Structure of Bmi Command* +
+
+In this section, you will learn more about the relationships between objects related to the `bmi` command.
+
+.Bmi Command Class Diagram
+image::DietTrackerBmiCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `BmiCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `BmiCommand`
 
 *Implementation of Bmi Command*
 
@@ -577,8 +585,10 @@ Aspect: Storage of BMI
 * Alternative 2: Storage of BMI value in Self class in Model.
 ** Pros: Users have access to it anytime.
 ** Cons: Coding complexity.
+//end::diettrackerbmi[]
 
 
+//tag::diettrackerheight[]
 [[Height-Command]]
 ==== Height Command
 
@@ -606,6 +616,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Height Command Activity Diagram
 image::DietTrackerHeightCommandActivityDiagram.png[]
 
+*Structure of Height Command* +
+
+In this section, you will learn more about the relationships between objects related to the `height` command.
+
+.Height Command Class Diagram
+image::DietTrackerHeightCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `HeightCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `HeightCommand`
+
 *Implementation of Height Command*
 
 The following is a detailed explanation of the operations `HeightCommand` performs. +
@@ -625,8 +645,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Height Command Sequence Diagram
 image::DietTrackerHeightCommandSequenceDiagram.png[]
+//end::diettrackerheight[]
 
 
+//tag::diettrackerweight[]
 [[Weight-Command]]
 ==== Weight Command
 
@@ -654,7 +676,17 @@ The following activity diagram illustrates what happens when a user executes the
 .Weight Command Activity Diagram
 image::DietTrackerWeightCommandActivityDiagram.png[]
 
-*Implementation of weight Command*
+*Structure of Weight Command* +
+
+In this section, you will learn more about the relationships between objects related to the `weight` command.
+
+.Weight Command Class Diagram
+image::DietTrackerWeightCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `WeightCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `WeightCommand`
+
+*Implementation of Weight Command*
 
 The following is a detailed explanation of the operations `WeightCommand` performs. +
 
@@ -673,7 +705,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Weight Command Sequence Diagram
 image::DietTrackerWeightCommandSequenceDiagram.png[]
+//end::diettrackerweight[]
 
+
+//tag::diettrackermode[]
 [[Mode-Command]]
 ==== Mode Command
 
@@ -699,6 +734,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Mode Command Activity Diagram
 image::DietTrackerModeCommandActivityDiagram.png[]
 
+*Structure of Mode Command* +
+
+In this section, you will learn more about the relationships between objects related to the `mode` command.
+
+.Mode Command Class Diagram
+image::DietTrackerModeCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ModeCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ModeCommand`
+
 *Implementation of Mode Command*
 
 The following is a detailed explanation of the operations ModeCommand performs. +
@@ -718,7 +763,10 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Mode Command Sequence Diagram
 image::DietTrackerModeCommandSequenceDiagram.png[]
+//end::diettrackermode[]
 
+
+//tag::diettrackermetrics[]
 [[Metrics-Command]]
 ==== Metrics Command
 
@@ -739,6 +787,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Metrics Command Activity Diagram
 image::DietTrackerMetricsCommandActivityDiagram.png[]
 
+*Structure of Metrics Command* +
+
+In this section, you will learn more about the relationships between objects related to the `metrics` command.
+
+.Metrics Command Class Diagram
+image::DietTrackerMetricsCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `MetricsCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `MetricsCommand`
+
 *Implementation of Metrics Command*
 
 The following is a detailed explanation of the operations MetricsCommand performs. +
@@ -756,6 +814,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .Metrics Command Sequence Diagram
 image::DietTrackerMetricsCommandSequenceDiagram.png[]
+//end::diettrackermetrics[]
 
 === Expense Splitter feature
 //tag::expensesplitterintro[]
@@ -773,7 +832,6 @@ its ItemPrice and Person(s) involved in splitting that Item.
 will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
-* <<Back-Command, `BackCommand`>> - Exits Expense Splitter portion to return to EYLAH's Main Menu.
 
 Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
@@ -1089,6 +1147,8 @@ The following activity diagram illustrates what happens when a user executes `do
 .Done Receipt Command Activity Diagram
 image::ExpenseSplitterDoneReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of Done Receipt Command* +
 
 In this section, you will learn more about the relationships between objects related to the `donereceipt` command.
@@ -1154,6 +1214,8 @@ The following activity diagram illustrates what happens when a user executes `pa
 
 .Paid Command Activity Diagram
 image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+
+{nbsp}
 
 *Structure of Paid Command* +
 
@@ -1252,33 +1314,13 @@ The following sequence diagram summarizes what happens during the execution of t
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
 //end::expensesplitterclearreceipt[]
 
-[[Back-Command]]
-==== Back Command
-
-*Implementation*
-
-The following is a detailed explanation of the operations `BackCommand` performs. +
-
-1. The `BackCommand#execute(Model splitterModel)` method is executed.
-
-2. The `CommandResult` with the `isBack` will set to true and returns to `EYLAH`.
-
-3. The `EYLAH#runCommandLoopUntilBackCommand()` will check if `isBack` is set to true.
-
-4. If the `isBack` is true, the `EYLAH` will return the the main menu. Otherwise, the
-`Eylah` will continue running in Expense Splitter mode.
-
-The following is a sample sequence diagram of the BackCommand.
-
-image::ExpenseSplitterBackCommandSequenceDiagram.png[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output to a `.log` file.
 
 *Logging Levels*
 
@@ -1287,7 +1329,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+[[Implementation-Configuration]]
+=== Configuration
 
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -1560,7 +1605,6 @@ Use case ends.
 [discrete]
 ==== Use case: UC08 - Adding an Item
 *Actor:* User +
-*Preconditions:* User is logged in. +
 *Guarantees:* +
 Item will be added into the Receipt.
 
@@ -1595,7 +1639,7 @@ Use case ends.
 [discrete]
 ==== Use case: UC09 - Deleting an Item
 *Actor:* User +
-*Preconditions:* User is logged in and Item user wants to delete is present in the Receipt. +
+*Preconditions:* Item user wants to delete is present in the Receipt. +
 *Guarantees:* +
 Item will be deleted from Receipt.
 
@@ -1728,7 +1772,6 @@ Use case ends.
 [discrete]
 === Use case: UC13 - Clearing the Receipt
 *Actor:* User +
-*Preconditions:* User is logged in. +
 *Guarantees:* +
 Deletes all the Entries in the Receipt. It also marks the Receipt as undone.
 
@@ -1754,6 +1797,31 @@ Use case ends.
 
 *Extensions*
 //end::expensesplitterusecase[]
+
+[discrete]
+=== Use case: UC15 - Completing the receipt
+*Actor:* User +
+*Guarantees:* +
+Displays the confirmation message to user. It also marks the Receipt as done.
+
+*MSS*
+
+1.  User requests to mark the Receipt as done after he/she finish adding the items.
+2.  EYLAH marks the current Receipt as done.
+3.  EYLAH display a MESSAGE_SUCCESS informing the user that the Receipt has been marked as completed.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. EYLAH detects that the Receipt has already been marked as done.
++
+[none]
+** 2a1. EYLAH displays an error message, informing the user that current Receipt already been marked as completed.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

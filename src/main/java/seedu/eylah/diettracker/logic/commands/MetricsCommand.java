@@ -19,8 +19,6 @@ public class MetricsCommand extends Command<DietModel> {
             + "Parameters: NONE";
     public static final String MESSAGE_SUCCESS = "Your metrics are shown.\n";
 
-    private String mode = "";
-
     /**
      * Creates a MetricsCommand to show all user metrics (Height, Weight, Mode).
      */
