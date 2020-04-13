@@ -742,6 +742,7 @@ NOTE:
 ```
 // end::schedule[]
 
+// tag::log[]
 === Managing Your Session Logs
 Well done, you have successfully gone through the whole process of setting up your workouts, scheduling them and even logging the workout. In addition to all these cool features, ZeroToOne also allows you to manage your workout log history and even provides you with meaningful statistics to help you track your current progress to help you hit all those fitness goals.
 
@@ -850,6 +851,8 @@ Here is a list and explanation of the metrics provided:
 | The amount of time spent on average per day
 
 |======
+// end::log[]
+
 == Troubleshooting
 
 . How do I transfer my data to another computer?
