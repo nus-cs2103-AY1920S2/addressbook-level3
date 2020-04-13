@@ -20,8 +20,14 @@ end box
 [-> MainWindow : ("calendar d/2020-04-12")
 activate MainWindow
 
-MainWindow -> LogicManager : execute("calendar d/2020-04-12")
+MainWindow -> LogicManager
 activate LogicManager
+
+LogicManager -> LogicManager: execute("calendar d/2020-04-12")
+activate LogicManager
+
+LogicManager -> LogicManager
+deactivate LogicManager
 
 LogicManager -> FitHelperParser : parseCommand("calendar d/2020-04-12")
 activate FitHelperParser
