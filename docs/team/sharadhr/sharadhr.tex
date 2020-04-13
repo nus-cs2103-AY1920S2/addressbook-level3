@@ -1,0 +1,85 @@
+\documentclass[11pt,british]{article}
+
+\include{preamble}
+
+\title{\vspace{-2.5cm} \textbf{CS2103T} \\ Team Project: CookBuddy}
+\author{Sharadh Rajaraman \\ \textbf{A0189906L}}
+\begin{document}
+\maketitle
+\section{Overview}\label{overview}
+\href{https://github.com/AY1920S2-CS2103T-W12-4/main}{CookBuddy} is a desktop recipe manager for students living in on-campus accommodation, who enjoy cooking, and are also familiar with the command line.
+
+Users may interact with CookBuddy through a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
+
+CookBuddy is written in Java, and has about \num{10000} lines of code.
+
+\section{Summary of contributions}\label{summaryofcontributions}
+\href{https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=W12&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=sharadhr&tabRepo=AY1920S2-CS2103T-W12-4\%2Fmain\%5Bmaster\%5D}{This RepoSense panel} displays this author's contributions to the project.
+
+\subsection{Enhancements Implemented}
+\subsubsection{Major Enhancements}
+
+\paragraph{Added image reading, UI display, and processing (PR \href{https://github.com/AY1920S2-CS2103T-W12-4/main/pull/278}{\texttt{\#278}})}\label{imgcontrib}
+
+\begin{itemize}
+    \item \textbf{What it does:} Allows users to add images to their recipes, by specifying a relative or absolute
+    filepath. Images are saved in a data folder local to CookBuddy, and are named with a
+    UID (unique identifier). If an image cannot be found at the specified path, a placeholder is used instead.
+    
+    \item \textbf{Justification}: Users should be able to see what the final dish looks
+    like, and an image goes a very long way in showing that. Furthermore, images are a prominent feature of most competing recipe managers, and we feel this is a key feature that allows CookBuddy to compete on a similar standing.
+    
+    \item \textbf{Highlights}:
+    \begin{itemize}
+    	\item Adding reading images required a firm understanding of file I/O, as well as understanding the various Java classes in \href{https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/nio/file/package-summary.html}{\texttt{java.nio.file}}. 
+    	
+    	Appropriate methods for easy extensibility were implemented in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/commons/util/PhotographUtil.java}{\texttt{cookbuddy.commons.util.PhotographUtil}}, as well as multiple constructors in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/model/recipe/attribute/Photograph.java}{\texttt{cookbuddy.model.recipe.attribute.Photograph}}.
+    	
+    	\item Other file read/write methods were also implemented in \href{https://github.com/AY1920S2-CS2103T-W12-4/main/blob/master/src/main/java/cookbuddy/commons/util/FileUtil.java}{\texttt{cookbuddy.commons.util.FileUtil}}.
+    	
+    	\item \texttt{PhotographUtil} employs the \href{https://en.wikipedia.org/wiki/Singleton_pattern}{singleton pattern}, to prevent initialisation errors.
+    \end{itemize} 
+\end{itemize}
+
+\subsubsection{Minor Contributions}
+\paragraph{Revamped the User Interface (UI) of CookBuddy (PR \href{https://github.com/AY1920S2-CS2103T-W12-4/main/pull/179}{\texttt{\#179}}) } 
+\begin{itemize}
+	\item A light theme was preferred by the team members
+	\item \href{https://pixelduke.com/java-javafx-theme-jmetro/}{\texttt{JMetro}} was used to change the theme
+	\item Appropriate classes and corresponding \texttt{.fxml} files were generated to produce the new UI.
+	\item The panels of the UI were also changed, with a fixed scrolling side panel for the recipe list view, and a selected recipe overview panel.
+\end{itemize}
+
+\paragraph{Added Ingredient and Instruction List Attributes (PR \href{https://github.com/AY1920S2-CS2103T-W12-4/main/pull/125}{\texttt{\#125}}) }
+\begin{itemize}
+	\item Ingredients and instructions were originally stored as un-delimited \texttt{String}s
+	\item Classes to represent \texttt{Ingredient}s, \texttt{Instruction}s and their containers were implemented
+\end{itemize}
+
+\subsection{Documentation Contributions}
+\subsubsection{User Guide}
+\begin{itemize}
+	\item Added various feature details in \href{https://ay1920s2-cs2103t-w12-4.github.io/main/UserGuide.html#features}{\S{} 4}
+	\item Added data file information in \href{https://ay1920s2-cs2103t-w12-4.github.io/main/UserGuide.html#configuration-and-recipe-data-sharadh}{\S{} 5}.
+\end{itemize}
+
+\subsubsection{Developer Guide}
+\begin{itemize}
+	\item \href{https://ay1920s2-cs2103t-w12-4.github.io/main/DeveloperGuide.html#design}{\S{} 5}, \href{https://ay1920s2-cs2103t-w12-4.github.io/main/DeveloperGuide.html#image-management-done-by-sharadh-rajaraman}{\S{} 6.2} were added, detailing the overall architecture, and the implementation of image processing (see \cref{imgcontrib}).
+	\item Future work was briefly detailed in \href{https://ay1920s2-cs2103t-w12-4.github.io/main/DeveloperGuide.html#Implementation-Future}{\S{} 6.12};
+	\item Appendices \href{https://ay1920s2-cs2103t-w12-4.github.io/main/DeveloperGuide.html#product-scope-done-by-zain-alam-sharadh-rajaraman}{A} and \href{https://ay1920s2-cs2103t-w12-4.github.io/main/DeveloperGuide.html#user-stories-done-by-sharadh-rajaraman-and-adarsh-chugani}{B} were added; in the latter, the User Stories were placed in a neat table.
+\end{itemize}
+
+\subsection{Project Management and Teamwork}
+\paragraph{Project Management}
+\begin{itemize}
+	\item Set up the organisation, repository, and initial branches for all group members 
+	\item Set up \texttt{Travis CI} and \texttt{AppVeyor} for initial continuous integration testing
+\end{itemize}
+
+\paragraph{Teamwork}
+\begin{itemize}
+	\item Assisted weaker members in setting up \texttt{git} and with iP tasks
+	\item Set up Zoom meetings to discuss project proposals and code reviews, as well as implementation details
+\end{itemize}
+\end{document}
