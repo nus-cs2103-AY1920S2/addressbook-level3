@@ -1,4 +1,4 @@
-= Fheng Guo Jing, Benjamin - Project Portfolio
+== Fheng Guo Jing, Benjamin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -39,12 +39,7 @@ ExpenseLa is for money-conscious NUS students who wish to track their spending, 
 * *Other contributions*:
 
 ** Contributions to User Guide: 
-***	Product Overview
-***	Add Transaction
-*** Delete transaction
-*** Edit transaction
-*** Clear Recurring command
-*** Import transactions command
+***	Product Overview, Add Transaction, Delete transaction, Edit transaction, Clear Recurring command, Import transactions command.
 
 ** Contributions to Developer Guide:
 *** 1 Introduction, 1.1 Purpose, 1.2 Scope.
@@ -53,7 +48,6 @@ ExpenseLa is for money-conscious NUS students who wish to track their spending, 
 *** 4.2 Editing Transactions (with updated activity diagram and two additional product demonstrations.)
 
 ** Contributions to team-based tasks:
-***	Changing the UI for the product.
 ***	Initial refactor for the DG, UG and code from addressbook to ExpenseLa.
 ***	Updating the initial DG to reflect the correct terms that correspond to our product.
 *** Allocating of roles for DG and UG.
