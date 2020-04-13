@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.module.Module;
@@ -39,16 +41,15 @@ public class ModuleListPanel extends UiPart<Region> {
             noModules.setManaged(false);
         }
 
-        setModuleListView();
-
         moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 setModuleListView();
             }
         });
-
+        setModuleListView();
     }
+
 
     public void setModuleListView() {
         moduleListView.getChildren().clear();

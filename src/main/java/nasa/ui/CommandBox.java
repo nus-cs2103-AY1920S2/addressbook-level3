@@ -116,6 +116,7 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         } finally {
+            matchedCommand = "";
             main.hideHint();
         }
     }

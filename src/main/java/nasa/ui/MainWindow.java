@@ -63,14 +63,6 @@ public class MainWindow extends UiPart<Stage> {
 
         this.logic = logic;
 
-        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            tabPanel.updateModuleList();
-        });
-
-        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            tabPanel.updateModuleList();
-        });
-
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -80,7 +72,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         hintWindow = new HintWindow();
         exportQrWindow = new ExportQrWindow();
-
         quotePanel = new QuotePanel();
 
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
@@ -132,8 +123,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanel = new TabPanel(logic, this);
+        tabPanel = new TabPanel(logic);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
+
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
+
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            tabPanel.updateModuleList();
+        });
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -263,6 +262,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isModules()) {
+                tabPanel.getModules();
+            }
+
+            if (commandResult.isCalendar()) {
+                tabPanel.getCalendar();
             }
 
             if (commandResult.isStatistics()) {

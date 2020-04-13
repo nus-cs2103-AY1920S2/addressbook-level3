@@ -45,6 +45,7 @@ public class HintWindow extends UiPart<Region> {
      * Updates the input of the hint window
      */
     public void setInput(String input) {
+        popUp.setFocusTraversable(false);
         popup = new Popup();
         popup.setHideOnEscape(true);
         popup.setAutoFix(true);

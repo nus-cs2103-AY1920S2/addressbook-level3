@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import nasa.commons.core.index.Index;
 import nasa.commons.util.StringUtil;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.View;
 import nasa.model.activity.Date;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
@@ -108,6 +109,16 @@ public class ParserUtil {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return new Priority(priorityTrimmed);
+    }
+
+    public static View parseView(String view) throws ParseException {
+        requireNonNull(view);
+        String viewTrimmed = view.trim();
+
+        if (!View.isValidView(viewTrimmed)) {
+            throw new ParseException(View.MESSAGE_CONSTRAINTS);
+        }
+        return View.valueOf(view.toUpperCase());
     }
 
     /**
