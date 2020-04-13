@@ -216,7 +216,7 @@ Step 1. The user launches the application for the first time.
 The `CouponStash` will be initialized with the initial coupon stash state, and
 the `currStateIndex` pointing to that single coupon stash state.
 
-.CouponStash will be initialized with the initial coupon stash state.
+.`CouponStash` will be initialized with the initial coupon stash state.
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the
@@ -227,6 +227,7 @@ executes to be saved in the `couponStashStateList`, and the `delete 5` command
 text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to
 the newly inserted coupon stash state.
 
+.`currStateIndex` is shifted to the newly inserted coupon stash state.
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add n/OMO STORE ...` to add a new coupon.
@@ -234,6 +235,7 @@ The `add` command also calls `Model#commitCouponStash(String commandText)`,
 causing another modified coupon stash state and command text to be saved into
 the `couponStashStateList` and `commandTextHistory` respectively.
 
+.Modified coupon stash state and command text are saved into the `couponStashStateList` and `commandTextHistory` respectively.
 image::UndoRedoState2.png[]
 
 [NOTE]
@@ -249,6 +251,7 @@ state, and restores the coupon stash to that state. Plus, the command text is
 returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
+.`currStateIndex` shifted once to the left
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -261,6 +264,7 @@ the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo operation sequence diagram.
 image::UndoSequenceDiagram.png[]
 
 The `redo` command does the opposite -- it calls `Model#redoCouponStash()`,
@@ -282,6 +286,7 @@ Commands that do not modify the coupon stash, such as `list`, will  not call
 `Model#commitCouponStash()`.
 Thus, the `couponStashStateList` remains unchanged.
 
+.`couponStashStateList` remains unchanged.
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitCouponStash()`.
@@ -289,14 +294,16 @@ Since the `currStateIndex` is not pointing at the end of the
 `couponStashStateList`, all coupon stash states and command text history after
 the `currStateIndex` will be purged.
 We designed it this way because it no longer makes sense to redo the `add n/OMO
-STORE ...` command.
+                                                                      STORE ...` command.
 This is the behavior that most modern desktop applications follow.
 
+.Command text history after the `currStateIndex` is purged.
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a
-new command:
+new command text:
 
+.
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -313,6 +320,15 @@ unwanted mutations.
 deleted).
 ** Cons: We must ensure that the implementation of each individual command is
 correct.
+
+Alternative 1 was chosen due to its relative simplicity and extensibility.
+Little to no modification needs to be made to each command that can be
+undone, thus reducing chances of new bugs surfacing. Addtionally, the ability
+to undo operations such as `clear` will require alternative 2 to copy the
+entire coupon stash too, so both alternatives will have the same memory
+footprint in such a context. Finally, the real world performance impact of
+copying all coupons vs copying one is not very huge. Thus, the more
+extensible and simpler alternative 1 was chosen.
 
 // address pros and cons
 // end::undoredo[]
@@ -596,6 +612,7 @@ Step 1. The user launches the application for the first time. The
 with a stack containing only an empty string (`""`), and the `currIndex`
 is set to `0`.
 
+.Stack containing only an empty string
 image::UpDownHistory0.png[]
 
 Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will
@@ -608,6 +625,7 @@ onto the stack again, thus ensuring that
 the empty string stays at the top of the stack. Note that `currIndex` is not
 affected.
 
+.Stack after executing `delete 1`
 image::UpDownHistory1.png[]
 
 Step 3. The user executes `delete 2`. `CommandBox#handleCommandEntered()` will
@@ -616,6 +634,7 @@ the stack contained in `CommandTextHistory`. As in the previous step, the new
 command is pushed to the top of the stack,
 just below the empty string.
 
+.Stack after executing `delete 2`.
 image::UpDownHistory2.png[]
 
 Step 3. Now, the user decides to delete the second coupon again. We press the
@@ -626,6 +645,7 @@ The `currIndex` is incremented, and then the command text pointed to by
 `currIndex` is returned and
 displayed in the program command box.
 
+.After pressing "up" arrow key.
 image::UpDownHistory3.png[]
 
 Step 4. The user then executes the retrieved command (`delete 2`). As in the
@@ -634,6 +654,7 @@ is pushed to the top of the stack just below the empty string. However, in such
 a case when the `currIndex` is not `0` and
 does not point to the top of the stack, it is reset to `0`.
 
+.Stack after executing `delete 2` again.
 image::UpDownHistory4.png[]
 
 [NOTE]
@@ -742,6 +763,9 @@ launched.
 a coupon's addtion time just so users can revert to the default order.
 Additionally, it can be confusing to users when there are so many different
 ways to sort.
+
+In our usage during testing, we have never had the urge to have a default
+sorting order when the program is launched.
 
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
