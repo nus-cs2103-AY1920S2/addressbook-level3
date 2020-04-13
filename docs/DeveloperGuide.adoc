@@ -729,7 +729,7 @@ By considering the above two factors, despite having to put in the extra effort 
 This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
 
 ==== Implementation
-This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients 'Tag' and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
+This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients `Tag` and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
 
 image::FilterClassDiagram.png[]
 
@@ -1233,3 +1233,36 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Filtering the client list
+. Filtering the client list with different `Tag` and `Sport` specified
+.. Test case: `filter-c t/normal s/hockey` +
+Expected: Client with `Tag` normal and `Sport` listed.
+
+.. Test case: `filter-c s/sumo wrestling` +
+Expected: Client with `Sport` `sumo wrestling` listed.
+
+.. Test case: `filter-c t/normal vegetarian` +
+Expected: Error stating "Tags names should be alphanumeric" shown.
+
+.. Test case: `filter-c t/normal t/vegetarian` +
+Expected: Client with `Tag` `normal` and `vegetarian` listed.
+
+=== Adding new client into FitBiz
+. Adding a new client into FitBiz with different parameters stated
+
+.. Test case: `add-c n/John Cena p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male b/26-01-1980 cw/96 tw/69 h/156 s/Sumo Wrestling t/Vegan t/healthy r/History of back injuries` +
+Expected: New client added.
+
+.. Test case: `add-c n/Micheal Jordan p/98254 e/mikeyboii@example.com a/basketball court blk 666 #02-25` +
+Expected: New client added.
+
+.. Test case: `add-c n/Simba p/98543456 e/thelionking@gmail.com` +
+Expected: Error "Invalid command format!" shown.
+
+.. Test case: `add-c n/Secret Man p/97656561 e/cantseemee@void.com a/here @ dodo coast g/ b/ cw/ tw/ h/ r/ s/ t/` +
+Expected: New client added.
+
+.. Test case: `add-c n/Rachel tan p/93214321 e/RachelTan@mail.com a/choa chu kang ave 22 blk 909` followed by `add-c n/Rachellie Tan p/98786110 e/RachelTan@mail.com a/bishan grove 45`+
+Expected: Error "This phone number and/or email already exists in FitBiz." shown.
+
