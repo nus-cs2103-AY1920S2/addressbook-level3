@@ -21,7 +21,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture (HIEU)
 
 .Architecture Diagram
 image::ArchitectureNewDiagram.png[]
