@@ -5,7 +5,7 @@ public enum RecurType {
     DAILY {
         @Override
         public long getInterval() {
-            return 60000l; // for testing
+            return dayIntervalMilliseconds; // for testing
         }
 
         @Override
@@ -23,7 +23,19 @@ public enum RecurType {
         public long getDayInterval() {
             return weekIntervalDays;
         }
-    };
+    },
+    TEST {
+        @Override
+        public long getInterval() {
+            return 60000l;
+        }
+
+        @Override
+        public long getDayInterval() {
+            return weekIntervalDays;
+        }
+    }
+    ;
 
     public static final long weekIntervalMilliseconds = 1000l * 60 * 60 * 24 * 7;
     public static final long weekIntervalDays = 7;
