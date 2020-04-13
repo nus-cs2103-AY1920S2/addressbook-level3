@@ -7,8 +7,8 @@ skinparam classAttributeIconSize 0
 hide circle
 
 
-abstract class Command {
-    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+abstract class Command <E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class ListReceiptCommand extends Command {
@@ -21,7 +21,7 @@ class ListReceiptCommand extends Command {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + listReceipt() : void
@@ -42,15 +42,15 @@ interface SplitterModel <<Interface>> {
     + getPerson(person : Person) : Person
     + addAmount(person : Person, amount : Amount) : void
     + removeAmount(person : Person, amount : Amount) : void
-    + updateFilteredPersonList(predicate : Predicate<Person>) : void
-    + getFilteredPersonList() : ObservableList<Person>
+    + isReceiptDone() : boolean
+    + getReceiptBook() : ReadOnlyReceiptBook
 
 
 }
 
 class Receipt {
     /' Fields '/
-    - boolean : isDone
+    - isDone : boolean
 
     /' Methods '/
     + markDone() : void

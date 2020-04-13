@@ -100,6 +100,11 @@ public class SplitterModelManager implements SplitterModel {
         return receipt.getEntry(index);
     }
 
+    @Override
+    public void deleteAllEntries() {
+        personAmountBook.deleteAllEntries(receipt);
+    }
+
     /**
      * Command for listing the Receipt.
      */
@@ -125,7 +130,6 @@ public class SplitterModelManager implements SplitterModel {
         requireAllNonNull(person, amountPaid);
         Amount amount = new Amount(new BigDecimal(amountPaid));
         personAmountBook.removeAmount(person, amount);
-
     }
 
     /**

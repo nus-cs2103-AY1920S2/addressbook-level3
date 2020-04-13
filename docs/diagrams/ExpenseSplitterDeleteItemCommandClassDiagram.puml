@@ -1,23 +1,21 @@
 @startuml
-/' @author @WillySeahh'/
-/' Got inspiration and adapted
-from https://github.com/AY1920S2-CS2103T-W12-1/main/blob/master/docs/images/DeliveredClassDiagram.png '/
+/' @author @ailanthustng'/
 
 skinparam backgroundColor #ffffff
 skinparam classAttributeIconSize 0
 hide circle
 
 
-abstract class Command <E>{
-    {abstract} execute(model:E) : CommandResult
+abstract class Command {
+    {abstract} execute(splitterModel:SplitterModel) : CommandResult
 }
 
-class ListAmountCommand extends Command {
+class DeleteItemCommand extends Command {
     /' Fields '/
+    - Index : targetIndex
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult
-
 }
 
 interface SplitterModel <<Interface>> {
@@ -29,37 +27,40 @@ interface SplitterModel <<Interface>> {
     + listReceipt() : String
     + getReceipt() : Receipt
     + clearReceipt() : void
+    + isReceiptDone() : boolean
+    + deleteAllEntries() : void
     + hasPerson(person : Person) : boolean
     + addPerson(person : Person) : void
     + getPerson(person : Person) : Person
     + addAmount(person : Person, amount : Amount) : void
     + removeAmount(person : Person, amount : Amount) : void
-    + isReceiptDone() : boolean
     + getReceiptBook() : ReadOnlyReceiptBook
-
+    + updateFilteredPersonList(predicate : Predicate<Person>) : void
+    + getFilteredPersonList() : ObservableList<Person>
 }
+
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - personAmountBook : PersonAmountBook
+    - Receipt : receipt
 
     /' Methods '/
-    + listAmount() : String
+    + deleteEntry(index : int) : void
+    + isReceiptDone() : boolean
 }
 
-class PersonAmountBook {
+class Receipt {
     /' Fields '/
-    - persons : UniquePersonList
+    - ArrayList<Entry> : receipt
+    - boolean : isDone
 
     /' Methods '/
-    + toString() : String
+    + deleteEntry(entry : Entry) : void
+    + isDone() : boolean
 }
 
-
-
-
-ListAmountCommand ..> SplitterModel
-SplitterModelManager *-right->"1" PersonAmountBook
+DeleteItemCommand ..> SplitterModel
+SplitterModelManager *-right->"1" Receipt
 
 
 @enduml

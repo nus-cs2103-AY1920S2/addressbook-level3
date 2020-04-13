@@ -18,8 +18,13 @@ public class ClearReceiptCommand extends Command<SplitterModel> {
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
         requireNonNull(splitterModel);
-        splitterModel.clearReceipt();
-        splitterModel.getReceipt().makeUndone();
+        if (!splitterModel.isReceiptDone()) {
+            splitterModel.deleteAllEntries();
+            splitterModel.clearReceipt();
+        } else {
+            splitterModel.clearReceipt();
+            splitterModel.getReceipt().makeUndone();
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

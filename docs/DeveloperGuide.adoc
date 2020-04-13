@@ -70,13 +70,13 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the APP. It is responsible for,
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the application. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -148,14 +148,15 @@ In `Expense Splitter` mode, `SplitterLogic.java` and `SplitterLogicManager.java`
 * `MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
 `Expense Splitter` mode. For example, `MODELogic` given below refers to `SplitterLogic` when in `Expense Splitter` mode.
 
-* `MODEParser` is an exception, when in `Expense Splitter` mode refers to `ExpenseSplitterParser` while in `Diet Tracker` mode refers to `FoodBookParser`.
+* `MODEParser` is an exception. When in `Expense Splitter` mode it refers to `ExpenseSplitterParser`
+while in `Diet Tracker` mode it refers to `FoodBookParser`.
 ====
 
 .  `MODELogic` uses the `MODEParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `MODELogicManager`.
-.  The command execution can affect the `Model` (e.g. deleting a entry).
+.  The command execution can affect the `Model` (e.g. deleting AN entry).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Eylah.java` to perform certain actions, such as go back to main menu or exit the App.
+.  In addition, the `CommandResult` object can also instruct the `Eylah.java` application to perform certain actions, such as to go back to main menu or exit the App.
 
 Given below is the Sequence Diagram for interactions within the `Logic Component` for the `execute("deleteitem 1")` API call.
 
@@ -185,8 +186,8 @@ The `Model Component` deals with the modeling of the object.
 The `MODEModel`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Person Amount Book and Receipt Book data in `Expense Splitter` mode.
-* stores the Food Book and Myself data in `Diet Tracker` mode.
+* stores the PersonAmountBook and ReceiptBook data in `Expense Splitter` mode.
+* stores the FoodBook and Myself data in `Diet Tracker` mode.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
@@ -204,14 +205,14 @@ The `Storage Component` deals with the operations to write and read from the loc
 [NOTE]
 ====
 `MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
-`Expense Splitter` mode. For example, `MODEStorage` given below refers to `SplitterStorage` when in `Expense Splitter` mode.
+`Expense Splitter` mode.For example, `MODEStorage` given below refers to `SplitterStorage` when in `Expense Splitter` mode.
 ====
 
 The `MODEStorage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Person Amount Book and Receipt Book data in json format and read it back in `Expense Splitter` mode.
-* can save the Food Book and MySelf data in json format and read it back in `Diet Tracker` mode.
+* can save the PersonAmountBook and ReceiptBook data in json format and read it back in `Expense Splitter` mode.
+* can save the FoodBook and MySelf data in json format and read it back in `Diet Tracker` mode.
 
 [[Design-Commons]]
 === Common classes
@@ -225,7 +226,7 @@ Classes used by multiple components are in the `seedu.eylah.commons` package.
 This section describes some noteworthy details on how the features in EYLAH are implemented.
 
 // tag::diettrackerintro[]
-=== DietTracker feature
+=== Diet Tracker feature
 
 The Diet Tracker feature is designed to aid our users in maintaining a healthy lifestyle. The feature comprises
 of 10 Commands.
@@ -277,6 +278,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Add Command Activity Diagram
 image::DietTrackerAddCommandActivityDiagram.png[]
 
+*Structure of Add Command* +
+
+In this section, you will learn more about the relationships between objects related to the `add` command.
+
+.Add Command Class Diagram
+image::DietTrackerAddCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `AddCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `AddCommand`
+
 *Implementation of Add Command*
 
 The following is a detailed explanation of the operations AddCommand performs. +
@@ -298,7 +309,7 @@ Amount into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following sequence diagram summarizes what happens during the execution of `add` command.
 
-.Add Item Command Sequence Diagram
+.Add Command Sequence Diagram
 image::DietTrackerAddCommandSequenceDiagram.png[]
 
 [[Delete-Command]]
@@ -328,9 +339,19 @@ The following activity diagram illustrates what happens when a user executes the
 .Delete Command Activity Diagram
 image::DietTrackerDeleteCommandActivityDiagram.png[]
 
+*Structure of Delete Command* +
+
+In this section, you will learn more about the relationships between objects related to the `delete` command.
+
+.Delete Command Class Diagram
+image::DietTrackerDeleteCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `DeleteCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `DeleteCommand`
+
 *Implementation*
 
-The following is a detailed explanation of the operations DeleteItemCommand performs. +
+The following is a detailed explanation of the operations DeleteCommand performs. +
 
 1. The `DeleteCommand#execute(Model dietModel)` method is executed and it validates that the specified
 Index to delete is within range. If valid, the Food to be deleted will be retrieved from FoodBook using its Index.
@@ -353,7 +374,7 @@ into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following sequence diagram summarizes what happens during the execution of `delete` command.
 
-.Delete Item Command Sequence Diagram
+.Delete Command Sequence Diagram
 image::DietTrackerDeleteCommandSequenceDiagram.png[]
 
 [[List-Command]]
@@ -382,6 +403,16 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Command Activity Diagram
 image::DietTrackerListCommandActivityDiagram.png[]
 
+*Structure of List Command* +
+
+In this section, you will learn more about the relationships between objects related to the `list` command.
+
+.List Command Class Diagram
+image::DietTrackerListCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `ListCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `ListCommand`
+
 *Implementation of List Command*
 
 The following is a detailed explanation of the operations `ListCommand` performs. +
@@ -403,7 +434,7 @@ to the input flag.
 3. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
 success message. Otherwise, an error message showing the correct command syntax is thrown as `CommandException`.
 
-*Sequence Diagram for List Receipt Command*
+*Sequence Diagram for List Command*
 
 .List Sequence Diagram for `-a` or No-Flag Input
 image::DietTrackerListCommandAllSequenceDiagram.png[]
@@ -412,12 +443,13 @@ image::DietTrackerListCommandDaySequenceDiagram.png[]
 .List Sequence Diagram for `-t`
 image::DietTrackerListCommandTagSequenceDiagram.png[]
 
+//tag::diettrackeredit[]
 [[Edit-Command]]
 ==== Edit Command
 
 In this section, we will learn more about how the `edit` command is implemented.
 
-*What is the Delete Item Command* +
+*What is the Edit Command* +
 
 The `edit` command allows users to edit the Name of the Food or the Calories of the Food from the FoodBook via the Index.
 
@@ -441,6 +473,16 @@ The following activity diagram illustrates what happens when a user executes the
 .Edit Command Activity Diagram
 image::DietTrackerEditCommandActivityDiagram.png[]
 
+*Structure of Edit Command* +
+
+In this section, you will learn more about the relationships between objects related to the `edit` command.
+
+.Edit Command Class Diagram
+image::DietTrackerEditCommandClassDiagram.png[]
+
+The above class diagram shows the structure of the `EditCommand` and its associated classes and
+interfaces. Some methods and fields are left out because they are not of concern in `EditCommand`
+
 *Implementation*
 
 The following is a detailed explanation of the operations `EditCommand` performs. +
@@ -461,12 +503,14 @@ success message. Otherwise, an error message showing the correct command syntax 
 `FoodBookStorage#saveFoodBook(ReadOnlyFoodBook foodBook)` which saves the new Foods
 into JSON format after serializing it using `JsonAdaptedFood`.
 
-*Sequence Diagram for Delete Item Command*
+*Sequence Diagram for Edit Command*
 
 The following sequence diagram summarizes what happens during the execution of `edit` command.
 
 .Edit Command Sequence Diagram
 image::DietTrackerEditCommandSequenceDiagram.png[]
+//end::diettrackeredit[]
+
 
 //tag::diettrackerbmi[]
 [[Bmi-Command]]
@@ -835,11 +879,12 @@ its ItemPrice and Person(s) involved in splitting that Item.
 will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
-
-Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
 
 //tag::expensesplitteractivitydiagram[]
+Below is the activity diagram of the entire Expense Splitter.
+
+
 *Activity Diagram of Expense Splitter:* +
 
 .ExpenseSplitterActivityDiagram
@@ -892,6 +937,17 @@ The following activity diagram illustrates what happens when a user executes the
 
 .Add Item Command Activity Diagram
 image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
+
+{nbsp}
+
+*Structure of Add Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `AddItemCommand`.
+
+.Add Item Command Class Diagram
+image::ExpenseSplitterAddItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `AddItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `AddItemCommand`.
 
 *Implementation of Add Item Command*
 
@@ -952,6 +1008,17 @@ The following activity diagram illustrates what happens when a user executes the
 .Delete Item Command Activity Diagram
 image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
 
+{nbsp}
+
+*Structure of Delete Item Command*
+
+In this section, you will learn more about the relationships between objects related to the `DeleteItemCommand`.
+
+.Delete Item Command Class Diagram
+image::ExpenseSplitterDeleteItemCommandClassDiagram.png[]
+The above class diagram shows the structure of the `DeleteItemCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `DeleteItemCommand`.
+
 *Implementation*
 
 The following is a detailed explanation of the operations `DeleteItemCommand` performs. +
@@ -1007,12 +1074,15 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Receipt Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listreceipt` command.
+In this section, you will learn more about the relationships between objects related to the `ListReceiptCommand`.
 
 .List Receipt Command Class Diagram
 image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
+
 
 The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
 interfaces. Some methods and fields are left out because they are not of concern in `ListReceiptCommand`
@@ -1038,9 +1108,11 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistreceiptcommand[]
 
 //tag::expensesplitterlistamountcommand[]
+
 [[List-Amount-Command]]
 ==== List Amount Command
 
@@ -1062,14 +1134,16 @@ The `listamount` command has the following input format:
 * A person is deleted after they have completely paid the amount they owe.
 ====
 
-The following activity diagram illustrates what happens when a user executes `listamount` command:
+The following activity diagram illustrates what happens when a user executes `listamount` command.
 
 .List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Amount Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listamount` command.
+In this section, you will learn more about the relationships between objects related to the `ListAmountCommand`.
 
 .List Amount Command Class Diagram
 image::ExpenseSplitterListAmountCommandClassDiagram.png[]
@@ -1098,6 +1172,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistamountcommand[]
 
 //tag::expensesplitterdonereceiptcommand[]
@@ -1163,6 +1238,7 @@ image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
 
 
 //tag::expensesplitterpaidcommand[]
+
 [[Paid-Command]]
 ==== Paid Command
 
@@ -1201,7 +1277,7 @@ image::ExpenseSplitterPaidCommandActivityDiagram.png[]
 
 *Structure of Paid Command* +
 
-In this section, you will learn more about the relationships between objects related to the `paid` command.
+In this section, you will learn more about the relationships between objects related to the `PaidCommand`.
 
 .Paid Command Class Diagram
 image::ExpenseSplitterPaidCommandClassDiagram.png[]
@@ -1233,6 +1309,7 @@ image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
 
 .Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+
 //end::expensesplitterpaidcommand[]
 
 //tag::expensesplitterclearreceipt[]
@@ -1265,17 +1342,35 @@ The following activity diagram illustrates what happens when a user executes the
 .Clear Receipt Command Activity Diagram
 image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
+*Structure of Clear Receipt Command*
+
+In this section, you will learn more about the relationships between objects related to the `ClearReceiptCommand`.
+
+.Clear Receipt Command Class Diagram
+image::ExpenseSplitterClearReceiptCommandClassDiagram.png[]
+The above class diagram shows the structure of the `ClearReceiptCommand` and it's associated classes and interfaces. Some
+methods and fields have been left out because they are not of concern in the `ClearReceiptCommand`.
+
 *Implementation of Clear Receipt Command*
 
 The following is a detailed explanation of the operations `ClearReceiptCommand` performs. +
 
 1. The `ClearReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The `splitterModel#clearReceipt()` method will then be called.
+2. If the Receipt is marked as undone via the `SplitterModel#isReceiptDone()` method, the `SplitterModel#deleteAllEntires()`
+method is called, which calls the `PersonAmountBook#deleteAllEntries()` method. What does method does is that it first
+retrieves the ArrayList<Entry> from the Receipt via the `Receipt#getReceipt()` method, then for each Entry, it gets the
+Item and the Amount owed my each person via the `Entry#getItem()` and `Item#getAmountPerPerson()` methods respectively.
+The Amount is then removed from each Person in the Entry via the `Entry#getPersonsList()` method. After which, the
+`splitterModel#clearReceipt()` method will then be called. This will invoke the `Receipt#clearReceipt()` method which
+creates a new ArrayList and assigns it to the Receipt. At the same time, the boolean `Receipt#isDone` is assigned to
+`false`.
 
-3. This will invoke the `Receipt#clearReceipt()` method which creates a new ArrayList and assigns it to the Receipt.
-
-4. At the same time, the boolean `Receipt#isDone` is assigned to `false`.
+3. If the Receipt is marked as done, the `splitterModel#clearReceipt()` method will then be called. This will invoke
+the `Receipt#clearReceipt()` method which creates a new ArrayList and assigns it to the Receipt. At the same time, the
+boolean `Receipt#isDone` is assigned to `false`.
 
 *Sequence Diagram for Clear Receipt Command*
 
@@ -1283,6 +1378,9 @@ The following sequence diagram summarizes what happens during the execution of t
 
 .Clear Receipt Command Sequence Diagram
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
+
+.Execution of Clear Receipt Command
+image::ExpenseSplitterClearReceiptCommandSequenceDiagram2.png[]
 //end::expensesplitterclearreceipt[]
 
 === Logging
@@ -1309,13 +1407,17 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 Refer to the guide <<Documentation#, here>>.
 
+//tag::testing[]
 == Testing
 
 Refer to the guide <<Testing#, here>>.
+//end::testing[]
 
+//tag::devops[]
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
+//end::devops[]
 
 [appendix]
 == Product Scope
@@ -1428,18 +1530,34 @@ Use case ends.
 ** 1a1. EYLAH requests user to re-enter command with flag
 ** 1a2. User enters command with flag +
 Steps 1a1-1a2 are repeated until the correct entered is correct. +
-Use case resumes from step 3.
+Use case resumes from step 2.
 
 * 3a. Height field is empty or in invalid format.
 ** 3a1. EYLAH requests user to re-enter height in correct format
 ** 3a2. User enters command with height in correct format +
 Steps 3a1-3a2 are repeated until the correct  entered is correct. +
-Use case resumes from step 5.
+Use case resumes from step 4.
+
+* 3b. Height value is too large and beyond the limit.
+** 3b1. EYLAH tells user the limit for the height value and prompts to re-enter command.
+** 3b2. User will input values within the specified range. +
+Steps 3b1-3b2 are repeated until the command entered is correct. +
+Use case resumes from step 4.
 
 * 5a. Weight field is empty or in invalid format.
 ** 5a1. EYLAH requests user to re-enter weight in correct format
 ** 5a2. User enters command with weight in correct format +
 Steps 5a1-5a2 are repeated until the correct  entered is correct. +
+Use case resumes from step 6.
+
+* 5b. Weight value is too large and beyond the limit.
+** 5b1. EYLAH tells user the limit for the weight value and prompts to re-enter command.
+** 5b2. User will input values within the specified range. +
+Steps 5b1-5b2 are repeated until the command entered is correct. +
+Use case resumes from step 6.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
 Use case ends.
 
 [discrete]
@@ -1459,6 +1577,10 @@ Use case ends.
 ** 1a1. EYLAH requests user to re-enter food item in valid format.
 ** 1a2. User enters command in the correct format as requested by EYLAH +
 Steps 1a1-1a2 are repeated until the correct entered is correct. +
+Use case resumes from step 2.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
 Use case ends.
 
 [discrete]
@@ -1477,12 +1599,20 @@ Use case ends.
 
 [none]
 * 1a. List command contains invalid flag.
-** 1a1. EYLAH prints out default list which contains food logged for the day
+** 1a1. EYLAH will show proper usage of the command and the valid flags.
+** 1a2. User will re-enter the command with a valid flag. +
+Steps 1a1-1a2 are repeated until the command entered is correct.
+Use case resumes from step 2.
 
 * 3a. Invalid or empty index keyed into command.
 ** 3a1. EYLAH requests user to re-enter index in correct format
-** 3a2. User enters delete item in  correct format +
-Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+** 3a2. User enters edit in  correct format +
+Steps 3a1-3a2 are repeated until the command entered is correct. +
+Use case ends.
+Use case resumes from step 4.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
 Use case ends.
 
 [discrete]
@@ -1501,18 +1631,25 @@ Use case ends.
 
 [none]
 * 1a. List command contains invalid flag.
-** 1a1. EYLAH prints out default list which contains food logged for the day
+** 1a1. EYLAH will show proper usage of the command and the valid flags.
+** 1a2. User will re-enter the command with a valid flag. +
+Steps 1a1-1a2 are repeated until the command entered is correct.
+Use case resumes from step 2.
 
 * 3a. Invalid or empty index keyed into command.
 ** 3a1. EYLAH requests user to re-enter index in correct format
-** 3a2. User enters delete item in  correct format +
-Steps 2a1-2a2 are repeated until the correct  entered is correct. +
-Use case ends.
+** 3a2. User enters edit in  correct format +
+Steps 3a1-3a2 are repeated until the command entered is correct. +
+Use case resumes from step 4.
 
 * 3b. No additional tags and data keyed in as flags to replace existing data.
 ** 3b1. EYLAH requests user to re-enter command with at least one flag
 ** 3b2. User enters command with flag and data +
-Steps 3b1-3b2 are repeated until the correct  entered is correct. +
+Steps 3b1-3b2 are repeated until the command entered is correct. +
+Use case resumes from step 4.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
 Use case ends.
 
 [discrete]
@@ -1528,28 +1665,36 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. List command contains invalid flag.
-** 1a1. EYLAH prints out default list which contains food logged for the day
-+
+* 1a. Invalid flag or additional arguments are entered into the command.
+** 1a1. EYLAH will show proper usage of the command and the valid flags.
+** 1a2. User will re-enter the command with a valid flag. +
+Steps 1a1-1a2 are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
 Use case ends.
 
 [discrete]
-==== Use case: UC06 Calories count
+==== Use case: UC06 Track Daily Calories
 
 *MSS*
 
-1.  User calls the command
-2.  EYLAH shows the list food, their calories, as well as the total calories consumed for the day
-3.  User can track their remaining calories via the interface, based on their input height and weight
+1.  User calls `list` command
+2.  EYLAH shows food intake for the day, calories intake for the day, and calories left to consume
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Invalid argument keyed into command.
-** 1a1. EYLAH would raise a **"errorneous argument"** message
-** 1a2. EYLAH would run the command and calculate the outputs ignoring additional arguments
+* 1a. Additional valid flags entered with the list command.
+** 1a1. EYLAH would generate and display the appropriate list according to the flag +
+User case ends.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
+Use case ends.
 
 [discrete]
 ==== Use case: UC07 Calculate BMI
@@ -1564,15 +1709,46 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. BMI command contains invalid flag.
+* 1a. BMI command contains invalid flags.
 ** 1a1. EYLAH suggests to user the correct format to use
-** 1a2. User will key in the correct format
+** 1a2. User will key in the correct format +
+Steps 1a1-1a2 are repeated until the command entered is correct. +
+Use case resumes from step 2.
+
+* 1b. Both height and weight are not provided as input and there is no stored height and weight.
+** 1b1. EYLAH tells user to provide both height and weight as there are no stored values
+** 1b2. User will input both height and weight values. +
+Steps 1b1-1b2 are repeated until the command entered is correct. +
+Use case resumes from step 2.
+
+* 1c. Height is not provided as input and there is no stored height.
+** 1c1. EYLAH tells user to provide height as there are no stored value.
+** 1c2. User will input height value with the bmi command. +
+Steps 1c1-1c2 are repeated until the command entered is correct. +
+Use case resumes from step 2.
+
+* 1d. Weight is not provided as input and there is no stored weight.
+** 1d1. EYLAH tells user to provide weight as there are no stored value.
+** 1d2. User will input Weight value with the bmi command. +
+Steps 1d1-1d2 are repeated until the command entered is correct. +
+Use case resumes from step 2.
+
+* 1e. Height and weight values are extremely large and beyond the limit.
+** 1e1. EYLAH tells user the limit for the values and prompts to re-enter command.
+** 1e2. User will input values within the specified range. +
+Steps 1e1-1e2 are repeated until the command entered is correct. +
+Use case resumes from step 2.
+
+* *a. At any time, User chooses to not proceed after inputting in invalid command. +
+** *a1. EYLAH will not make any changes +
+Use case ends.
+
 
 //tag::expensesplitterusecase[]
 [discrete]
 === Expense Splitter Use Cases
 
-//tag::ailanaddanddeleteitemusecase[]
+//tag::ailanadditemusecase[]
 [discrete]
 ==== Use case: UC08 - Adding an Item
 *Actor:* User +
@@ -1606,7 +1782,9 @@ Use case ends.
 ** 1b1. EYLAH displays an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
+//end::ailanadditemusecase[]
 
+//tag::ailandeleteitemusecase[]
 [discrete]
 ==== Use case: UC09 - Deleting an Item
 *Actor:* User +
@@ -1632,7 +1810,7 @@ Use case ends.
 ** 1a1. EYLAH displays an error message and displays an example of a correct `deleteitem` function.
 +
 Use case ends.
-//end::ailanaddanddeleteitemusecase[]
+//end::ailandeleteitemusecase[]
 
 // tag::willyusecase[]
 [discrete]
@@ -1738,7 +1916,6 @@ paid.
 Use case ends.
 //end::willyusecase[]
 
-
 //tag::ailanclearreceiptusecase[]
 [discrete]
 === Use case: UC13 - Clearing the Receipt
@@ -1797,7 +1974,7 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has `Java 11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
 .  Should have a pre-loaded list of commonly consumed food items in database.
@@ -1805,7 +1982,7 @@ Use case ends.
 .  A user should be able to use EYLAH easily and intuitively.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  An Item should not have a Item Price more than $10,000.
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -1829,8 +2006,6 @@ A contact detail that is not meant to be shared with others
 The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, normal weight, overweight,
 or obese based on tissue mass (muscle, fat, and bone) and height
 
-[[self]] Self:
-A static class used in Diet Tracker to represent the user in the splitterModel.
 
 _Table 1. Diet Tracker Command Prefix_ +
 [width="59%",cols="22%,<23%,<25%,options="header",]
@@ -1901,42 +2076,164 @@ These instructions only provide a starting point for testers to work on; testers
 .. Navigate to that folder using Terminal and type `java -jar EYLAH.jar` +
    Expected: Shows the CLI interface with welcome message. The window size may not be optimum.
 
+//tag::appendixdtadd[]
 === Adding a Food in Diet Tracker
 
 . Adding a Food
 
 .. Test case: `add -n burger -c 170` +
    Expected: Food is added to FoodBook. Details of the added Food are shown in the status message. Timestamp in the status bar is updated.
+
 .. Test case: `add burger` +
    Expected: No Food is added. Error details and the correct format to input will be shown to the user.
-.. Other incorrect add commands to try: `add`, `add` with no flags `-f` and `-c` appended to the command. +
-   Expected: Similar to previous.
 
+.. Other incorrect add commands to try: `add`, `add` with no flags `-n` and `-c` appended to the command. +
+   Expected: Similar to previous.
+//end::appendixdtadd[]
+
+
+//tag::appendixdtdelete[]
 === Deleting a Food in Diet Tracker
 
 . Deleting a Food while all Foods are listed
 
-.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
+.. Prerequisites: List all Foods using the `list` command. Multiple Foods in the list.
+
 .. Test case: `delete 1` +
    Expected: First Food is deleted from the list. Details of the deleted Food shown in the status message. Timestamp in the status bar is updated.
+
 .. Test case: `delete 0` +
    Expected: No Food is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+//end::appendixdtdelete[]
+
+//tag::appendixdtedit[]
 === Editing a Food in Diet Tracker
 
 . Editing a Food while all Foods are listed
 
-.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
-.. Test case: `edit 1 -n Pasta` +
+.. Edit Command format: `edit -i INDEX [-n NAME] [-c CALORIES]`
+
+.. Prerequisites: List all Foods using the `list` command. Multiple Foods in the list.
+
+.. Test case: `edit -i 1 -n Pasta` +
    Expected: First Food is edited. Details of the edited Food shown in the status message. Timestamp in the status bar is updated.
    Food is edited and then restored.
-.. Test case: `edit 1` +
-   Expected: No Food is edited. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
+.. Test case: `edit -i 1` +
+   Expected: No Food is edited. Error details shown in the status message. Status bar remains the same.
+
+.. Other incorrect delete commands to try: `edit`, `edit -i x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+//end::appendixdtedit[]
+
+//tag::appendixdtmode[]
+=== Set Dieting Mode In Diet Tracker
+
+. Setting a Dieting Mode for Diet Tracker.
+
+.. Mode Command format: `mode [-l] [-g] [-m]`
+
+.. Test case: `mode -l` +
+Expected: Sets the Dieting Mode for the Diet Tracker and stores it.
+
+.. Test case: `mode` +
+Expected: No Dieting Mode will be set.
+Error details shown in the response message.
+//end::appendixdtmode[]
+
+//tag::appendixdtmetrics[]
+=== Check User Metrics In Diet Tracker
+
+. Checking a Users own health metrics (Height, Weight and Dieting Mode).
+
+.. Metrics Command format: `metrics`
+
+.. Test case: `metrics` +
+Expected: The User's own metrics will be printed out.
+
+.. Test case: `metrics -h` +
+Expected: No metrics will be shown.
+Error details shown in the response message.
+//end::appendixdtmetrics[]
+
+//tag::appendixdtbmi[]
+=== Calculate BMI In Diet Tracker
+
+. Calculating BMI for the User or for others.
+
+.. Bmi Command format: `bmi [-h HEIGHT] [-w WEIGHT]`
+
+.. Test case: `bmi -h 170.2 -w 65.7` +
+Expected: BMI will be calculated with the Height of 170.2cm and Weight of 65.7kg, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -h 170.2` +
+Prerequisites: Must have stored Weight using `weight WEIGHT`.
+Expected: BMI will be calculated with the Height of 170.2cm and the User's stored Weight, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -w 65.7` +
+Prerequisites: Must have stored Weight using `height HEIGHT`.
+Expected: BMI will be calculated with the User's stored Height and the Weight of 65.7kg,
+and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi` +
+Prerequisites: Must have stored Height using `height HEIGHT` and Weight using `weight WEIGHT`.
+Expected: BMI will be calculated with the User's stored Height and Weight, and will be printed and shown to the user.
+The BMI category will also be displayed to the User.
+
+.. Test case: `bmi -h 10000000000000000 -w 10000000000000000` +
+Expected: Input height and weight are above the acceptable range.
+Error details shown in the response message.
+
+.. Other incorrect edit commands to try: `bmi -h -1`, `bmi -h 137` (without storing Weight),
+`bmi -w 67` (without storing Height) +
+Expected: BMI will not be calculated.
+Error Message will be shown with details.
+//end::appendixdtbmi[]
+
+
+//tag::appendixdtheight[]
+=== Store Height In Diet Tracker
+
+. Storing Height into the Diet Tracker.
+
+.. Height Command format: `height HEIGHT`
+
+.. Test case: `height 170.2` +
+Expected: Stores a Height of 170.2cm into Diet Tracker. Details of the height stored are shown in success message.
+
+.. Test case: `height -1` +
+Expected: Height will not be stored.
+Error details shown in the response message.
+
+.. Other incorrect height commands to try: `height 0`, `height 1000000000000001` +
+Expected: Height will not be stored.
+Expected: Error message shown with details.
+//end::appendixdtheight[]
+
+//tag::appendixdtweight[]
+=== Store Weight In Diet Tracker
+
+. Storing Weight into the Diet Tracker.
+
+.. Height Command format: `weight WEIGHT`
+
+.. Test case: `weight 65.7` +
+Expected: Stores a Weight of 65.7kg into Diet Tracker. Details of the weight stored are shown in success message.
+
+.. Test case: `weight -1` +
+Expected: Weight will not be stored.
+Error details shown in the response message.
+
+.. Other incorrect weight commands to try: `weight 0`, `weight 1000000000000001` +
+Expected: Weight will not be stored.
+Error message shown with details.
+//end::appendixdtweight[]
 
 === Add Item In Expense Splitter
 
@@ -1952,17 +2249,26 @@ with the number of person splitting that item.
 Expected: No item is added to the current receipt and no change to person amount.
 Error details shown in the response message.
 
-=== List Receipt In Expense Splitter
+//tag::willylistreceiptappendixg[]
+=== List Receipt in Expense Spliter
 
-. Listing the items contained in the current receipt. The order of items listed depends on the order of items added
-by the user.
+. Listing the items contained in the current receipt. The order of items listed depends on the order
+of items added by the user.
 
-.. List Receipt command format: `listreceipt`
+.. ListReceipt Command format: `listreceipt`
+
+.. Prerequisites: NIL.
 
 .. Test case: `listreceipt` +
-Expected: List all items in the current receipt, its price and amount associated with each person involved
-in splitting that item.
+   Expected: If there are items in the receipt: List all items in the current receipt, its price and amount associated with each
+person involved in splitting that item
 
+.. Test case: `listreceipt` +
+   Expected: If there are no items in the receipt: EYLAH will inform user that there is no items currently in the receipt.
+
+//end::willylistreceiptappendixg[]
+
+//tag::willylistamountappendixg[]
 === List Amount In Expense Splitter
 
 . List all the Person(s) and the amount they owe.
@@ -1970,9 +2276,15 @@ in splitting that item.
 .. List Receipt command format: `listamount`
 
 .. Test case: `listamount` +
-Expected: List all Person that currently owe the User money. Those who do not owe any money will be
+Expected: If there are Person in the list: List all Person that currently owe the User money. There should not be anyone
+with $0 as those who do not owe any money will be
 deleted from the PersonList.
 
+.. Test case: `listamount` +
+Expected: If there are no Person in the list: EYLAH will inform user that there no one owes money.
+//end::willylistamountappendixg[]
+
+//tag::willypaidappendixg[]
 === Paid Command In Expense Splitter
 
 . Reduces the amount of money a Person owes.
@@ -1987,7 +2299,7 @@ Expected: Reduces the entire amount of money the Person at Index 1 owes.
 
 .. Test case: `paid -1` +
 Expected: EYLAH will inform the user that INDEX is incorrect.
-
+//end::willypaidappendixg[]
 
 === Saving data
 
@@ -2012,7 +2324,7 @@ with problems we all face while staying in Temasek Hall.
 
 Hence, we decided to build EYLAH, a super application that has both a diet tracker and a expense splitter functionality.
 EYLAH is significantly different from Address Book 3 (AB3) in many aspects.
-We needed to add audience:specific features to satisfy the needs of our target audience:residents staying in Temasek
+We needed to add audience-specific features to satisfy the needs of our target audience-residents staying in Temasek
 Hall.
 
 

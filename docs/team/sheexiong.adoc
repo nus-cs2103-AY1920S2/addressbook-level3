@@ -147,8 +147,6 @@ N.A.
 
 include::../UserGuide.adoc[tag=help]
 
-include::../UserGuide.adoc[tag=dietback]
-
 include::../UserGuide.adoc[tag=donereceipt]
 
 include::../UserGuide.adoc[tag=splitback]

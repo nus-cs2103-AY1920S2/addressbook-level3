@@ -36,18 +36,18 @@ alt person does not exist in personAmountBook
     SplitterModelManager -> PersonAmountBook : addPerson(Person person)
     activate PersonAmountBook
 
-    PersonAmountBook -> SplitterModelManager
+    PersonAmountBook --> SplitterModelManager
     deactivate PersonAmountBook
 
 else person already exists in personAmountBook
 
-    SplitterModelManager -> PersonAmountBook : addAmount(Person person, Amount amount)
+    SplitterModelManager --> PersonAmountBook : addAmount(Person person, Amount amount)
     activate PersonAmountBook
 
-    PersonAmountBook -> UniquePersonList : addAmount(Person person, \n Amount amount)
+    PersonAmountBook --> UniquePersonList : addAmount(Person person, \n Amount amount)
     activate UniquePersonList
 
-    UniquePersonList -> Person : addAmount(Amount amount)
+    UniquePersonList --> Person : addAmount(Amount amount)
     activate Person
 
     Person --> UniquePersonList
