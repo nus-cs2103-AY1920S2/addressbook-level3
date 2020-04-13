@@ -8,7 +8,7 @@ start
 repeat
 :Load next set;
     if (Complete Set?) then ([yes])
-        :Mark set as completed;
+        :Mark set as complete;
     else ([no])
         :Mark set as incomplete;
 endif
