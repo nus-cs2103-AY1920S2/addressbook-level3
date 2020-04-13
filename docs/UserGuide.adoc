@@ -135,8 +135,14 @@ Format: `list`
 //tag::reminder[]
 ==== View Reminder : `reminder`
 
-Shows a list of all undone tasks which can be seen from a fixed field in the home page (Dashboard). +
-Format: `reminder`
+Shows a list of all undone tasks on the specified date on the home page (Dashboard). +
+Format: `reminder [d/DATE]` +
+If no `DATE` is specified, FitHelper displays all undone entries.
+
+Examples:
+
+* `reminder d/2020-03-31` +
+Switches to Home Page and shows all undone entries on `2020-03-31` in the reminder field.
 
 //end::reminder[]
 
@@ -157,7 +163,7 @@ i.e. If there are 5 food entries in total, and after `find` 2 food entries are d
 
 Examples:
 (after switching to Home Page)
-* `edit x/s i/1 t/Friday 16:00 l/PGP gym` +
+* `edit x/s i/1 t/2020-04-05-16:00 l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
 
 ===== Mark an entry as done
