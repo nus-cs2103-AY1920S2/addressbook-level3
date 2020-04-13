@@ -37,7 +37,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_LINE_NUMBER_GOOD = new Prefix("gl/");
     public static final Prefix PREFIX_LINE_NUMBER_BAD = new Prefix("bl/");
     public static final Prefix PREFIX_EVENTTITLE = new Prefix("t/"); // event title
-    public static final Prefix PREFIX_EVENTDATE = new Prefix("dt/"); // event date time
+    public static final Prefix PREFIX_EVENTDATE = new Prefix("d/"); // event date time
     public static final Prefix PREFIX_PLACE = new Prefix("p/"); // event place
-    public static final Prefix PREFIX_DURATION = new Prefix("d/"); // event duration
+    public static final Prefix PREFIX_DURATION = new Prefix("h/"); // event duration
 }

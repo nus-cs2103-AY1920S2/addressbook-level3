@@ -973,9 +973,9 @@ Expected: All restaurants added should be displayed.
 
 === Adding a social event
 
-. Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+. Test case: `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
 Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
-.. Test case: `(ev)add t/Birthday party dt/DATETIME d/3 p/Clementi` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)add t/Birthday party d/DATETIME h/3 p/Clementi` (where DATETIME is after the current date and time) +
    Expected: No social event is added. Error details shown in the status message.
 
 === Listing all events
@@ -988,9 +988,9 @@ Expected: List all added social events in the Event Schedule.
 . Edits a social event while all social events are listed
 
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
-.. Test case: `(ev)edit 1 edt/2020-04-09 11:00 ed/2` +
+.. Test case: `(ev)edit 1 d/2020-04-09 11:00 h/2` +
    Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
-.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)edit d/DATETIME` (where DATETIME is after the current date and time) +
    Expected: No social event is edited. Error details shown in the status message.
 
 === Deleting a social event

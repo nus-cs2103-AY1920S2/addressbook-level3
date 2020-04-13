@@ -511,7 +511,7 @@ tag::eventSchedule[]
 ==== Create a new social event : `(ev)add`
 
 Creates a social event. +
-Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
+Format: `(ev)add t/EVENT_TITLE d/EVENT_DATE h/DURATION p/PLACE`
 
 ****
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
@@ -519,13 +519,13 @@ Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
 
 Examples:
 
-* `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+* `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
 Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and place of event at "Facebook APAC HQ".
 
 ==== Edit a social event : `(ev)edit`
 
 Allows editing of a social event. +
-Format: `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/LOCATION]`
+Format: `(ev)edit INDEX [t/EVENT_TITLE] [d/EVENT_DATE] [h/DURATION] [p/LOCATION]`
 
 ****
 * INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
@@ -535,7 +535,7 @@ Format: `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/LOCATION
 
 Examples:
 
-* `(ev)edit 2 dt/2020-04-09 22:00 d/2` +
+* `(ev)edit 2 d/2020-04-09 22:00 h/2` +
 Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
 
 ==== Deletes a social event : `(ev)delete`
