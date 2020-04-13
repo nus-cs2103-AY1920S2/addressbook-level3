@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@@author Eclmist-->
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+<fx:root minHeight="600.0" minWidth="450" title="Statistics Window" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">  <icons>
+    <Image url="@/images/icon.png" />
+  </icons>
+   <scene>
+      <Scene>
+          <VBox styleClass="background">
+            <children>
+               <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="800.0">
+                  <children>
+                     <Label styleClass="label-title" text="STATISTICS" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <font>
+                           <Font name="Avenir Book" size="24.0" />
+                        </font>
+                     </Label>
+                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label styleClass="label-title" text="MODULE: " textFill="WHITE">
+                              <font>
+                                 <Font name="Avenir Book" size="26.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="moduleCodeLabel" styleClass="label-title" text="CS2103T" textFill="WHITE">
+                              <font>
+                                 <Font name="Avenir Book" size="26.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+                  <padding>
+                     <Insets bottom="20.0" top="10.0" />
+                  </padding>
+               </HBox>
+               <Line endX="830.0" stroke="#616161">
+                  <VBox.margin>
+                     <Insets bottom="15.0" />
+                  </VBox.margin></Line>
+               <HBox prefHeight="317.0" prefWidth="801.0" styleClass="background-2">
+                  <children>
+                     <VBox prefHeight="200.0" prefWidth="761.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label styleClass="label-title" text="Summary" />
+                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <children>
+                                 <PieChart fx:id="hoursBreakdownPieChart" legendVisible="false" prefHeight="257.0" prefWidth="433.0" title="Hours Breakdown" HBox.hgrow="ALWAYS" />
+                                 <VBox alignment="CENTER_RIGHT" prefHeight="257.0" prefWidth="347.0">
+                                    <children>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                         <items>
+                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Tutorial">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursTutorialLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                         </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Lab">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursLabLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Consultation">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursConsultationLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Grading">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursGradingLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Preparation">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursPreparationLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Other">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="numHoursOtherLabel" styleClass="label-new" text="10 Hours">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <Label fx:id="numHoursTotalLabel" styleClass="label-title" text="60 (S$2400.00)">
+                                          <graphic>
+                                             <Label styleClass="label-title" text="Total Claimable Hours: " />
+                                          </graphic>
+                                          <VBox.margin>
+                                             <Insets bottom="10.0" left="10.0" top="20.0" />
+                                          </VBox.margin>
+                                       </Label>
+                                    </children>
+                                    <padding>
+                                       <Insets top="10.0" />
+                                    </padding>
+                                 </VBox>
+                              </children>
+                           </HBox>
+                        </children>
+                     </VBox>
+                  </children>
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+               </HBox>
+               <HBox prefHeight="312.0" prefWidth="831.0" styleClass="background-2">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <VBox.margin>
+                     <Insets top="20.0" />
+                  </VBox.margin>
+                  <children>
+                     <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label styleClass="label-title" text="Students" />
+                           <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <children>
+                                 <BarChart fx:id="studentRatingBarChart" horizontalGridLinesVisible="false" legendVisible="false" prefHeight="257.0" prefWidth="377.0" title="Student Ratings" HBox.hgrow="ALWAYS">
+                                    <xAxis>
+                                       <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                       <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                    <HBox.margin>
+                                       <Insets bottom="-10.0" right="40.0" />
+                                    </HBox.margin>
+                                 </BarChart>
+                                 <VBox alignment="CENTER_RIGHT" prefHeight="257.0" prefWidth="347.0">
+                                    <children>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Low Rated Students">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label styleClass="label-new" text="Rating">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <Line endX="100.0" startX="-246.0" startY="0.2928321957588196" stroke="#686868" />
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="studentName1Label" styleClass="label-new" text="Name 1">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="rating1Label" styleClass="label-new" text="1">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="studentName2Label" styleClass="label-new" text="Name 2">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="rating2Label" styleClass="label-new" text="1">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="studentName3Label" styleClass="label-new" text="Name 3">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="rating3Label" styleClass="label-new" text="1">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="studentName4Label" styleClass="label-new" text="Name 4">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="rating4Label" styleClass="label-new" text="1">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                       <SplitPane dividerPositions="0.7" opacity="0.7" prefHeight="33.0" prefWidth="791.0">
+                                          <items>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="studentName5Label" styleClass="label-new" text="Name 5">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                <children>
+                                                   <Label fx:id="rating5Label" styleClass="label-new" text="2">
+                                                      <padding>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      </padding>
+                                                   </Label>
+                                                </children>
+                                             </AnchorPane>
+                                          </items>
+                                          <padding>
+                                             <Insets top="2.0" />
+                                          </padding>
+                                       </SplitPane>
+                                    </children>
+                                    <padding>
+                                       <Insets top="10.0" />
+                                    </padding>
+                                 </VBox>
+                              </children>
+                           </HBox>
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+         </VBox>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </Scene>
+   </scene>
+</fx:root>

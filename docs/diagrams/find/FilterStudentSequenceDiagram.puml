@@ -1,0 +1,85 @@
+@startuml
+!include ../style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
+participant ":FilterStudentCommandParser" as FilterStudentViewCommandParser LOGIC_COLOR
+participant "d:FilterStudentCommand" as FilterStudentViewCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("student filter \nm/CS2103T g/G06")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parse("student filter \nm/CS2103T g/G06")
+activate TaTrackerParser
+
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser: StudentCommandParser()
+activate StudentCommandParser
+
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parse("filter \nm/CS2103T g/G06")
+activate StudentCommandParser
+
+create FilterStudentViewCommandParser
+StudentCommandParser -> FilterStudentViewCommandParser
+activate FilterStudentViewCommandParser
+FilterStudentViewCommandParser --> StudentCommandParser
+deactivate FilterStudentViewCommandParser
+
+StudentCommandParser -> FilterStudentViewCommandParser : parse("m/CS2103T g/G03")
+activate FilterStudentViewCommandParser
+
+create FilterStudentViewCommand
+FilterStudentViewCommandParser -> FilterStudentViewCommand : FilterStudentCommand("CS2103T", "G03")
+activate FilterStudentViewCommand
+FilterStudentViewCommand --> FilterStudentViewCommandParser : d
+deactivate FilterStudentViewCommand
+
+FilterStudentViewCommandParser --> StudentCommandParser : d
+deactivate FilterStudentViewCommandParser
+FilterStudentViewCommandParser -[hidden]-> StudentCommandParser
+destroy FilterStudentViewCommandParser
+
+StudentCommandParser --> TaTrackerParser : d
+deactivate StudentCommandParser
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> FilterStudentViewCommand : execute()
+activate FilterStudentViewCommand
+
+FilterStudentViewCommand -> Model : hasModule("CS2103T")
+activate Model
+Model --> FilterStudentViewCommand : true
+
+FilterStudentViewCommand -> Model : hasGroup("G06", "CS2103T")
+Model --> FilterStudentViewCommand : true
+
+FilterStudentViewCommand -> Model : setFilteredStudentList(CS2103T, G06)
+Model --> FilterStudentViewCommand
+deactivate Model
+
+create CommandResult
+FilterStudentViewCommand -> CommandResult : CommandResult()
+activate CommandResult
+CommandResult --> FilterStudentViewCommand : result
+deactivate CommandResult
+
+FilterStudentViewCommand --> LogicManager : result
+deactivate FilterStudentViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

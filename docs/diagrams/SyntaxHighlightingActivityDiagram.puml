@@ -1,0 +1,94 @@
+@startuml
+start
+:Check new input in CommandBox;
+
+if () then ([empty input])
+
+else if () then ([invalid command word])
+    :Highlight input in red;
+    :Show invalid
+    command message;
+
+else ([valid command word])
+    :Change highlighting rules
+    for command in input;
+
+    :Check input arguments;
+
+    if () then ([no arguments])
+        :Highlight input in green;
+        :Show command
+        usage message;
+    else ([has arguments])
+        :<b>Highlight arguments</b>;
+    endif
+endif
+stop
+@enduml
+
+@startuml
+start
+:Check arguments;
+
+if () then ([trailing whitespace])
+    :Clear highlighting;
+    :Count number of
+    trailing whitespaces
+    in arguments;
+    if () then ([one whitespace])
+    else ([many whitespaces])
+        :Show command
+        usage message;
+    endif
+'    stop
+
+else if () then ([no need preamble])
+    :Remove preamble;
+
+    :Check if removed
+    preamble is blank;
+
+    if () then ([blank preamble])
+        :<b>Highlight invalid</b>
+        <b>arguments</b>;
+    else ([invalid preamble])
+        :Highlight input in red;
+        :Show command
+        usage message;
+'        stop
+    endif
+else ([needs preamble])
+    :<b>Highlight invalid</b>
+    <b>arguments</b>;
+endif
+stop
+@enduml
+
+
+@startuml
+start
+
+:Check each prefix;
+
+while () is ([has next prefix])
+
+:Check next prefix;
+
+if () then ([wrong prefix])
+    :Highlight input in red;
+    :Show command
+    usage message;
+    stop
+else if () then ([invalid prefix value])
+    :Highlight input in red;
+    :Show prefix
+    usage message;
+    stop
+else ([valid prefix value])
+    :Highlight input in green;
+    :Show prefix
+    usage message;
+endif
+endwhile([no more prefixes])
+stop
+@enduml

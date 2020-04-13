@@ -1,0 +1,134 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
+
+Package Parser as ParserPkg <<Rectangle>>{
+Interface Parser <<Interface>>
+
+note as Sidenote
+These are <b>packages</b> with
+a number of classes inside them
+end note
+
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
+
+Commons .down.> Parser
+Module .down.> Parser
+Group .down.> Parser
+Student .down.> Parser
+Sort .down.> Parser
+Session .down.> Parser
+Statistic .down.> Parser
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Package Parser <<Rectangle>>{
+Class Prefixes
+Class Prefix
+
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
+
+Commons .down.> Prefixes
+Module .down.> Prefixes
+Group .down.> Prefixes
+Student .down.> Prefixes
+Sort .down.> Prefixes
+Session .down.> Prefixes
+Statistic .down.> Prefixes
+
+Prefixes .down.> Prefix
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+
+Package Parser <<Rectangle>>{
+Class PrefixDetails
+Class Prefixes
+Class PrefixDictionary
+Class Prefix
+
+Interface Parser <<Interface>>
+Package ParserPackageX {
+    Class XCommandParser
+}
+
+Prefixes <.left. XCommandParser
+XCommandParser .up.|> Parser
+
+PrefixDictionary -left-> "*" Prefix : parameters
+PrefixDictionary -left-> "*" Prefix : optionals
+PrefixDictionary .up.> Prefixes
+PrefixDictionary -down-> "*" PrefixDetails : prefix details
+
+Prefixes .down.> Prefix
+PrefixDetails -up-> "0..1" Prefix
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor WHITE
+skinparam classHeaderBackgroundColor LOGIC_COLOR
+skinparam classBorderColor LOGIC_COLOR
+skinparam classAttributeIconSize 0
+
+Package Parser <<Rectangle>>{
+
+Class PrefixDetails {
+    - constraint : String
+    - examples : List<String>
+}
+
+Interface Predicate <<Interface>>
+PrefixDetails .> Predicate
+
+show PrefixDetails members
+hide PrefixDetails methods
+
+Class Prefixes
+Class PrefixDictionary
+Class Prefix
+
+Interface Parser <<Interface>>
+Package X {
+    Class XCommandParser
+}
+
+Prefixes <.left. XCommandParser
+XCommandParser .up.|> Parser
+
+PrefixDictionary -left-> "*" Prefix : parameters
+PrefixDictionary -left-> "*" Prefix : optionals
+PrefixDictionary .up.> Prefixes
+PrefixDictionary -down-> "*" PrefixDetails : prefix details
+
+Prefixes .down.> Prefix
+PrefixDetails -up-> "0..1" Prefix
+@enduml

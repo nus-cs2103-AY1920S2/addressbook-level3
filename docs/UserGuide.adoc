@@ -1,177 +1,1797 @@
-= AddressBook Level 3 - User Guide
+= TA-Tracker - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-ifdef::env-github[]
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:caution-caption: :fire:
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
+//tag::introduction[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Are you a *Teaching Assistant* at *NUS School of Computing (NUS SOC)* who is tired of having to
+fill out the *Teaching Support Student (TSS) Claims Form* in great detail at the end of the semester?
+
+Do you wish there was a *desktop application* that can help you *keep track of your teaching duties*,
+such as your *claimable hours* and *student ratings*, all in *one place*?
+
+Look no further, because *TA-Tracker* is just the tool for *you*!
+
+*No more* saving your claimable hours in an *unappealing spreadsheet*.
+
+*No more* keeping notes about your students in a *cluttered diary*.
+
+*TA-Tracker* is a *productivity tool* that is made for all you *NUS SOC Teaching Assistants (TAs)*
+who need to easily *fill out forms*, such as the *TSS Claims Form*, at the end of the semester.
+
+*TA-Tracker* has features that will help you easily *track and manage*
+your *claimable hours* and *students* in *one place*.
+
+What's more, *TA-Tracker* has:
+
+* A *Command Line Interface (CLI)* for all you *TAs* who
+can type fast and prefer to use a keyboard, and
+
+* A *Graphical User Interface (GUI)* so that
+you can easily view all your *teaching duties*.
+
+If you are interested, jump to <<Quick Start>> and discover how easy it is to fill
+out the TSS form using the *TA-Tracker*.
+//end::introduction[]
+//tag::quickstart[]
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+This section gives you a step-by-step explanation on how you can download and open
+the application.
+
+.  Ensure that you have Java `11` or above installed in your Computer.
+.  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
+This is what the GUI may look like when the TA-Tracker is opened.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
++
+image::CommandBox.png[,2000]
+This diagram explains what a `Result Display` and `Command Box` are.
++
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Usage>> for details of each command.
 
-[[Features]]
-== Features
+NOTE: TA-Tracker data is saved periodically so you don't have to worry about saving
+your data manually.
+
+== About the User Guide
+This User Guide introduces you to TA-Tracker's features and shows you how you can use
+the TA-Tracker to make your life as a Teaching Assistant easier.
+//end::quickstart[]
+//tag::commonsymbols[]
+
+=== Common Symbols
+
+(Contributed by Aakanksha and Fatin)
+
+This section shows you the symbols commonly used in this guide.
+
+[NOTE]
+====
+This symbol indicates that there is something that you should take note of.
+====
+
+[TIP]
+====
+This symbol indicates that a tip is being mentioned.
+====
+
+[CAUTION]
+====
+This symbol indicates that there is something you should be careful to avoid.
+====
+//end::commonsymbols[]
+//tag::commandformat[]
+
+=== Command Format
+
+(Contributed by Fatin and Gabriel)
+
+This section shows you how all the commands in this guide have been formatted.
+
+[width="%",cols="<20%a,<30%a,<50a",options="header"]
+|=======================================================================
+| Format | Meaning | Example
+
+|
+`lower_case/`
+
+Any lower case letters, followed by a forward slash
+|
+These are *prefixes*.
+
+They are used to separate the different parameters of a command.
+|
+These are prefixes: +
+`n/`, `d/`, `t/`
+
+Note that prefixes *cannot have spaces*: +
+`n /` is *not a prefix*, and will not be recognized.
+
+|
+`UPPER_CASE`
+
+Words in upper case
+|
+These are *parameters*.
+
+You will need to supply parameters in order to complete certain commands.
+|
+You can create a *student* with the name *John Doe* using the `student add` command.
+
+Suppose the `student add` command looks like this: +
+`student add n/NAME`
+
+Simply replace `NAME` with `John Doe` to create the student *John Doe*: +
+`student add n/John Doe`
+
+|
+`[UPPER_CASE]`
+
+Words in upper case, surrounded by square brackets
+|
+These are *optional parameters*.
+
+Certain commands can be used without these parameters.
+|
+Suppose a command contains *two parameters* next to each other: +
+`n/NAME [t/TAG]`
+
+The *first parameter* `NAME` is *compulsory*. +
+The *second parameter* `TAG` is *optional*.
+
+Since a `TAG` is *optional*, you will be able to use the command with these *inputs*:
+
+* `n/John Doe t/Fast learner`, or
+* `n/John Doe`
+
+|
+`UPPER_CASE...`
+
+`[UPPER_CASE]...`
+
+An ellipsis `...` following any words in upper case
+|
+These are parameters that can be used *multiple times* or *none at all*.
+|
+The following parameter can be used *multiple times*: +
+`t/TAG...`
+
+This means that it can be:
+
+* *Left empty* (i.e. 0 times): +
+`t/`
+* *Used one time* (i.e. 1 time): +
+`t/friend`
+* *Used multiple times* (i.e. 2 or more times): +
+`t/friend t/family`
+
+|=======================================================================
+//end::commandformat[]
+//tag::commonparameters[]
+
+=== Common Parameters
+(Contributed by Aakanksha)
+
+This section lists and explains what the parameters commonly used in the commands mean.
+
+[width="%",cols="<20%a,<40%a,<40%a,options="header",]
+|=======================================================================
+|Parameter | Explanation | Examples
+
+|
+`TAB_NAME`
+|
+This refers to the different `tab` names.
+|
+*student* - to indicate the *Student View*
+
+*session* - to indicate the *Session View*
+
+*claims* - to indicate the *Claims View*
+
+|
+`INDEX`
+|
+Indicates the position of an item in a list
+|
+*1* - refers to the
+first item in a list
+
+|
+`MOD_CODE`
+|
+Refers to the unique code given to the module.
+
+You can personalise this and give it your own code. However, we recommend you
+use the module's official code.
+|
+*CS2103T*
+
+|
+`GROUP_CODE`
+|
+Refers to the unique code given to the group.
+
+You can personalise this and create your own code. However, we recommend that you use
+the group's official code assigned by SoC
+|
+*G06*
+
+|
+`NEW_GROUP_CODE`
+|
+Refers to the new group code of a group when you edit a group.
+|
+*G05*
+
+|
+`GROUP_TYPE`
+|
+Refers to the group type.
+|
+*lab*, *tutorial*, *recitation* or *other*
+
+|
+`NEW_GROUP_TYPE`
+|
+Refers to the new group type you want a group to be.
+|
+*lab*, *tutorial*,
+*recitation* or *other*
+
+|
+`MATRIC_NUMBER`
+|
+Refers to the matriculation number of a student.
+
+It must start with an A, have 7 numbers in between and end with an alphabet.
+|
+*A0123456X*
+
+|
+`NAME`
+|
+Depending on the command, this could either refer to the student's name
+or the module's name.
+|
+*John Doe* or *Software Engineering*
+
+|
+`SORT_TYPE`
+|
+Refers to how you want to sort the *Student View*.
+|
+*alpha*, *alphabetical* or *alphabetically* - to sort alphabetically.
+
+*rating asc* - to sort by rating in ascending order.
+
+*rating desc* - to sort by rating in descending order.
+
+*matric* - to sort by matriculation number.
+
+|
+`SESSION_TYPE`
+|
+Refers to the type of session.
+|
+*consult* - consultation
+
+*tutorial* - tutorial
+
+*lab* - lab
+
+*grading* - grading assignments, projects or assessments
+
+*prep* - class preparation
+
+*todo* - other tasks and notes
+
+|
+`NOTES`
+|
+Refers to any extra description
+|
+*This time was spent correcting 40 assignments*
+
+|
+`START`
+|
+Indicates the starting time. Must be in the `HH:mm` format.
+|
+*10:42*
+
+|
+`END`
+|
+Indicates the ending time. Must be in the `HH:mm` format.
+|
+*16:42*
+
+|
+`DATE`
+|
+Indicates the date of a session. Must be in the `yyyy-MM-dd` format.
+|
+*2020-06-20*
+
+|
+`WEEK`
+|
+Indicates the recurring period of a session.
+|
+*1* - represents a session that repeats every week.
+
+|
+`RATING`
+|
+Indicates the rating of a student.
+
+A rating is as a number between 1 (Poor) to 5 (Excellent).
+|
+*3* - represents an average student rating.
+
+|
+`EMAIL`
+|
+Indicates the email of a student.
+
+Emails should be in `local-part@domain format`.
+
+The `local-part` can only contain:
+
+* Alphanumeric characters, and
+* The following special characters: +
+!#$%&'*+/=?`{\|}~^.-
+
+The `domain` can only contain:
+
+* Alphanumeric characters
+* The following special characters in between: +
+** dash (-)
+** period (.)
+
+The domain name must also:
+
+* Have at least 2 characters
+* Start and end with alphanumeric characters
+|
+*johnDoe97@example123.com*
+
+|=======================================================================
+//end::commonparameters[]
+//tag::duplicateparameters[]
+
+==== Duplicate Parameters
+(Contributed by Gabriel)
+
+You can specify the same parameter *more than once* in a command.
+Depending on the command, you will see *different outcomes*.
+
+Here is a table explaining the different outcomes:
+
+[width="%",cols="<20%a,<30%a,<50a",options="header"]
+|=======================================================================
+|
+Parameter
+|
+Explanation
+|
+Example
+
+|
+Can be used multiple times
+|
+*All occurrences* will be used when executing the command
+|
+In the `student add` command, you can create a *student* with *multiple tags*.
+
+Therefore, you can input multiple tags by chaining them: +
+`t/needs help t/aka henry`
+
+This will give a student the tags `needs help` and `aka henry`.
+
+|
+Can only be used once
+|
+The very *last occurrence* will be used when executing the command
+|
+`module add m/CS2103T n/SE n/Software Engineering`
+
+If you execute this command, you will create a *module* with the name `Software Engineering`.
+
+The name `SE` will be ignored.
+
+|=======================================================================
+//end::duplicateparameters[]
+//tag::rearrangingparameters[]
+
+==== Rearranging Parameters
+(Contributed by Gabriel)
+
+Parameters can be in *any order* if they have *prefixes*.
+
+For example, if a command needs a `n/NAME` and `p/PHONE_NUMBER`, you can specify them in any order:
+
+* `n/NAME p/PHONE_NUMBER`, or
+* `p/PHONE_NUMBER n/NAME`
+
+However, if the command has a parameter *without a prefix*, that parameter *must* be
+the very *first parameter*.
+
+For example, if a command needs an `INDEX`, it must be the *first parameter*:
+
+* `INDEX n/NAME` is valid, but
+* `n/NAME INDEX` is invalid
+//end::rearrangingparameters[]
+//tag::layout[]
+
+[[Layout]]
+== Layout
+
+(Contributed by Fatin)
+
+This section gives you a brief overview of the layout of the *TA-Tracker*.
+
+*TA-Tracker* is divided into three `tabs` representing the different *Views*:
+
+* The *Student View* under the `student tab`,
+* The *Session View* under the `session tab`, and
+* The *Claims View* under the `claims tab`
+
+When you switch to a `tab`, that `tab` will be highlighted in orange.
+
+Furthermore, when you enter a new command, you will be automatically switched to the relevant `tab`
+so that you can instantly see the result of the command.
+
+[NOTE]
+====
+* You can *select* a `tab` to show a different *View*.
+This `tab` will be highlighted in *blue*.
+
+* If you are *switched* to a `tab` when you *enter a command*,
+that `tab` will be highlighted in *orange*. +
++
+This should help you easily remember
+where you last made a change in *TA-Tracker*.
+
+* You will sometimes see the `tabs` highlighted in both *orange* and *blue*. +
++
+The *orange* `tab` will remain highlighted even if you select another `tab`.
+
+* You may notice that the *orange* and *blue* highlights for the `tabs` are *not
+the same size*. +
++
+This is to *prevent* the highlights from *overlapping* each other,
+allowing you to see them better.
+
+
+image::Tabs.png[width="790"]
+This shows what happens when you last made a change in the `student tab`
+and then clicked on the `claims tab`.
+
 
 ====
-*Command Format*
+//end::layout[]
+//tag::studentview[]
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+=== Student View
+(Contributed by Aakanksha)
+
+Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
+have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
+three columns.
+
+. The first column shows you a *list of all the modules* that you are a teaching
+assistant for.
+
+. The second column shows you a *list of all groups* that you're a teaching assistant
+for *in a module of your choice*.
+If you haven't chosen anything, you will be shown the groups of the module
+in the *first index* in the list of modules by default.
+
+. The third column shows you a *list of all students* in the *group of your choice*. If you
+haven't chosen anything, you will be shown the students of the group in the
+*first index* in the list of groups by default.
+
+The purpose of the *Student View* is to help you keep track a of your students. It will
+show you information such as:
+
+
+* `NAME`: student name
+* `MATRIC_NUMBER`: matriculation number
+* `RATING`: ratings you have given the student, represented by stars (on a scale from 1 - 5)
+* `EMAIL` and `PHONE`: contact details
+* `TAG`: any additional information you have about the student
+
+[NOTE]
+====
+The `RATING` value must be a positive integer.
 ====
 
-=== Viewing help : `help`
+image::StudentView.png[,1000]
+This is an example of what the Student View looks like.
+
+
+//end::studentview[]
+//tag::sessionview[]
+
+=== Session View
+(Contributed by Chua Yi Jing)
+
+Under the `session tab`, the *Session View* contains a list of the upcoming sessions
+that you haven't done yet.
+
+The sessions are automatically sorted by date.
+
+The purpose of the *Session View* is to help you keep track a of your upcoming teaching.
+duties. It will show you information such as:
+
+* `SESSION_TYPE`: the type of session
+* `DATE`: the date that the session will occur on
+* `START` and `END`: the start time and end time of the session
+* `MODULE`: the module that the session is under
+* `NOTES`: any additional information
+* `WEEK`: the recurring period of the session
+
+image::SessionView.png[,1000]
+This is an example of what the Session View looks like.
+//end::sessionview[]
+//tag::claimsview[]
+
+=== Claims View
+
+(Contributed by Fatin)
+
+Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
+duties you have completed so far.
+
+The purpose of this view is to allow a you to keep track of all your claims so
+you can easily enter it into the TSS claims form at the end of the semester.
+
+The *Claims View* has been
+divided into two columns.
+
+. The first column shows you a *list of all the modules* that you are a teaching
+assistant for.
+
+. The second column shows you a *list of all the sessions* that you have *marked as done*.
+
+image::ClaimsView.png[,1000]
+This is an example of what the Claims View looks like.
+//end::claimsview[]
+
+[[Usage]]
+== Usage
+(Contributed by Gabriel)
+
+This section describes how you can interact with *TA-Tracker*.
+
+//tag::keyboard[]
+=== Keyboard Shortcuts
+
+You can navigate everything in *TA-Tracker* with just a *keyboard*!
+
+Here are some keyboard shortcuts that you can use:
+
+[width="%",cols="<20%a,<80a",options="header"]
+|=======================================================================
+|
+Shortcut Key
+|
+Usages
+
+|
+kbd:[Esc]
+|
+* *Toggle* between the `command box` and the *Views*.
+
+* *Close* a popup window.
+
+|
+kbd:[↑] `up` +
+kbd:[↓] `down` +
+arrow keys
+|
+* *Scroll* through a list +
+(you must toggle out of the `command box` in order to use this shortcut)
+
+|
+kbd:[←] `left` +
+kbd:[→] `right` +
+arrow keys
+|
+* *Navigate* between *different lists* in the same *View*. +
+(you must toggle out of the `command box` in order to use this shortcut)
+
+|=======================================================================
+//end::keyboard[]
+//tag::syntax[]
+
+=== Syntax Highlighting
+When you type a command into the `command box`, your input will be *highlighted*.
+
+Here is a table explaining the meaning of each colour:
+
+[width="%",cols="<10%a,<25%a,<65%a",options="header"]
+|=======================================================================
+|
+Colour
+|
+Meaning
+|
+Examples
+
+|
+green
+|
+A *valid* user input
+|
+* The full name of a valid command +
+eg. `help`, `student add`, `module delete`
+
+* A valid value for the command parameters +
+eg. `id/A1234567J`, `d/2020-03-20`, `n/This is a valid description`
+
+|
+red
+|
+An *invalid* user input
+|
+* An unknown command +
+eg. `unknown`, `student`, `student done`
+
+* A invalid value for the command parameters +
+eg. `id/B1234X`, `d/4 March 2020`, `s/4pm`
+
+|
+white
+|
+The *default* font colour
+|
+
+
+|=======================================================================
+
+image::ValidInput.png[,1000]
+This is an example of a valid input.
+
+image::InvalidInput.png[,1000]
+This is an example on an invalid input.
+
+=== Hints
+When you type out a command, you will also see `hints` about how to use the command.
+
+Here is a table describing the different types of hints that you will encounter:
+
+[width="%",cols="<10%a,<90a",options="header"]
+|=======================================================================
+|
+Hint
+|
+Trigger
+
+|
+Showing the *command usage*
+|
+* When you *first type out* the `command word`.
+
+* After typing *two whitespaces* in a row.
+
+|
+Showing the *parameter usage*
+|
+* When you *first type out* a *valid prefix*.
+
+* When there is an *invalid prefix* in your command.
+
+|=======================================================================
+
+image::Default.png[,1000]
+This is an example of what a hint may look like. You may also note that the default text colour, white
+is being used here.
+
+//end::syntax[]
+
+[[Commands]]
+== Commands
+This section explains how to use all the `CLI` commands in *TA-Tracker*.
+
+=== Navigation
+
+These commands are used to control the different *windows* in *TA-Tracker*,
+as well as switching between the different *Views*.
+//tag::help[]
+
+==== Viewing help : `help`
+
+(Contributed by Fatin)
+
+You can open the `help window` with this command. You can close the `help window`
+by pressing the kbd:[ESC] key
+on your keyboard.
+
 
 Format: `help`
 
-=== Adding a person: `add`
+image::HelpWindow.png[width="790"]
+This is what the `help` window looks like.
+//end::help[]
+//tag::goto[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Switching tabs : `goto`
+
+(Contributed by Fatin)
+
+You can switch to different `tabs` with this command to show their associated *view*.
+
+Format: `goto TAB_NAME`
+
+[NOTE]
+====
+* You cannot switch to a `tab` that does not exist in TA-Tracker
+====
+
+====
+Example:
+
+`goto student`
+
+image::GotoStudent.png[width="790"]
+This command takes you to the `student tab`.
+
+====
+//end::goto[]
+//tag::exit[]
+
+==== Exiting the program : `exit`
+(Contributed by Fatin)
+
+You can *exit the program* with this command.
+
+Format: `exit`
+//end::exit[]
+//tag::list[]
+
+==== Listing all sessions : `list`
+(Contributed by Chua Yi Jing)
+
+`list` command shows you all the sessions under Session View and Claims View.
 
 [TIP]
-A person can have any number of tags (including 0)
+====
+* You can use this command to display all your sessions after using the `session filter`
+or `claims filter` command.
+====
+//end::list[]
+
+=== Student View
+
+This section explains all the commands you can use in the *Student View*.
+
+//tag::addmodule[]
+[[AddModule]]
+==== Adding a Module : `module add`
+
+(Contributed by Aakanksha)
+
+You can use this command to *add a new module* to the TA-Tracker.
+
+When a new module is created, the *Student View* will show the groups
+and students of the new module.
+
+You may notice that the *group list and the student list are empty*. This is because
+you haven't added any groups or students to the module yet.
+
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `module add m/MOD_CODE n/NAME`
+
+[NOTE]
+====
+* You *can't* have two modules with the *same module code* in the TA-Tracker.
+
+* `MOD_CODE` and `MOD_NAME` can't be a *empty or a sequence of spaces*.
+
+* You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
+to remember. However,  we recommend you use the *official
+module code and name* for it.
+
+* If the module name or module code are very long, you can *increase the width* of
+the module name list by dragging the edge with your cursor. However, we suggest not
+giving the modules long codes or long names. The standard official names are usually
+of a good length.
+
+====
+
+[TIP]
+====
+* You can't edit the `MOD_CODE` once the module has been created, so do take
+care to ensure that the code is correct.
+====
+
+====
+Examples:
+
+* `module add m/CS2100 n/Computer Organisation`
++
+
+image::ModuleAdd.png[,1000]
+This will add a module with the module code `CS2100` and name `Computer Organisation`
+to the TA-Tracker.
+
+====
+//end::addmodule[]
+//tag::deletemodule[]
+
+[[DeleteModule]]
+==== Deleting a Module : `module delete`
+
+(Contributed by Aakanksha)
+
+You can use this command to *delete a module* from the TA-Tracker.
+
+When you delete a module, *all groups, students and sessions associated with
+the module will also be deleted*.
+
+When a module is deleted, the *Student View* will go back to its default
+setting. That is, you will see the details of the *first group in the first module* of
+the TA-Tracker.
+
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `module delete m/MOD_CODE`
+
+[NOTE]
+====
+* You *can't* delete a module that doesn't exist.
+====
+
+====
+Examples:
+
+* `module delete m/CS2103T`
++
+image::ModuleDelete.png[,1000]
+This will delete the module with the module code `CS2103T` from the TA-Tracker.
+====
+//end::deletemodule[]
+//tag::editmodule[]
+
+[[EditModule]]
+==== Editing a Module : `module edit`
+
+(Contributed by Aakanksha)
+
+You can use this command to *edit a module's name* in the TA-Tracker.
+
+When a module is edited, the *Student View* will show the *groups of the edited module* and
+the students of the *first group* of the edited module. If you were on a different `tab`,
+you will automatically be switched to the `student tab`.
+
+Format: `module edit m/MOD_CODE n/NEW NAME`
+
+[NOTE]
+====
+* You can only use this command to change the *name* of the module. The module
+code *can't* be changed.
+
+* Editing a module *doesn't affect the students and
+groups* inside the module.
+
+* MOD_NAME can't be a *empty or a sequence of spaces*.
+
+* You *can't* edit a module that doesn't exist.
+====
+
+====
+Examples:
+
+* `module edit m/CS3243 n/Intro to AI`
++
+image::ModuleEdit.png[,1000]
+This will change the name of the module with module code `CS3243` to `Intro to AI`.
+====
+//end::editmodule[]
+//tag::addgroup[]
+
+[[AddGroup]]
+==== Adding a Group : `group add`
+
+(Contributed by Aakanksha)
+
+You can use this command to *add a group* to a module in the TA-Tracker.
+
+When a new group is created, the *Student View* will show the groups of the module
+this new group belongs to and students of the new group.
+
+You may notice that the list of students is empty. This is because you haven't added any
+students to the group yet.
+
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+
+* `MOD_CODE` here refers to the module code of the module you want to add the group to.
+
+* You *can't* add a group to a module that doesn't exist.
+
+* The `GROUP_CODE` can't be a *empty or a sequences of spaces*.
+
+* You *can't* add multiple groups with the same group code into the same module.
+
+* You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
+to remember. However,  we recommend you use the official
+group code for it.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2100 t/tutorial`
++
+image::GroupAdd.png[,1000]
+This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
+has module code `CS2100`.
+====
+//end::addgroup[]
+//tag::deletegroup[]
+
+[[DeleteGroup]]
+==== Deleting a Group : `group delete`
+
+(Contributed by Aakanksha)
+
+You can use this command to *delete a group* from the TA-Tracker.
+
+When a group is deleted from the TA-Tracker, *all students in the group are also deleted*.
+
+When a group is deleted, the *Student View* will show the details of the first group
+of the module the group was deleted from.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `group delete g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+
+* `MOD_CODE` here refers to the module code of the module that contains the group that
+you want to delete.
+
+* You *can't* delete a group from a module that doesn't exist.
+
+* A group with the given group code *must* exist inside the module before you delete it.
+====
+
+====
+Examples:
+
+* `group delete g/G06 m/CS3243`
++
+image::GroupDelete.png[,1000]
+This will delete the group with the group code `G06` from the module that
+has module code `CS3243`.
+====
+//end::deletegroup[]
+//tag::editgroup[]
+
+[[EditGroup]]
+==== Editing a Group : `group edit`
+
+(Contributed by Aakanksha)
+
+You can use this command to *edit a group* in the TA-Tracker.
+
+This command can be used to change the *group code and the group type* of the group.
+The students inside the group will remain intact.
+
+When a group is edited, the *Student View* will show the groups in the module that
+the edited group belongs to, as well as the students that belong to the edited group.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
+
+[NOTE]
+====
+[horizontal]
+* `MOD_CODE` here refers to the module code of the module that contains the group that
+you want to edit.
+
+* You *can't* edit a group inside a module that doesn't exist.
+
+* You *can't* edit a group that doesn't exist.
+
+* If you are changing the group code, the module shouldn't contain a group that has the
+same group code as the new group code.
+
+* While the `nt/` and `ng/` prefixes are optional, at least one of them must be mentioned.
+====
+
+====
+Examples:
+
+* `group edit g/G01 m/CS3243 nt/lab`
++
+image::GroupEdit.png[,900]
+This will change the group type of the group with group code `G01`, inside the module with
+module code `CS3243`, to be a `lab`.
+====
+//end::editgroup[]
+//tag::addstudent[]
+
+[[AddStudent]]
+==== Adding a Student : `student add`
+(Contributed by Fatin and Gabriel)
+
+You can use this command to add a new student to the TA-Tracker.
+
+When a new student is added, the *Student View* will show that the new student
+is added into the student list of the provided module group.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
+[e/EMAIL] [r/RATING] [t/TAG]…​`
+
+[NOTE]
+====
+[horizontal]
+* You cannot add a student to a module that does not exist in the TA-Tracker.
+
+* You cannot add a student to a group that does not exist inside the given module.
+
+* You cannot add multiple students with the same matric number inside the same module group.
+
+* Student names are auto-capitalized. However, if the name includes a hyphen (-) with no
+space after the hyphen, the second half of the name will not be capitalised.
+====
+
+====
+Examples:
+
+* `student add id/A0123456J n/Alice m/CS2100 g/G03`
++
+image::StudentAdd.png[width="790"]
+This will add a student named Alice with the matriculation number `A0123456J`
+inside group `G03` of the module `CS2100`.
+====
+
+[TIP]
+====
+[horizontal]
+* * You can't edit the `MATRIC_NUMBER` once the student has been created, so do take
+care to ensure that the number is correct.
+* You can use the rating feature to give your students participation marks.
+* A student is given a default rating of 3/5 (average) if you do not specify a rating.
+* You can either specify a rating in the add student
+command or,
+* you can edit their rating later by using the `student edit` command (details given below
+in 5.2.9.)
+====
+//tag::endstudent[]
+//tag::deletestudent[]
+
+[[DeleteStudent]]
+==== Deleting a Student : `student delete`
+(Contributed by Fatin and Gabriel)
+
+You can use this command to delete a student from the TA-Tracker.
+
+When a student is removed, the *Student View* will show that the student
+is removed from the student list of the provided module group.
+You will see an empty list if there are no more students inside the module group.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+* You cannot remove a student from a module that does not exist in the TA-Tracker.
+
+* You cannot remove a student from a group that does not exist inside the given module.
+
+* You cannot remove a student that does not exist inside the given module group.
+====
+====
+Examples:
+
+* `student delete m/CS3243 g/G01 id/A0187945J`
++
+image::StudentDelete.png[,900]
+Deletes the student with the matriculation number `A0187945J` from group `G01` of
+the module `CS3243`.
+====
+//end::deletestudent[]
+//tag::editstudent[]
+
+[[EditStudent]]
+==== Editing a Student : `student edit`
+(Contributed by Fatin and Gabriel)
+
+You can use this command to edit a student in the TA-Tracker.
+
+When a student is edited, the *Student View* will show that the student has been
+edited in the student list of the provided module group.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
+[n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+
+[NOTE]
+====
+[horizontal]
+* You cannot edit a student in a module that does not exist in the TA-Tracker.
+
+* You cannot edit a student in a group that does not exist inside the given module.
+
+* You cannot edit a student that does not exist inside the given module group.
+
+* You cannot edit a student's matriculation number
+
+* You must edit the student with at least one of the optional fields.
+====
+[TIP]
+====
+[horizontal]
+* If you edit the tags of a student, the new tags will replace the old tags.
+
+* You can remove all tags from a student with an empty tag +
+(i.e. typing `t/` without specifying any tags after it).
+====
+====
+Examples:
+
+* `student edit id/A0181137L g/G01 m/CS3243 p/91234567 e/bernie@example.com r/4`
++
+image::StudentEdit.png[width="790"]
+Edits the student with the matriculation number `A0181137L` from group `G01`
+of module `CS3243` to have:
+
+** The new rating of `4`
+** The new phone number `91234567`
+** The new email address `bernie@example.com`
+
+* `student edit m/CS3243 g/G01 id/A0186153P t/`
++
+image::StudentEditTag.png[width="790"]
+Edits student with the matriculation number `A0186153P` to have:
+
+** All existing tags removed
+====
+//end::editstudent[]
+//tag::sortgroup[]
+
+[[Sort]]
+==== Sorting a Group : `sort group`
+
+(Contributed by Aakanksha)
+
+You can use this command to *sort your students in a specific group*.
+The students will be sorted according to the `SORT_TYPE` you specify.
+
+The *Student View* will show you the students inside the group that you have sorted.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* You *can't* sort a group inside a module that doesn't exist.
+
+* You *can't* sort a group that doesn't exist.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
+
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
+
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort group m/CS2100 g/G06 t/rating asc`
++
+image::SortGroup.png[width="790"]
+Sorts the student inside `G06` of module `CS2100` by rating in ascending order.
+====
+//end::sortgroup[]
+//tag::sortmodule[]
+
+==== Sorting a Module : `sort module`
+
+(Contributed by Aakanksha)
+
+You can use this command to *sort your students in a specific module*.
+The students will be sorted according to the `SORT_TYPE` you specify.
+
+The *Student View* will show you the students inside the first group of the module
+that you have sorted. If you want to see the other groups, you can use the `student filter`
+command (details are given later in this guide).
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `sort module m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* You cannot sort a module that doesn't exist.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
+
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
+
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort module m/CS2103T t/alpha`
++
+
+image::SortModule.png[width="790"]
+Sorts all students inside all groups inside the module `CS2103T` `alphabetically`.
+====
+//end::sortmodule[]
+//tag::sortall[]
+
+==== Sorting Everything : `sort all`
+
+(Contributed by Aakanksha)
+
+You can use this command to *sort all your students*.
+The students will be sorted according to the `SORT_TYPE` you specify.
+
+The *Student View* will show you the students inside the first group of the  first module
+in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
+command (details are given later in this guide).
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `sort all t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort all t/rating desc`
++
+image::SortAll.png[width="790"]
+Sorts all students in all groups inside all modules by rating, in descending order.
+====
+//end::sortall[]
+//tag::filterstudent[]
+
+[[FilterStudent]]
+==== Filter : `student filter`
+(Contributed by Chua Yi Jing)
+
+You can use this command to see the students in a particular group
+and module.
+
+You can filter the students in *Student View* in the following ways:
+
+****
+1. module code and group code `m/` `g/`
+2. module code `m/`
+****
+
+You will see the group with the specified `GROUP_CODE` and the module with the specified
+`MOD_CODE` highlighted in orange in the list.
+
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
+
+Format: `student filter m/MOD_CODE [g/GROUP_CODE]`
+[NOTE]
+====
+[horizontal]
+* Using both module code and group code will show you the students
+inside the group with the given group code.
+
+* The group must belong to the module specified
+by the module code.
+====
+====
+Examples:
+
+* `student filter m/cs2100 g/g03`
++
+image::FilterStudent.png[width="790"]
+This will show you all students in module `CS2100`, under group `G03`.
+====
+
+If you use just the module code, you will see:
+
+* The first group of the module specified by the given module code highlighted in orange
+
+* All the students belonging to that group
+
+* You can use this command when you want to see all the groups belonging to a
+particular module.
+
+Format: `student filter m/MOD_CODE`
+
+====
+Examples:
+
+* `student filter m/cs3243`
++
+image::FilterModule.png[width="790"]
+This shows you the students in the first group of the module `CS3243`
+====
+
+[NOTE]
+====
+[horizontal]
+*Keywords are case-insensitive. e.g. `cs2103t` is the same as `CS2103T`*
+====
+//end::filterstudent[]
+
+=== Session View
+(Contributed by Chua Yi Jing)
+
+This section explains the different commands that can be used in the *Session View*.
+
+//tag::addsession[]
+[[AddSession]]
+==== Adding a Session : `session add`
+(Contributed by Chua Yi Jing)
+
+You can use this command to add a new session.
+
+The new session will be shown in the *Session View*, and will automatically
+be marked as `not done`.
+
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
+
+Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
+
+
+[TIP]
+====
+. If you want to create a session with the current date, start time and end time,
+you can omit `s/START` , `e/END` and `d/DATE`.
+
+. You can edit the end time `e/END` and other details later by using the `session edit`
+command (details given below in 5.3.3.).
+
+. If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
+and timing will be added to *Session View* when it is marked as done.
+
+. You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
+such as your weekly lab sessions or fortnightly assignment grading.
+
+====
+
+====
+Examples:
+
+* `session add m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
++
+image::SessionAdd.png[width="790"]
+Adds a new session with:
+
+** `START_TIME` at 14:00 in `24hr` format
+** `END_TIME` at 16:00 in `24hr` format
+** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
+** `WEEK` recurring period of 2 weeks: Once this session has been marked as done, a new session will
+be created with `DATE d/2020-07-04` (2 weeks later from the date of the original session)
+** `MOD_CODE` of CS3243
+** `TYPE` consultation
+** `NOTE` "with Alice and Bob"
+
+====
+//end::addsession[]
+//tag::deletesession[]
+
+==== Deleting a Session : `session delete`
+(Contributed by Chua Yi Jing)
+
+You can use this command to delete a session at a specific `index`.
+
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
+
+Format: `session delete INDEX`
+
+[CAUTION]
+====
+[horizontal]
+Do not confuse the `session delete` and `session done` commands.
+====
+
+====
+Examples:
+
+image::SessionDelete.png[width="790"]
+* `session delete 1`
++
+This command deletes the first session in the *Session View*.
+====
+//end::deletesession[]
+//tag::editsession[]
+
+==== Editing a Session : `session edit`
+(Contributed by Chua Yi Jing)
+
+You can use this command to edit a session in the TA-Tracker.
+
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
+
+Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
+[m/MODULE] [t/SESSION_TYPE] [n/NOTES]​`
+
+[NOTE]
+====
+[horizontal]
+
+* You must edit the session with at least one of the optional fields.
+====
+====
+Examples:
+
+* `session edit 1 s/14:00 e/16:00 d/2020-02-19 t/grading n/Location: PLAB 04`
++
+image::SessionEdit.png[width="790"]
+Edits the session at index 1 to have:
+
+** The new `START_TIME` at 14:00
+** The new `END_TIME` at 16:00
+** The new `DATE` on 2020-02-19 in `yyyy-MM-dd` format
+** The new `TYPE` grading
+** The new `NOTE` "Location: PLAB04"
+====
+//end::editsession[]
+//tag::donesession[]
+
+==== Marking a Session as Done : `session done`
+
+(Contributed by Fatin and Chua Yi Jing)
+
+You can use this command to mark a session as done.
+
+The session marked as done will be removed from the *Session View* and
+will automatically appear as a new claim in the *Claims View*.
+If the session marked done has a recurring period, a new session with the updated date
+and timing will be added to *Session View*.
+
+If you were on a different `tab`, you will automatically be switched to the `claims tab`.
+
+Format: `session done INDEX`
+
+Marks the session with the given unique index as done.
+
+====
+Examples:
+
+image::SessionDone.png[width="790"]
+* `session done 2` +
+This will mark the 2nd session in the *Session View* as done.
+====
+//end::donesession[]
+//tag::filtersession[]
+
+==== Filter : `session filter`
+
+(Contributed by Chua Yi Jing)
+
+You can use this command to filter the sessions in the *Session View*.
+
+You can filter the sessions in the following ways:
+
+* `MOD_CODE` - filtering by module code will show you only the sessions affiliated
+with that module.
+
+* `SESSION_TYPE` - filtering by session type will show you only the sessions with the specified type
+
+* `DATE` - filtering by a date will show you only the sessions on that date.
+
+The keyword is case-insensitive.
+
+When you execute a new filter command, any previous filters applied on the sessions will
+be removed and only the filters from the latest command will be applied on the sessions
+list. The filters that are currently being applied are shown at the top of the *Session View*
+
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
+
+Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
+
+====
+Example:
+
+* `session filter m/CS3243`
++
+image::SessionFilter.png[width="790"]
+All sessions in the *Session View* with module code `CS3243` are displayed.
+
+* `session filter m/CS3243 t/tutorial`
++
+All sessions in the *Session View* with module code `CS2103T`,
+*or* session type `Tutorial` will be shown.
+
+* `session filter m/CS3243`
++
+image::SessionFilterMultiple.png[width="790"]
+All sessions in the *Session View* with module code  `CS2103T`
+will be shown.
+====
+
+[NOTE]
+====
+As long as a session contains one of the keyword given by the user, the session will be shown to the user.
+====
+//end::filtersession[]
+
+=== Claims View
+
+//tag::filterclaims[]
+==== Filter : `claims filter`
+
+(Contributed by Chua Yi Jing)
+
+You can use this command to filters sessions in the *Claims View* by the module code.
+
+You will see the module with the specified `MOD_CODE` highlighted in orange in the list.
+
+All completed sessions with matching `MOD_CODE` are displayed. Keyword is case-insensitive.
+
+Format: `claims filter m/MOD_CODE`
+
+====
+Example:
+
+* `claims filter m/CS3243`
++
+image::ClaimsFilter.png[width="790"]
+All sessions in the *Claims View* with module code `CS3243` are displayed.
+====
+//end::filterclaims[]
+//tag::setrate[]
+
+[#setrate]
+==== Changing the hourly rate : `setrate`
+
+(Contributed by Fatin)
+
+Sets the hourly rate for the total income and claim computation.
+
+Format: `setrate RATE`
+
+[NOTE]
+====
+* If you don't specify a rate, it is set at $40 by default (the rate at which most SOC TAs are being paid per hour).
+* `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
+`Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
+* The `RATE` must be a positive integer.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `setrate 25`
++
+image::SetRate.png[width="790"]
+Sets the current hourly rate to $25.
+//end::setrate[]
+//tag::statistics[]
 
-=== Listing all persons : `list`
+=== Statistics Window
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Generate Statistic Report : `report`
+(Contributed by Haoyi)
 
-=== Editing a person : `edit`
+You can use this command to generate a report to display information such as:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student's ratings
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
 
-Examples:
+Pressing the `esc` key on your keyboard will close the statistics window.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: `report [MOD_CODE]`
 
-=== Locating persons by name: `find`
+[NOTE]
+====
+* Similar to the *Claims View*, the report will only display sessions that have been marked as done.
+* `Total Claimable Hours` is computed using the current specified `rate`. See <<#setrate>>.
+====
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Example:
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* `report`
++
+image::Statistics.png[,1000]
+Generate and display a report of sessions and students from all modules.
 
-Examples:
+* `report CS2103T`
++
+image::CS2103Statistics.png[,1000]
+Generate and display a report of sessions and students from the module CS3243.
+//end::statistics[]
+//tag::glossary[]
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+== Glossary
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[width="%",cols="<20%,<40,options="header",]
+|=======================================================================
+|Term | Explanation
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+| TSS | This is the short form for `Teaching Support Student`.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+| TSS Claims Form | This refers to the claims form that Teaching Assistants
+at NUS School of Computing have to fill up at the end of each semester to claim money
+for the tasks they have completed.
 
-Examples:
+| TA | This is the short form for `Teaching Assistant`.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+| SOC or SoC | This is the short form for School of Computing.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text
 
-Clears all entries from the address book. +
-Format: `clear`
+| GUI | This is the short form for Graphical User Interface. It is a form of user interface
+that allows users to interact with electronic devices through graphical icons
 
-=== Exiting the program : `exit`
+| Index | This refers to the position of an item on a list. For example:
+Index of 1 refers to the first item in a list.
 
-Exits the program. +
-Format: `exit`
+| Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
-=== Saving the data
+| Group | The is the general term given to a group of students a TA teaches. For example:
+lab , tutorial , recitation
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+| TAT | This is the short form of TA-Tracker.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+| NUS | This is the short form of National Univeristy of Singapore.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+| Module | Refers to one of the academic courses in NUS.
+
+| Tutorial | A tutorial is a regular meeting between a tutor and one or several
+students, for discussion of a subject that is being studied.
+
+|=======================================================================
+//end::glossary[]
+//tag::faq[]
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+(Contributed by Fatin and Aakanksha)
+
+*Q*: How can I transfer my data to another Computer? +
+*A*: You can do so by first installing TA-Tracker on another computer. You can then replace
+the empty data file it creates with the data file of your previous TA-Tracker folder.
+
+*Q*: Is my data secure? +
+*A*: TA-Tracker only stores your data locally on your device, and not on a cloud. This means that
+the only possible way for there to be a security breach is to have someone access it on your physical
+device, so do keep your belongings safe! You can be assured that cyber-attacks are not possible with
+the way TA-Tracker is designed.
+
+*Q*: How can I reset all of my data at once? +
+*A*: You can do so by entering `clear` into TA-Tracker or by deleting `tatracker.json` in the data folder. Do take note
+that there is no way for you to restore your data once it has been deleted.
+
+*Q*: How can I uninstall TA-Tracker from my device? +
+*A*: Simply delete the folder where you have placed TA-Tracker in.
+
+*Q*: Is there any hidden payment involved in TA-Tracker? +
+*A*: No, TA-Tracker is completely free to use! You can support us by contributing to our code-base https://github.com/AY1920S2-CS2103T-W17-4/main[here].
+
+*Q*: Can I create multiple instances of the app that store different data simultaneously? +
+*A*: Yes, you can. Simply copy the `.jar` file into a different folder and run the app there. You will then be able
+to use multiple different TA-Trackers at the same time
+
+*Q*: Can I mark my students' attendance and give them grades? +
+*A*: You can use the `rating` feature to give your students participation marks.
+We are currently working on a way for you to give mark your students' attendance and
+mark their assignments. You will see this feature in our next release.
+
+//end::faq[]
+//tag::summary[]
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+=== Navigation
+* *View Help:* `help`
+* *Switch Tabs:* `goto TAB_NAME`
+* *Exit the Program:* `exit`
+
+=== Student View
+
+==== Module commands
+* *Add Module:* `module add m/MOD_CODE n/NAME`
+* *Edit Module:* `module edit m/MOD_CODE n/NEW NAME`
+* *Delete Module:* `module delete m/MOD_CODE`
+
+==== Group commands
+* *Add Group:* `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+* *Edit Group:* `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
+* *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
+
+==== Student commands
+* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE [e/EMAIL] [r/RATING] [t/TAG]…`
+* *Delete Student:* `student delete id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE`
+* *Edit Student:* `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…`
+
+==== Others
+* *Sort Group:* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+* *Sort Module:* `sort module m/MOD_CODE t/SORT_TYPE`
+* *Sort All Modules:* `sort all t/SORT_TYPE`
+* *Filter Students:* `student filter m/MOD_CODE [g/GROUP_CODE]`
+
+=== Session View
+
+==== Session commands
+* *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
+* *Delete Session:* `session delete INDEX`
+* *Edit Session:* `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR] [m/MODULE] [t/SESSION_TYPE] [n/NOTES]`
+* *Done Session:* `session done INDEX`
+
+==== Others
+
+* *Filter Sessions:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
+
+=== Claims View
+* *Set Rate:* `setrate RATE`
+* *Filter Claims:* `claims filter m/MOD_CODE`
+
+=== Statistics
+* *Generate Statistics Report:* `report [MOD_CODE]`
+//end::summary[]

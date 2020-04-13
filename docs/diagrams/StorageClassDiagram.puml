@@ -3,22 +3,93 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
+skinparam linetype ortho
+skinparam nodesep 50
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface TaTrackerStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonTaTrackerStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager .up.|> Storage
+StorageManager "1" o-left-> UserPrefsStorage
+StorageManager "1" o-right-> TaTrackerStorage
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonUserPrefsStorage -[hidden]up-> UserPrefsStorage
+JsonTaTrackerStorage -[hidden]up-> TaTrackerStorage
+
+JsonUserPrefsStorage -[hidden]right-> JsonTaTrackerStorage
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+
+JsonTaTrackerStorage .up.|> TaTrackerStorage
+JsonTaTrackerStorage .down.> JsonSerializableTaTrackerStorage
+
+JsonSerializableTaTrackerStorage -down-> "*" JsonAdaptedModule
+JsonSerializableTaTrackerStorage -down-> "*" JsonAdaptedSession
+
+JsonAdaptedModule -right-> "*" JsonAdaptedSession
+
+JsonAdaptedModule -down-> "*" JsonAdaptedGroup
+JsonAdaptedGroup -down-> "*" JsonAdaptedStudent
+
+JsonAdaptedSession -down-> "1" JsonAdaptedDateTime : end
+JsonAdaptedSession -down-> "1" JsonAdaptedDateTime : start
+
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam linetype ortho
+skinparam nodesep 50
+
+Interface Storage <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface TaTrackerStorage <<Interface>>
+
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonTaTrackerStorage
+
+StorageManager .up.|> Storage
+StorageManager "1" o-left-> UserPrefsStorage
+StorageManager "1" o-right-> TaTrackerStorage
+
+JsonUserPrefsStorage -[hidden]up-> UserPrefsStorage
+JsonTaTrackerStorage -[hidden]up-> TaTrackerStorage
+
+JsonUserPrefsStorage -[hidden]right-> JsonTaTrackerStorage
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+
+JsonTaTrackerStorage .up.|> TaTrackerStorage
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam linetype ortho
+skinparam nodesep 50
+
+
+Class JsonTaTrackerStorage
+
+JsonTaTrackerStorage .down.> JsonSerializableTaTrackerStorage
+
+JsonSerializableTaTrackerStorage -down-> "*" JsonAdaptedModule
+JsonSerializableTaTrackerStorage -down-> "*" JsonAdaptedSession
+
+JsonAdaptedModule -right-> "*" JsonAdaptedSession : done sessions
+
+JsonAdaptedModule -down-> "*" JsonAdaptedGroup
+JsonAdaptedGroup -down-> "*" JsonAdaptedStudent
+
 @enduml

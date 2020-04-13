@@ -1,0 +1,111 @@
+@startuml
+
+package Student {
+    class Student1 as "__irfan:Student__" #MistyRose {
+        name = "Irfan Ibrahim"
+        matric = "A0180474R"
+        rating = 2
+        email = "irfan@example.com"
+        phone = "92492021"
+        tag = "classmates"
+    }
+
+    class Student2 as "__jeffry:Student__" #MistyRose {
+      name = "Jeffry Lum"
+      matric = "A0195558H"
+      rating = 5
+      email = "Jeffry@u.nus.edu"
+      phone = "65162727"
+      tag = "tutors"
+    }
+
+    class Student3 as "__alex:Student__" #MistyRose {
+            name = "Alex Yeoh"
+            matric = "A0187945J"
+            rating = 4
+            email = "alexyeoh@example.com"
+            phone = "87438807"
+            tag = "classmates"
+    }
+
+    class Student4 as "__charlotte:Student__" #MistyRose {
+      name = "Charlotte Oliveiro"
+      matric = "A0187565N"
+      rating = 5
+      email = "charlotte@example.com"
+      phone = "93210283"
+      tag = "neighbours"
+    }
+}
+
+package Group {
+    class Group1 as "__g02:Group__" #PowderBlue {
+        id = "G02"
+        group_type = RECITATION
+    }
+
+    class Group2 as "__g03:Group__"  #PowderBlue {
+        id = "G03"
+        group_type = OTHER
+    }
+}
+
+package Module {
+    class Module1 as "__cs2103t:Module__"  #PHYSICAL {
+        id = "CS2103T"
+        name = "Software Engineering"
+    }
+}
+
+package Session {
+    class Session1 as "__tutorial:Session__" #AliceBlue {
+        session_type = TUTORIAL
+        date = "2020-06-26"
+        start = "14:00"
+        end = "15:00"
+        notes = "check work"
+        week = 1
+    }
+
+    class Session2 as "__grading:Session__" #AliceBlue {
+        session_type = GRADING
+        date = "2020-03-21"
+        start = "09:30"
+        end = "11:00"
+        notes = "grade group 1 first"
+        week = 0
+    }
+}
+
+hide Student1 circle
+hide Student2 circle
+hide Student3 circle
+hide Student4 circle
+hide Group1 circle
+hide Group2 circle
+hide Module1 circle
+hide Session1 circle
+hide Session2 circle
+
+Group1 -- Module1
+Group2 -- Module1
+
+Student1 -- Group2
+Student2 -- Group2
+Student3 -- Group1
+Student4 -- Group1
+
+Session1 -up- Module1
+Session2 -up- Module1
+
+hide Student1 circle
+hide Student2 circle
+hide Student3 circle
+hide Student4 circle
+hide Group1 circle
+hide Group2 circle
+hide Module1 circle
+hide Session1 circle
+hide Session2 circle
+
+@enduml

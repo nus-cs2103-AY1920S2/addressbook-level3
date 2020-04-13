@@ -1,11 +1,23 @@
+<!--@@author Eclmist-->
 
 .error {
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
+.valid {
+    -fx-text-fill: #3abf29 !important; /* The valid class should always override the default text-fill style */
+}
+
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: #1e2533;
+}
+
+
+.background-2 {
+    -fx-background-color: #2f3a4f;
+    -fx-background-radius: 5px;
+    background-color: #2f3a4f; /* Used in the default.html file */
 }
 
 .tag-selector {
@@ -16,5 +28,94 @@
 }
 
 .tooltip-text {
+    -fx-text-fill: white;
+}
+
+
+.label-new {
+    -fx-font-size: 14;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #aaa;
+    -fx-opacity: 1;
+}
+
+.label-title {
+    -fx-font-size: 16;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ccc;
+    -fx-opacity: 1;
+}
+
+.label-h1 {
+    -fx-font-size: 28px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #aaa;
+    -fx-opacity: 1;
+}
+
+.chart-plot-background {
+    -fx-background-color: #232b3b;
+}
+
+.chart-bar {
+    -fx-background-color: rgba(115, 157, 235,0.85);
+    -fx-border-color: rgba(0,168,355,0.3) rgba(0,168,355,0.3)
+        transparent rgba(0,168,355,0.3);
+    -fx-background-radius: 0;
+}
+
+.default-color0.chart-pie { -fx-pie-color: #FFADCA; }
+.default-color1.chart-pie { -fx-pie-color: #BA72E8; }
+.default-color2.chart-pie { -fx-pie-color: #8999FF; }
+.default-color3.chart-pie { -fx-pie-color: #72D7E8; }
+.default-color4.chart-pie { -fx-pie-color: #7DFFAF; }
+.default-color5.chart-pie { -fx-pie-color: #cccccc; }
+
+.chart-title {
+    -fx-font-size: 16;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ccc;
+    -fx-opacity: 1;
+}
+
+.axis {
+    -fx-text-fill: #aaa;
+    -fx-tick-label-fill: #aaa;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: #aaa;
+    -fx-fill: #aaa;
+}
+
+.chart-pie-label { /*this is what you need for labels*/
+    -fx-fill: #aaa;
+}
+
+.filtered {
+    -fx-background-color: #5f4d42;
+    -fx-border-color: #917b3e transparent #917b3e transparent;
+    -fx-border-width: 1;
+}
+
+.filtered {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.filtered:filled:even {
+    -fx-background-color: #503f35;
+}
+
+.filtered:filled:odd {
+    -fx-background-color: #5f4d42;
+}
+
+.filtered:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.filtered .label {
     -fx-text-fill: white;
 }

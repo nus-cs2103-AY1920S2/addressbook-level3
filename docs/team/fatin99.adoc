@@ -1,0 +1,162 @@
+= Fatin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TA-Tracker
+
+---
+
+== Overview
+
+*TA-Tracker* is a productivity tool made for NUS School of Computing Teaching Assistants (TAs). Rather than using
+several excel spreadsheets or notes, *TA-Tracker* enables TAs to manage their students and track teaching duties in a
+single, convenient-to-use platform . The application is mainly written in *Java* and spans a considerable *20k Lines of
+Code*. With a rigorous system of checks and tests put in place, users can be assured that the codebase is
+well-maintained, and that the code quality is consistently high. A comprehensive set of guides are also provided to
+ensure a smooth on-boarding process for both users and contributors alike.
+
+== Summary of contributions
+
+As the main developer of the application’s `User Interface` (UI), I play a crucial role in integrating the features my
+teammates create with the `UI`. During group discussions, I placed extra emphasis on guiding my teammates to engineer
+solutions that could be more easily assimilated into the `UI`, to ensure that their work becomes user-visible. As a
+result, my team was able to morph the given codebase from a trivial application into a polished product.
+
+With the substantial amount of experience I gained while designing the application, I was available and prepared to help
+out with various tasks, like design considerations and debugging. As the most experienced `UI` developer in the team, I
+was highly involved in helping my teammates become more familiar with *JavaFX* and *CSS*. My role in the development of the
+project was especially crucial, as I enabled my teammates to be able to display all the hard work that they have put
+into the development of their respective features to the users. My major contributions are as follows:
+
+=== Updated the User Interface
+
+The `UI` is at the heart of *TA-Tracker*, displaying the output of *TA-Tracker* to the user visually. As the main contributor
+to the `MainWindow` of the `UI`, I play an integral role in ensuring that the content is being displayed to the user
+correctly, while keeping the interface simple and informative. I changed the overall layout of *TA-Tracker* by adding
+tabs and icons (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+), and by creating all the `ListPanels` and their respective `ListCards` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/204[#204]
+).
+
+I also took care to ensure that the information displayed was integrated with the _BackEnd_ whenever my
+teammates made new contributions to the application, such as adding new fields (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+) or commands (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/330[#330]
+). A `Total
+Earnings` label in the `Claims Tab` was also added to improve user experience, as money makes the world go round (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/243[#243]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+).
+
+=== Enabled highlighting of applied filters
+
+As *TA-Tracker* was initially based on *AB3*, the `UI` at the beginning of the project looked plain and dull. Instead of
+indiscriminately adding colours to *TA-Tracker*, I favoured a different approach, and enabled the relevant `ListCells` in
+the `Student Tab` and `Claims Tab` to be highlighted whenever `filter` commands were entered (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/235[#235]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/238[#238]
+). This
+not only made a huge improvement in the visual differences between *TA-Tracker* and *AB3*, but also enabled users to better
+focus on the information displayed.
+
+This contribution also required extensive debugging and improvements to the inner workings of the `FilterCommand`, which
+was a rather challenging command to implement (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/243[#243]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/314[#314]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+). In the `Session Tab`, highlighting the `ListCells` was a
+less favourable option, since there was only one `ListPanel` to display. I overcame this challenge by creating a `filter
+header` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/322[#322]
+).
+
+=== Implemented relevant commands to improve User Experience
+
+*Goto Command* : To achieve the goal of making TA-Tracker a _keyboard-only application_, I implemented the `GoToCommand`
+to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+).
+
+In a similar spirit, I enabled *switching to relevant tabs for all commands*, to better the user experience. This allows
+new information to be displayed instantaneously upon entering a command (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/210[#210]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+). This involved
+creating an `enum` for `UI` handling in `CommandResult` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[#189]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+) and as a result, the painstaking process of updating the
+entire code-base.
+
+*SetRate Command* : The hourly pay rate for all the displayed `Earnings` was initially set to $40, which is the rate at
+which the majority of TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
+due to the possibility of changes being made to the hourly pay rate. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/321[#321]
+)
+
+=== Other UI Improvements
+
+I also contributed to the development of `HelpWindow` and `StatisticsWindow` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/227[#227]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/235[#235]
+) by fixing sizing issues and
+adding `ScrollPanes`. Moreover, I included the option to close both windows by pressing the *ESC* key to achieve
+the goal of making TA-Tracker a _keyboard-only application_ (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/236[#236]
+).
+
+=== Added extensive automated tests
+
+I made thorough *JUnit* tests for the `StudentCommand`, `StudentCommandParser`,
+and `Student` as well as its relevant `fields`.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/340[#340]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/341[#341]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/347[#347]
+)
+
+=== Improved overall code quality
+
+* Packaged all `Commands`, `Parsers`, `Models` and `UI` components (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/143[#143]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/212[#212]
+)
+* General quality fixes to the entire code-base based on *Codacy* reports (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/350[#350]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/351[#351]
+)
+* Created `enum` classes for `SessionType` and `GroupType` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/120[#120]
+, https://github.com/AY1920S2-CS2103T-W17-4/main/pull/182[#182]
+)
+
+=== Other contributions
+
+* Created a skeleton for the `StudentDeleteCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/113[#113]
+)
+* Removed the requirement for compulsory `Phone` and `Email` fields in `StudentAddCommand` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/146[#146]
+)
+* Managed the project by commenting on critical pull requests (various)
+
+* Handled release of `Ver 1.2`
+
+Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=fatin99[RepoSense]]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=commandformat]
+include::../UserGuide.adoc[tag=layout]
+include::../UserGuide.adoc[tag=claimsview]
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=goto]
+include::../UserGuide.adoc[tag=setrate]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ui]
+include::../DeveloperGuide.adoc[tag=model]
+include::../DeveloperGuide.adoc[tag=goto]
+include::../DeveloperGuide.adoc[tag=studentmodel]
+include::../DeveloperGuide.adoc[tag=sessiondoneactivity]
+include::../DeveloperGuide.adoc[tag=claimsview]
