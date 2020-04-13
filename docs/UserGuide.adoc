@@ -303,10 +303,6 @@ Undoes all previous actions.
 [TIP]
 For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
 
-[TIP]
-The undo and redo command is currently not compatible with the `quote` command. This means that adding a quote is an
-irreversible action!
-
 === Redo a previous undo: `redo` (Brian)
 Restores actions that have been previously undone using `undo`.
 Format: `redo <number of actions> or <all>`
