@@ -42,6 +42,7 @@ image::pekchinsiongbrian.png[width="150", align="left"]
 {empty}[https://github.com/pekchinsiongbrian[github]] [<<pekchinsiongbrian#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation + Deliverables and deadlines + Developing `Advanced Filter` component
+Responsibilities: Documentation + Deliverables and deadlines + Developing `Advanced Filter`, `Undo/Redo`, and `Recipe
+Customisation` components
 
 '''
