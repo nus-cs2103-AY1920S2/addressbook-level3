@@ -571,7 +571,6 @@ Auto-generates goals and statistics through the use of Artificial Intelligence. 
 == Achievement Command (Yue Tong)
 
 === Add motivational quote : `quote`
-
 Adds a quote by the user to the quote database to store for future(randomised) display of quote in Achievement tab.
 Format: `quote` [quote]
 
@@ -579,13 +578,14 @@ Example 1: `quote Today was yesterday's tomorrow` +
 Adds quote "Today was yesterday's tomorrow" to quote database.
 
 [WARNING]
-`undo` currently does not work for `quote` command
+`undo` currently does not work for `quote` command as there is no removal function for quotes at the moment.
 
 .Achievement tab
 image::QuotesTab.png[width="790"]
 
 === Display streak: `streak` [Coming in v2.0]
 Displays line chart of all logged streaks by user
+Format: `streak`
 
 === Remove quote: `remove quote` [Coming in v2.0]
 Removes quote indicated by user +
