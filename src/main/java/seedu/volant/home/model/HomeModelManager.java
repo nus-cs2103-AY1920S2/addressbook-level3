@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.volant.commons.logic.Page.HOME;
 import static seedu.volant.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -77,25 +75,8 @@ public class HomeModelManager implements Model {
      * Removes specified target {@code Trip} from trip list within model.
      */
     public void deleteTrip(Trip target) {
-        deleteFile(new File("data/" + target.getName()));
         tripList.removeTrip(target);
         updateFilteredTripList(predicateShowAllTrips);
-    }
-
-    /**
-     * Completely removes all data from the trip.
-     * @param toDelete File to be deleted.
-     */
-    private void deleteFile(File toDelete) {
-        File[] entries = toDelete.listFiles();
-        if (entries != null) {
-            for (File f : entries) {
-                if (!Files.isSymbolicLink(f.toPath())) {
-                    deleteFile(f);
-                }
-            }
-        }
-        toDelete.delete();
     }
 
     /**

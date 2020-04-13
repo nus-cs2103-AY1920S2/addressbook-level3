@@ -2,6 +2,8 @@ package seedu.volant.home.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import seedu.volant.commons.core.Messages;
@@ -45,8 +47,26 @@ public class DeleteCommand extends Command {
         }
 
         Trip tripToDelete = lastShownList.get(targetIndex.getZeroBased());
+        deleteFile(new File("data/" + tripToDelete.getName()));
         homeModel.deleteTrip(tripToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, tripToDelete));
+    }
+
+
+    /**
+     * Completely removes all data from the trip.
+     * @param toDelete File to be deleted.
+     */
+    private void deleteFile(File toDelete) {
+        File[] entries = toDelete.listFiles();
+        if (entries != null) {
+            for (File f : entries) {
+                if (!Files.isSymbolicLink(f.toPath())) {
+                    deleteFile(f);
+                }
+            }
+        }
+        toDelete.delete();
     }
 
     @Override

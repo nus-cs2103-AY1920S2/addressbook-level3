@@ -30,14 +30,15 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=raniceyue&sort=groupT
     Allows users to navigate between different pages in the application and execute commands in different contexts.
 More information about this enhancement can be found https://www.ranice.net/main/DeveloperGuide.html#view-switching[here].
 ** *Justification* +
-    Rather than placing all features in one messy singular view, users are able to focus on one single view.
+    Rather than placing all features in one convoluted view, users are able to focus on one single view.
 ** *Highlights* +
     The implementation of the view switching mechanism was a bottleneck for our team project as in order to
 implement and test the other features of the application, developers must be able to switch between views.
 +
 This was not easy to do, I spent a lot of time trying to figure out the mechanics of how to do it as it involves refactoring
 the logic of the program and the `.fxml` files in order to see the results. Because of this mechanism, every page has to
-have its own logic and model to accommodate similar keywords being used on each page.
+have its own logic and model. This also allows for similar keywords to be used on each page.
+For more information on the implementation of this enhancement, please https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-view-switching[click here.]
 +
 Rather than creating custom commands for each page and a single logic component, it is neater to abstract and create a
 logic and model component for each page. That way commands with a single keyword e.g. `add`, `delete` can be used on
@@ -50,26 +51,28 @@ Allows users to navigate between different pages conveniently through short comm
 
 
 ** *Justification* +
-Rather than moving the mouse to click buttons, users can easily navigate through the pages without moving their hands away
+Rather than moving the mouse to click buttons, users can easily navigate through the pages without ever moving their hands away
 from the keyboard.
 ====
 *Map of Navigation Commands* +
 
-image::{imagesDir}/navigation-cheatsheet.png[width="600"]
+image::user-guide/navigation-cheatsheet.png[width="800"]
 ====
 
-
-
 * *Major Enhancement:* Implemented Home Page of application +
-** What it does: Allows users to view and manipulate the trip list in the application, and view past and upcoming trips.
+** *What it does* +
+Allows users to view and manipulate the trip list in the application, and view past and upcoming trips at a glance.
+** *Justification* +
+Rather than implementing a single sorted list view, distinguishing between past and upcoming trips will make it more
+convenient for users to view their trips and a comprehensive glance.
 
 
 * *Major Enhancement:* Designed the GUI for the application
 ** *Justification* +
 I wanted to completely move away from the Address Book 3 design and differentiate our application from
-the rest of the teams.
+the rest of the teams. I also wanted the text of our GUI to be bigger and more readable.
 ** *Credits* +
-Main design was inspired by https://en.wikipedia.org/wiki/Windows_1.0[Windows 1.0]
+GUI design was inspired by https://en.wikipedia.org/wiki/Windows_1.0[Windows 1.0.]
 
 * *Major Enhancement:* Implemented Help Windows for different views
 ** *What it does* +
@@ -81,33 +84,44 @@ what commands can be used on the page they are specifically on.
 
 === Contributions to User Guide
 ==== Sections Written
-* Created all screenshots in the UG.
-* Section 2
-* Section 3
+* Created all screenshots and diagrams in the User Guide.
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#quick-start-ranice[2. Quick Start]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#universal-commands-ranice[4.3 Universal Commands]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#glossary-ranice[7. Glossary]
+
 
 === Contributions to Developer Guide
 ==== Sections Written
-* Section 1
-* Section 2
-* Section 3
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Architecture[3.1 Architecture]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Ui[3.2. UI component]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-view-switching[4.1. View Switching for Navigation Commands]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#specific-help-windows-for-different-pages[4.2. Specific Help Windows for different pages]
 
 ==== Diagrams
-* Figure n
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Architecture[Figure 1. Architecture Diagram]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Architecture[Figure 3. Component interactions for `home` command in the `JOURNAL` page.]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Model[Figure 8. Class Diagram for the Model component on the `HOME` page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#implementation-2[Figure 12. Activity diagram for view switching process in MainWindow for back command]
 
 === Contributions to team-based tasks
 ** *Project Management*
 *** Managed overall team workflow as a team leader.
-*** Managed and reviewed team PRs before merging.
-*** Managed other miscellaneous logistics on Github such as the issue tracker, Travis and Codacy.
+*** Managed and reviewed PRs by team members before merging to the team repo.
+*** Managed and set up the team repo's issue tracker.
+*** Managed all releases for our application.
+*** Managed DevOps related tasks such as setting up of the team repo, installing Travis, Codacy and Coveralls.
 ** *Team Website*
-*** Customised the `asciidoctor.css` file to create a more aesthetically pleasing website.
+*** Modified the `asciidoctor.css` file to create a more aesthetically pleasing and readable website.
 ** *Project Branding*
 *** Designed Volant's logo and repo thumbnail.
-*** Credits: Logo design was inspired
-by https://www.google.com/search?q=patagonia+logo&tbm=isch&ved=2ahUKEwjrrpjwlrroAhUaj0sFHeZuDbkQ2-cCegQIABAA&oq=patagonia+logo&gs_lcp=CgNpbWcQAzIECCMQJzIECCMQJzIECAAQQzIECAAQQzICCAAyAggAMgIIADICCAAyAggAMgIIAFCTJFijJWDPJmgAcAB4AIABMogBXpIBATKYAQCgAQGqAQtnd3Mtd2l6LWltZw&sclient=img&ei=hbF9XqvYKZqertoP5t21yAs&bih=629&biw=1340#imgrc=3QLx2EoUdugRJM[Patagonia].
+*** Credits: Logo design was inspired+
+by https://www.google.com/search?q=patagonia+logo&tbm=isch&ved=2ahUKEwjrrpjwlrroAhUaj0sFHeZuDbkQ2-cCegQIABAA&oq=patagonia+logo&gs_lcp=CgNpbWcQAzIECCMQJzIECCMQJzIECAAQQzIECAAQQzICCAAyAggAMgIIADICCAAyAggAMgIIAFCTJFijJWDPJmgAcAB4AIABMogBXpIBATKYAQCgAQGqAQtnd3Mtd2l6LWltZw&sclient=img&ei=hbF9XqvYKZqertoP5t21yAs&bih=629&biw=1340#imgrc=3QLx2EoUdugRJM[Patagonia]. +
++
+image::volantLogo.jpg[width="300"]
+
 
 
 === Contributions beyond the project team
 https://github.com/nus-cs2103-AY1920S2/forum/issues?q=is%3Aissue+author%3Araniceyue[
-Here is a link to the issues I have made in the module's Github forum.]
+Here is a link to the issues I have made in the module's Github forum.] +
 I have made a total of 7 issues, one sharing technical information and another which I resolved on my own.

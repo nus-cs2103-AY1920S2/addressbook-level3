@@ -34,7 +34,7 @@ This icon denotes important details to take note of during development.
 * *Understanding Diagrams* +
 The diagrams in this Developer Guide are colour coded according to the different components.
 +
-image::/{imagesDir}/dg-diagram-legend.png[]
+image::dg-diagram-legend.png[]
 
 ====
 
@@ -212,7 +212,7 @@ image::StorageClassDiagram.png[align="center"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the `XYZList` data in json format and read it back.
+* can save the `LMNList` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -296,6 +296,8 @@ the window to reach the section that details commands for the page that they are
 
 === Adding a trip in Home Page
 ==== Implementation
+Adding a trip
+
 The add trip feature allows user to add a trip to Volant. This feature is facilitated by `HomeInputParser`, `AddCommandParser`, and `AddCommand`.
 
 Given below is an example usage scenario and how the trip add mechanism behaves at each step:
@@ -346,10 +348,82 @@ Given below is an example usage scenario and how the journal sort mechanism beha
 9. `MainWindow` receives `CommandResult` from `HomeLogicManager` containing success message to be displayed to user.
 10. Jounral entries displayed in `MainWindow` are updated and `MainWindow` displays success message.
 
+The following activity diagram summarizes what happens when a user executes a sort journal command:
+
+.Activity Diagram for `sort` Command
+image::sortActivityDiagram.png[align="center"]]
+
+=== Adding activities in Itinerary Page
+==== Implementation
+Adding an activity
+
+The add activity feature allows user to add an activity to a current trip. This feature is faciliated by `ItineraryInputParser`, `AddCommandParser`, and `AddCommand`.
+
+Given below is an example usage scenario and how the activity add mechanism behaves at each step:
+
+1. The user executes the add command in `ITINERARY` page and provides the required metadata in the correct format to be added.
+2. `ItineraryInputParser` parses the input by the user to check if the input provided contains a valid command keyword.
+3. `AddCommandParser` parses the remaining input by the user for metadata denoted with prefixes.
+4. `AddCommandParser` checks if the metadata input by the user is in the desired format.
+5. `AddCommandParser` creates a new `AddCommand` based on the metadata provided.
+6. `ItineraryLogicManager` executes the `AddCommand`.
+7. `ItineraryModelManager` checks if the new `ACTIVITY` has any logical conflicts with existing `ACTIVITY`(s)
+8. `ItineraryModelManager` adds the activity to the `UniqueActivityList`.
+9. The `itinerary.json` file in the current trip folder in storage is updated
+10. `ItineraryLogicManager` updates storage with updated `UniqueActivityList`.
+11. `MainWindow` receives `CommandResult` from `ItineraryLogicManager` containing success message to be displayed to user.
+12. Activities displayed in `MainWindow` are updated and `MainWindow` displays success message.
+
+The following activity diagram summarizes what happens when a user executes a add activity command:
+
+.Activity Diagram for `add` Command
+image::AddActivity.png[align="center"]]
+
+==== Design Considerations
+
+===== Aspect: Prerequisite of the command
+Since each trip is associated with one itinerary, when the user wants to use the add activity command, a trip must have already been created. This is why the order of the scence switching is important as it disallows user to create an activity that is not associated with any trip.
+
+
+=== Finding activities in Itinerary Page
+==== Implementation
+Finding an activity
+
+The find activity feature allows user to find one or several activities in the current trip with matching keywords provided. This feature is faciliated by `ItineraryInputParser`, `FindCommandParser`, and `FindCommand`.
+
+Given below is an example usage scenario and how the activity find mechanism behaves at each step:
+
+1. The user executes the find command in `ITINERARY` page and provides one or several field(s) which they want to be displayed with the current keyword.
+2. `ItineraryInputParser` parses the input by the user to check if the input provided contains a valid command keyword.
+3. `FindCommandParser` parses the remaining input by the user for fields to be found.
+4. `FindCommandParser` checks if the field input by the user is a valid field to find.
+5. `FindCommandParser` creates a new `FindCommand` based on the fields provided.
+6. `ItineraryLogicManager` executes the `FindCommand`.
+7. A new find predicate is created to check for matching keyword from the current list of activities.
+8. `ItineraryModelManager` checks the current `UniqueActivityList` to find activities with matching keywords provided based on the predicate created.
+9. `ItineraryModelManager` updates the activities that matched in the `FilteredActivityList`.
+10. `MainWindow` receives `CommandResult` from `ItineraryLogicManager` containing success message to be displayed to user.
+11. Jounral entries displayed in `MainWindow` are updated and `MainWindow` displays success message.
+
+The following activity diagram summarizes what happens when a user executes a find activity command:
+
+.Activity Diagram for `find` Command
+image::FindItinerary.png[align="center"]]
+
+==== Design Considerations
+
+===== Aspect: Syntax of the find command
+* **Alternative 1 (current choice):** Users are allowed to find according to specific fields. This is done by adding the prefixes(t/ for `title`, l/ for `location`, d/ for `date`, and t/ for `time`) before the keyword to be found
+** Pros: Allows users to be very specific in the find command. This means that users can find activities with the keywords in the specific field that they want. This implementation also allows users to append one find command with multiple fields to narrow down the search in less steps.
+** Cons: Cannot find the same keyword for multiple fields. The current implementation can also cause the CLI by the users to be longer as there is a need to specify the fields to find. Furthermore, this implementation is more troublesome to implement.
+* **Alternative 2:** Users can find with one or a few keywords without the need to specify the fields.
+** Pros: The commands would be a lot shorter and easy to use. This allows for cross-field search which is not possible with the current implementation. This implementation is also easier to implement.
+** Cons: This makes it difficult to narrow down the search if the users want to be specific about which field the keyword is in. The current implementation allows for greater freedom in choosing the fields to search for, something this implementation would not be able to accomplish. Furthermore, as `date` and `time` have different format from `location` and `title`, the specified field would make it easier for users to search for activities with the same `date` or `time`.
+
 The following activity diagram summarises what happens when a user executes a sort journal command:
 
 .Activity Diagram for `sort` Command
-image::SortActivityDiagram.png[align="center"]]
+image::SortActivityDiagram.png[align="center"]
 
 === Deleting Trip in Home Page
 

@@ -19,7 +19,9 @@ image::raniceyue.png[width="150", align="left"]
 *Role* +
 Team Lead +
 
-*Responsibilities*
+*Responsibilities* +
+Project Management + DevOps
+
 
 '''
 
@@ -30,7 +32,8 @@ image::grrrrnt.png[width="200", align="left"]
 *Role* +
 Developer +
 
-*Responsibilities*
+*Responsibilities* +
+Documentation
 
 '''
 
@@ -41,7 +44,8 @@ image::zsoh97.png[width="200", align="left"]
 *Role* +
 Developer +
 
-*Responsibilities*
+*Responsibilities* +
+UI + Data
 
 '''
 
@@ -52,7 +56,8 @@ image::vuhieunguyen.png[width="200", align="left"]
 *Role* +
 Developer +
 
-*Responsibilities*
+*Responsibilities* +
+JUnit Testing
 
 '''
 
@@ -63,6 +68,7 @@ image::mikhailfaiz.png[width="200", align="left"]
 *Role* +
 Developer +
 
-*Responsibilities*
+*Responsibilities* +
+JUnit Testing
 
 '''

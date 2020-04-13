@@ -18,14 +18,14 @@ their travels. The user interacts with it using a CLI, and it has a GUI created 
 it is primarily based off of the Address Book 3 application developed by the CS2103T teaching team.
 
 === Summary of Contributions
-You can view my code contributions to this project
+I am responsible for `ITINERARY` features with Zeke and am the main tester of Volant. You can view my code contributions to this project
 https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=vuhieunguyen&sort=groupTitle&sortWithin=title&since=&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[on RepoSense].
 
-* *Major Enhancement:* Implemented Itinerary page of application (with Zeke)
+* *Major Enhancement:* Implemented Itinerary Page of application (with Zeke)
 ** What it does: Allow users to view and manipulate the itinerary with
 different activities in the application.
 
-* *Major Enhancement:* Refactored the code base for JUnit testing
+* *Testing:* Refactored the code base for JUnit testing
 ** Justification: Most of the original test code was for Address Book 3. These codes were
 modified and changed to fit our design of Volant.
 
@@ -33,15 +33,25 @@ modified and changed to fit our design of Volant.
 ** Highlights: I added JUnit tests for itinerary's commands and parsers, while Zeke
 added JUnit tests for itinerary's model and storage.
 
+<<<
+
 === Contributions to User Guide
 ==== Sections Written
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/UserGuide.adoc#itinerary-page[Section 4.6. Itinerary Page]
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/UserGuide.adoc#6-command-summary[Section 6. Command Summary]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-itinerary-page-nguyen[Section 4.6. Itinerary Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#command-summary-nguyen[Section 6. Command Summary]
 
 === Contributions to Developer Guide
 ==== Sections Written
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Section 3.4. Model] (Itinerary portion)
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/DeveloperGuide.adoc#411-implementation[Section 4.1.2. Special Cases]
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/Testing.adoc[Section 6. Testing]
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/DeveloperGuide.adoc#appendix-f-product-survey[Appendix F: Product Survey]
-* https://github.com/AY1920S2-CS2103T-F09-4/main/blob/master/docs/DeveloperGuide.adoc#appendix-g-instructions-for-manual-testing[Appendix G: Instructions for manual testing]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Model[Section 3.4. Model] (Itinerary portion)
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#special-cases[Section 4.1.3. Special Cases]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#adding-activities-in-itinerary-page[Section 4.5. Adding an activity in Itinerary Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#finding-activities-in-itinerary-page[Section 4.6. Finding activities in Itinerary Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/Testing.html#types-of-tests[Section 6.2 Types of tests]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#product-survey[Appendix F: Product Survey]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#instructions-for-manual-testing[Appendix G: Instructions for manual testing]
+
+==== Figures Contributed
+* Figure 7. Interactions Inside the Logic Component for the `delete 1` Command
+* Figure 10. Structure of the Model Component in Itinerary
+* Figure 15. Activity Diagram for `add` Command
+* Figure 16. Activity Diagram for `find` Command

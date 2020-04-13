@@ -4,13 +4,14 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-Hello, my name is Zeke. At the time of this project (AY19/20), I was a Year 2 Computer Science undergraduate.
-
-I am a developer for `PROJECT: Volant`.
+Hello, my name is Zeke. At the time of this project (AY19/20), I was a Year 2 Computer Science undergraduate at the National University of Singapore. Additionally, I am a software developer in Team Volant. That's the team that is working on this
+wonderful travel companion app! We're really passionate about this project, so we hope that you enjoy the product
+as much as we enjoy the process.
 
 You can find out more about who I am at these links:
 
-* https://www.linkedin.com/in/zsoh97/[LinkedIn]
+* https://www.linkedin.com/in/zsoh97/[My LinkedIn profile]
+* https://www.github.com/zsoh97[My github profile]
 
 == PROJECT: Volant
 
@@ -26,6 +27,8 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=zsoh97&sort=totalComm
 ** What it does: Allowed users to save and load their data when using the project.
 ** Highlights: The implementation of the storage was a bottleneck for our team project as in order to
 implement and test the functionalities of our features, developers had to have data to work with.
++
+This was a challenging task as the functionality of our app required the storage to work and I had to figure it out so fast so my team could meet the assigned deadline. The task involved understanding of how data was originally stored in address book in json file which I have previously read up on, but was not completely familiar with. As a result, I had to trace the entire workings of the program in order to figure out the project.
 
 * *Major Enhancement:* Implemented the Itinerary page (with Nguyen).
 ** What it does: Allows users to view and manipulate the itinerary activities in the application.
@@ -36,29 +39,39 @@ implement and test the functionalities of our features, developers had to have d
 
 * *Major Enhancement:* Implemented the GUI for the application.
 
+* *Testing:* Did JUnit testing for `ITINERARY` (with Nguyen)
+** Highlights: I added JUnit tests for itinerary's commands and parsers, while Zeke
+added JUnit tests for itinerary's model and storage.
+
 * *Other Contributions*
 ** Documentation
 *** Did cosmetic tweaks to existing contents of the User Guide:
-**Community
 *** PRs reviewed(with non-trivial review comments):
 
 === Contributions to User Guide
 ==== Sections Written
-
-* include::../UserGuide.adoc[tag=Introduction]
-
-* include::../UserGuide.adoc[tag=Features]
-
-* include::../UserGuide.adoc[tag=Home commands]
+* Transferred early stage user guide in google doc to adoc.
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#introduction-zeke[Section 1. Introduction]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#Features[Section 3. Features]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/UserGuide.html#commands-for-the-home-page-zeke[Section 4.4. Commands for the Home Page]
+* Formatted command summary to table form
 
 === Contributions to Developer Guide
 ==== Sections Written
-* include::../DeveloperGuide.adoc[tag=Storage]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Storage[3.5 Storage component]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#adding-a-trip-in-home-page[4.3. Adding a trip in Home Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#sorting-entries-in-journal-page[4.4. Sorting Entries in `JOURNAL` Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#deleting-trip-in-home-page[4.5. Deleting Trip in `HOME` Page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#refreshing-trips-in-home-page[4.8. Refreshing trips in `HOME` page]
 
-* include::../DeveloperGuide.adoc[tag=Views in Volant]
+==== Diagrams
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Architecture[Figure 4. Component interactions for `goto 1` command in the `HOME` page view.]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Ui[Figure 5. Structure of the UI Component when a user is on a `TRIP` page]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#Design-Storage[Figure 11. Structure of the Storage Component]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#deleting-trip-in-home-page[Figure 18. Activity Diagram for `delete` Command]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#refreshing-trips-in-home-page[Figure 21. Activity Diagram for `rf` Command]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#data-storage[Figure 23. Activity diagram for adding a new trip]
+* https://ay1920s2-cs2103t-f09-4.github.io/main/DeveloperGuide.html#data-storage[Figure 24. Activity diagram for adding a new activity]
 
-* include::../DeveloperGuide.adoc[tag=Adding a trip]
-
-* include::../DeveloperGuide.adoc[tag=Sorting entries in journal]
 
 _{To be updated in the future}_
