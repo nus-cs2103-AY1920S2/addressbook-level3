@@ -232,6 +232,7 @@ If you want to search for a particular contact, see `(ab)find`
 If you want more information about a particular contact, see `(ab)get`
 
 tag::findCommand[]
+
 ==== Finding contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
@@ -386,6 +387,7 @@ Examples:
 Lists all restaurants.
 
 tag::findRestaurantCommand[]
+
 ==== Find restaurants : `(rt)find`
 
 Finds restaurants based on a number of criteria. +
@@ -405,6 +407,7 @@ Finds restaurants with the keyword `no signboard`.
 Finds restaurants in the `Bedok` area.
 
 * [COMING SOON] Ability to search by price point and operating hours.
+
 end::findRestaurantCommand[]
 
 tag::schoolworkTracker[]
@@ -512,6 +515,7 @@ Displays 5 days of your generated schedule.
 end::schedule[]
 
 tag::eventSchedule[]
+
 === Event Schedule commands
 
 ==== Create a new social event : `(ev)add`
