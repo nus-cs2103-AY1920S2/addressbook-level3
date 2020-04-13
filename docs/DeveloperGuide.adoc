@@ -365,7 +365,7 @@ The sequence diagrams below show how the Calendar works:
 image::CalendarSequenceDiagram.png[]
 
 .Sequence diagram representation of the Set details of DateCell ref frame of Calendar (Applicable to the next two diagrams).
-image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[]
+image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[width=400]
 
 The two scenarios below are examples of how the Calendar mechanism behaves at
 each step of each scenario.
@@ -814,7 +814,7 @@ The following activity diagram depicts what happens when the user runs a
 `edit` command to edit a coupons's `RemindDate`.
 
 .Activity Diagram representation of the flow of editing the `remind date` of a coupon.
-image::EditRemindActivityDiagram.png[]
+image::EditRemindActivityDiagram.png[width=500]
 
 ==== Implementation of reminder pop up
 
@@ -985,7 +985,7 @@ a MonetaryAmount of PercentageAmount. The following activity diagram
 shows what happens when the user runs a used command.
 
 .Activity diagram showing the execution of a used command.
-image::UsedCommandActivityDiagram.png[]
+image::UsedCommandActivityDiagram.png[width=400]
 
 In terms of the implementation, the next two images
 shows the sequence diagram that models the successful
