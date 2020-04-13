@@ -19,12 +19,11 @@ By: `AY1920S2-CS2103T-W16-1`      Since: `Jan 2020`      Licence: `NUS`
 
 .Cover Page of User Guide.
 image::CoverPage.png[width="790"]
-//tags::intro
+
 == What is BB Productive?
 
 Feeling unproductive lately? Try BB Productive! BB Productive is a productivity application that consists of three main features: a task manager, a Pomodoro timer and a Pet, to help you get rid of those unproductive days. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can help you to start your journey of productivity. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-//tags::about
 == About this document
 This document provides information about the multitude of features in BB Productive, and how you can best utilise them to your benefit.
 
@@ -324,9 +323,6 @@ Oh my it's been a productive month, time to start on a clean slate. You may dele
 .Clear success
 image::clear_success.png[width=790]
 
-//end::TaskList[]
-
-//tags::pet
 === Pet
 anchor:pet[]
 _This section provides information about the virtual pet_
@@ -442,7 +438,7 @@ The Daily Challenge tracks the total duration you have kept the Pomodoro running
 
 [TIP]
 ====
-You can customise the duration you aim to achieve on a daily basis by using the Set Command.
+You can customise the duration you aim to achieve on a daily basis by using the Set Command as described <<settings, here>>.
 ====
 
 ==== Productivity Charts
@@ -646,6 +642,7 @@ Use the `settings` command to view the _Settings_ tab. The orange background on 
 image::settings.png[width="790"]
 
 === Set Commands
+anchor:settings[]
 _This section explains how to use the set commands_
 
 Tired of the name "BB"? Is 25 minutes of pomodoro time too short for you? Want to achieve more with the daily challenge? BB productive provides you with the option to customise the various features! Simply use the set commands to customise it the way you want.
