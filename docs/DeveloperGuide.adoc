@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-W17-2/main
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-2/main/tree/master
 
 By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
@@ -34,44 +34,44 @@ image::ArchitectureDiagram.png[]
 
 ==== Design pattern and data flow
 
-The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller] design pattern.
+The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[Model-View-Controller design pattern].
 
-In addition, the App's data flow is unidirectional. That is, all user interactions in `View` will trigger an appropriate handler in `Logic`, which in turn updates `Model` and `Storage`.
-Any data/state changes in `Model` will then propagate back to `View` automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding].
+In addition, the App's data flow is unidirectional. That is, all user interactions in <<Design-View,*`View`*>> will trigger an appropriate handler in <<Design-Logic,*`Logic`*>>, which in turn updates <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>.
+
+Any data/state changes in <<Design-Model,*`Model`*>> will then propagate back to <<Design-View,*`View`*>> automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding]. In other words, the https://en.wikipedia.org/wiki/Observer_pattern[Observer design pattern] is employed; <<Design-Model,*`Model`*>> is the observable while <<Design-View,*`View`*>> is the observer.
 
 In short, the App's data flow can be summarized as: +
-`View` -> `Logic` -> `Model` + `Storage` -> `View`
+<<Design-View,*`View`*>> -> <<Design-Logic,*`Logic`*>> -> <<Design-Model,*`Model`*>> + <<Design-Storage,*`Storage`*>> -> <<Design-View,*`View`*>>
 
 ==== Architecture-level components
 
-Overall, the App consists of four components:
+Overall, the App consists of five main components:
 
 * <<Design-View,*`View`*>>: View of the App.
 * <<Design-Logic,*`Logic`*>>: Business logic of the App.
 * <<Design-Model,*`Model`*>>: In-memory representation of the App's data/state.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Commons,*`Commons`*>>: A collection of classes used by multiple other components.
 
-In addition, <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+The first four components, namely <<Design-View,*`View`*>>, <<Design-Logic,*`Logic`*>>, <<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>:
+
+* Defines its _API_ in an `interface` with the same name as the itself, e.g. link:{repoURL}/src/main/java/com/notably/logic/Logic.java[`Logic.java`]
+* Exposes its functionality using a `{Component Name}Manager` class, e.g. link:{repoURL}/src/main/java/com/notably/logic/LogicManager.java[`LogicManager.java`]
+
+The following classes from <<Design-Commons,*`Commons`*>> plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-Each of the four components:
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+* <<Design-Compiler,*`Compiler`*>> : Used mainly by the <<Design-View,*`View`*>> to compile Markdown to HTML for displaying notes.
 
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably -b Lorem ipsum`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `new -t Notably`.
 
-.Component interactions for the `new -t Notably -b Lorem ipsum` command
+.Component interactions for the `new -t Notably` command
 image::ArchitectureSequenceDiagram.png[]
 
 [[Design-View]]
-=== View component
+=== View
 
 .Structure of the View Component
 image::UiClassDiagram.png[]
@@ -88,7 +88,7 @@ The `View` component,
 * Listens for changes to `Model` data so that the View can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic
 
 .Architecture of Logic
 image::LogicArchitectureDiagram.png[]
@@ -105,7 +105,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 // tag::parser[]
 [[Design-NotablyParser]]
-==== NotabyParser component
+==== NotabyParser
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -126,7 +126,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 //tag::sugengine[]
 [[Design-SuggestionEngine]]
-==== SuggestionEngine component
+==== SuggestionEngine
 
 .Class Diagram of the Suggestion Engine Component
 image::SuggestionClassDiagram.png[]
@@ -162,29 +162,24 @@ NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy mark
 //end::sugengine[]
 
 [[Design-CorrectionEngine]]
-==== CorrectionEngine component
+==== CorrectionEngine
 
 .Class Diagram of the CorrectionEngine Component
 image::CorrectionEngineClassDiagram.png[]
 
 The `CorrectionEngine` component revolves around two _API_ s, namely:
 
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/distance/LevenshteinDistanceCalculator.java[`LevenshteinDistanceCalculator`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
 
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
-
-
-Given below is the Sequence Diagram for interactions within the `StringCorrectionEngine` (one concrete implementation of `CorrectionEngine`) component for the `correct("uncorrected")` API call.
+Given below is the Sequence Diagram for interactions within the link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] (one concrete implementation of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`]) component for the `correct("uncorrected")` API call.
 
 .Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
 image::StringCorrectionEngineSequenceDiagram.png[]
 
 //tag::design-model[]
 [[Design-Model]]
-=== Model component
+=== Model
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -203,7 +198,7 @@ The `Model`,
 
 //tag::design-storage[]
 [[Design-Storage]]
-=== Storage component
+=== Storage
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -217,15 +212,52 @@ The `Storage` component,
 //end::design-storage[]
 
 [[Design-Commons]]
-=== Common classes
+=== Commons
 
 Classes used by multiple components are in the `com.notably.commons` package.
+
+[[Design-Compiler]]
+=== Compiler
+
+.Class Diagram of the Compiler Component
+image::CompilerClassDiagram.png[]
+
+The `Compiler` component's primary usage is to compile Markdown to HTML.
+Our `Compiler` component's design is based off https://github.github.com/gfm/#appendix-a-parsing-strategy[the parsing strategy] explained in https://github.github.com/gfm[GitHub's GFM Specification]
+
+Mainly, the `Compiler` component consists of the following classes:
+
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`], which deals with the end-to-end job of compiling unprocessed Markdown to HTML.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`], which deals with creating an https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Sytax Tree] representation of an unprocessed Markdown.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`], which is an abstract class representing a node in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree]. All concrete implementations of nodes in a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] inherit from this class.
+
+The concrete implementations of the link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`] class consist of:
+
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`], which represents the root of the Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/HeaderBlock.java[`HeaderBlock`], which represents a Markdown https://github.github.com/gfm/#atx-headings[ATX heading] component.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListBlock.java[`ListBlock`], which represents a Markdown unordered list.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListItemBlock.java[`ListItemBlock`], which represents a Markdown list item.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ParagraphBlock.java[`ParagraphBlock`], which represents a Markdown paragraph.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/TextBlock.java[`TextBlock`], which represents plain text in Markdown.
+
+Two of link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]'s _abstract_ methods are particularly important:
+
+* https://github.com/AY1920S2-CS2103T-W17-2/main/blob/10267c0494bf7e58bd9c8e7f198bb7f9209631e2/src/main/java/com/notably/commons/compiler/parser/block/Block.java#L42[`Block#next`]: This method should be implemented by each of link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]'s implementation in such a way that accepts a single `String` line and evolve the current Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] further. That way, each of link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]'s implementation only needs to care about processing the portion of the `String` line that is relevant to them, before delegating the rest to its children link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]s.
+* https://github.com/AY1920S2-CS2103T-W17-2/main/blob/10267c0494bf7e58bd9c8e7f198bb7f9209631e2/src/main/java/com/notably/commons/compiler/parser/block/Block.java#L49[`Block#toHtml`]: This method should be implemented by each of link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]'s implementation in such a way that it returns the HTML representation of the current link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]. That way, each of link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]'s implementation only needs to care about generating its own HTML; the rest can be delegated to its children link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`]s.
+
+In short, our link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] class will first call the https://github.com/AY1920S2-CS2103T-W17-2/main/blob/10267c0494bf7e58bd9c8e7f198bb7f9209631e2/src/main/java/com/notably/commons/compiler/parser/Parser.java#L15-L23[`Parser#parse`] method to generate a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+After that, the link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] class will transform the returned Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] into HTML by calling the root link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`]'s `toHtml` method (which will in turn invoke each of its children's `toHtml` method).
+
+Given below is the _Sequence Diagram_ for interactions within the `Compiler` component for the `compile(markdown)` API call.
+
+.Interactions inside the Compiler component for the `compile(markdown)` call
+image::CompilerSequenceDiagram.png[]
 
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Design-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
@@ -236,7 +268,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
+[[Design-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
@@ -244,6 +276,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 == Implementation
 
 This section describes the details on how features are implemented.
+
 
 [[Implementation-CorrectionEngine]]
 ===  Correction Engine
@@ -268,6 +301,7 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
 2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
+
 
 //tag::sugengineimpl[]
 [[Implementation-SuggestionEngine]]
@@ -339,6 +373,30 @@ parsing and those without. It does not force the `Handler` to parse the user inp
 does not restrict the functionality of the interface and classes to just parse an input, but allows for a flexibility in executing other functionality
 such as updating the `responseText` in the `Model`.
 //end::sugengineimpl[]
+
+[[Implementation-CorrectionEngine]]
+===  Correction Engine
+
+==== Rationale
+
+`CorrectionEngine` is needed to enable auto-correction of user inputs, to deliver as good typing experience as possible.
+
+==== Current implementation
+
+The `CorrectionEngine` component revolves around two _API_ s, namely:
+
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/distance/LevenshteinDistanceCalculator.java[`LevenshteinDistanceCalculator`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
+
+Two concrete implementations of the link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface are, namely:
+
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] class, which deals with the correction of plain strings.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`] class, which deals with the correction of absolute paths. The absolute paths here refer to the address of the notes (or blocks, as we call it) that exist in the App.
+
+==== Design considerations
+
+1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
+2. Both link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
 // tag::paths[]
 [[Implementation-Path]]
@@ -419,6 +477,24 @@ Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not c
 image::TreeDataStructureDesign.png[]
 //end::datastructure[]
 
+[[Implementation-Compiler]]
+===  Compiler
+
+==== Rationale
+
+`Compiler` is needed to enable compilation of Markdown to HTML. By having an Markdown to HTML compiler, we can allow user to format their notes in Markdown, which enhances their note-editing experience tremendously.
+
+==== Current implementation
+
+The implementation of `Compiler` is highly inspired by https://github.github.com/gfm/#appendix-a-parsing-strategy[the parsing strategy] explained in https://github.github.com/gfm[GitHub's GFM Specification]. Please read more from the specification for a more comprehensive explanation.
+
+==== Design considerations
+
+Generally speaking, compilers usually consist of several main components, namely a tokenizer, a parser, and a generator. However, this is not the case in our design of the link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] component:
+
+. Leveraging on the fact that Markdown's syntax is not overly complicated, we decided not to fully adhere to the usual compiler design. Instead, we merged the tokenizer and parser section into our link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class. This link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class thus deals converting raw Markdown string into a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+. In addition, we opted to not build a standalone generator component. Instead, we make it such that each node in our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] supports a `toHtml` method, which returns the HTML representation of the tree starting from itself as a node. This way, we can leverage on OOP's polymorphism to generate the HTML string out of our Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] a lot easier.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -469,7 +545,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 // end::Scope&User[]
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -540,14 +615,13 @@ Steps 1b1-1b3 are repeated until the data entered is correct. Use case resumes f
 
 _{More to be added}_
 
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 notes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -586,3 +660,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
