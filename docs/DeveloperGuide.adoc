@@ -411,13 +411,20 @@ Using `loc/Documents abs/abs` will allow the user to access any folder from anyw
 
 // end::Xinwei[]
 
-=== Diary
-- `diaryAdd` and `diaryLog` extends from `Command` class
-- `DiaryEntry` is another model which contains:
-* Diary Entry
-* Date
-* Weather
-* Mood
+=== Diary feature (Jiangwei)
+The diary feature is just like a real life diary book. It allows you jot down any thoughts, be it for your personal life or for school work. You can also note down a concept you don't understand or your reflection for each day in case you want to revisit them in the future.
+In details, users can add and delete a diary entry, display a particular diary entry and tag each entry with mood or the weather on that day.
+
+==== Implementation
+- This feature is implemented using a panel on the main screen of diary tab. The list of diary entries will update upon executing diary commands that may affect Diary Book. (such as diaryAdd, diaryDelete or diaryMood) The GUI aspect is not fully implemented yet (coming in v2.0), so the current implementation's response is in CLI style.
+- The Diary Book currently supports the following features:
+. Adding a diary entry
+. Deleting a diary entry
+. Showing the log of recorded entries
+. Display a particular diary entry with specified entry ID
+. Finds the list of diary entries the match a given date
+. tagging a entry with mood or weather
+
 
 === Logging
 
