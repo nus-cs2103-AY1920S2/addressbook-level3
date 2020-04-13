@@ -22,7 +22,7 @@ public class NomCommand extends Command {
             + "[" + CliSyntax.PREFIX_DATE + "DATE] "
             + "[" + CliSyntax.PREFIX_PORTION + "PORTION]\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "Kiwi "
+            + CliSyntax.PREFIX_NAME + "bandung "
             + CliSyntax.PREFIX_DATE + "2020-03-14 "
             + CliSyntax.PREFIX_PORTION + "2";
 
