@@ -14,7 +14,8 @@ Lines of Code*.
 
 === Summary of contributions
 
-As the main developer in charge of the *Student View*, my main contributions were in
+*Student View* refers to the view that allows the user to manage their students.
+As the main developer that created *Student View*, my main contributions were in
 the *Student View*. They include *creating models, writing commands, creating tests
 and adding documentation for the Student View*. In total, I wrote about *7kLoc*.
 
@@ -26,10 +27,12 @@ These models are necessary to ensure the
 proper functioning of the commands in the *Student View*.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
 
-I created a lot of supporting methods for the UI, especially the highlighting feature.
+I created a lot of supporting methods for the UI, especially the highlighting feature
+which highlights the currently shown module and group.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/202[#202])
 
-I also added the required support for the filter feature in the models
+I also added the required support for the filter feature in the models which allows
+the user to filter the students they're viewing by module code and group code.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/191[#191]).
 
 ==== Sort Commands
@@ -71,7 +74,7 @@ I created all the classes required to test the *Student View* such as `GroupBuil
 `ModuleBuilder`, `TypicalGroups`, `TypicalModules`, etc. I also wrote the tests
 for all my enhancements and have an average coverage over 85% for my sections in the
 codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
-https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345],)
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345])
 
 **The code I contributed can be found
 https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].**
@@ -85,7 +88,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-
 
 ** Documentation:
 *** Created a User Guide skeleton for everyone to follow and made a few cosmetic
-tweaks to existing contents (such as adding a table for the common parameters)
+tweaks to existing contents (such as adding a table for the common parameters and the glossary)
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/215[#215])
 *** Updated the User Guide and Developer Guide with details for the Student View
 and the commands used in the Student View.
