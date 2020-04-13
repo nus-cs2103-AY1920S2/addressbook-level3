@@ -422,7 +422,7 @@ At the end of the break, the app will return to it's "neutral" state and you can
 image::pom_break_end.png[width=790]
 
 //end::pomodoro[]
-//tag::statistics[]
+//tag::statisticsug[]
 
 === Statistics
 anchor:statistics[]
@@ -443,7 +443,7 @@ You can customise the duration you aim to achieve on a daily basis by using the 
 
 ==== Productivity Charts
 The Productivity Charts tracks 2 main data points daily. Firstly, it tracks the number of tasks you have completed. Secondly, it tracks the total duration you ran the Pomodoro. With this information, you can gauge your productivity over time and make proper adjustments to your schedule to improve your productivity. If you start noticing the orange bars getting shorter, realize that it is time to buckle up and work harder, or else you may lose your productivity momentum!
-//end::statistics[]
+//end::statisticsug[]
 
 //tag::AutoComplete[]
 === AutoComplete
