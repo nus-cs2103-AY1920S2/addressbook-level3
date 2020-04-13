@@ -1,0 +1,133 @@
+= Cheyanne Sim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Sharkie
+
+---
+
+== Overview
+
+Sharkie is a desktop expense tracker application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancements*:
+** Added People's command, `owe`
+*** What it does: allows the user to keep track of what they owe to other people in the addressbook.
+*** Justification: This is one of the main feature of Sharkie.
+*** Highlights: The implementation was quite challenging as it required an in-depth analysis of design alternatives. For instance, how to store the Transactions,
+since a Transaction has association to Description, Amount, Date and Tag, and Date itself have different formats to consider. I have implemented the logic, model,
+storage and ui for this command.
+** Added People's command, `returned`
+*** What it does: allows the user to record that he/she has already returned the debt(s).
+** Modified People's command, `find`
+*** What it does: allows the user to find people based on their name, phone, email or tags.
+I have also added the the tags "Debt" and "Loan" to people whom the user owes and lends, so that the user
+can filter the people whom they lend or owe using the commands `people find t/debt` and `people find t/loan` respectively.
+
+* *Minor enhancements*:
+** Edit existing AB3 commands
+*** Removed address field of AB3 as it is unnecessary for Sharkie.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=cheyannesim[Functional codes & Test codes]]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Wrote additional tests for exsiting features to increase coverage from 73% to 76% (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/182[#182])
+*** Bug fixing. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/247[#247])
+** Documentation:
+*** Update AboutUs page: (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/53[#53])
+*** Updated User Guide: Summary of my contributions:
+**** Features: Contact Management
+**** People Commands: edit, delete, owe, returned, lend, list.
+**** (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/43[#43],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/196[#196])
+*** Updated Developer Guide:  Summary of my contributions:
+**** Architecture section
+**** Implementation: People Owe Command
+**** Appendix D – Non-Functional Requirements
+**** Appendix G – Instructions for Manual Testing for People Commands: add, edit, find, list, delete, clear, owe, returned.
+**** (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/60[#60],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/120[#120], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/124[#124],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/138[#138], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/196[#196],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/256[#256])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/95[#95],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/87[#87], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/98[#98],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/102[#102], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/117[#117],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/128[#128])
+*** Reported bugs and suggestions for other teams in the class: Reported bugs for W17-2
+(Issues https://github.com/CheyanneSim/ped/issues/1[#1], https://github.com/CheyanneSim/ped/issues/2[#2],
+https://github.com/CheyanneSim/ped/issues/3[#3], https://github.com/CheyanneSim/ped/issues/4[#4],
+https://github.com/CheyanneSim/ped/issues/5[#5], https://github.com/CheyanneSim/ped/issues/6[#6],
+https://github.com/CheyanneSim/ped/issues/7[#7], https://github.com/CheyanneSim/ped/issues/8[#9],
+https://github.com/CheyanneSim/ped/issues/9[#9], https://github.com/CheyanneSim/ped/issues/1[#10],
+https://github.com/CheyanneSim/ped/issues/11[#11], https://github.com/CheyanneSim/ped/issues/12[#12],
+https://github.com/CheyanneSim/ped/issues/13[#13])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Features
+
+include::../UserGuide.adoc[tag=contacts]
+
+== Commands
+
+include::../UserGuide.adoc[tag=commandintro]
+
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=owe]
+
+include::../UserGuide.adoc[tag=return]
+
+include::../UserGuide.adoc[tag=lend]
+
+include::../UserGuide.adoc[tag=peoplelist]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Architecture
+
+include::../DeveloperGuide.adoc[tag=architecture]
+
+== Implementation
+
+include::../DeveloperGuide.adoc[tag=owe]
+
+== Appendix D: Non-Functional Requirements
+
+include::../DeveloperGuide.adoc[tag=apendixd]
+
+== Appendix G: Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peopleadd]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peopleedit]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peoplefind]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peoplelist]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peopledelete]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-peopleclear]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-owe]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-returned]
+

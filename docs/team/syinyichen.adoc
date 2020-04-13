@@ -1,0 +1,146 @@
+= Chen Syin Yi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Sharkie
+
+---
+
+== Overview
+
+*Sharkie* is a desktop expense tracker application. The user interacts with it using a CLI,
+and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+** *Added* `*lend*` *command* (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/87[#87])
+*** What it does: Allows the user to record the amount of money lent to other people in Sharkie's contact list.
+*** Justification: This is one of the key features of Sharkie, which records the flow of money between the user and
+the people in Sharkie.
+*** Highlights: This command involves both `Transactions` and `Person` models, considerations have to made on how to
+use both of the models without changing their purposes or properties.
+** *Added* `*received*` *command* (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/98[#98])
+*** What it does: Allows the user to record that a person, who the user lent to has returned the amount of money.
+*** Justification: This is an essential update, which allows the user to remove the `loans` recorded by the
+`lend` command.
+*** Highlights: Considerations were needed during the implementation of this feature, to preserve the immutable
+property of `Person`.
+** *Added user data storage* (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/95[#95])
+*** What it does: Stores user data, such as name, phone and e-mail address.
+*** Justification: The storage of user data is important, as the user details are required during the use of `remind`
+and `remindall` commands.
+*** Highlights: This update was challenging, an entire new storage need to be built to store the user data, as the
+data needed to be stored differs from those in the address book.
+** *Added* `*remind*` *and* `*remindall*` *command* (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/95[#95])
+*** What it does: Allows the user to send reminders to the people, who have not return the amount of money they lent, via email.
+*** Justification: This is one of the main features of Sharkie, which allows the interaction between the user and
+the people in Sharkie's contact list.
+*** Highlights: The implementation of this feature was new to me, as it involves the usage of the internet and the
+connection to e-mail servers.
+*** Credits: _javax.mail_ is used in the implementation of this feature.
+
+* *Minor enhancement*:
+
+** Make Sharkie sends a confirmation email to user to validate the user's email address during user's first login. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/249[#249])
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=syinyichen[Functional codes & Test codes]]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Add progress indicator for command execution, to indicate that the application is not hanging
+during execution of commands, which take some time to run, such as `people remind`. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/148[#148])
+*** Improved GUI of Edit User Data Window and Help Window. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/178[#178])
+*** Made `people's tags` uneditable. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/183[#183])
+*** Bug fixing. (Pull request https://github.com/AY1920S2-CS2103T-W12-3/main/pull/178[#178], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/243[#243])
+** Project management:
+*** Finalized and tagged `v1.1` - `v1.4` (4 versions) on Github.
+*** Managed release of `v1.2.1` - `v1.4` (3 releases) on Github.
+** Documentation:
+*** Updated the product website's heading and navigation bar. (Pull requests
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/44[#44], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/81[#81])
+*** Edited About, Features, Commands and FAQ sections of the User Guide. (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/49[#49], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/192[#192])
+*** Added use cases in the appendix. Updated Design, Implementation and Manual Testing sections of the Developer Guide.
+(Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/51[#51], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/132[#132],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/134[#134], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/146[#146]
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/192[#192], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/200[#200])
+** Community:
+*** PRs reviewed (with non-trivial review comments). (Pull requests https://github.com/AY1920S2-CS2103T-W12-3/main/pull/92[#92],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/100[#100], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/102[#102],
+https://github.com/AY1920S2-CS2103T-W12-3/main/pull/104[#104], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/115[#115])
+*** Reported bugs and suggestions for other teams. (Issues https://github.com/syinyichen/ped/issues/1[#1],
+https://github.com/syinyichen/ped/issues/2[#2], https://github.com/syinyichen/ped/issues/3[#3], https://github.com/syinyichen/ped/issues/4[#4],
+https://github.com/syinyichen/ped/issues/5[#5], https://github.com/syinyichen/ped/issues/6[#6], https://github.com/syinyichen/ped/issues/7[#7],
+https://github.com/syinyichen/ped/issues/8[#8], https://github.com/syinyichen/ped/issues/9[#9])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=about]
+
+[[quick-start]]
+== Quick Start
+
+== Features
+
+include::../UserGuide.adoc[tag=expenditureAndIncome]
+
+== Commands
+
+include::../UserGuide.adoc[tag=peopleadd]
+
+include::../UserGuide.adoc[tag=peoplereceived]
+
+include::../UserGuide.adoc[tag=peopleremind]
+
+include::../UserGuide.adoc[tag=peopleremindall]
+
+include::../UserGuide.adoc[tag=peoplefind]
+
+include::../UserGuide.adoc[tag=peopleclear]
+
+== FAQ
+
+include::../UserGuide.adoc[tag=editing-user-data]
+
+include::../UserGuide.adoc[tag=personIndexFAQ]
+
+include::../UserGuide.adoc[tag=loanDebtIndexFAQ]
+
+include::../UserGuide.adoc[tag=debt-and-loan-diff]
+
+include::../UserGuide.adoc[tag=remind-issue]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Design
+
+include::../DeveloperGuide.adoc[tag=model-design]
+
+== Implementation
+
+include::../DeveloperGuide.adoc[tag=received_implementation]
+
+== Appendix C: Use Cases
+
+include::../DeveloperGuide.adoc[tag=useCases]
+
+== Appendix G: Instructions for Manual Testing
+
+==== Recording the flow of money
+
+include::../DeveloperGuide.adoc[tag=manual-testing-lend]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-received]
+
+include::../DeveloperGuide.adoc[tag=manual-testing-reminder]

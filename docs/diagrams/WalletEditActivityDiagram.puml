@@ -1,0 +1,19 @@
+@startuml
+start
+title Activity: Editing a transaction
+
+:User executes wallet edit command;
+
+if () then ([User did not input valid \nfield to edit the transaction with
+or did not enter a valid index])
+        :Display an error message;
+else ([else])
+    if () then ([the input values are identical\n to the original values])
+        : Display an error message;
+    else ([else])
+        :Create a new transaction corresponding\n to index, with edited values;
+        :Replace the original transaction \nwith edited transaction;
+    endif
+endif
+stop
+@enduml

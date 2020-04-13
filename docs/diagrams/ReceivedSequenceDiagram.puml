@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PeopleReceivedCommand" as PeopleReceivedCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "modifiedPerson:Person" as modifiedPerson MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+end box
+
+participant "lastShownList:List" as List #6C3483
+
+[-> LogicManager : execute("people received 1")
+activate LogicManager
+
+ref over LogicManager, PeopleReceivedCommand
+    get PeopleReceivedCommand
+    (Note: PeopleReceivedCommand is created here.)
+end ref
+
+LogicManager -> PeopleReceivedCommand : execute()
+activate PeopleReceivedCommand
+
+PeopleReceivedCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> PeopleReceivedCommand : lastShownList
+deactivate Model
+
+PeopleReceivedCommand -> List : lastShownList.get(1)
+activate List
+
+List --> PeopleReceivedCommand : indicatedPerson
+deactivate List
+
+create modifiedPerson
+PeopleReceivedCommand -> modifiedPerson
+activate modifiedPerson
+
+modifiedPerson --> PeopleReceivedCommand : modifiedPerson
+deactivate modifiedPerson
+
+PeopleReceivedCommand -> Model : setPerson(\nindicatedPerson, \nmodifiedPerson)
+activate Model
+
+Model -> AddressBook : setPerson(indicatedPerson, modifiedPerson)
+activate AddressBook
+
+AddressBook -> UniquePersonList : setPerson(\nindicatedPerson, \nmodifiedPerson)
+activate UniquePersonList
+
+UniquePersonList --> AddressBook
+deactivate UniquePersonList
+
+AddressBook --> Model
+deactivate AddressBook
+
+Model --> PeopleReceivedCommand
+deactivate Model
+
+PeopleReceivedCommand -> Model : updateFilteredPersonList()
+activate Model
+
+Model --> PeopleReceivedCommand
+deactivate Model
+
+PeopleReceivedCommand --> LogicManager : result
+deactivate PeopleReceivedCommand
+[<-[hidden]-PeopleReceivedCommand
+destroy PeopleReceivedCommand
+
+[<-- LogicManager : result
+deactivate LogicManager
+
+@enduml

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="cardPane" fx:id="cardPane" prefHeight="32.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane HBox.hgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="NEVER">
+                     <children>
+                        <Label fx:id="id" styleClass="cell_big_label" text="id: ">
+                           <minWidth>
+                              <Region fx:constant="USE_PREF_SIZE" />
+                           </minWidth>
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="tag" maxHeight="1.7976931348623157E308" maxWidth="200.0" text="tag" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="description" styleClass="cell_big_label" text="description">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Line endX="100.0" startX="-100.0" stroke="#999999" strokeType="INSIDE" strokeWidth="2.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Label fx:id="amount" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="amount">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font></Label>
+                     </children>
+                     <padding>
+                        <Insets left="4.0" right="4.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</HBox>

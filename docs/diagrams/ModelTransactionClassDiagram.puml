@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+skinparam padding 2
+skinparam minClassWidth 80
+skinparam arrowFontSize 10
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Transaction {
+abstract "{abstract}\nTransaction" as Transaction
+Class Description
+Class Amount
+Class Date
+}
+
+Package Tag {
+Class Tag
+}
+
+Transaction *--> "1" Description
+Transaction *--> "1" Amount
+Transaction *--> "1" Date
+Transaction *--> "1" Tag
+
+@enduml

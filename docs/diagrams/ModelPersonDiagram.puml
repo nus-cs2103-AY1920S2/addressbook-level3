@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Person {
+Class Person
+Class Email
+Class Name
+Class Phone
+Class UniquePersonList
+abstract "{abstract}\nPeoplePredicate" as PeoplePredicate
+Class PeopleNamePredicate
+Class PeoplePhonePredicate
+Class PeopleEmailPredicate
+Class PeopleTagPredicate
+Class User
+}
+
+Package Transaction {
+Class Debt
+Class Loan
+Class "TransactionList" as TransactionListDebt
+Class "TransactionList" as TransactionListLoan
+abstract "{abstract}\nTransaction" as Transaction
+}
+
+Package Tag {
+Class Tag
+}
+
+Class AddressBook
+Class ModelManager
+Class UserData
+AddressBook *--> "1" UniquePersonList
+ModelManager --> "1" Person  : filtered list
+ModelManager o--> "1" AddressBook
+ModelManager o--> "1" UserData
+UserData *-[hidden]-> "1" User
+
+UniquePersonList o--> "*" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> "1" TransactionListDebt
+Person *--> "1" TransactionListLoan
+TransactionListDebt o--> "*" Debt
+TransactionListLoan o--> "*" Loan
+Person *--> "*" Tag
+
+Debt -up-|> Transaction
+Loan -up-|> Transaction
+
+User *--> Name
+User *--> Phone
+User *--> Email
+
+PeopleNamePredicate -up-|> PeoplePredicate
+PeoplePhonePredicate -up-|> PeoplePredicate
+PeopleEmailPredicate -up-|> PeoplePredicate
+PeopleTagPredicate -up-|> PeoplePredicate
+
+
+Name -[hidden]right->Email
+AddressBook -[hidden]left-> UserData
+PeoplePhonePredicate -[hidden]down-> PeopleEmailPredicate
+PeopleNamePredicate -[hidden]down-> PeopleTagPredicate
+PeopleNamePredicate -[hidden]right-> User
+
+@enduml

@@ -1,0 +1,26 @@
+{
+  "expenses" : [ {
+    "description" : "Duck Rice",
+    "amount" : "3.5",
+    "date" : "02/01/2020",
+    "tag" : "Food"
+  }, {
+    "description" : "Monthly MRT Concession Pass",
+    "amount" : "45.0",
+    "date" : "31/01/2020",
+    "tag" : "Transport"
+  } ],
+  "incomes" : [ {
+    "description" : "CS2103 TA",
+    "amount" : "3000.0",
+    "date" : "10/10/2010",
+    "tag" : "Job"
+  } ],
+  "budgets" : [ ],
+  "defaultBudget" : {
+    "amount" : "1000.00",
+    "month" : "3",
+    "year" : "2020",
+    "isDefault" : "true"
+  }
+}

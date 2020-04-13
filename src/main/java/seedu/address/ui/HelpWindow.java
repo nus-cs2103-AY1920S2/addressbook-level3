@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -15,17 +18,20 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w12-3.github.io/main/UserGuide.html";
+
+    public static final String MESSAGE_OPEN_BROWSER_FAIL = "Error occurs while opening "
+            + "Sharkie's user guide in browser :(";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    private Button openBrowserButton;
 
     @FXML
-    private Label helpMessage;
+    private WebView webView;
+    private final WebEngine webEngine = webView.getEngine();
 
     /**
      * Creates a new HelpWindow.
@@ -34,7 +40,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        webEngine.load(USERGUIDE_URL);
     }
 
     /**
@@ -46,21 +52,22 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Shows the help window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
+     *
+     * @throws IllegalStateException <ul>
+     *                                   <li>
+     *                                       if this method is called on a thread other than the JavaFX Application
+     *                                       Thread.
+     *                                   </li>
+     *                                   <li>
+     *                                       if this method is called during animation or layout processing.
+     *                                   </li>
+     *                                   <li>
+     *                                       if this method is called on the primary stage.
+     *                                   </li>
+     *                                   <li>
+     *                                       if {@code dialogStage} is already showing.
+     *                                   </li>
+     *                               </ul>
      */
     public void show() {
         logger.fine("Showing help page about the application.");
@@ -93,10 +100,13 @@ public class HelpWindow extends UiPart<Stage> {
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
+    private void openBrowser() {
+        try {
+            Desktop.getDesktop().browse(new URL(USERGUIDE_URL).toURI());
+            hide();
+        } catch (IOException | URISyntaxException e) {
+            hide();
+            MainWindow.editResultDisplay(MESSAGE_OPEN_BROWSER_FAIL);
+        }
     }
 }

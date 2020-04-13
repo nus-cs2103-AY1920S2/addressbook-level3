@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -34,12 +35,17 @@ public class PersonListPanel extends UiPart<Region> {
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
 
-            if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
-            }
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (empty || person == null) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                    }
+                }
+            });
         }
     }
 

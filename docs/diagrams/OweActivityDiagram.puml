@@ -1,0 +1,24 @@
+@startuml
+title Activity: Recording a debt
+start
+:User enters the owe command;
+
+if () then ([name, amount or index is \nnot specified or is invalid])
+    :Display an error message;
+else ([else])
+
+    if () then ([index of person is out of bound])
+        :Display an error message;
+    else ([else])
+        if () then ([date is specified])
+            :  Set the date to\nthe specified date;
+        else ([else])
+            : Set the date to\nthe current date;
+        endif
+        :Add debt to the person;
+        :Update the contact list;
+    endif
+
+endif
+stop
+@enduml

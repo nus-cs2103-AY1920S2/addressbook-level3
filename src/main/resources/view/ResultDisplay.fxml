@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+<StackPane fx:id="placeHolder" maxHeight="100.0" maxWidth="1.7976931348623157E308" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" text="Welcome to Sharkie! To get started, read our user guide that can be accessed using &quot;help&quot;!" wrapText="true">
+      <font>
+         <Font name="Consolas" size="14.0" />
+      </font>
+      <stylesheets>
+         <URL value="@css/ResultDisplay.css" />
+         <URL value="@css/General.css" />
+      </stylesheets></TextArea>
 </StackPane>

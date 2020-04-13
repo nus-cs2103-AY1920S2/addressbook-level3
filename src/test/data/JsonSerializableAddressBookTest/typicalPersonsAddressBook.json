@@ -1,46 +1,113 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
-  }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tagged" : [ ]
-  }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tagged" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tagged" : [ ]
-  }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "tagged" : [ ]
-  } ]
+  "persons": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "debts" : [],
+      "loans" : [],
+      "tagged": []
+    },
+    {
+      "name": "Benson Meier",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "debts" : [ {
+        "description" : "Textbook",
+        "amount" : "100",
+        "date" : "10/08/2019"
+      }],
+      "loans" : [ {
+        "description" : "Lunch",
+        "amount" : "12",
+        "date" : "09/09/2019"
+      }],
+      "tagged": ["Debt", "Loan"]
+    },
+    {
+      "name": "Carl Kurz",
+      "phone": "95352563",
+      "email": "heinz@example.com",
+      "debts" : [ {
+        "description" : "Milk Tea",
+        "amount" : "3",
+        "date" : "21/02/2020"
+      }, {
+        "description" : "iPhone 13",
+        "amount" : "1000",
+        "date" : "03/10/2022"
+      }],
+      "loans" : [ {
+        "description" : "Dinner",
+        "amount" : "22",
+        "date" : "02/02/2020"
+      }],
+      "tagged": ["Debt", "Loan"]
+    },
+    {
+      "name": "Daniel Meier",
+      "phone": "87652533",
+      "email": "cornelia@example.com",
+      "debts" : [ {
+        "description" : "Movie",
+        "amount" : "13",
+        "date" : "26/12/2019"
+      }],
+      "loans" : [ {
+        "description" : "Supper",
+        "amount" : "8",
+        "date" : "18/08/2018"
+      }],
+      "tagged": ["Debt", "Loan"]
+    },
+    {
+      "name": "Elle Meyer",
+      "phone": "9482224",
+      "email": "werner@example.com",
+      "debts" : [ {
+        "description" : "iPhone 13",
+        "amount" : "1000",
+        "date" : "03/10/2022"
+      }],
+      "loans" : [ {
+        "description" : "Dessert",
+        "amount" : "6",
+        "date" : "19/09/2019"
+      }],
+      "tagged": ["Debt", "Loan"]
+    },
+    {
+      "name": "Fiona Kunz",
+      "phone": "9482427",
+      "email": "lydia@example.com",
+      "debts" : [ {
+        "description" : "TaoBao",
+        "amount" : "11",
+        "date" : "11/11/2019"
+      }],
+      "loans" : [ {
+        "description" : "Shopping",
+        "amount" : "50",
+        "date" : "20/02/2020"
+      }],
+      "tagged": ["Debt", "Loan"]
+    },
+    {
+      "name": "George Best",
+      "phone": "9482442",
+      "email": "anna@example.com",
+      "debts" : [ {
+        "description" : "McGriddle",
+        "amount" : "5.40",
+        "date" : "19/02/2020"
+      }],
+      "loans" : [ {
+        "description" : "Travel",
+        "amount" : "120",
+        "date" : "22/02/2022"
+      }],
+      "tagged": ["Debt", "Loan"]
+    }
+  ]
 }

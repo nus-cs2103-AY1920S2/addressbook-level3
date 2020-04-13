@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+mainframe sd get PeopleOweCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as Logic LOGIC_COLOR
+participant ":SharkieParser" as SharkieParser LOGIC_COLOR
+participant ":PeopleOweCommandParser" as PeopleOweCommandParser LOGIC_COLOR
+participant ":PeopleOweCommand" as PeopleOweCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "debt:Debt" as debt MODEL_COLOR
+end box
+
+activate Logic
+
+Logic -> SharkieParser : parseCommand("people owe 1 n/Dinner $/10")
+activate SharkieParser
+
+create PeopleOweCommandParser
+SharkieParser -> PeopleOweCommandParser
+activate PeopleOweCommandParser
+
+PeopleOweCommandParser --> SharkieParser
+deactivate PeopleOweCommandParser
+
+SharkieParser -> PeopleOweCommandParser : parse("1 n/Dinner $/10")
+activate PeopleOweCommandParser
+
+create debt
+PeopleOweCommandParser -> debt : Debt()
+activate debt
+
+debt --> PeopleOweCommandParser : debt
+deactivate debt
+
+create PeopleOweCommand
+PeopleOweCommandParser -> PeopleOweCommand : PeopleOweCommand()
+activate PeopleOweCommand
+
+PeopleOweCommand --> PeopleOweCommandParser : command
+deactivate PeopleOweCommand
+
+PeopleOweCommandParser --> SharkieParser : command
+deactivate PeopleOweCommandParser
+
+SharkieParser --> Logic : command
+destroy PeopleOweCommandParser
+
+
+@enduml

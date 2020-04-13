@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Sharkie was developed by the Sharkie team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Daniel Hoe
+image::jumpcutfindo.png[width="150", align="left"]
+{empty}[https://github.com/jumpcutfindo[github]] [<<jumpcutfindo#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: In charge of the overall progress of the project, coordination and testing.
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Joel Lim
+image::joel-lim.png[width="150", align="left"]
+{empty}[https://github.com/joel-lim[github]] [<<joel-lim#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Code Quality + Checkstyle
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Grace Pan
+image::gracegrape.png[width="150", align="left"]
+{empty}[https://github.com/gracegrape[github]] [<<gracegrape#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Deliverable and Deadlines
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Chen Syin Yi
+image::syinyichen.png[width="150", align="left"]
+{empty}[https://github.com/syinyichen[github]] [<<syinyichen#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Integration
+
+'''
+
+=== Cheyanne Sim
+image::cheyannesim.png[width="150", align="left"]
+{empty}[http://github.com/cheyannesim[github]] [<<cheyannesim#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation
 
 '''

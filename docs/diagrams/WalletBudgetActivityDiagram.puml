@@ -1,0 +1,20 @@
+@startuml
+title Activity: Entering a budget
+start
+:User enters the wallet budget command;
+
+if () then ([amount is not specified])
+    :Display an error message;
+else ([else])
+    if () then ([month and year is specified])
+        :Set the budget to the specified amount,
+        month and year;
+    else ([else])
+        :Set the budget to the specified amount,
+        and set it as the default budget;
+    endif
+    :Add budget to BudgetList;
+    :Update the wallet;
+endif
+stop
+@enduml

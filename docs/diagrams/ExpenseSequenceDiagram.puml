@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as Logic LOGIC_COLOR
+participant ":SharkieParser" as SharkieParser LOGIC_COLOR
+participant ":WalletExpenseCommandParser" as WalletExpenseCommandParser LOGIC_COLOR
+participant "command:WalletExpenseCommand" as WalletExpenseCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "expense:Expense" as Expense MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
+participant ":TransactionList" as TransactionList MODEL_COLOR
+end box
+
+[-> Logic : execute("wallet \nexpense n/Rice $/2")
+activate Logic
+
+Logic -> SharkieParser : parseCommand("wallet \nexpense n/Rice $/2")
+activate SharkieParser
+
+create WalletExpenseCommandParser
+SharkieParser -> WalletExpenseCommandParser
+activate WalletExpenseCommandParser
+
+WalletExpenseCommandParser --> SharkieParser
+deactivate WalletExpenseCommandParser
+
+SharkieParser -> WalletExpenseCommandParser : parse("n/Rice $/2")
+activate WalletExpenseCommandParser
+
+
+create Expense
+WalletExpenseCommandParser -> Expense
+activate Expense
+
+Expense --> WalletExpenseCommandParser : expense
+deactivate Expense
+
+create WalletExpenseCommand
+WalletExpenseCommandParser -> WalletExpenseCommand
+activate WalletExpenseCommand
+
+WalletExpenseCommand --> WalletExpenseCommandParser : command
+deactivate WalletExpenseCommand
+
+WalletExpenseCommandParser --> SharkieParser : command
+deactivate WalletExpenseCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+WalletExpenseCommandParser -[hidden]-> SharkieParser
+destroy WalletExpenseCommandParser
+
+SharkieParser --> Logic : command
+deactivate SharkieParser
+
+Logic -> WalletExpenseCommand : execute()
+activate WalletExpenseCommand
+
+WalletExpenseCommand -> ModelManager : addExpense(expense)
+activate ModelManager
+
+ModelManager -> Wallet : addExpense(expense)
+activate Wallet
+
+Wallet -> TransactionList : addTransaction(expense)
+activate TransactionList
+
+TransactionList --> Wallet
+deactivate TransactionList
+
+Wallet --> ModelManager
+deactivate Wallet
+
+ModelManager --> WalletExpenseCommand
+deactivate ModelManager
+
+create CommandResult
+WalletExpenseCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> WalletExpenseCommand : result
+deactivate CommandResult
+
+WalletExpenseCommand --> Logic : result
+deactivate WalletExpenseCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+WalletExpenseCommand -[hidden]-> Logic
+destroy WalletExpenseCommand
+[<--Logic : result
+deactivate Logic
+
+@enduml

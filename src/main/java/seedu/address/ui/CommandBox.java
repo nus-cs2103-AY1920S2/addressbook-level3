@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,11 +19,14 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private final CommandExecutor commandExecutor;
 
     @FXML
     private TextField commandTextField;
+
+    @FXML
+    private ProgressIndicator executionProgressIndicator;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
@@ -33,12 +40,27 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
-        try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MainWindow.editResultDisplay("Executing command...\n"
+                        + "This command takes some time to load, please be patient :)");
+                executionProgressIndicator.setVisible(true);
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    commandExecutor.execute(commandTextField.getText());
+                    commandTextField.setText("");
+                } catch (CommandException | ParseException e) {
+                    setStyleToIndicateCommandFailure();
+                }
+                executionProgressIndicator.setVisible(false);
+            }
+        }).start();
     }
 
     /**

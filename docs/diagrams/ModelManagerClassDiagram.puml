@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Class AddressBook
+Class Wallet
+Class UserData
+Class Model
+Class ModelManager
+Class UserPrefs
+
+Package Person {
+Class Person
+}
+
+Package Transaction {
+abstract Transaction <<abstract>>
+Class Expense
+Class Income
+}
+}
+
+ModelManager .up.|> Model
+ModelManager o--> "1" UserData
+ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Wallet
+ModelManager o--> "1" UserPrefs
+
+ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Expense : filtered list
+ModelManager -->"1" Income : filtered list
+ModelManager -->"1" Transaction : filtered list
+
+Expense -up-|> Transaction
+Income -up-|> Transaction
+
+AddressBook -[hidden]right-> Wallet
+Wallet -[hidden]right-> Transaction
+Expense -[hidden]right-> UserData
+UserData -[hidden]right-> UserPrefs
+Transaction -[hidden]right-> Expense
+Transaction -[hidden]right-> Income
+Expense -[hidden]down-> Income
+
+@enduml

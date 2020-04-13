@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+mainframe sd get PeopleReceivedCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SharkieParser" as SharkieParser LOGIC_COLOR
+participant ":PeopleReceivedCommandParser" as PeopleReceivedCommandParser LOGIC_COLOR
+participant "r:PeopleReceivedCommand" as PeopleReceivedCommand LOGIC_COLOR
+end box
+
+activate LogicManager
+
+LogicManager -> SharkieParser : parseCommand("people received 1")
+activate SharkieParser
+
+create PeopleReceivedCommandParser
+SharkieParser -> PeopleReceivedCommandParser
+activate PeopleReceivedCommandParser
+
+PeopleReceivedCommandParser --> SharkieParser
+deactivate PeopleReceivedCommandParser
+
+SharkieParser -> PeopleReceivedCommandParser : parse("1")
+activate PeopleReceivedCommandParser
+
+create PeopleReceivedCommand
+PeopleReceivedCommandParser -> PeopleReceivedCommand
+activate PeopleReceivedCommand
+
+PeopleReceivedCommand --> PeopleReceivedCommandParser : r
+deactivate PeopleReceivedCommand
+
+PeopleReceivedCommandParser --> SharkieParser : r
+deactivate PeopleReceivedCommandParser
+
+SharkieParser --> LogicManager : r
+deactivate SharkieParser
+
+destroy PeopleReceivedCommandParser
+
+@enduml

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= Sharkie - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W12-3/main/tree/master
 
 == Prerequisites
 
@@ -25,7 +25,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 == Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork https://github.com/AY1920S2-CS2103T-W12-3/main[this repo], and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -81,4 +81,4 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Getting started with coding
 
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, Sharkie's architecture>>.

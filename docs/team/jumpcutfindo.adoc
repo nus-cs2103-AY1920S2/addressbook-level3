@@ -1,0 +1,72 @@
+= Daniel Hoe - Project Portfolio
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+
+== PROJECT: Sharkie
+
+== Overview
+
+Sharkie is a desktop expense tracker application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+
+== Summary of contributions
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=jumpcutfindo
+
+* *Major enhancement*: Adapted Sharkie from AB-3 such that *it can take in more prefixes as commands*.
+** What it does: allows the user to use `people` and `wallet` as prefixes
+** Justification: This feature was implemented as the wallet and the contacts have similar commands but had to be differentiated.
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+
+* *Major enhancement*: Added `wallet budget` command so that the user *can add a budget for their finances*.
+** What it does: allows the user to add a budget for their finances.
+** Justification: This feature was implemented to help the user keep track of their finances and prevent them from overspending.
+
+* *Major enhancement*: Upgraded the user interface to *make Sharkie more visually appealing* and *display relevant information*.
+** What it does: allows the user to easily see information related to their transactions and their address book.
+** Justification: This feature was implemented to allow people to easily see their data entered and statistics.
+
+* *Minor enhancement*: Did bugfixing on the user interface and commands throughout the course of the project.
+** What it does: enables Sharkie to run smoothly and improves user experience when using the application.
+** Justification: Bugfixing was used to ensure that the program could run properly and respond to input appropriately.
+
+* *Other contributions*:
+
+** User guide contribution:
+*** Added "Global Commands" section to user guide
+*** Added `wallet budget` command guide to user guide
+*** Added "Command Summary" section to user guide
+*** Did proof-reading and checking along with the team for user guide
+
+** Developer guide contribution:
+*** Added `wallet budget` command to developer guide
+*** Did proof-reading and checking along with the team for developer guide
+
+** Project management:
+*** Team lead of the project, ensured team is up to date and on the same page for the project.
+*** Ensured that itinerary of each meeting is discussed and goals of each team meeting is achieved in the meeting.
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W12-3/main/pull/40[#40], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/41[#41], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/92[#92], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/95[#95], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/100[#100], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/101[#101], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/110[#110], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/118[#118], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/161[#161], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/178[#178], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/183[#183]
+** Tools:
+*** Used *Figma* to design a mockup for the application
+*** Used *PlantUML* to draw diagrams for the developer guide.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=generalcommands]
+include::../UserGuide.adoc[tag=walletbudget]
+include::../UserGuide.adoc[tag=commandSummary]
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=walletBudget_implementation]
+---

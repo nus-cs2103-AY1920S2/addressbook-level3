@@ -1,0 +1,99 @@
+= Grace Pan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Sharkie
+
+---
+
+== Overview
+
+*Sharkie* is a desktop expense tracker application.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+. Added *the ability to list out all transactions in the wallet* (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/115[#115])
+*** What it does: allows the user to list out all transactions in the transactions list.
+*** Justification: This feature improves the product significantly because it allows the user to view all their transactions in their wallet, for example, after filtering their list with our wallet find command, using wallet list will list out the full list of transactions again.
+*** Highlights: The implementation was challenging as it required changes to the UI, due to the need to add a tab view to view the Wallet and Contact List separately. I implemented the base structure for this, which is later edited and enhanced by my group mate.
+. Added *the ability to edit the transactions in the wallet* (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/110[#110])
+*** What it does: allows the user to edit the transactions in the wallet.
+*** Justification: This feature improves the product significantly because it allows the user to edit the details of existing transactions, in case of any mistakes made or updates needed.
+*** Highlights: Different error cases need to be identified and handled for the implementation.
+. Added *the ability to delete the transactions in the wallet* (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/102[#102])
+*** What it does: allows the user to delete transactions in the wallet.
+*** Justification: This feature improves the product significantly because it allows the user to remove unwanted transactions in the wallet.
+. Added *the ability to find transactions in the wallet* (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/117[#117])
+*** What it does: allows the user to search for transactions in the wallet, with either the description, amount, date or tag field.
+*** Justification: This feature improves the product significantly because it allows the user to search for transactions, with either the description, amount, date or tag field.
+*** Highlights: This feature was challenging as the different areas to search with need to be considered, and the need to identify and handle multiple error cases.
+* *Minor enhancement*:
+. Added *the ability to clear all transactions in the wallet* (Pull Request:  https://github.com/AY1920S2-CS2103T-W12-3/main/pull/248[#248])
+* *Code Contribured:*
+** [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=grace&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional codes & Test codes]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set deliverable and deadlines for the group, ensuring that each member have a fair share of work, and deadlines are adhered to.
+** Enhancements to features:
+*** Bug Fixes: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/121[#121], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/122[#122], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/174[#174])
+*** Enhancements:
+**** Enhanced wallet find command to be able to find with other fields (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/128[#128])
+**** Added Logging: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/245[#245])
+** Documentation:
+*** Updated the User Guide to include more commands, updated Quick Start, and updated ContactUs: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/52[#52])
+*** Did cosmetic tweaks to existing contents of the User Guide and Quick Start: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/54[#54])
+*** Added UserStories and Product Scope to Developer Guide, and update content of User Guide: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/61[#61])
+*** Updated User Guide and Developer Guide formatting, and updated FAQ: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/66[#66])
+*** Edited Logic section of Developer Guide: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/127[#127])
+*** Added wallet edit command implementation and UML diagrams to Developer Guide: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/135[#135])
+*** Updated Developer Guide according to feedback given: (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/184[#184])
+** Community:
+*** PRs reviewed (with non-trivial review comments) : (Pull Request: https://github.com/AY1920S2-CS2103T-W12-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/95[#95], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/101[#101], https://github.com/AY1920S2-CS2103T-W12-3/main/pull/118[#118],  https://github.com/AY1920S2-CS2103T-W12-3/main/pull/140[#140])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103T-W16-3/main/issues/123[DG Suggestions], https://github.com/gracegrape/ped/issues[Mock Practical])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=quickStart]
+
+include::../UserGuide.adoc[tag=walletList]
+
+include::../UserGuide.adoc[tag=walletedit]
+
+include::../UserGuide.adoc[tag=walletfind]
+
+include::../UserGuide.adoc[tag=walletdelete]
+
+include::../UserGuide.adoc[tag=walletClear]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=walletEdit_implementation]
+
+include::../DeveloperGuide.adoc[tag=productScope]
+
+include::../DeveloperGuide.adoc[tag=userStories]
+
+include::../DeveloperGuide.adoc[tag=testWalletList]
+
+include::../DeveloperGuide.adoc[tag=testWalletEdit]
+
+include::../DeveloperGuide.adoc[tag=testWalletFind]
+
+include::../DeveloperGuide.adoc[tag=testWalletDelete]
+
+include::../DeveloperGuide.adoc[tag=testWalletClear]

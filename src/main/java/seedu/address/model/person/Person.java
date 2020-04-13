@@ -8,6 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Debt;
+import seedu.address.model.transaction.Loan;
+import seedu.address.model.transaction.TransactionList;
 
 /**
  * Represents a Person in the address book.
@@ -21,18 +24,21 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final TransactionList<Debt> debts = new TransactionList<>();
+    private final TransactionList<Loan> loans = new TransactionList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email,
+                  TransactionList<Debt> debts, TransactionList<Loan> loans, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.debts.setTransactions(debts);
+        this.loans.setTransactions(loans);
         this.tags.addAll(tags);
     }
 
@@ -48,8 +54,12 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public TransactionList<Debt> getDebts() {
+        return debts;
+    }
+
+    public TransactionList<Loan> getLoans() {
+        return loans;
     }
 
     /**
@@ -92,14 +102,15 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getDebts().equals(getDebts())
+                && otherPerson.getLoans().equals(getLoans())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, debts, loans, tags);
     }
 
     @Override
@@ -110,10 +121,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" You owe: ")
+                .append(getDebts().getTotal())
+                .append(" You lent: ")
+                .append(getLoans().getTotal());
         return builder.toString();
     }
 

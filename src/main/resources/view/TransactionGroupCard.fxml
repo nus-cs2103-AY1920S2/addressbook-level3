@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="transactionGroupLabel" text="Date">
+         <font>
+            <Font name="Consolas" size="14.0" />
+         </font>
+         <padding>
+            <Insets bottom="8.0" top="8.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="4.0" />
+         </VBox.margin>
+      </Label>
+      <ListView fx:id="transactionItemsList" cacheShape="false" focusTraversable="false">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ListView>
+      <HBox alignment="CENTER_RIGHT">
+         <children>
+            <Label text="Total: ">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="groupExpenditureLabel" text="price">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="4.0" right="4.0" top="4.0" />
+         </VBox.margin>
+      </HBox>
+      <Separator prefWidth="200.0" />
+   </children>
+</VBox>

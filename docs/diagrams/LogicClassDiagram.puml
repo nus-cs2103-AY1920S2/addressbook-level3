@@ -8,13 +8,14 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class SharkieParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
+Class CliPrefix
 }
 
 package Command {
@@ -35,8 +36,9 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" SharkieParser
+SharkieParser .left.> XYZCommandParser: creates >
+SharkieParser .right.> CliPrefix
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -53,7 +55,7 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommand: XYZCommand = PeopleAddCommand, \nWalletFindCommand, \nHelpCommand etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

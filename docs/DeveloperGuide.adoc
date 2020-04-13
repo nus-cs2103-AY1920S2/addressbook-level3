@@ -1,34 +1,73 @@
-= AddressBook Level 3 - Developer Guide
+= Sharkie - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W12-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W12-3`      Since: `Feb 2020`      Licence: `MIT`
 
+== About us
+
+=== About Sharkie
+
+*Sharkie* is an all-in-one desktop application for personal finance tracking designed for university students who
+would like to monitor their spending. It manages your incomes and expenses,
+organises your contacts and keeps track of <<debt, debts>> your friends owe you, so that your <<loan, loans>> always
+come with a money-back guarantee!
+
+*Sharkie* is adapted from the https://se-education.org/addressbook-level3/[AddressBook-Level3] project created by SE-EDU
+and is further developed into a finance tracking application by our awesome <<AboutUs#, developer team>>!
+
+
+=== About This Guide
+
+This developer guide is written for anyone who wish to build on our application, *Sharkie*,
+or wish to know find out more about how *Sharkie* is implemented.
+
+If you need help setting up your device to build on *Sharkie*, you find out more at the <<setting-up, Setting Up guide>> below.
+
+Note the following symbols and formatting used in this document: +
+
+[cols=".^, .^"]
+[%autowidth.stretch]
+.Symbols and formats used in this User Guide.
+|===
+^|*Symbol/ +
+Format* <|*Meaning*
+^|[gray]#`command`#|A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
+^|kbd:[Enter]|This symbol indicates the enter button on the keyboard.
+^.^a|image:InformationIcon.png[width="40"]|This symbol indicates information.
+^.^a|image:TipIcon.png[width="30"]|This symbol indicates tips.
+|===
+
+[[setting-up]]
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+//tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Sharkie. Given below is a quick overview of each component.
+*Sharkie* uses the same architecture design as Address Book 3 (AB3).
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -59,17 +98,19 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width=1000]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `people delete 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `people delete 1` command
+image::ArchitectureSequenceDiagram.png[width=600]
 
 The sections below give more details of each component.
+
+//end::architecture[]
 
 [[Design-Ui]]
 === UI component
@@ -77,17 +118,18 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] +
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `WalletTransactionPanel`, `WalletStatisticsPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `Ui` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `Ui` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+//tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -98,39 +140,113 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SharkieParser` class to parse the user command.
+* `SharkieParser` will check the command entered against a pattern defined in `SharkieParser`.
+* It refers to `CliPrefix` to determine whether the command entered is a `people` related command, a `wallet` related command or a `global` command.
+* If the command entered passes these checks, it then parses the command using the respective `XYZCommandParser` to retrieve the command to be executed.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+* Each command has its own `XYZCommand` that inherits from `Command`, implementing different actions to be executed.
+.  The command execution can affect the `Model` (e.g. adding a person, adding a transaction, filtering a list of transactions, reminders etc.).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* The `Ui` processes the `CommandResult` and outputs the information to the `ResultDisplay` class.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+* Other `Ui` components are also updated on the successful obtaining of a `CommandResult` by `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("people delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `PeopleDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//end::logic[]
 
+//tag::model-design[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width=750]
+
+.In-depth structure of the Model Manager
+image::ModelManagerClassDiagram.png[width=800]
+
+NOTE: The `ModelManager` class diagram is drawn separately as it is too complicated to include all the details in the
+Model component diagram.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the <<wallet, Wallet>> data.
+* stores the <<address-book, Address Book>> data.
+* stores the User data.
+* exposes an unmodifiable `ObservableList<Person>` and an unmodifiable `ObservableList<<<transaction,Transaction>`>> that can be
+'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the
+respective lists change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+The `Wallet`,
 
+* consists of a `BudgetList`.
+* consists of a `TransactionList`, which contains `Income`(s) and a `TransactionList` which contains `Expense`(s).
+
+The `AddressBook`,
+
+* consists of a `UniquePersonList`.
+
+The `UserData`,
+
+* consists of a `User`.
+
+====
+The _Model_ package consists of four main packages: _Person_, _Transaction_,
+_Reminder_ and _Tag_.
+
+.In-depth structure of Person package in the Model Component
+image::ModelPersonDiagram.png[width=900]
+
+The diagram above shows how the _Person_ package is implemented:
+
+* `PeoplePredicate`: `PeopleNamePredicate`, `PeoplePhonePredicate`, `PeopleTagPredicate`, `PeopleEmailPredicate`
+are implemented for the execution of `people find` command.
+* A `User` consists of a `Name`, a `Phone` and an `Email`.
+* A `Person` consists of a `Name`, a `Phone`, an `Email`, a `TransactionList` of `Debt`(s),
+a `TransactionList` of `Loan`(s) and a set of `Tag`(s).
+
+[#TransactionPackage, title='In-depth structure of Transaction package in the Model Component']
+image::ModelTransactionDiagram.png[width=1200]
+[#TransactionClass, title='Transaction class diagram']
+image::ModelTransactionClassDiagram.png[width=400]
+
+NOTE: The association between `Transaction` and `Amount` is not shown in _<<TransactionPackage>>_ to keep the diagram less messy.
+However, the association is shown in _<<TransactionClass>>_.
+
+The diagram above shows how the _Transaction_ package is implemented:
+
+* `WalletPredicate`: `DateContainsKeywordsPredicate`, `DescriptionContainsKeywordsPredicate`, `TagContainsKeywordsPredicate`, `AmountContainsKeywordsPredicate`
+are implemented for the execution of `wallet find` command.
+* The abstract class `Transaction` is extended by `Income`, `Expense`, `Debt` and `Loan`. A `Transaction` consists of
+a `Description`, an `Amount`, a `Date` and a `Tag`.
+* A `Budget` consists of a `Year`, a `Month` and an `Amount`.
+
+.Reminder class diagram
+image::ModelReminderClassDiagram.png[width=250]
+
+The _Reminder_ package is implemented for *Sharkie*'s reminder feature. The diagram above shows how the _Reminder_ package is implemented:
+
+* The `Reminder` consists of a `User` (the sender) and a `Person` (the receiver).
+** A `Reminder` object is created whenever the `people remind` or `people remindall` command is executed.
+* The `ConfirmationEmail` consists of a `User`.
+** The `ConfirmationEmail` is implemented to validate the user's email address during user's first login to *Sharkie*.
+
+The _Tag_ package only consist of a class, `Tag` and it does not depend on other components in the Model.
+
+====
+
+//end::model-design[]
+
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -139,10 +255,15 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
+The Storage converts Model objects to saveable data and vice versa. It comprises four main parts: `UserPrefsStorage`, `UserDataStorage`, `AddressBookStorage` and `WalletStorage`. Each of these interfaces have a JSON-based implementation that convert their specific data to and from JSON.
+
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save UserData in JSON format and read it back.
+* can save the Address Book data in JSON format and read it back.
+* can save the Wallet data in JSON format and read it back.
+//end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -153,94 +274,241 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//tag::owe[]
+=== People Owe Command
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `people owe` command is implemented in the class `PeopleOweCommand`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+This command can be accessed from  `Logic#execute()`. It records a `debt` of an indicated `Amount` to the
+`Person` specified by the index.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The following activity diagram illustrates what happens when the user enters a `people owe` command:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Activity diagram of the activity of recording a debt
+image::OweActivityDiagram.png[width=70%]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Implementation of `people owe` command
 
-image::UndoRedoState0.png[]
+. When entering the debt command, the user will specify the `Person` using the index of the `Person` in the list shown in the GUI.
+. The user should also specify the debt `Description`, `Amount` and optionally, the `Date`.
+. The `PeopleOweCommandParser` will create a `Debt` object based on the details provided, and return the resulting `PeopleOweCommand`.
+. When the `LogicManager` is executing the `PeopleOweCommand`, it will extract the indicated person from the list of
+`Persons` obtained from the `Model` via `Model#getFilteredPersonList()`
+. A new `Person` with the added `Debt` is created.
+. This new `Person` replace the initial `Person` at the indicated index via `Model#setPerson()` for immutability.
+. The `filteredPersons` in the `Model` is then updated.
+. `CommandResult` is returned.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+The following sequence diagram summarizes what happens during the execution of a `people owe` command:
 
-image::UndoRedoState1.png[]
+image::OweSequenceDiagram.png[]
+.Sequence diagram of the `people owe` command
+image::GetPeopleOweCommandSequenceDiagram.png[width=700]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+NOTE: The lifeline for `PeopleOweCommand` and `PeopleOweCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Keeping track of `Debt` of a `Person`.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Each `Person` has a list of `Debt` objects, each `Debt` object
+has `Description`, `Amount` and `Date`.
+** Pros: Able to record more information about a `Debt`.
+** Cons: `Sharkie` only allows the return of a `Debt` all at once, i.e., the user cannot return a `Debt` partially.
+* **Alternative 2:** Each `Person` has one `Debt` object.
+** Pros: Easier to store the `Debt` object, only have to keep track of the total debt `Amount` and the `Date` of the
+debt. The user can return any `Amount` to the `Person`, and `Sharkie` will just deduct the total `Amount` of debt
+accordingly.
+** Cons: Storing the `Date` is problematic, as it questions whether the `Date` of the first borrowing or latest borrowing
+should be stored. Furthermore, there is no breakdown of `Debt` details if the user wants to recall why he owed a `Person`
+money.
 
-===== Aspect: Data structure to support the undo/redo commands
+//end::owe[]
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+// tag::received_implementation[]
+=== People Received Command
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+The `people received` command is implemented in the class, `PeopleReceivedCommand`.
 
-_{Explain here how the data encryption feature will be implemented}_
+This command can be accessed from `Logic#execute()`. It deletes the `Loan`(s) of the indicated `Person`
+(the `Person` with the specified index in the Address Book).
 
-// end::dataencryption[]
+The following activity diagram illustrates what happens when the user executes a `people received` command:
+
+.Activity diagram of recording the amount of money received
+image::ReceivedActivityDiagram.png[width=70%]
+
+==== Implementation of `people received` command
+
+. In `PeopleReceivedCommand` class, the list of `Persons` is obtained from the `Model` via
+`Model#getFilteredPersonList()` and the indicated person is extracted from the list.
+. The list of `Loans` of the `Person` is extracted and modified based on the command entered by the user.
+. A new `Person` with the modified list of `Loans` is created.
+. This new `Person` replace the initial `Person` at the indicated index via `Model#setPerson()` and the `filteredPersons`
+in the `Model` is updated.
+
+The following sequence diagram summarizes what happens during the execution of a `people received` command:
+
+image::ReceivedSequenceDiagram.png[]
+.Sequence diagram of the `people received` command
+image::GetPeopleReceivedCommandSequenceDiagram.png[width = 70%]
+
+NOTE: The lifeline for `PeopleReceivedCommand` and `PeopleReceivedCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: Deletion of `Loan` from the indicated person.
+
+* **Alternative 1 (current choice):** Creates a new `Person` with the modified list of `Loans` and
+use `Model#setPerson()` to replace the indicated `Person` with the new `Person` created.
+** Pros: Preserve the immutable property of `Person`.
+** Cons: Have to copy over all the attribute values, such as `Name`, `Phone` and more.
+* **Alternative 2:** Modify the list of `Loans` in the indicated `Person` directly.
+** Pros: Easier and can save time from copying the information from one `Person` to another.
+** Cons: `Person` loses the immutable property.
+
+// end::received_implementation[]
+
+//tag::transactions[]
+=== Transactions
+
+The `Transaction` forms the basis for Sharkie's monetary-related features. It contains a `Description`, `Amount`, `Date` and `Tag`.
+
+There are currently four classes that inherit from this abstract class, namely `Expense`, `Income`, `Debt` and `Loan`.
+
+.Class diagram of Transaction
+image::TransactionClassDiagram.png[width=500]
+
+`Expense` and `Income` can be created using the `WalletExpenseCommand` and the `WalletIncomeCommand`.
+
+These commands can be accessed from  `Logic#execute()`. It records an `expense` of an indicated `Description`, `Amount`, `Date` and `Tag`.
+
+As the two commands are similar, it is sufficient to trace the `WalletExpenseCommand`. The following activity diagram illustrates what happens when the user enters a `wallet expense` command:
+
+.Activity diagram of recording an expense
+image::ExpenseActivityDiagram.png[width=70%]
+
+==== Implementation of `wallet expense` command
+
+. When entering the expense command, the user will specify the `Description`, `Amount` and optionally, the `Date` and `Tag`.
+. The `WalletExpenseCommandParser` will create an `Expense` object based on the details provided, and return the resulting `WalletExpenseCommand` that has a reference to the `Expense` created.
+. The `LogicManager` then executes the command and adds the previously created `Expense` object to the Wallet model.
+. `CommandResult` is returned.
+
+The following sequence diagram summarizes what happens during the execution of a `wallet expense` command:
+
+.Sequence diagram of the `wallet expense` command
+image::ExpenseSequenceDiagram.png[]
+
+NOTE: The lifeline for `WalletExpenseCommandParser` and `WalletExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: Representing the Amount of a Transaction.
+
+* **Alternative 1 (previous implementation):** Amounts are stored in dollars as `double`.
+** Pros: Easier to implement.
+** Cons: Floats are inexact. Floating point errors may cause rounding errors or unexpected bugs(e.g. checking if an amount is equal to zero).
+* **Alternative 2 (current implementation):** Amounts are stored in cents as `long`.
+** Pros: Arithmetic involving amounts will be exact.
+** Cons: Conversion is needed between cents and dollars. All Sharkie programmers have to be aware of the necessary conversion else bugs may occur.
+* **Alternative 3:** Amounts are stored as the inbuilt `BigDecimal` class.
+** Pros: Arithmetic involving amounts will be exact.
+** Cons: `BigDecimal` is slower in performance and if many calculations are performed, runtime is considerably slower.
+
+//end::transactions[]
+
+// tag::walletEdit_implementation[]
+=== Wallet Edit Command
+
+The `edit` command is implemented in the class, `WalletEditCommand`.
+
+This command can be accessed from `Logic#execute()`. It edits the `transaction`, indicated by the index specified, with the new details supplied by the command.
+
+The following activity diagram illustrates what happens when the user executes a `wallet edit` command:
+
+.Activity diagram of the editing a transaction
+image::WalletEditActivityDiagram.png[width=600]
+
+==== Implementation of `wallet edit` command
+
+. When entering the wallet edit command, the user have to specify at least one of `Description`, `Amount`, `Date` or `Tag`. Multiples can be inputted as well.
+. `WalletEditCommandParser` is executed to create an `EditTransactorDescriptor` to hold the values to edit the transaction with.
+. `WalletEditCommandParser` then passes the `editTransactorDescriptor` to create a `WalletEditCommand`.
+. In `WalletEditCommand` class, the list of `transactions` is obtained from the `Model` via
+`Model#getFilteredTransactionsList()` and the indicated transaction is extracted from the list.
+. The `transaction` selected is modified based on the field to edit and the new details entered by the user, which are stored in
+`editTransactorDescriptor`
+. A new `transaction` modified from the `transaction` selected is created with `createEditedTransaction` method in
+`WalletEditCommand`
+. This new `transaction` replace the initial `transaction` at the indicated index via `Model#setTransaction()` and
+the `filteredTransactions` in the `Model` is updated.
+
+The following sequence diagram summarizes what happens during the execution of a `wallet edit` command:
+
+.Sequence diagram of the `wallet edit` command
+image::WalletEditSequenceDiagram.png[]
+
+NOTE: The lifeline for `WalletEditCommand`, `WalletEditCommandParser` and `EditTransactionDescriptor` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: Choosing which `transaction` to edit from the list of transactions.
+
+* **Alternative 1 (current choice):** Get the index from the list of transactions currently displayed, and not original index in the full transactions list, which can be displayed by
+`wallet list command`.
+** Pros: Easy to see which `transaction` is to be edited.
+** Cons: Filtered list needs to be constantly updated.
+* **Alternative 2:** Always edit based on the index from original list, which can be displayed by `wallet list command`.
+** Pros: Index is always consistent.
+** Cons: Harder to remember which index represents which transaction.
+
+// end::walletEdit_implementation[]
+
+// tag::walletBudget_implementation[]
+=== Wallet Budget Command
+The `budget` command is implemented in the class, `WalletBudgetCommand`.
+
+This command can be accessed from `Logic#execute()`. It adds a budget using the parameters as specified by the user.
+
+The following activity diagram illustrates what happens when a user executes the `wallet budget` command:
+
+.Activity diagram of the execution of `wallet budget` command
+image::WalletBudgetActivityDiagram.png[width=70%]
+
+==== Implementation of `wallet budget` command
+
+. In `WalletBudgetCommand` class, the `Budget` produced by `WalletBudgetCommandParser` is examined to determine if it is a default budget, or if it is a normal budget.
+.. If the `Budget` is a default budget, the `BudgetList` is updated in the `Model` via `Model#setDefaultBudget()`. This sets the default budget as the one given.
+.. If the `Budget` is not a default budget, the `BudgetList` is updated in the `Model` via `Model#setBudget()`. This adds the budget given to a list of budgets with their `Month` and `Year` specified.
+. The list of `Budget` in the `Wallet` is modified based the arguments input by the user.
+. If a `Budget` with the same arguments given already exists, it will be overwritten by the one given.
+. A `CommandResult` is returned at the end of the execution.
+
+The following sequence diagram summarizes what happens during the execution of a `wallet budget` command:
+
+.Sequence diagram of the `wallet budget` command
+image::WalletBudgetSequenceDiagram.png[]
+
+NOTE: The lifeline for `WalletBudgetCommandParser` and `WalletBudgetCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: Selection of `Budget` to set: default or specific month / year
+
+* **Alternative 1 (current choice):** If the month and year of the budget is specified, the specific `Budget` will be set. Otherwise, the default `Budget` will be set.
+** Pros: Easy to differentiate during command processing whether we want a default `Budget` or a specific one.
+** Cons: All `Budget` except default `Budget` all contain a redundant `isDefault` boolean
+* **Alternative 2:** Allow the user to specify if they want a default `Budget` set, or a specific `Budget` instead.
+** Pros: Clearer way to distinguish between default `Budget` and specific `Budget`
+** Cons: Requires more prefixes / suffixes to be added to `Parser` in order to parse extra arguments.
+
+// end::walletBudget_implementation[]
 
 === Logging
 
@@ -275,108 +543,611 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+//tag::productScope[]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to record expenses and income
+* has a need to keep to a certain budget every month
+* wants to view statistic of spending
+* has a need to record debts and loans
+* want to be reminded of his/her own debts
+* wants to remind his/her friends to pay back their debts
+* has a lot of friends to keep track of in contact book
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using <<CLI, CLI>> apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* records expenses/debts faster than a typical mouse/GUI driven app
+* visual display of data with diagrams instead of just text
+//end::productScope[]
 
 [appendix]
+//tag::userStories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%, 30%, 30%, 30%",options="header"]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a/an ... |I want to ... |So that ...
+|`* * *` |university student that buys a lot of stuff |keep track of my spending |I do not overspend
 
-|`* * *` |user |add a new person |
+|`* * *` |student with fixed monthly allowance |track my spendings in a month |I will make sure I save money every month
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |person with bad mental calculation |auto deduct money I owe from money the person owes me |I don't need to do the math myself
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |computer science student |type instead of click |it is more convenient
+
+|`* * *` |student that always goes out with friends |split shared spendings |I make sure everyone pays back
+
+|`* * *` |poor university person who borrows money from many people |know who I owe money to |I can pay them back when I have money
+
+|`* * *` |person with a lot of friend's |keep track of who owes me what on which day |I can ask them to pay me back
+
+|`* * *` |calculative person |keep track of how much exactly my friends owe me |I can get all my money back
+
+|`* * *` |student who needs to pay bills |get reminded of when to pay them |I don't get my utilities cut/chased out of house etc.
+
+|`* * *` |student with tight budget |set a budget and be notified when nearing it |I won't overspend
+
+|`* * *` |thrifty student |set savings goals |I can have achievable, trackable savings
+
+|`* * *` |unmotivated person |get motivation to spend less/save more |I have the willpower to manage my finances
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |a student who lives far from school |keep track of how much i spend on transport |I know whether to get concession
+
+|`* *` |friend |have my friend track how much I owe them |do not have to keep track of it myself
+
+|`* *` |student who travel with friends |keep track of how much each person spent in the trip |there won't be any money issue during the trip
+
+|`* *` |student that always forget to pay my friend back |set a deadline and reminder |I will pay my friend back
+
+|`* *` |forgetful student |send people automated reminders when they owe me money |I won't lose any money
+
+|`* *` |a lazy person |I can ask for my money back from a few friends in a click |I can save time asking them one by one
+
+|`* *` |student who does not dare to request money from friends |send notifications to my friends |I can get my money back
+
+|`* *` |student with no control |know if I hit my budget |I will be guilty and thus try and control myself
+
+|`* *` |student who does part time job |track how much I earn in a month |I'm proud of myself
+
+|`* *` |student who prefers visual data |visualise my income/spendings in a graph/chart |it is easier to keep track of my expenditures
+
+|`* *` |student that needs to explain their spendings to their parents |show them the chart of my everyday spendings |It is convenient and more visual
+
+|`* *` |organised student |categorise my spendings |I know the proportions of my spendings
+
+|`* *` |student with a huge wardrobe |keep track of my expenditure on clothing |I can control my shopaholic tendencies
+
+|`* *` |student on diet |track how much I spend on food |I would control myself from spending too much on food
+
+|`*` |rich student |keep track of what I bought |I can show off to my friends
+
+|`*` |rich student who always lends people money |take note of who owes me money |I can track them and ask them for it back
+
+|`*` |someone with few friends |keep track of who I paid for or who paid for me first |I know who are my friends, and the frequency I go out with them
+
+|`*` |tech-savvy loan shark |I want to conveniently record who owes me money |I can remind them to pay back through email
+
+|`*` |tech-savvy loan shark |I want a convenient way to calculate interest rate |I don't have to do it manually
+
 |=======================================================================
 
-_{More to be added}_
+//end::userStories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+//tag::useCases[]
+
+=== Wallet Tab
+
+(For all use cases below, the *System* is the `Wallet` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+==== Use case: UC1 - Recording an expense
+
+<<MSS, *MSS*>>
+
+1.  User requests to add an expense into the wallet.
+2.  Wallet adds the expense and displays the expense in the list of expenses.
++
+Use case ends.
+
+<<extensions, *Extensions*>>
+
+[[wallet-invalid-amount]]
+[none]
+* 1a. The amount keyed in by the user is invalid.
++
+[none]
+** 1a1. Wallet shows an error message.
+** 1a2. User re-enters the expense.
++
+Steps 1a1-1a2 are repeated until the amount keyed in by the user is correct.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC2 - Recording an income
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add an income into the wallet.
+2. <<wallet, Wallet>> adds the income and displays the income in the list of incomes.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The amount keyed in by the user is invalid.
++
+<<wallet-invalid-amount, Steps 1a1-1a2>> of [.underline]#recording an expense (UC1)# are repeated
+until the amount keyed in by the user is valid.
+
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC3 - Setting budget
+
+*MSS*
+
+1. User requests to set a budget.
+2. Wallet sets the amount keyed in as the budget of the month indicated.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. The amount keyed in by the user is invalid.
++
+<<wallet-invalid-amount, Steps 1a1-1a2>> of [.underline]#recording an expense (UC1)# are repeated
+until the amount keyed in by the user is valid.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 1b. The amount keyed in by the user has no date attached to it.
++
+[none]
+** 1b1. Wallet automatically assigns the budget entered as the default budget of each month.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC4 - Deleting a transaction
+
+*Preconditions:* The transaction that the user wants to delete exists in the wallet.
+
+*MSS*
+
+1. User requests to delete a specific transaction in the wallet.
+2. Wallet deletes the transaction and displays the list of remaining transactions.
++
+Use case ends.
+
+*Extensions*
+
+[[wallet-invalid-index]]
+[none]
+* 1a. The transaction's index keyed in by the user is invalid.
++
+[none]
+** 1a1. Wallet shows an error message.
+** 1a2. User re-enters the index.
++
+Steps 1a1-1a2 are repeated until the index keyed in is valid.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC5 - Editing a transaction
+
+*Preconditions:* The transaction that the user wants to edit exists in the wallet.
+
+*MSS*
+
+1. User requests to edit a specific transaction in the wallet.
+2. Wallet edits the transaction and shows the list with the edited transaction.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The transaction's index keyed in by the is invalid.
++
+<<wallet-invalid-index, Steps 1a1-1a2>> of [.underline]#deleting an transaction (UC4)# are repeated
+until the index keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. The user did not indicate the field to edit.
++
+[none]
+** 1b1. Wallet shows an error message.
+** 1b2. User re-enters the edit command.
++
+Steps 1b1-1b2 are repeated until the edit command keyed in is valid.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC6 - Finding a transaction
+
+*MSS*
+
+1. User keys in a keyword.
+2. Wallet lists out the transactions that contain the keyword.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword entered by the user does not exist in the wallet.
++
+[none]
+** 1a1. Wallet shows an empty list.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC7 - Listing all transactions
+
+*MSS*
+
+1. User enters the list command.
+2. Wallet lists out all the transactions.
++
+Use case ends.
+
+=== People Tab
+
+(For all use cases below, the *System* is the `Address Book` and the *Actor* is the `User`, unless specified otherwise)
+
+[discrete]
+==== Use case: UC8 - Adding a person
+
+*MSS*
+
+1. User requests to add a person into the address book.
+2. Address book adds the person and displays the person in the list of people.
++
+Use case ends.
+
+*Extensions*
+
+[[people-invalid-detail]]
+[none]
+* 1a. The person’s details keyed in by the user is invalid.
++
+[none]
+** 1a1. Address book shows an error message.
+** 1a2. User re-enters the person’s details.
++
+Steps 1a1-1a2 are repeated until the details keyed in is correct.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC9 - Sending reminder to a friend
+
+*MSS*
+
+1. User requests to send a reminder to a friend.
+2. Address book sends a reminder to the friend.
++
+Use case ends.
+
+*Extensions*
+
+[[people-invalid-index]]
+[none]
+* 1a. The person's index keyed in by the user is invalid.
++
+[none]
+** 1a1. Address book shows an error message.
+** 1a2. User re-enters the index.
++
+Steps 1a1-1a2 are repeated until the index keyed in is valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. Address book shows that the friend does not owe the user money.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC10 - Recording the money the user owes
+
+*Preconditions:* The friend, who user owes exists in the address book.
+
+*MSS*
+
+1. User enters the amount borrowed from a friend.
+2. Address book records the amount, which the user owes the friend.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The person's index keyed in by the user is invalid.
++
+<<people-invalid-index, Steps 1a1-1a2>> of [.underline]#sending reminder to a friend (UC9)# are repeated
+until index keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[[people-invalid-amount]]
+[none]
+* 1b. The amount keyed in by the user is invalid.
++
+[none]
+** 1b1. Address book shows an error message.
+** 1b2. User re-enters the amount.
++
+Steps 1b1-1b2 are repeated until the amount keyed in is correct.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC11 - Recording the money the user lends
+
+*Preconditions:* The friend, who user lends exists in the address book.
+
+*MSS*
+
+1. User enters the amount lent to a friend.
+2. Address book records the amount, which the user lends to the friend.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The person's index keyed in by the user is invalid.
++
+<<people-invalid-index, Steps 1a1-1a2>> of [.underline]#sending reminder to a friend (UC9)# are repeated
+until the index keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. The amount keyed in by the user is invalid.
++
+<<people-invalid-amount, Steps 1b1-1b2>> of [.underline]#recording the money the user owes (UC10)# are repeated
+until the amount keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC12 - Deleting a person
+
+*Preconditions:* The person, who user wants to delete exists in the address book.
+
+*MSS*
+
+1. User requests to delete a specific person in the address book.
+2. Address book deletes the person and shows the list of the remaining people.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The person's index keyed in by the user is invalid.
++
+<<people-invalid-index, Steps 1a1-1a2>> of [.underline]#sending reminder to a friend (UC9)# are repeated
+until the index keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC13 - Editing a person
+
+*Preconditions:* The person, who user wants to edit exists in the address book.
+
+*MSS*
+
+1. User requests to edit a specific person in the address book.
+2. Address book updates the indicated person's detail and show the list of people with the edited person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The person's index keyed in by the user is invalid.
++
+<<people-invalid-index, Steps 1a1-1a2>> of [.underline]#sending reminder to a friend (UC9)# are repeated
+until the index keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. The person's new details keyed in by the user is invalid.
++
+<<people-invalid-detail, Steps 1a1-1a2>> of [.underline]#adding a person (UC8)# are repeated
+until the details keyed in by the user is valid.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC14 - Finding a person
+
+*MSS*
+
+1. User keys in a keyword.
+2. Address book lists out the people, who contain the keyword in their names.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword entered by the user does not exist in the address book.
++
+[none]
+** 1a1. Address book shows an empty list.
++
+Use case ends.
+
+//end::useCases[]
 
 [appendix]
 == Non Functional Requirements
+//tag::apendixd[]
+.  Sharkie should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Sharkie should be able to hold up to 100 persons and 100 transactions without a noticeable sluggishness in performance for typical usage.
+.  University students with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Sharkie should be for a single user.
+.  Sharkie needs to be developed incrementally with high <<cohesion, cohesion>> and utilising CS2103T coding standards for maintainability.
+.  The data used by Sharkie should be stored locally and should be in a human editable file.
+.  The Sharkie JAR file size should be less than 100Mb.
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
-
+//end::apendixd[]
 [appendix]
 == Glossary
+
+[[address-book]] Address book::
+Sharkie's address book that holds information pertaining to friends / peers / acquaintances of the user that the user has entered
+
+[[CLI]] CLI::
+Command line interface
+
+[[cohesion]] Cohesion::
+A measure of how strongly-related and focused the responsibilities of a component are
+
+[[debt]] Debt::
+The amount of money which the user owes a person in the address book.
+
+[[extensions]] Extensions::
+"Add-on"s to MSS that describe exceptional/alternative flow of events.
+
+[[GUI]] GUI::
+Graphical User Interface
+
+[[loan]] Loan::
+The amount of money which the user lends to a person in the address book.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[MSS]] MSS::
+Main Success Scenario, the most straightforward interaction for a given use case
+
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[transaction]] Transaction::
+Income and expense
+
+[[wallet]] Wallet::
+Sharkie's wallet, that holds information pertaining to the user's expenditure and income
+
+//tag::productSurvey[]
 [appendix]
 == Product Survey
 
-*Product Name*
+=== Money Lover
 
-Author: ...
+[discrete]
+==== Pros / Good Features
 
-Pros:
+* **Wallet**
+** Multiple wallets to further organise spending/income
 
-* ...
-* ...
+* **Transaction**
+** Attach images to transactions
+** Add location data to transactions
+** Add recurring transactions (monthly, weekly, etc)
+** Option to exclude certain expenses/incomes from statistics
+** Search for transactions by amount, date, description, category, location
 
-Cons:
+* **Debt**
+** Set reminders to self on when to pay back debts
 
-* ...
-* ...
+* **Budget**
+** Set custom date range for budget
+** Set budget for specific categories (e.g. food, clothes)
+** Calculate recommended daily spending
+
+* **Statistics**
+** View statistics for custom date ranges
+
+* **NFR**
+** Cross-platform (syncs between devices)
+** Appealing, clean UI
+
+[discrete]
+==== Cons / Bad Features
+
+* **Transaction**
+** Unable to create custom tags/categories for transactions
+
+* **Debt**
+** Unable to tag debts to a specific contact (no underlying address book)
+
+* **NFR**
+** Requires network
+** <<GUI, GUI>>-reliant (slow input)
+** Certain features locked behind paywall, advertisements
+
+Link to Product: https://web.moneylover.me
+
+=== Spendee
+
+[discrete]
+==== Pros / Good Features
+
+* **Wallet**
+** Can import .csv files to add data more quickly
+
+* **Transaction**
+** Attach images to transactions
+** Create custom tags for transactions
+** Add recurring transactions (monthly, weekly, etc)
+** Search for transactions by amount, date, description, category
+** Can also filter by multiple categories at once
+
+* **Budget**
+** Calculate recommended daily spending
+
+* **Statistics**
+** View statistics for custom date ranges
+
+* **NFR**
+** Cross-platform (syncs between devices)
+** Appealing, clean UI
+
+[discrete]
+==== Cons / Bad Features
+
+* **Debt**
+** Unable to tag debts to a specific contact (no underlying address book)
+
+* **NFR**
+** Requires network
+** GUI-reliant (slow input)
+** Certain features locked behind paywall, advertisements
+
+Link to Product: https://app.spendee.com
+//end::productSurvey[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -384,42 +1155,477 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing. +
+ +
+For commands that require `<index>` input, if an index of `0` is provided, an error message will be returned indicating
+that the command is invalid as it was stated in the <<UserGuide#, User Guide>> that index should be positive. If the index
+provided is larger than the number of people or transactions on the list, the error returned will state that the index provided
+is invalid because there person or transaction does not exist in the list. Thus, different error messages will be
+returned even though both errors pertains to the wrong index provided.
 
-=== Launch and Shutdown
+=== Manual Testing on Global Features
+
+==== Launch and Shutdown
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the jar file and put the jar file in an empty folder.
+.. Open a command window. Run the java -version command to ensure you are using Java 11.
+.. Launch the jar file using the java -jar command (do not use double-clicking). +
+   Expected: Shows an "Enter User Data" window. The window size may not be optimum.
+
+. Entering user data
+
+.. Enter a dummy name, phone and a *valid* email. If you do not wish to use
+your own email, you can get a temporary email from link:https://temp-mail.org/en/[temp-mail.org].
+.. Retrieve and enter the PIN number sent to the email. If it is not in the inbox, please check the junk mail. +
+    Expected: Your user data is saved.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app using the java -jar command (do not use double-clicking). +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Exiting the application
 
-=== Deleting a person
+.. Click on the close button at the top right corner on the window. +
+   Expected: All windows of the application is closed.
+.. Enter `exit` command in the command box and press kbd:[Enter]. +
+   Expected: Same as previous.
 
-. Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+=== Manual Testing on Wallet Tab
+. Recording an expense
+.. Prerequisites: None.
+.. Test case: `wallet expense n/Meal $/3.50` +
+   Expected: An expense named _Meal_ with _$3.50_ with default tag _Misc_ recorded under the current date is added to the transaction list. The statistics panel will also update with the expense entered.
+
+.. Test case: `wallet expense n/Meal $/3.50 d/02/02/2020` +
+   Expected: An expense named _Meal_ with _$3.50_ with default tag _Misc_ recorded under the date _02 FEB 2020_ is added to the transaction list. The statistics panel will not update with this expense.
+.. Test case: `wallet expense n/Meal $/3.50 t/Food` +
+   Expected: An expense named _Meal_ with _$3.50_ with tag _Food_ recorded under the current date is added to the transaction list. The statistic panel will also update with the expense entered, under the custom tag given.
+.. Test case: `wallet expense n/Meal $/asdf` +
+   Expected: The expense is not recorded. Error details shown in result display.
+.. Other incorrect expense commands to try:
+*** `wallet expense`,
+*** `wallet expense 1`,
+*** `wallet expense $/x`,
+*** `wallet expense n/Meal` +
+Expected: Similar to previous.
+
+. Recording an income
+.. Prerequisites: None.
+.. Test case: `wallet income n/Teaching Assistant Job $/100` +
+   Expected: An expense named _Teaching Assistant Job_ with _$100.00_ with default tag _Misc_ recorded under the current date is added to the transaction list.
+.. Test case: `wallet income n/Teaching Assistant Job $/100 d/02/02/2020` +
+   Expected: An expense named _Teaching Assistant Job_ with _$100.00_ with default tag _Misc_ recorded under the date _02 FEB 2020_ is added to the transaction list.
+.. Test case: `wallet income n/Teaching Assistant Job $/100 t/Job` +
+   Expected: An expense named _Teaching Assistant Job_ with _$100.00_ with tag _Job_ recorded under the current date is added to the transaction list.
+.. Test case: `wallet income n/Teaching Assistant Job $/asdf`
+   Expected: The income is not recorded. Error details shown in result display.
+.. Other incorrect expense commands to try:
+*** `wallet income`,
+*** `wallet income 1`,
+*** `wallet income $/x`,
+*** `wallet income n/Teaching Assistant Job` +
+Expected: Similar to previous.
+
+. Setting a budget
+.. Prerequisites: None.
+.. Test case: `wallet budget $/800` +
+   Expected: A budget of _$800_ is set as the default budget for Sharkie. The UI should update to display your total expenditure over the set budget, assuming you have no budget set for the current month.
+.. Test case: `wallet budget $/800 m/02 y/2020` +
+   Expected: A budget of _$800_ is set as the budget for FEB 2020. The UI should update to display the total expenditure over the set budget if the current date is within the month you have selected. It will override the default budget set.
+.. Test case: `wallet budget $/0` +
+   Expected: A budget of _$0_ is set as the default budget. Sharkie will assume that there is no budget set as default, and the UI will reflect this.
+.. Test case: `wallet budget $/asdf` +
+   Expected: The budget will not be set. Error details will show in the result display.
+.. Other incorrect budget commands to try:
+*** `wallet budget`,
+*** `wallet budget 1`,
+*** `wallet budget $/800 m/02`,
+*** `wallet budget $/800 y/2020`,
+*** `wallet budget $/800 m/a y/b`,
+*** `wallet budget $/-800` +
+    Expected: Similar to previous.
+
+//tag::testWalletList[]
+==== Listing all transactions
+. Listing all the transactions in the wallet.
+
+.. Prerequisites: The transactions list must not be empty.
+.. Test case: `wallet list` +
+   Expected: All transactions in wallet listed out.
+//end::testWalletList[]
+
+//tag::testWalletEdit[]
+==== Editing a transaction
+
+. Editing a specific transaction.
+
+.. Prerequisites: The transaction to be edited exist in the wallet.
+At least 1 field to be edited must be inputted.
+The new details provided to edit the transaction with must be different from the corresponding details in the old transaction.
+.. Test case: `wallet edit 1 n/Chicken Rice` +
+   Expected: The first transaction is now updated with new description _Chicken Rice_. A success message shown in the result display.
+.. Test case: `wallet edit 1 n/Dinner $/12.00 d/02/02/2020 t/food` +
+   Expected: The first transaction is now updated with new description _Dinner_ with amount _$12.00_, recorded under the date _02/02/2020_ with tag _Food_.
+A success message shown in the result display.
+.. Test case: `wallet edit 0 n/Chicken Rice` +
+   Expected: The transaction is not edited. Error details shown in the result display.
+.. Other incorrect edit commands to try:
+*** `wallet edit`,
+*** `wallet edit 1`,
+*** `wallet edit 1 n/`,
+*** `wallet edit 1 $/`,
+*** `wallet edit 1 d/`,
+*** `wallet edit 1 t/`,
+*** `wallet edit 1 d/yyyy/mm/dd`, (where the order of day month and year is not correct)
+*** `wallet edit 1 d/x`, (where x is not a date)
+*** `wallet edit x n/Dinner $/12.00 d/02/01/2020` (where x is larger than the transaction list size),
+*** `wallet edit x $/12.00` (where x is a negative number),
+*** `wallet edit x $/12.00` (where x is a non-integer),
+*** `wallet edit 1 n/Dinner $/x` (where x is greater 92233720368547758.07),
+*** `wallet edit 1 n/Dinner $/x` (where x has more than 2 decimal places) or
+*** `wallet edit 1 n/Dinner $/x` (where x is not a number). +
+   Expected: Similar to previous
+//end::testWalletEdit[]
+
+//tag::testWalletFind[]
+==== Finding transactions
+
+. Finding transactions containing the <keyword> provided.
+
+.. Prerequisites: The transaction list must not be empty. The keyword can only be either of type [n/<description>], [d/<date>], [$/<amount>], or [t/<tag>].
+At least 1 keyword to search with must be inputted.
+.. Test case: `wallet find n/chicken duck` +
+   Expected: All transactions with description containing either _chicken_ or _duck_ are displayed. A success message shown in the result display.
+.. Test case: `wallet find $/3 12` +
+   Expected: All transactions with amount in the range of _$3.00 to $3.99_ or _$12.00 to $12.999_ are displayed.
+A success message shown in the result display.
+.. Test case: `wallet find d/20/12/2020 30/12/2020` +
+   Expected: All transactions with date falling on _20/12/2020_ or _30/12/2020_ are displayed.
+A success message shown in the result display.
+.. Test case: `wallet find t/food shopping` +
+   Expected: All transactions with tag containing either _food_ or _shopping_ are displayed.
+A success message shown in the result display.
+.. Test case: `wallet find n/Chicken d/20/12/2020` +
+   Expected: Find command do not run. Error details shown in the result display.
+.. Other incorrect find commands to try:
+*** `wallet find`,
+*** `wallet find n/`,
+*** `wallet find $/`,
+*** `wallet find d/`,
+*** `wallet find t/`,
+*** `wallet find n/Dinner $/12.00 d/02/01/2020 t/food`
+*** `wallet find $/x` (where x is a negative number),
+*** `wallet find $/x` (where x is a non-integer),
+*** `wallet find $/x` (where x is greater 92233720368547758.07),
+*** `wallet find d/x` (where x is not a date),
+*** `wallet find d/yyyy/mm/dd` (where date is in the wrong format) +
+   Expected: Similar to previous
+//end::testWalletFind[]
+
+//tag::testWalletDelete[]
+==== Deleting a transaction
+
+. Deleting a transaction.
+
+.. Prerequisites: The transaction which you want to delete exists in the transactions list.
+.. Test case: `wallet delete 1` +
+   Expected: First transaction is deleted from the list. Details of the deleted contact shown in the result display.
+.. Test case: `wallet delete 0` +
+   Expected: No transaction is deleted. Error details shown in the result display.
+.. Other incorrect delete commands to try:
+*** `wallet delete`,
+*** `wallet delete x` (where x is not a number),
+*** `wallet delete x` (where x is larger than the person list size),
+*** `wallet delete x` (where x is a negative number) or
+*** `wallet delete x` (where x is a non-integer value) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+//end::testWalletDelete[]
 
-=== Saving data
+//tag::testWalletClear[]
+==== Clearing all transactions
+. Clear all the data in the wallet, including  income, expense and budget.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: There must be transactions or budget data in the wallet.
+.. Test case: `wallet clear` +
+   Expected: All transactions and budget data in wallet is deleted.
+//end::testWalletClear[]
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Manual Testing on People Tab
 
-_{ more test cases ... }_
+
+==== Managing contacts
+//tag::manual-testing-peopleadd[]
+. Adding a person
+
+.. Test case: `people add n/John Doe p/91234567 e/John@example.com` +
+Expected: A person named _John Doe_ with phone number _91234567_ and email _John@example.com_ is added to the contact.
+.. Test case: `people add n/John Doe p/91234567` +
+Expected: No person is added. Error details shown in the result display.
+.. Other invalid `people add` commands to try:
+*** `people add`,
+*** `people add n/Invalid! p/99999999 e/John@example.com`,
+*** `people add n/John Doe p/123 e/John@example.com`,
+*** `people add n/John Doe p/123 e/invalid`,
+*** `people add n/John Doe e/John@example.com`,
+*** `people add p/91234567 e/John@example.com`,
+*** `people add n/John Doe`,
+*** `people add p/91234567` or
+*** `people add e/John@example.com` +
+Expected: Similar to previous.
+//end::manual-testing-peopleadd[]
++
+//tag::manual-testing-peopleedit[]
+. Editing the details of a person
+
+.. Prerequisites: The person whom you want to edit exists in the person list.
+.. Test case: `people edit 1 n/April Tan p/91234567 e/April@example.com` +
+Expected: The first person name, phone number and email will be changed to _April Tan_, _91234567_ and
+_April@example.com_ respectively.
+.. Test case: `people edit 0 n/John Doe p/91234567 e/John@example.com` +
+Expected: No person is edited. Error details shown in the result display.
+.. Other valid `people edit` commands to try:
+*** `people edit 1 n/Bob p/88888888`,
+*** `people edit 1 n/Cate e/cate@example.com`,
+*** `people edit 1 p/66666666 e/cate@example.com`,
+*** `people edit 1 n/Alice`,
+*** `people edit 1 p/99999999` or
+*** `people edit 1 e/email@example.com`, +
+Expected: Similar to (b).
+.. Other invalid `people edit` commands to try:
+*** `people edit`,
+*** `people edit 1`,
+*** `people edit 1 n/Invalid!`,
+*** `people edit 1 p/123`,
+*** `people edit 1 e/invalid`,
+*** `people edit x n/Something` (where x is larger than the person list size),
+*** `people edit x n/Somthing` (where x is a negative number) or
+*** `people edit x n/Something` (where x is a non-integer value) +
+Expected: Similar to (c).
+//end::manual-testing-peopleedit[]
++
+//tag::manual-testing-peoplefind[]
+. Finding a person
+
+.. Prerequisites: The person whom you want to find exists in the person list.
+.. Test case: `people find n/Alex Bernice` +
+Expected: People who `are have _Alex_ or _Bernice_ in their name (case insensitve) will be listed.
+.. Test case: `people find t/debt` +
+Expected: People whom you owe money to will be listed. +
+.. Test case: `people find t/loan` +
+Expected: People whom you lend money to will be listed.
+.. Test case: `people find n/Alex p/91234567` +
+Expected: No person found. Error details shown in the result display.
+.. Other valid `people find` commands to try:
+*** `people find p/93210283`,
+*** `people find p/9321 9927`,
+*** `people find e/@example`,
+*** `people find e/irfan@example.com`,
+*** `people find p/phone` or
+*** `people find t/debt loan` +
+Expected: Similar to (b).
++
+NOTE: `people find p/phone` is a valid command even though _phone_ is not a valid phone number. However, no person will
+be listed since no one has _phone_ as their phone number.
+.. Other invalid `people find` commands to try:
+*** `people find d/invalidTag` +
+Expected: Similar to (d).
+//end::manual-testing-peoplefind[]
++
+//tag::manual-testing-peoplelist[]
+. Listing everyone
+
+.. Test case: `people list` +
+Expected: Everyone in the contacts will be listed.
+//end::manual-testing-peoplelist[]
++
+//tag::manual-testing-peopledelete[]
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `people list` command. The person who you want to delete exists in the person list.
+.. Test case: `people delete 1` +
+Expected: First contact is deleted from the list. Details of the deleted contact shown in the result display.
+.. Test case: `people delete 0` +
+Expected: No person is deleted. Error details shown in the result display.
+.. Other invalid `people delete` commands to try:
+*** `people delete`,
+*** `people delete x` (where x is larger than the person list size),
+*** `people delete x` (where x is a negative number) or
+*** `people delete x` (where x is a non-integer value) +
+Expected: Similar to previous.
+//end::manual-testing-peopledelete[]
++
+//tag::manual-testing-peopleclear[]
+. Deleting everyone
+
+.. Test case: `people clear` +
+Expected: The list of people will be empty.
+
+NOTE: If you have deleted everyone in the addressbook, and would like to retrieve some sample data to test *Sharkie*,
+simply delete *data/addressbook.json*.
+//end::manual-testing-peopleclear[]
+
+==== Recording the flow of money
+//tag::manual-testing-owe[]
+. Recording the money you owe a person
+
+.. Prerequisites: The person whom you owe exists in the person list.
+.. Test case: `people owe 1 n/Breakfast $/5.00` +
+Expected: A debt named _Breakfast_ with _$5.00_ is added into the debt list of the first person.
+.. Test case: `people owe 1 n/Breakfast $/5.00 d/02/02/2020` +
+Expected: A loan named _Breakfast_ with _$5.00_, recorded under the date _02/02/2020_ is added into the debt
+list of the first person. Total amount of money, which you lent to the first person is shown in the result display.
+.. Test case: `people owe 0 n/Breakfast $/5.00` +
+Expected: The loan is not recorded. Error details shown in the result display.
+.. Other invalid `people owe` commands to try:
+*** `people owe`,
+*** `people owe 1`,
+*** `people owe 1 n/Laksa`,
+*** `people owe 1 $/5.00`,
+*** `people owe n/Laksa $/5.00`,
+*** `people owe x n/Breakfast $/12.00` (where x is larger than the person list size),
+*** `people owe x n/Breakfast $/12.00` (where x is a negative number),
+*** `people owe x n/Breakfast $/12.00` (where x is a non-integer),
+*** `people owe 1 n/Breakfast $/x` (where x is a negative number),
+*** `people owe 1 n/Breakfast $/x` (where x is greater 92233720368547758.07),
+*** `people owe 1 n/Breakfast $/x` (where x has more than 2 decimal places) or
+*** `people owe 1 n/Breakfast $/x` (where x is not a number). +
+Expected: Similar to previous
+//end::manual-testing-owe[]
++
+//tag::manual-testing-returned[]
+. Recording the money you returned to a person
+
+.. Prerequisites: The person whom you returned to exists in the person list.
+.. Test case: `people returned 1 i/1` +
+Expected: The first debt of the first person is deleted from the debt list.
+Remaining amount of debt, which have yet settled by the first person is shown in the result display.
+.. Test case: `people returned 0 i/1` +
+Expected: No debt is deleted. Error details shown in the result display.
+.. Other invalid `people returned` commands to try:
+*** `people returned`,
+*** `people returned 1`,
+*** `people returned i/1`,
+*** `people returned x i/1` (where x is larger than the person list size),
+*** `people returned x i/1` (where x is a negative number),
+*** `people returned x i/1` (where x is a non-integer value),
+*** `people returned 1 i/x` (where x is larger than the debt list size),
+*** `people returned 1 i/x` (where x is a negative number or zero) or
+*** `people returned 1 i/x` (where x is a non-integer value) +
+Expected: Similar to previous
+//end::manual-testing-returned[]
++
+//tag::manual-testing-lend[]
+. Recording the money you lend to a person
+
+.. Prerequisites: The person whom you lend to exists in the person list.
+.. Test case: `people lend 1 n/Dinner $/12.00` +
+   Expected: A loan named _Dinner_ with _$12.00_ is added into the loan list of the first person.
+.. Test case: `people lend 1 n/Dinner $/12.00 d/02/02/2020` +
+   Expected: A loan named _Dinner_ with _$12.00_, recorded under the date _02/02/2020_ is added into the loan
+list of the first person. Total amount of money, which you lent to the first person is shown in the result display.
+.. Test case: `people lend 0 n/Dinner $/12.00` +
+   Expected: The loan is not recorded. Error details shown in the result display.
+.. Other invalid `people lend` commands to try:
+*** `people lend`,
+*** `people lend 1`,
+*** `people lend 1 n/Chicken Rice`,
+*** `people lend 1 $/12.00`,
+*** `people lend n/Chicken Rice $/12.00`,
+*** `people lend x n/Dinner $/12.00` (where x is larger than the person list size),
+*** `people lend x n/Dinner $/12.00` (where x is a negative number),
+*** `people lend x n/Dinner $/12.00` (where x is a non-integer),
+*** `people lend 1 n/Dinner $/x` (where x is a negative number),
+*** `people lend 1 n/Dinner $/x` (where x is greater 92233720368547758.07),
+*** `people lend 1 n/Dinner $/x` (where x has more than 2 decimal places) or
+*** `people lend 1 n/Dinner $/x` (where x is not a number). +
+   Expected: Similar to previous
+//end::manual-testing-lend[]
++
+//tag::manual-testing-received[]
+. Recording the money you received from a person
+
+.. Prerequisites: The person whom you received from exists in the person list.
+.. Test case: `people received 1 i/1` +
+   Expected: The first loan of the first person is deleted from the loan list.
+Remaining amount of loan, which have yet settled by the first person is shown in the result display.
+.. Test case: `people received 0 i/1` +
+   Expected: No loan is deleted. Error details shown in the result display.
+.. Other invalid `people received` commands to try:
+*** `people received`,
+*** `people received 1`,
+*** `people received i/1`,
+*** `people received x i/1` (where x is larger than the person list size),
+*** `people received x i/1` (where x is a negative number),
+*** `people received x i/1` (where x is a non-integer value),
+*** `people received 1 i/x` (where x is larger than the loan list size),
+*** `people received 1 i/x` (where x is a negative number or zero) or
+*** `people received 1 i/x` (where x is a non-integer value) +
+   Expected: Similar to previous
+//end::manual-testing-received[]
+
+//tag::manual-testing-reminder[]
+==== Sending reminders
+
+. Reminding a specific person about the unsettled loan(s).
+
+.. Prerequisites: Connected to the Internet. Your firewall or antivirus programme (if any) allows the connection to STMP port 587.
+The person who you want to remind exists in the person list. The person has at least one loan in the loan list.
+The email of the person to be reminded is a valid email (You can generate an email from link:https://temp-mail.org/en/[temp-mail.org]).
+.. Test case: `people remind 1` +
+   Expected: A reminder is sent to the first person's email. A carbon copy (CC) of the reminder is sent to you. A success message shown in the result display.
+.. Test case: `people remind 0` +
+   Expected: No reminder is sent. Error details shown in the result display.
+.. Other invalid `people remind` commands to try:
+*** `people remind`,
+*** `people remind x` (where x is larger than the person list size),
+*** `people remind x` (where x is a negative number) or
+*** `people remind x` (where x is a non-integer value) +
+   Expected: Similar to previous
+
+. Reminding all people about the unsettled loan(s).
+
+.. Prerequisites: Connected to the Internet. Your firewall or antivirus programme (if any) allows the connection to STMP port 587.
+At least one person in the list has at least one loan. The email(s) of the people to be reminded are valid email(s) (You can generate an email from link:https://temp-mail.org/en/[temp-mail.org]).
+.. Test case: `people remindall` +
+   Expected: A reminder is sent everyone, who has unsettled loan. A carbon copy (CC) of each of the reminder is sent to you. A list of people reminded is shown in the result display, along with the success message.
+
+//end::manual-testing-reminder[]
+
+
+[appendix]
+== Effort
+
+*Overview* +
+Our application, Sharkie, is considerably different from what AB3 has implemented. We incorporated the address book features that were previously available in AB3, but we wanted to add expense tracking features as the main part of our project. As such, we had to expand a lot on the features that AB3 implemented and also had to create our own models and implementations. +
+
+These are based off the foundations that AB3 had already put in place, but the entire team needed to work together to expand on these features to create Sharkie.
+
+*Challenges* +
+The team encountered a few issues during the development process of Sharkie. The more notable ones are:
+
+- *Initial brainstorming and filtering of ideas* +
+At the start of the project, ideation and brainstorming came up with a bunch of features that we wanted to implement in Sharkie. We came up with many different ideas and ways to implement our commands and features, however, it was messy as we were unsure and unclear of how each of us wanted to implement our features. We sat down for a few meetings to discuss our implementation and our thought processes, ensuring that everyone was on the same page before starting the development process.
+
+- *Wallet model* +
+Since we wanted an expense tracker for Sharkie, we required some proper way of storing our data. We decided to adapt from AB3's address book system, following their saving of data and storing of user details, implementing it in our `Wallet` model.
+
+- *Commands* +
+We also adapted AB3's command system using their `XYZParser` and `XYZCommand` implementations, making our application easier to develop since we were using the same implementation as their `Logic`.
+
+- *Reminder feature* +
+One of the more prominent features that we added that was completely not part of AB3 was our reminder feature. This feature had nothing similar to it in AB3, and had to be implemented from scratch in order to make it work with our program.
+
+- *User interface* +
+We decided early on that we wanted to redo the user interface from AB3, as it would not only be more asthetically pleasing, but also tie in well to the features that we wanted to be implemented. Daniel did the main UI implementation using JavaFX and CSS, and along the way the entire team chipped in to fix the many different bugs that arose due to the UI. Threading errors, wrong values being displayed etc. were all fixed after careful testing and fixing by the team.
+
+*Conclusion* +
+The team believes that we have put in a lot of equal effort on all parts of the project, from the documentation to the coding of the project itself. We believe that our product is significantly different from AB3 and we are happy with what we have achieved across the semester with CS2103T.
+
+
+

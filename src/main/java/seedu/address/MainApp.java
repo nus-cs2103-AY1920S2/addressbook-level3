@@ -19,15 +19,23 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserData;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWallet;
+import seedu.address.model.UserData;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.Wallet;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonUserDataStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWalletStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserDataStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.WalletStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -57,7 +65,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        UserDataStorage userDataStorage = new JsonUserDataStorage(userPrefs.getUserDataFilePath());
+        WalletStorage walletStorage = new JsonWalletStorage(userPrefs.getWalletFilePath());
+        storage = new StorageManager(addressBookStorage, userDataStorage, userPrefsStorage, walletStorage);
 
         initLogging(config);
 
@@ -74,23 +84,42 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressBookData = getStoredAddressBook(storage);
+        ReadOnlyWallet initialWalletData = getStoredWallet(storage);
+
+        return new ModelManager(initialAddressBookData, initialWalletData, userPrefs);
+    }
+
+    private ReadOnlyAddressBook getStoredAddressBook(Storage storage) {
         try {
-            addressBookOptional = storage.readAddressBook();
+            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            return addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            return new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            return new AddressBook();
         }
+    }
 
-        return new ModelManager(initialData, userPrefs);
+    private ReadOnlyWallet getStoredWallet(Storage storage) {
+        try {
+            Optional<ReadOnlyWallet> walletOptional = storage.readWallet();
+            if (!walletOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty Wallet");
+            }
+            return walletOptional.orElseGet(SampleDataUtil::getSampleWallet);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Wallet");
+            return new Wallet();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Wallet");
+            return new Wallet();
+        }
     }
 
     private void initLogging(Config config) {
@@ -165,10 +194,38 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+    /**
+     * Checks if the user data is stored.
+     * If user data is not stored, opens the window to record user data.
+     */
+    private void checkUserData() {
+        Optional<ReadOnlyUserData> userDataOptional;
+
+        try {
+            userDataOptional = storage.readUserData();
+            if (userDataOptional.isPresent()) {
+                logic.setUserData((UserData) userDataOptional.get());
+            } else {
+                logger.info("User data file not found. "
+                        + "Opening EnterUserDataWindow for user to enter the user data.");
+                ui.openEnterUserDataWindow();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("User data file not in the correct format. "
+                    + "Opening EnterUserDataWindow for user to re-enter the user data.");
+            ui.openEnterUserDataWindow();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. "
+                    + "Opening EnterUserDataWindow for user to re-enter the user data.");
+            ui.openEnterUserDataWindow();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        checkUserData();
     }
 
     @Override

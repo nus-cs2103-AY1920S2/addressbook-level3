@@ -1,0 +1,13 @@
+.chart-legend {
+	-fx-padding: 0 -48px 0 0;
+	-fx-font-family: 'Consolas', Arial, sans-serif;
+	-fx-background-color: none;
+}
+
+.budget-over {
+	-fx-text-fill: #ff0000 !important;
+}
+
+.budget-under {
+	-fx-text-fill: #009900 !important;
+}

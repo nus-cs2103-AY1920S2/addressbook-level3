@@ -1,0 +1,15 @@
+{
+  "expenses" : [],
+  "incomes" : [ {
+    "description" : "Allowance",
+    "amount" : "300.0",
+    "date" : "13/03/2020",
+    "tag" : "Allowance"
+  } ],
+  "budgets" : [ {
+    "amount" : "300.0",
+    "month" : "3",
+    "year" : "invalid year",
+    "isDefault" : "false"
+  }]
+}

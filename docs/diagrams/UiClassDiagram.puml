@@ -15,6 +15,11 @@ Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+Class EnterUserDataWindow
+Class TransactionCard
+Class TransactionGroupCard
+Class WalletStatisticsPanel
+Class WalletTransactionsPanel
 }
 
 package Model <<Rectangle>> {
@@ -28,15 +33,21 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
+UiManager .[hidden]left.|> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> EnterUserDataWindow
+MainWindow *-down-> WalletStatisticsPanel
+MainWindow *-down-> WalletTransactionsPanel
+MainWindow *-down-> PersonListPanel
 
 PersonListPanel -down-> PersonCard
+WalletTransactionsPanel -down-> TransactionGroupCard
+TransactionGroupCard -down-> TransactionCard
 
 MainWindow -left-|> UiPart
 
@@ -46,13 +57,21 @@ PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+EnterUserDataWindow --|> UiPart
+WalletTransactionsPanel --|> UiPart
+WalletStatisticsPanel --|> UiPart
+TransactionGroupCard --|> UiPart
+TransactionCard --|> UiPart
 
 PersonCard ..> Model
+TransactionCard .[hidden].> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
+HelpWindow -[hidden]right- EnterUserDataWindow
+EnterUserDataWindow -[hidden]right- WalletStatisticsPanel
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 

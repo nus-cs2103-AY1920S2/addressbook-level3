@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Tag in the address book. Guarantees: immutable; name is valid as
+ * declared in {@link #isValidTagName(String)}
  */
 public class Tag {
 
@@ -22,7 +22,7 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        this.tagName = tagName.substring(0, 1).toUpperCase() + tagName.substring(1).toLowerCase();
     }
 
     /**
@@ -32,11 +32,18 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns a default tag labelled "Misc".
+     */
+    public static Tag getDefault() {
+        return new Tag("Misc");
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
+                        && tagName.equals(((Tag) other).tagName)); // state check
     }
 
     @Override

@@ -1,0 +1,97 @@
+/*
+* Styling for MainWindow.fxml in Sharkie.
+*/
+.menu-bar {
+    -fx-background-color: rgb(245, 245, 245);
+}
+
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Consolas";
+    -fx-font-weight: 700;
+    -fx-padding: 4px 0px 0px 0px;
+}
+
+.menu-bar:focused {
+    -fx-background-color: none;
+}
+
+.menu:hover {
+    -fx-underline: true;
+    -fx-text-fill: black;
+    -fx-background-color: none;
+}
+
+.menu:hover .label {
+    -fx-text-fill: black;
+}
+
+.menu:showing {
+    -fx-background-color: none;
+}
+
+.menu:showing .label{
+    -fx-text-fill: black;
+}
+
+.menu-item:hover {
+    -fx-background-color: none;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: black;
+    -fx-underline: true;
+}
+
+.menu-item:focused {
+    -fx-background-color: none;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: black;
+}
+
+.tab-pane {
+	-fx-tab-min-width: 96px;
+}
+
+.tab-pane:top *.tab-header-area *.tab-header-background {
+	-fx-background-color: none;
+	-fx-background: none;
+}
+
+.tab {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Consolas";
+    -fx-font-weight: 700;
+    -fx-padding: 4px;
+	-fx-background: none;
+	-fx-background-color: none;
+	-fx-padding: 12px 4px 12px 4px;
+}
+
+.tab .tab-label {
+	-fx-background: none;
+	-fx-text-fill: #999999;
+}
+
+.tab:hover {
+	-fx-cursor: hand;
+}
+
+.tab:hover .tab-label {
+	-fx-text-fill: #757575;
+}
+
+.tab:selected .tab-label {
+	-fx-underline: true;
+	-fx-text-fill: black;
+}
+
+.tab:selected .focus-indicator {
+	-fx-border-color: none;
+}
+
+#statusbarPlaceholder {
+	-fx-background-color: #DDDDDD;
+}

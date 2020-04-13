@@ -1,13 +1,18 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Debt;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Loan;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -35,11 +40,23 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private TableView<Debt> debts;
+    @FXML
+    private TableColumn<Debt, Description> debtDesc;
+    @FXML
+    private TableColumn<Debt, Amount> debtAmt;
+    @FXML
+    private TableColumn<Debt, LocalDate> debtDate;
+    @FXML
+    private TableView<Loan> loans;
+    @FXML
+    private TableColumn<Loan, Description> loanDesc;
+    @FXML
+    private TableColumn<Loan, Amount> loanAmt;
+    @FXML
+    private TableColumn<Loan, LocalDate> loanDate;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -47,11 +64,21 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        debts.setPlaceholder(
+                new PersonTablePanel<Debt>(person.getDebts().asUnmodifiableObservableList()).getRoot());
+        loans.setPlaceholder(
+                new PersonTablePanel<Loan>(person.getLoans().asUnmodifiableObservableList()).getRoot());
+        setProperties();
+    }
+
+    private void setProperties() {
+        TableColumn<Debt, String> debtTitle = new TableColumn<>("Debts");
+        debts.getColumns().add(debtTitle);
+
+        TableColumn<Loan, String> loanTitle = new TableColumn<>("Loans");
+        loans.getColumns().add(loanTitle);
+
     }
 
     @Override

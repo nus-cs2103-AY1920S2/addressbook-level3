@@ -1,0 +1,47 @@
+/*
+* Styling for ResultDisplay.fxml in Sharkie.
+*/
+.text-area {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+	-fx-border-color: rgb(175, 175, 175);
+	-fx-border-radius: 1px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+.text-area .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+.text-area:focused .scroll-bar:horizontal .track-background,
+.text-area:focused .scroll-bar:vertical .track-background {
+	-fx-background-color: white;
+}
+
+.error {
+	-fx-border-color: #ff0000 !important;
+	-fx-text-fill: #ff0000 !important;
+}
+
+.pass {
+	-fx-border-color: #009900 !important;
+	-fx-text-fill: #009900 !important;
+}
+
+.neutral {
+	-fx-border-color: rgb(175, 175, 175) !important;
+	-fx-text-fill: black !important;
+}

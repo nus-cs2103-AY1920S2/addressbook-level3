@@ -1,0 +1,8 @@
+{
+  "_comment": "UserData save file which contains the same User values as in TypicalUser#getTypicalUserData()",
+  "user": {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com"
+  }
+}

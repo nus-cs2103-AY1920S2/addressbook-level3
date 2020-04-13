@@ -1,13 +1,18 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DEBT;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalDebts.MOVIE;
+import static seedu.address.testutil.TypicalDebts.SUPPER;
+import static seedu.address.testutil.TypicalLoans.BREAKFAST;
+import static seedu.address.testutil.TypicalLoans.SHOPPING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -40,17 +45,17 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
+                .withTags(VALID_TAG_DEBT).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB)
+                .withTags(VALID_TAG_DEBT).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_DEBT).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
@@ -84,12 +89,44 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // @@author cheyannesim
+        // different debt -> returns false
+        editedAlice = new PersonBuilder(ALICE)
+                .withDebts(MOVIE).build();
+        assertFalse(ALICE.equals(editedAlice));
+        // @@author
+
+        // different loan -> returns false
+        editedAlice = new PersonBuilder(ALICE)
+                .withLoans(SHOPPING).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_DEBT).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void hashcode() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+
+        // same values -> returns same hashcode
+        assertEquals(ALICE.hashCode(), new PersonBuilder(ALICE).build().hashCode());
+
+        // different name value -> returns different hashcode
+        assertNotEquals(ALICE.hashCode(), new PersonBuilder(ALICE).withName("Bob").build().hashCode());
+
+        // different email value -> returns different hashcode
+        assertNotEquals(ALICE.hashCode(),
+                new PersonBuilder(ALICE).withEmail("bob@example.com").build().hashCode());
+
+        // different phone value -> returns different hashcode
+        assertNotEquals(ALICE.hashCode(), new PersonBuilder(ALICE).withPhone("91234567").build().hashCode());
+
+        // different debt value -> returns different hashcode
+        assertNotEquals(ALICE.hashCode(), new PersonBuilder(ALICE).withDebts(SUPPER).build().hashCode());
+
+        // different loan value -> returns different hashcode
+        assertNotEquals(ALICE.hashCode(), new PersonBuilder(ALICE).withLoans(BREAKFAST).build().hashCode());
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" stylesheets="@css/WalletTransactionPanel.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <Label text="Transactions">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/General.css" />
+                  <URL value="@css/WalletTransactionPanel.css" />
+               </stylesheets>
+            </Label>
+            <Label fx:id="transactionCountLabel" alignment="CENTER_RIGHT" cacheShape="false" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="Transactions" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Consolas" size="16.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@css/General.css" />
+                  <URL value="@css/WalletTransactionPanel.css" />
+               </stylesheets>
+            </Label>
+         </children>
+      </HBox>
+      <ListView fx:id="transactionGroupsListView" minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ListView>
+   </children>
+</VBox>

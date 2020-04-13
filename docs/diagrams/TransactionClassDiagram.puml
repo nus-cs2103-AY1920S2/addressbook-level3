@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Description {
+  description : String
+}
+
+class Amount {
+   amountInCents: long
+}
+
+class Date {
+    date : LocalDate
+}
+
+class Tag {
+    tagName : String
+}
+
+abstract "{abstract}\nTransaction" as Transaction
+Transaction *-up-> "1" Description
+Transaction *-up-> "1" Amount
+Transaction *-up-> "1" Date
+Transaction *-up-> "1" Tag
+
+Expense -up-|> Transaction
+Income -up-|> Transaction
+Debt -up-|> Transaction
+Loan -up-|> Transaction
+
+hide members
+show Description attributes
+show Amount attributes
+show Date attributes
+show Tag attributes
+@enduml

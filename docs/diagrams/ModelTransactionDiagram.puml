@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+skinparam padding 2
+skinparam minClassWidth 80
+skinparam arrowFontSize 10
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Transaction {
+Class "TransactionList" as TransactionListDebt
+Class "TransactionList" as TransactionListLoan
+Class "TransactionList" as TransactionListExpense
+Class "TransactionList" as TransactionListIncome
+abstract "{abstract}\nTransaction" as Transaction
+Class Expense
+Class Income
+Class Debt
+Class Loan
+Class Amount
+Class Budget
+Class BudgetList
+Class Month
+Class Year
+
+abstract "{abstract}\nWalletPredicate" as WalletPredicate
+Class AmountContainsKeywordsPredicate
+Class DateContainsKeywordsPredicate
+Class DescriptionContainsKeywordsPredicate
+Class TagContainsKeywordsPredicate
+}
+
+Class Wallet
+Class Person
+
+Wallet *--> "1" BudgetList
+Wallet *--> "1" TransactionListExpense
+Wallet *--> "1" TransactionListIncome
+Person *--> "1" TransactionListDebt
+Person *--> "1" TransactionListLoan
+BudgetList o--> "*" Budget
+TransactionListExpense o--> "*" Expense
+TransactionListIncome o--> "*" Income
+TransactionListDebt o--> "*" Debt
+TransactionListLoan o--> "*" Loan
+Expense -up-|> Transaction
+Income -up-|> Transaction
+Debt -up-|> Transaction
+Loan -up-|> Transaction
+Budget *--> "1" Amount
+Budget *--> "1" Month
+Budget *--> "1" Year
+
+DescriptionContainsKeywordsPredicate -up-|> WalletPredicate
+AmountContainsKeywordsPredicate -up-|> WalletPredicate
+DateContainsKeywordsPredicate -up-|> WalletPredicate
+TagContainsKeywordsPredicate -up-|> WalletPredicate
+
+WalletPredicate -[hidden]left-> BudgetList
+DescriptionContainsKeywordsPredicate -[hidden]down-> AmountContainsKeywordsPredicate
+DescriptionContainsKeywordsPredicate -[hidden]left-> DateContainsKeywordsPredicate
+DateContainsKeywordsPredicate -[hidden]down-> TagContainsKeywordsPredicate
+AmountContainsKeywordsPredicate -[hidden]left-> TagContainsKeywordsPredicate
+
+@enduml

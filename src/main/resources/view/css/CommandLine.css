@@ -1,0 +1,10 @@
+/*
+* Styling for CommandLine.fxml in Sharkie.
+*/
+.text-field {
+    -fx-background-color: white;
+	-fx-border-color: rgb(175, 175, 175);
+}
+.text-field:focused {
+	-fx-border-color: rgb(75, 75, 75);
+}

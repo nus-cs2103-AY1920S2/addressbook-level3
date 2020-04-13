@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.Date;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +28,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int WALLET_TAB_INDEX = 0;
+    private static final int PEOPLE_TAB_INDEX = 1;
+
+    private static ResultDisplay resultDisplay;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,8 +40,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private WalletTransactionsPanel walletTransactionsPanel;
+    private WalletStatisticsPanel walletStatisticsPanel;
     private HelpWindow helpWindow;
+    private EnterUserDataWindow enterUserDataWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,10 +55,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane walletTransactionsPanelPlaceholder;
+
+    @FXML
+    private StackPane walletStatisticsPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane mainWindowTabPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        enterUserDataWindow = new EnterUserDataWindow(this::storeUserData);
     }
 
     public Stage getPrimaryStage() {
@@ -75,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,6 +128,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        walletTransactionsPanel = new WalletTransactionsPanel(logic.getFilteredTransactionList());
+        walletTransactionsPanelPlaceholder.getChildren().add(walletTransactionsPanel.getRoot());
+
+        walletStatisticsPanel = new WalletStatisticsPanel(logic.getWallet().getBudget(Date.getDefault().getMonth(),
+                Date.getDefault().getYear()),
+                logic.getFilteredTransactionList());
+        walletStatisticsPanelPlaceholder.getChildren().add(walletStatisticsPanel.getRoot());
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -144,6 +173,38 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles the event when the edit user data button in the menu is clicked.
+     */
+    @FXML
+    public void handleEditUserData() {
+        openUserDataWindow();
+        enterUserDataWindow.getRoot().setTitle("Edit User Data");
+        enterUserDataWindow.instructionMessage.setText("Edit your details: ");
+
+        if (!logic.isUserDataNull()) {
+            enterUserDataWindow.fillInUserDetails(logic.getUserData().getUser());
+        }
+    }
+
+    /**
+     * Opens the window to enter user data or focuses on it if it's already opened.
+     */
+    public void openUserDataWindow() {
+        if (!enterUserDataWindow.isShowing()) {
+            enterUserDataWindow.show();
+        } else {
+            enterUserDataWindow.focus();
+        }
+    }
+
+    /**
+     * Edits the text shown in ResultDisplay.
+     */
+    public static void editResultDisplay(String text) {
+        resultDisplay.setFeedbackToUser(text);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -158,10 +219,15 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        enterUserDataWindow.hide();
     }
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public WalletTransactionsPanel getWalletTransactionsPanel() {
+        return walletTransactionsPanel;
     }
 
     /**
@@ -171,23 +237,93 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            resultDisplay.resetStyles();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    resultDisplay.setStyleToIndicatePass();
+                }
+            });
 
             if (commandResult.isShowHelp()) {
-                handleHelp();
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        handleHelp();
+                        resultDisplay.setStyleToIndicateNeutral();
+                    }
+                });
             }
 
             if (commandResult.isExit()) {
-                handleExit();
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        handleExit();
+                        resultDisplay.setStyleToIndicateNeutral();
+                    }
+                });
             }
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    switchPanels(commandText);
+                }
+            });
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    updateWalletPanels();
+                }
+            });
 
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    resultDisplay.setFeedbackToUser(e.getMessage());
+                    resultDisplay.setStyleToIndicateFailure();
+                }
+            });
             throw e;
         }
+    }
+
+    /**
+     * Updates the UI panels related to the wallets when a command has executed.
+     */
+    private void updateWalletPanels() {
+        walletTransactionsPanel.update(logic.getFilteredTransactionList());
+        walletStatisticsPanel.update(logic.getWallet().getBudget(Date.getDefault().getMonth(),
+                Date.getDefault().getYear()),
+                logic.getTransactionList());
+    }
+
+    /**
+     * Switches the tabs based on whether a people or wallet command was entered.
+     */
+    private void switchPanels(String commandText) {
+        if (commandText.contains("people")) {
+            mainWindowTabPane.getSelectionModel().select(PEOPLE_TAB_INDEX);
+        } else if (commandText.contains("wallet")) {
+            mainWindowTabPane.getSelectionModel().select(WALLET_TAB_INDEX);
+        }
+    }
+
+
+    /**
+     * Stores the user data keyed in by the user.
+     *
+     * @see seedu.address.logic.Logic#storeUserData(String, String, String)
+     */
+    private void storeUserData(String name, String phone, String email)
+            throws IllegalArgumentException, IOException {
+        logic.storeUserData(name, phone, email);
     }
 }

@@ -4,10 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.global.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.address.logic.commands.global.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
 public class CommandResultTest {
+
+    @Test
+    public void isShowHelp() {
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        assertTrue(expectedCommandResult.isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        assertTrue(expectedCommandResult.isExit());
+    }
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");

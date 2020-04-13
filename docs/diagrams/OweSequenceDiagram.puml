@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as Logic LOGIC_COLOR
+participant ":PeopleOweCommand" as peopleOweCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "debt:Debt" as debt MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant "addedDebtPerson:Person" as addedDebtPerson MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+end box
+
+participant "lastShownList:List" as List #6C3483
+
+[-> Logic : execute("people owe 1 n/Dinner $/10")
+activate Logic
+
+ref over Logic, peopleOweCommand, debt
+    get PeopleOweCommand
+    (Note: PeopleOweCommand object and Debt object is created here.)
+end ref
+
+Logic-> peopleOweCommand : execute()
+activate peopleOweCommand
+
+[-[hidden]> peopleOweCommand : a very long long text
+
+peopleOweCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> peopleOweCommand : lastShownList
+deactivate Model
+
+peopleOweCommand -> List : lastShownList.get(1)
+activate List
+
+List --> peopleOweCommand : personUserOwes
+deactivate List
+
+peopleOweCommand -> peopleOweCommand : createPersonOwed(\npersonUserOwes, debt)
+activate peopleOweCommand
+
+create addedDebtPerson
+peopleOweCommand -> addedDebtPerson : Person()
+activate addedDebtPerson
+
+addedDebtPerson --> peopleOweCommand : addedDebtPerson
+deactivate addedDebtPerson
+
+peopleOweCommand --> peopleOweCommand : addedDebtPerson
+deactivate peopleOweCommand
+
+peopleOweCommand -> Model : setPerson(\npersonUserOwes, \naddedDebtPerson)
+activate Model
+
+Model -> AddressBook : setPerson(personUserOwes, addedDebtPerson)
+activate AddressBook
+
+AddressBook -> UniquePersonList : setPerson(\npersonUserOwes, \naddedDebtPerson)
+activate UniquePersonList
+
+UniquePersonList --> AddressBook
+deactivate UniquePersonList
+
+AddressBook --> Model
+deactivate AddressBook
+
+Model --> peopleOweCommand
+deactivate Model
+
+peopleOweCommand -> Model : updateFilteredPersonList()
+activate Model
+
+Model --> peopleOweCommand
+deactivate Model
+
+peopleOweCommand --> Logic : result
+deactivate peopleOweCommand
+[<--Logic : result
+deactivate Logic
+destroy peopleOweCommand
+
+@enduml

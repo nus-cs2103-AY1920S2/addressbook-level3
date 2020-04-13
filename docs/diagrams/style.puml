@@ -43,6 +43,8 @@ skinparam Class {
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
     FontName Arial
+    AttributeFontColor #FFFFFF
+    AttributeFontName Arial
 }
 
 skinparam Actor {

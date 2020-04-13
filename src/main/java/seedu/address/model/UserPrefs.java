@@ -14,12 +14,15 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data", "addressbook.json");
+    private Path userDataFilePath = Paths.get("data", "userdata.json");
+    private Path walletFilePath = Paths.get("data", "wallet.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -36,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setUserDataFilePath(newUserPrefs.getUserDataFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -54,6 +58,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getUserDataFilePath() {
+        return userDataFilePath;
+    }
+
+    public void setUserDataFilePath(Path userDataFilePath) {
+        requireNonNull(userDataFilePath);
+        this.userDataFilePath = userDataFilePath;
+    }
+
+    public Path getWalletFilePath() {
+        return walletFilePath;
+    }
+
+    public void setWalletFilePath(Path walletFilePath) {
+        requireNonNull(walletFilePath);
+        this.walletFilePath = walletFilePath;
     }
 
     @Override

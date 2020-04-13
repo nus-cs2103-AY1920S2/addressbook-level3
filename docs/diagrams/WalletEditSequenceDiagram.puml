@@ -1,0 +1,114 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as Logic LOGIC_COLOR
+participant ":SharkieParser" as SharkieParser LOGIC_COLOR
+participant ":WalletEditCommandParser" as WalletEditCommandParser LOGIC_COLOR
+participant ":EditTransactionDescriptor" as EditTransactionDescriptor LOGIC_COLOR
+participant ":WalletEditCommand" as WalletEditCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
+participant ":UniqueTransactionsList" as UniqueTransactionsList MODEL_COLOR
+end box
+
+participant "lastShownList:List" as List #6C3483
+
+[-> Logic : execute("wallet \nedit 1 n/Porridge")
+activate Logic
+
+Logic -> SharkieParser : parseCommand("wallet \nedit 1 n/Porridge")
+activate SharkieParser
+
+create WalletEditCommandParser
+SharkieParser -> WalletEditCommandParser
+activate WalletEditCommandParser
+
+WalletEditCommandParser --> SharkieParser
+deactivate WalletEditCommandParser
+
+SharkieParser -> WalletEditCommandParser : parse("1 n/Porridge")
+activate WalletEditCommandParser
+
+create EditTransactionDescriptor
+WalletEditCommandParser -> EditTransactionDescriptor : EditTransactorDescriptor()
+activate EditTransactionDescriptor
+
+EditTransactionDescriptor --> WalletEditCommandParser : editTransactionDescriptor
+deactivate EditTransactionDescriptor
+
+create WalletEditCommand
+WalletEditCommandParser -> WalletEditCommand
+activate WalletEditCommand
+
+WalletEditCommand --> WalletEditCommandParser : command
+deactivate WalletEditCommand
+
+WalletEditCommandParser --> SharkieParser : command
+deactivate WalletEditCommandParser
+
+[-[hidden]> WalletEditCommand :
+destroy WalletEditCommandParser
+
+SharkieParser --> Logic : command
+deactivate SharkieParser
+
+Logic -> WalletEditCommand : execute()
+activate WalletEditCommand
+
+WalletEditCommand -> Model : getFilteredTransactionsList()
+activate Model
+
+Model --> WalletEditCommand : lastShownList
+deactivate Model
+
+WalletEditCommand -> List : lastShownList.get(1)
+activate List
+
+List --> WalletEditCommand : transactionToEdit
+deactivate List
+
+WalletEditCommand -> WalletEditCommand : createEditedTransaction(\ntransactionToEdit, \neditTransactionDescriptor)
+activate WalletEditCommand
+
+WalletEditCommand --> WalletEditCommand : editedTransaction
+deactivate WalletEditCommand
+
+WalletEditCommand -> Model : setTransaction(\ntransactionToEdit, \neditedTransaction)
+activate Model
+
+Model -> Wallet : setTransaction(transactionToEdit, editedTransaction)
+activate Wallet
+
+Wallet -> UniqueTransactionsList : setTransaction(\ntransactionToEdit, \neditedTransaction)
+activate UniqueTransactionsList
+
+UniqueTransactionsList --> Wallet
+deactivate UniqueTransactionsList
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> WalletEditCommand
+deactivate Model
+
+WalletEditCommand -> Model : updateFilteredTransactions()
+activate Model
+
+Model --> WalletEditCommand
+deactivate Model
+
+Logic <--WalletEditCommand : result
+deactivate WalletEditCommand
+
+[<-- Logic : result
+deactivate Logic
+
+[<-[hidden]-WalletEditCommand
+destroy WalletEditCommand
+destroy EditTransactionDescriptor
+
+@enduml
