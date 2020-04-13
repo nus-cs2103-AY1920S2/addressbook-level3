@@ -13,26 +13,26 @@ import seedu.address.model.restaurant.Restaurant;
 public class TypicalRestaurants {
     public static final Restaurant AMEENS = new RestaurantBuilder().withName("Ameens")
             .withLocation("Clementi").withHours("0900:2300").withPrice("$")
-            .withCuisine("Indian").withRemarks("Good supper spot").withVisit("Yes").build();
+            .withCuisine("Indian").withVisit("Yes").build();
     public static final Restaurant SWEE_CHOON = new RestaurantBuilder().withName("Swee Choon")
             .withLocation("Lavender").withHours("1800:0600").withPrice("$")
-            .withCuisine("Dim Sum").withRemarks("Good variety").withVisit("Yes").build();
+            .withCuisine("Dim Sum").withVisit("Yes").build();
     public static final Restaurant HAI_DI_LAO = new RestaurantBuilder().withName("Hai Di Lao")
             .withLocation("Jurong East").withHours("2230:0600").withPrice("$$$")
-            .withCuisine("Chinese steamboat").withRemarks("Feeling rich").withVisit("No").build();
+            .withCuisine("Chinese steamboat").withVisit("No").build();
     public static final Restaurant MCD = new RestaurantBuilder().withName("Mcdonalds")
             .withLocation("Tampines").withHours("0000:0000").withPrice("$")
-            .withCuisine("Fast Food").withRemarks("Accessible").build();
+            .withCuisine("Fast Food").build();
     public static final Restaurant TIAN_TIAN = new RestaurantBuilder().withName("Tian Tian Chicken Rice")
             .withLocation("Clementi").withHours("1000:2000").withPrice("$").withCuisine("Chinese")
-            .withRemarks("Delicious and cheap").withVisit("Yes").build();
+            .withVisit("Yes").build();
     public static final Restaurant KOH_GRILL = new RestaurantBuilder().withName("Koh Grill")
             .withLocation("Orchard").withHours("1130:2200").withPrice("$$").withCuisine("Japanese")
-            .withRemarks("Sushi").withVisit("No").build();
+            .withVisit("No").build();
 
     //Manually added
     public static final Restaurant KFC = new RestaurantBuilder().withName("KFC").withLocation("Clementi")
-            .withHours("0800:2230").withPrice("$").withCuisine("Fast Food").withRemarks("Nice")
+            .withHours("0800:2230").withPrice("$").withCuisine("Fast Food")
             .withVisit("Yes").build();
 
     private TypicalRestaurants() {};

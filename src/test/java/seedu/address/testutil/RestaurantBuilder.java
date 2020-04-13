@@ -8,7 +8,6 @@ import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Visit;
 
@@ -21,7 +20,6 @@ public class RestaurantBuilder {
     public static final String DEFAULT_HOURS = "0900:2300";
     public static final String DEFAULT_PRICE = "$";
     public static final String DEFAULT_CUISINE = "Indian";
-    public static final String DEFAULT_REMARKS = "";
     public static final String DEFAULT_VISIT = "Yes";
     public static final String DEFAULT_RECOMMENDED = "Butter chicken";
     public static final String DEFAULT_GOOD = "Cheese Fries";
@@ -32,7 +30,6 @@ public class RestaurantBuilder {
     private Hours hours;
     private Price price;
     private Cuisine cuisine;
-    private ArrayList<Remark> remarks;
     private Visit visit;
     private ArrayList<Note> recommendedFood;
     private ArrayList<Note> goodFood;
@@ -47,7 +44,6 @@ public class RestaurantBuilder {
         this.hours = toCopy.getHours();
         this.price = toCopy.getPrice();
         this.cuisine = toCopy.getCuisine();
-        this.remarks = toCopy.getRemark();
         this.visit = toCopy.getVisit();
         this.recommendedFood = toCopy.getRecommendedFood();
         this.goodFood = toCopy.getGoodFood();
@@ -60,8 +56,6 @@ public class RestaurantBuilder {
         this.hours = new Hours(DEFAULT_HOURS);
         this.price = new Price(DEFAULT_PRICE);
         this.cuisine = new Cuisine(DEFAULT_CUISINE);
-        this.remarks = new ArrayList<>();
-        remarks.add(new Remark(DEFAULT_REMARKS));
         this.visit = new Visit(DEFAULT_VISIT);
         this.recommendedFood = new ArrayList<>();
         recommendedFood.add(new Note(DEFAULT_RECOMMENDED));
@@ -112,14 +106,6 @@ public class RestaurantBuilder {
     }
 
     /**
-     * Sets the {@Remark} of the {@Restaurant} that we are building.
-     */
-    public RestaurantBuilder withRemarks(String remarks) {
-        this.remarks.add(new Remark(remarks));
-        return this;
-    }
-
-    /**
      * Sets the {@Visit} of the {@Restaurant} that we are building.
      */
     public RestaurantBuilder withVisit(String visit) {
@@ -156,7 +142,7 @@ public class RestaurantBuilder {
      * @return restaurant that is created
      */
     public Restaurant build() {
-        return new Restaurant(name, location, hours, price, cuisine, remarks, visit,
+        return new Restaurant(name, location, hours, price, cuisine, visit,
                 recommendedFood, goodFood, badFood);
     }
 }

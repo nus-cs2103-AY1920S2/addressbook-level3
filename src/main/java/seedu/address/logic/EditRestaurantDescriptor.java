@@ -10,7 +10,6 @@ import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Visit;
 
@@ -109,13 +108,12 @@ public class EditRestaurantDescriptor {
         Hours updatedHours = getHours().orElse(restaurantToEdit.getHours());
         Cuisine updatedCuisine = getCuisine().orElse(restaurantToEdit.getCuisine());
         Price updatedPrice = getPrice().orElse(restaurantToEdit.getPrice());
-        ArrayList<Remark> updatedRemark = restaurantToEdit.getRemark();
         ArrayList<Note> updatedRecFood = restaurantToEdit.getRecommendedFood();
         ArrayList<Note> updatedGoodFood = restaurantToEdit.getGoodFood();
         ArrayList<Note> updatedBadFood = restaurantToEdit.getBadFood();
 
         return new Restaurant(updatedName, updatedLocation, updatedHours, updatedPrice, updatedCuisine,
-                updatedRemark, updatedVisit, updatedRecFood, updatedGoodFood, updatedBadFood);
+                updatedVisit, updatedRecFood, updatedGoodFood, updatedBadFood);
     }
 
     @Override
