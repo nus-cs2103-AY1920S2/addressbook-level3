@@ -370,7 +370,7 @@ The `fav` command is implemented in the _FavCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `fav` command is run.
 
 .Activity diagram of finding recipes
-image::FavCommandActivityDiagram.svg[align="center]
+image::FavActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -381,7 +381,7 @@ image::FavCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `fav` command
 
 .Sequence diagram for the execution of a `fav` command
-image::FavCommandSequenceDiagram.svg[align="center"]
+image::FavSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -407,7 +407,7 @@ The `unfav` command is implemented in the _UnFavCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `unfav` command is run.
 
 .Activity diagram of un-favouriting recipes
-image::UnFavCommandActivityDiagram.svg[align="center]
+image::UnFavActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -418,7 +418,7 @@ image::UnFavCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `unfav` command
 
 .Sequence diagram for the execution of a `fav` command
-image::UnFavCommandSequenceDiagram.svg[align="center"]
+image::UnFavSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -444,7 +444,7 @@ The `done` command is implemented in the _DoneCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `done` command is run.
 
 .Activity diagram of un-favouriting recipes
-image::DoneCommandActivityDiagram.svg[align="center]
+image::DoneActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -455,7 +455,7 @@ image::DoneCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `done` command
 
 .Sequence diagram for the execution of a `fav` command
-image::DoneCommandSequenceDiagram.svg[align="center"]
+image::DoneSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -481,7 +481,7 @@ The `undo` command is implemented in the _UndoCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `undo` command is run.
 
 .Activity diagram of un-favouriting recipes
-image::UndoCommandActivityDiagram.svg[align="center]
+image::UndoActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -492,7 +492,7 @@ image::UndoCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `undo` command
 
 .Sequence diagram for the execution of a `do` command
-image::UndoCommandSequenceDiagram.svg[align="center"]
+image::UndoSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -518,7 +518,7 @@ The `view` command is implemented in the _ViewCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `view` command is run.
 
 .Activity diagram of un-favouriting recipes
-image::ViewCommandActivityDiagram.svg[align="center]
+image::ViewActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -529,7 +529,7 @@ image::ViewCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `view` command
 
 .Sequence diagram for the execution of a `view` command
-image::ViewCommandSequenceDiagram.svg[align="center"]
+image::ViewSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
@@ -553,7 +553,7 @@ The `time` command is implemented in the _UndoCommand_ class.
 The following activity diagram shows the possible paths *CookBuddy* can take when a `time` command is run.
 
 .Activity diagram of un-favouriting recipes
-image::TimeCommandActivityDiagram.svg[align="center]
+image::TimeActivityDiagram.svg[align="center]
 
 ==== Implementation
 
@@ -564,7 +564,7 @@ image::TimeCommandActivityDiagram.svg[align="center]
 The following sequence diagram summarizes the execution of the `time` command
 
 .Sequence diagram for the execution of a `do` command
-image::TimeCommandSequenceDiagram.svg[align="center"]
+image::TimeSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
