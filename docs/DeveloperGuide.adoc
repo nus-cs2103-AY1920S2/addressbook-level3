@@ -1,8 +1,8 @@
-= CookBuddy Recipe Manager - Developer Guide
+= CookBuddy Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
-:toc-placement: preamble
+:toc-title: Contents
+:toc-placement: auto
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -15,13 +15,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/tree/master
 
+= Overview
+
 By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction [Done by Zain Alam]
 
-Welcome to CookBuddy!
+CookBuddy helps users familiar with the command-line and are fast typists, to easily manage their recipes. Features include adding, editing, and deleting recipes, as well as adding recipe images, tags, and setting various recipe attributes like serving size, cooking time, and personal management like ratings and favourites.
 
-image::Ui.png[width="790"]
+For more information about using CookBuddy, consult the <<UserGuide#, CookBuddy User Guide>>.
 
 CookBuddy is an integrated platform fully customized for users who wish to manage their recipes easily and effectively.
 
@@ -98,18 +100,14 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.svg[]
-
 [discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[[bleep]]
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.svg[]
+image::ArchitectureSequenceDiagram.svg[align="center"]
 
 The sections below give more details of each component.
 
@@ -133,12 +131,19 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+[NOTE]
+====
+The `UI` component uses the JMetro library to apply a theme to the default JavaFX interface. The resulting product presents a neat, Windows 10-style UI to the user, that employs https://www.microsoft.com/design/fluent/#/[Microsoft's Fluent Design patterns].
+
+For more information on JMetro, refer to the https://pixelduke.com/java-javafx-theme-jmetro/[JMetro home page].
+====
+
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.svg[]
+image::LogicClassDiagram.svg[align="center"]
 
 *API* :
 link:{repoURL}/src/main/java/cookbuddy/logic/Logic.java[`Logic.java`]
@@ -160,7 +165,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.svg[]
+image::ModelClassDiagram.svg[align="center"]
 
 *API* : link:{repoURL}/src/main/java/cookbuddy/model/Model.java[`Model.java`]
 
@@ -176,29 +181,52 @@ As a more OOP model, we can store a `Tag` list in `Recipe Book`, which `Recipe` 
  +
 image:BetterModelClassDiagram.svg[]
 
+==== The `attribute` package
+[[attrib-package]]
+.Structure of the `attribute` package, defining each `Recipe` 's key attributes
+image::AttributeClassDiagram.svg[align="center"]
+`attribute` defines common attributes for each recipe, such as time taken to cook, serving size, an image of the recipe, and so on.
+
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.svg[]
+image::StorageClassDiagram.svg[align="center"]
 
 *API* : link:{repoURL}/src/main/java/cookbuddy/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component manages the recipe data, the user configuration, preferences, and the image data. To be specific, it:
 
-* can save `UserPref` objects in JSON format and read it back.
-* can save the Recipe Book data in JSON format and read it back.
+* reads and writes `UserPref` objects to and from disk, as `.json` format;
+* serialises, reads and writes recipe data to and from disk, _also_ as `.json` format;
+* passes on the file path for the user-entered image into methods in the `ImageUtil` class. More details are given in <<Img-considerations>>.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `cookbuddy.commons` package.
+Classes used by multiple components are in the `cookbuddy.commons` package; the three over-arching sub-packages are `core`, `exceptions`, and `util`.
 
-== Implementation
+==== `core`
+This package defines classes for user configuration, GUI settings, and even a version number.
 
-This section describes some noteworthy details on how certain features are implemented.
+==== `exceptions`
+This package defines exceptions thrown by CookBuddy when it encounters an error state.
 
-=== Count feature [Done by Zain Alam]
+==== `util`
+This package defines utility classes for certain operations, like file I/O, argument validation, and image processing.
+
+
+
+
+// tag::undoredo[]
+
+
+== Implementation Details, and Future Work
+
+This section right nowdescribes some noteworthy details on how certain features are implemented, as well as alternatives. Some possible future components are briefly covered, and these may be released in `v2.0`.
+
+
+=== Counting recipes [Done by Zain Alam]
 
 We allow users to count the total number of recipes stored in CookBuddy. This section shows how we handle this request from the user.
 
@@ -228,7 +256,7 @@ Step 1. The user executes the command **count** to count the total number of rec
 
 Step 2. The input is now checked and an attempt to parse the parameter occurs. The `CountCommand#execute(Model model)` method is executed.
 
-Step 3. The method `Model#count() will then be called to calculate the total number of recipes stored in CookBuddy.
+Step 3. The method `Model#count()` will then be called to calculate the total number of recipes stored in CookBuddy.
 
 Step 4. If successful, a success message will be generated by `CommandResult` and it will be returned with the generated
 success message. Otherwise, an error message is thrown as `ParseException`.
@@ -242,96 +270,55 @@ The following activity diagram summarizes what happens when the user executes `c
 .Activity diagram of executing the `count`command.
 image::count-command/CountActivityDiagram.svg[align="center",650]
 
+=== Image Management [Done by Sharadh Rajaraman]
+CookBuddy allows users to add images to their recipes, which are then saved into the `data/images` folder created by CookBuddy (at least, using the default settings). This section elaborates on implementation.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+The two key classes allowing image and photo management are `ImageUtil` and `Photograph`; the former is a utility class written in the https://en.wikipedia.org/wiki/Singleton_pattern[singleton pattern]; the latter is the attribute that each `Recipe` directly contains, as <<attrib-package>> details.
 
-The undo/redo mechanism is facilitated by `VersionedRecipeBook`.
-It extends `RecipeBook` with an undo/redo history, stored internally as an `RecipeBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== From User Command to Image On Screen
 
-* `VersionedRecipeBook#commit()` -- Saves the current recipe book state in its history.
-* `VersionedRecipeBook#undo()` -- Restores the previous recipe book state from its history.
-* `VersionedRecipeBook#redo()` -- Restores a previously undone recipe book state from its history.
+[[img-seq]]
+.Sequence Diagram of image retrieval from disk
+image::PhotoSequenceDiagram.svg[align="center]
 
-These operations are exposed in the `Model` interface as `Model#commitRecipeBook()`, `Model#undoRecipeBook()` and `Model#redoRecipeBook()` respectively.
+The above sequence diagram details how a user-entered command is translated to an image file as displayed on screen. Some initial details are omitted, such as the calls to `RecipeBookParser#parseCommand()` (which have already been demonstrated in <<Design-Model>>).
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The steps taken are also described step-by-step in the activity diagram below:
 
-Step 1. The user launches the application for the first time. The `VersionedRecipeBook` will be initialized with the initial recipe book state, and the `currentStatePointer` pointing to that single recipe book state.
+.Activity diagram of <<img-seq>>
+image::PhotoReadActivityDiagram.svg[align="center"]
 
-image::UndoRedoState0.svg[]
+==== Saving Images Into the Data Folder
+When saving images, there were a few considerations that needed to be taken into account:
 
-Step 2. The user executes `delete 5` command to delete the 5th recipe in the recipe book. The `delete` command calls `Model#commitRecipeBook()`, causing the modified state of the recipe book after the `delete 5` command executes to be saved in the `recipeBookStateList`, and the `currentStatePointer` is shifted to the newly inserted recipe book state.
+* The image on disk *must* contain the recipe name, so as to be reasonably understandable;
 
-image::UndoRedoState1.svg[]
+* The image on disk must be stored _losslessly_, so that repeated read-write cycles do not deplete the quality;
 
-Step 3. The user executes `new n/Chicken Rice ...` to add a new recipe. The `new` command also calls
-`Model#commitRecipeBook()`, causing another modified Recipe book state to be saved into the `RecipeBookStateList`.
+* If an image already exists on disk, then read/write cycles must not be wasted in overwriting an image with the same data;
 
-image::UndoRedoState2.svg[]
+* Even if recipes have the same name, the image file names must be distinct, and yet always resolve to the same.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitRecipeBook()`, so the recipe book state will not be saved into the `recipeBookStateList`.
+Therefore, a hashcode is appended to each image file name, and the resulting data is saved to disk as a `.png` image, which is lossless. `jpeg` formats would require lossy compression at each save, which would progressively degrade image quality.
 
-Step 4. The user now decides that adding the recipe was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoRecipeBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous recipe book state, and restores the recipe book to that state.
+This entire process is also demonstrated in the activity diagram below:
 
-image::UndoRedoState3.svg[]
+.Activity diagram representing image save process
+image::PhotoSaveActivityDiagram.svg[align="center",400]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial recipe book state, then there are no previous Recipe book states to restore. The `undo` command uses `Model#canUndoRecipeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.svg[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoRecipeBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the recipe book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `RecipeBookStateList.size() - 1`, pointing to the latest recipe book state, then there are no undone Recipe book states to restore. The `redo` command uses `Model#canRedoRecipeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the Recipe book, such as `list`, will usually not call `Model#commitRecipeBook()`, `Model#undoRecipeBook()` or `Model#redoRecipeBook()`. Thus, the `recipeBookStateList` remains unchanged.
-
-image::UndoRedoState4.svg[]
-
-Step 6. The user executes `reset`, which calls `Model#commitRecipeBook()`. Since the `currentStatePointer` is not pointing at the end of the `recipeBookStateList`, all recipe book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `new n/Chicken Rice ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.svg[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.svg[]
-
+[[Img-considerations]]
 ==== Design Considerations
+`ImageUtil` is implemented as a singleton class. In other words, its constructor is declared `private`, and the object can only be retrieved by the `public static` factory method, `ImageUtil.imageUtil()`. Given the class defines _several_ constants using methods, we believed this was the most straightforward direction possible.
 
-===== Aspect: How undo & redo executes
+`ImageUtil` also declares `PLACEHOLDER_IMAGE` as several static constant types: a `BufferedImage`, an `InputStream`, and even as a `Path`. The _actual_ image is bundled with the `JAR` file, which can be explored at will using an extractor tool like `7zip`.
 
-* **Alternative 1 (current choice):** Saves the entire recipe book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the recipe being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+These constants are loaded when the Photograph class is first called, thus adhering to Java's Just-In-Time (JIT) principle.
 
-===== Aspect: Data structure to support the undo/redo commands
+Furthermore, the initial `ImageUtil` written as an ordinary static utility class led to the JVM throwing `ExceptionInInitializerError` when the built `.jar` was run. There were no issues running this from the IDE; hence the singleton pattern.
 
-* **Alternative 1 (current choice):** Use a list to store the history of recipe book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedRecipeBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
-// tag::dataencryption[]
-// === [Proposed] Data Encryption
-
-// _{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+==== Possible Improvements
+As it is, image processing spans _several_ classes: `FileUtil`, `ImageUtil`, `Photograph`. We would like to simplify this. Furthermore, _saving_ image data requires returning a file path through several methods, which have little relation to one another.
 
 === Logging
 
@@ -351,7 +338,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application may be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+[[Implementation-Future]]
+=== Features coming in `v2.0`
+We have some exciting features in line for `v2.0`, and some of these include:
+
+* Converting between units: American users of our application might be more comfortable with pounds, quarts, gallons and such. Therefore, we aim to implement a seamless conversion between US customary and metric units, with a one-command (or click) way to switch between the two.
+
+* We also note that users may prefer some advanced UNIX-style compressed syntax; hence, we are exploring using the https://picocli.info/[PicoCLI] library to implement _both_ the current Windows-style slash-based syntax, as well as UNIX-style dash-based syntax. This is a _single_ class that can either be imported as a dependency, or directly included as source.
++
+We expect that this change would also drastically decrease code length and improve stability and testability, given the current implementation spans not just several _classes_, but two entire _packages_: `cookbuddy.logic.parser`, and `cookbuddy.logic.command`. As it is now, we have needless object-orientation for the sake of doing so, and we believe in simplicity as much as possible.
+
+* We understand users who cook love to share their creations with friends and family; therefore, we intend to use social media APIs from Facebook, Google, Twitter, Reddit, Instagram, and Snapchat, to allow users to share their recipes to the world.
+
+* Users might not be comfortable with keeping their computers near the stove, hence, we plan to offer two solutions in `v2.0`:
+** We plan to release mobile apps for the two major platforms, Android and iOS.
+** For users more comfortable with paper, we plan to allow _printing_ of recipes to PDF, and directly to printers. This engine is intended to be powered by `LaTeX`.
 
 == Documentation
 
@@ -371,19 +374,13 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*: [Done by Sharadh Rajaraman]
 
 * cooks for oneself on a nearly daily basis, and hence:
-   - needs to manage many recipes
-   - needs to have a clean interface to view and read recipes
-   - experiments with dishes
-
-* prefers desktop apps over other types
-
-* can type fast
-
-* prefers typing over mouse input
+   - needs to manage multiple recipes
+   - needs to have a clean interface to view and read dishes
+   _ experiments with dishes
 
 * is reasonably familiar with the command-line
 
-* requires a straightforward means to catalogue and codify recipes and meals without using spreadsheets
+* requires a straightforward means to catalogue and codify dishes and meals without using spreadsheets
 
 *Value proposition*: [Done by Zain Alam]
 
@@ -392,18 +389,16 @@ Refer to the guide <<DevOps#, here>>.
 * Present a unified interface for recipe management.
 
 * When managing recipes:
-   - allow easier and faster retrieval with attributes like tags, time, difficulty, rating etc;
+   - allow easier and faster retrieval with attributes like tags, time, difficulty, etc;
 
    - present a straightforward interface to edit, duplicate and combine recipes into meals
 
-* Overall increase in productivity.
+* Export recipes to a printable, human-readable and consistent format
 
-//* Export recipes to a printable, human-readable and consistent format
+
 
 [appendix]
-
-// tag::UserStories[]
-== User Stories [Done by ]
+== User Stories [Done by Sharadh Rajaraman and Adarsh Chugani]
 
 Priorities: *High* (must have), *Medium* (nice to have), *Low* (unlikely to have)
 
@@ -550,25 +545,14 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 recipes without noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Commands should be <<one-shot-c,one-shot>> commands as opposed to <<multi-level-c, multi-level commands>>.
-.  CookBuddy should be able to function without internet access.
-.  A user should be able to familiarise herself with less than 30 minutes of usage.
 
+_{More to be added}_
 
 [appendix]
 == Glossary [Done by Zain Alam]
 
-[[attributes]] Attributes::
-The information of a recipe. For example, calories, ingredients or instructions etc.
-
 [[mainstream-os]] Mainstream OS::
 Windows, macOS, Linux, UNIX
-
-[[multi-level-c]] Multi-level Commands::
-Commands that require multiple lines of user input for execution.
-
-[[one-shot-c]] One-shot Commands::
-Commands that are executed using only a single line of user input.
 
 [[recipe]] Recipe::
 A list of ingredients followed by a list of instructions, detailing how to prepare a dish.
@@ -576,6 +560,23 @@ A list of ingredients followed by a list of instructions, detailing how to prepa
 [[tag]] Tag::
 A (possibly custom) text marker that users can use to organise their recipes; examples include `vegetarian`, `spicy`, `Indian`. Tags can themselves be organised into groups, such as `cuisines`, `diet`, `ingredients`, `mealtime`, etc.
 
+//[appendix]
+//== Product Survey
+//
+//*Product Name*
+//
+//Author: ...
+//
+//Pros:
+//
+//* ...
+//* ...
+//
+//Cons:
+//
+//* ...
+//* ...
+//
 [appendix]
 == Product Survey [Done by Zain Alam]
 
@@ -805,6 +806,7 @@ The recipe book should contain two recipes, _Ham Sandwich_ & _Idiot Sandwich_.
 .. Test case: `delete abc` +
    Expected: No recipe is deleted. An error message prompting the user to provide a valid integer is shown in the result pane.
 
+_{ more test cases ... }_
 
 === Saving data
 
