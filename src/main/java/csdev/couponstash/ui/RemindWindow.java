@@ -62,10 +62,9 @@ public class RemindWindow extends UiPart<Stage> {
      * Filters the coupons that have reminders today.
      */
     private List<Coupon> filterRemindCoupons(List<Coupon> coupons) {
-        LocalDate today = LocalDate.now();
 
         return coupons.stream()
-                .filter(coupon -> coupon.getRemindDate().getDate().equals(today))
+                .filter(coupon -> coupon.getRemindDate().isToday())
                 .sorted(SortCommand.REMINDER_COMPARATOR)
                 .collect(Collectors.toList());
     }

@@ -750,7 +750,7 @@ order decided by the passed in `comparator`.
 * `SortedList#setComparator(Comparator<Coupon> comparator)` - Sets the
 comparator that determines the order of the coupons inside the sorted list.
 
-.Overview of the class diagram representation of the coupon sorting implementation
+.Overview of the class diagram representation of the coupon sorting implementation.
 image::SortingClassDiagram.png[]
 
 When a `sort` command is executed, the field to sort by is indicated by the
@@ -780,7 +780,7 @@ persistent approach shines here as restoring the original order of the coupon
 stash is as trivial as reopening the program.
 ** Cons: If a user prefers a particular default sorting order for their
 coupons, they have to retype the `sort` command each time the program is
-launched.
+launched or each time a coupon is added or edited.
 
 * *Alternative 2:* Make sorting persistent.
 ** Pros: Gives users more freedom over the default order of their coupons.
@@ -790,25 +790,24 @@ Additionally, it can be confusing to users when there are so many different
 ways to sort.
 
 In our usage during testing, we have never had the urge to have a default
-sorting order when the program is launched.
+sorting order when the program is launched. Plus, we feel that the simplicity
+of excluding a sort by default order function will be well favored by users,
+and thus we chose alternative 1.
 
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
 Coupon Stash reminds the user through a pop-up window, upon launching the
 application.
 
-To achieve this feature, the following methods in `RemindDate` class of a
-coupon,
-`RemindCommand` and `RemindWindow` are used,
+To achieve this feature, the following methods in the `RemindDate` and
+`RemindWindow` classes are used.
 
-* `RemindDate#setRemindDate()` - To set a specific remind date of a coupon. By
-default, every coupons's remind date are set to 3 days before the expiry date.
-* `RemindCommand#checkReminder()` - To evaluate all coupons' remind date against
-system's current date.
-* `RemindWindow#displayRemind()`- To display the pop up box with coupons that
-needs
-to be reminded
+* `RemindDate#isToday()`
+* `RemindWindow#filterRemindCoupons()`
+* `RemindWindow#constructRemindCoupons()`
+* `RemindWindow#showIfAny()`
 
+.Overview of the class diagram representation of the reminder checking implementation.
 image::RemindClassDiagram.png[]
 
 
