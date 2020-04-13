@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
 
 /**
  * Represents a Exercise in the exercise list.
@@ -16,21 +19,26 @@ public class Exercise {
     // Identity fields
     private final ExerciseName exerciseName;
     private final List<ExerciseSet> exerciseSets = new ArrayList<>();
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Every field must be present and not null.
      */
     public Exercise(ExerciseName exerciseName, List<ExerciseSet> exerciseSets) {
         requireAllNonNull(exerciseName, exerciseSets);
+        logger.fine("Creating Exercise with Exercise Name: " + exerciseName
+                + " and Exercise Sets: " + exerciseSets);
         this.exerciseName = exerciseName;
         this.exerciseSets.addAll(exerciseSets);
     }
 
     public ExerciseName getExerciseName() {
+        logger.fine("Getting Exercise Name");
         return exerciseName;
     }
 
     public List<ExerciseSet> getExerciseSets() {
+        logger.fine("Getting Exercise Sets");
         return Collections.unmodifiableList(exerciseSets);
     }
 
@@ -39,6 +47,9 @@ public class Exercise {
      * This defines a weaker notion of equality between two exercises.
      */
     public boolean isSameExercise(Exercise otherExercise) {
+        logger.fine("Checking if Exercise " + this.toString()
+                + " is same as " + otherExercise);
+
         if (otherExercise == this) {
             return true;
         }
