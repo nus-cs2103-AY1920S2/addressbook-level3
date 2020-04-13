@@ -628,12 +628,6 @@ Current Implementation: We have taken a compromise between the two approaches. U
 are grouped together, such as `IntervieweeListPanel` and `SessionInformationCard`, such that they are always updated together.
 In addition, we made use of Observable classes to reduce the number of times an UI component needs to be reinitialised.
 
-===== Aspect: How to display the Interviewee's scores for each `Attribute` most suitably
-
-* *Alternative 1* Bar Chart
-** Pros: Able to display
-
-
 // end::uicommand[]
 
 === Logging
