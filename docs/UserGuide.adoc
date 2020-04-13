@@ -254,8 +254,17 @@ image::Csv.png[width="790"]
 
 Import transactions from csv and add it to transaction list, duplicate transactions are ignored.
 
+Csv File has to be in the same directory as the jar file in order for it to read. `import` has to be accompanied by the
+[filename].csv in order to import. Transactions in the csv file have to be of the same format as the above table format in
+3.12 (export).
+
 Expected Outcome: All transactions in the csv that is in the correct format and does not exist in the current transaction lsit
 will be added to transaction list
+
+Examples:
+
+* `import transactions.csv` (imports all transactions from transactions.csv folder)
+
 
 
 === Clear all data : `clear` (Hubert Halim)
@@ -326,6 +335,6 @@ e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
 * *Exit*: `exit`
 * *List* : `list`
 * *Export* : `export`
-* *Import* : `import`
+* *Import* : `import [FILENAME].csv`
 * *Clear Recurring Transactions*: `clearrecurring`
 * *Help* : `help`
