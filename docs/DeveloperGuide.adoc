@@ -222,12 +222,10 @@ This section describes some noteworthy details on how certain features are imple
 //tag::insert[]
 [[insert]]
 === Insert Feature
-This section, will <<what-is-insert, introduce>> the `insert` feature.
-In addition, it will show the expected <<insert-sequence, path-execution>>,
-the <<insert-class, structure>> of the of the *InsertCommand* class,
+In this section, the <<what-is-insert,functionality>> of the `insert` feature, the
+expected <<insert-activity, execution path>>, the <<insert-class, structure>> of the *InsertCommand* class, the
 <<insertparser-class, structure>> of the *InsertCommandParser* class and
-it will also describe the <<insert-sequence, interaction>> of objects between the *InsertCommand* object
-and other object classes.
+the <<insert-sequence, interactions>> between objects with the *InsertCommand* object will be discussed.
 
 [[what-is-insert]]
 ==== What is the Insert feature
@@ -242,30 +240,6 @@ The order also consists of two optional fields that can be added:
 
 . Comment for Courier
 
-[[insert-class]]
-==== Structure of Insert feature
-
-The following diagrams shows the overview of the *InsertCommand* Class Diagram: +
-
-.Insert Class Diagram
-image::InsertClassDiagram.svg[]
-
-The above class diagram shows the structure of the *InsertCommand*
-and its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
-
-[[insertparser-class]]
-==== Structure of InsertCommandParser
-.InsertCommandParser Class Diagram
-image::InsertParserClassDiagram.svg[]
-
-The above class diagram shows the structure of the *InsertCommandParser*
-and its associated classes and interfaces. It describes all the class dependencies of the *InsertCommandParser*
-class. Some methods and fields are not included because they are
-not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
-As shown in the diagram above, the *InsertCommandParser* make use of methods from classes such as using the
-getValue method from the *ArgumentMultimap* class.
-
 [[insert-activity]]
 ==== Path Execution of Insert Command
 
@@ -279,6 +253,30 @@ The code will throw a *ParseException* when there are missing prefixes. After th
 new order added is a duplicate (The Order is already inserted into the application). It will throw a *CommandException*
 when the user tries to insert a duplicate order. Otherwise, it will insert the order and prints a success message to
 the user.
+
+[[insert-class]]
+==== Structure of Insert feature
+
+The following diagrams shows the overview of the *InsertCommand* Class Diagram: +
+
+.Insert Class Diagram
+image::InsertClassDiagram.svg[]
+
+The above class diagram shows the structure of the *InsertCommand*
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
+
+[[insertparser-class]]
+==== Structure of InsertCommandParser Class
+.InsertCommandParser Class Diagram
+image::InsertParserClassDiagram.svg[]
+
+The above class diagram shows the structure of the *InsertCommandParser*
+and its associated classes and interfaces. It describes all the class dependencies of the *InsertCommandParser*
+class. Some methods and fields are not included because they are
+not extensively utilised in *InsertCommand*; such as public static fields and getter/setter methods.
+As shown in the diagram above, the *InsertParser* make use of methods from classes such as using the
+getValue method from the *ArgumentMultimap* class.
 
 [[insert-sequence]]
 ==== Interaction between objects when the *Insert Command* is executed
@@ -319,9 +317,9 @@ containing a String that indicates a successful insertion.
 //tag::list[]
 [[list]]
 === List feature
-This section describes the <<list-functionality, functionality>> , the <<list-structure, structure>>,
-<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution
-of the `list` command.
+In this section, the <<list-functionality,functionality>> of the `list` feature, the expected
+<<list-path, execution path>>, the <<list-structure, structure>> of the *ListCommand* class
+and the <<list-interactions, interactions>> between objects with the *ListCommand* object will be discussed.
 
 [[list-functionality]]
 ==== What is the List feature
@@ -329,22 +327,6 @@ List feature allows the user to see all the orders from both Delivery Orders and
 
 The user can enter `list` to display all the orders. Besides that, the user can also input `done` to display
 all delivered orders and `undone` to display all orders that are not delivered.
-
-[[list-structure]]
-==== Structure List feature
-The structure of the List Feature is as shown below:
-
-.List Class Diagram
-image::ListClassDiagram.svg[]
-
-The above class diagram shows the structure of the *ListCommand* and all its associated classes and interfaces.
-The *ListCommand* has dependencies on the *Model* class as it uses the two methods from it : +
-
-* updateFilteredOrderList
-
-* updateReturnFilteredOrderList
-
-There are other variables and strings not shown in this Class Diagrams as they are either static methods or variables.
 
 [[list-path]]
 ==== Path execution of the List Command
@@ -362,6 +344,22 @@ There are only three correct syntax available for `ListCommand`: +
 
 The code will check if the input is one of the three mentioned above. If the input is not one of the three, it will
 cause the code the throw an error message to the user.
+
+[[list-structure]]
+==== Structure List feature
+The structure of the List Feature is as shown below:
+
+.List Class Diagram
+image::ListClassDiagram.svg[]
+
+The above class diagram shows the structure of the *ListCommand* and all its associated classes and interfaces.
+The *ListCommand* has dependencies on the *Model* class as it uses the two methods from it : +
+
+* updateFilteredOrderList
+
+* updateReturnFilteredOrderList
+
+There are other variables and strings not shown in this Class Diagrams as they are either static methods or variables.
 
 [[list-interactions]]
 ==== Interaction between objects during execution of List Command
@@ -1498,8 +1496,10 @@ The order and return order list updates automatically as the JavaFX class *Obser
 //tag::show[]
 [[show]]
 === Show feature
-This section describes the <<show-functionality, functionality>> , the <<show-structure, structure>>,
-<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the `show` command.
+In this section, the <<show-functionality, functionality>> of the `show` feature,
+the expected <<show-path, execution path>>,
+the <<show-structure, structure>> of the *ShowCommand* class and the <<show-interactions, interactions>>
+between objects with the *ShowCommand* object will be discussed.
 
 [[show-functionality]]
 ==== What is the Show feature
@@ -1515,17 +1515,6 @@ There are a few ways in which the user can input to the command box to execute t
 * `show` `today`
 
 * `show` `DATE`
-
-[[show-structure]]
-==== Structure Show feature
-The structure of the `show` feature is as shown below:
-
-.Show Command Class Diagram
-image:ShowCommandClassDiagram.svg[]
-
-The above diagram shows all the methods and variables that the *ShowCommand* class is using when the command is
-executed. All the static methods and variables are not mentioned in this diagram. Furthermore, there are
-some methods and variables omitted from this diagram as it is irrelevant to the *ShowCommand* class.
 
 [[show-path]]
 ==== Path execution of the Show Command
@@ -1543,6 +1532,18 @@ If the number is two arguments, it will check if the dates provided are valid or
 It throws an error for the latter. The code will then ensure that the `START_DATE` is before the `END_DATE`.
 Once the input passes all the validations in the *ShowCommand* code,
 the command will then be executed and it prints a success message to the user.
+
+
+[[show-structure]]
+==== Structure Show feature
+The structure of the `show` feature is as shown below:
+
+.Show Command Class Diagram
+image:ShowCommandClassDiagram.svg[]
+
+The above diagram shows all the methods and variables that the *ShowCommand* class is using when the command is
+executed. All the static methods and variables are not mentioned in this diagram. Furthermore, there are
+some methods and variables omitted from this diagram as it is irrelevant to the *ShowCommand* class.
 
 [[show-interactions]]
 ==== Interaction between objects during execution of Show Command
@@ -1712,9 +1713,30 @@ Use case ends.
 ** 2a1. Delino shows an error message.
 +
 Use case ends.
+
+[none]
 * 2b. Delino detects the insertion of a duplicate order.
 [none]
 ** 2b1. Delino shows duplicate order message.
++
+Use case ends.
+
+[none]
+* 2c. Delino detects invalid <<command_prefix, `DELIVERY_TIMESTAMP`>>, i.e. order with
+the given <<command_prefix, `DELIVERY_TIMESTAMP`>> is before the delivery time stamp of the order.
++
+[none]
+** 2c1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2d. Delino detects missing parcel attributes.
++
+[none]
+** 2d1. Delino shows an error message to the user.
++
+Use case ends.
 //end::use_case_insert[]
 
 //@@author Exeexe93
@@ -2333,7 +2355,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Insert a minimum of 2 orders
 
-.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+.. Insert command format: `insert` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `CUSTOMER_NAME`>>
+<<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>> <<command_prefix, `EMAIL`>>
+ <<command_prefix, `DELIVERY_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `CASH_ON_DELIVERY`>>
+ <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>>
 
 .. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4` +
    Expected: Inserts an order with the above details to the list and displayed on the GUI

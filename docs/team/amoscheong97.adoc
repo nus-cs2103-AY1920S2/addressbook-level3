@@ -17,17 +17,8 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 * *Major enhancement*:
 ** Added `insert` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189[#189])
 *** What it does: Allows the user to insert new delivery order into the Order List. The user can add an order
-that contains the following attributes : +
-**** Transaction ID
-**** Name
-**** Phone
-**** Address
-**** Email
-**** Delivery Timestamp
-**** Warehouse location
-**** Cash on Delivery
-**** Comment (Optional)
-**** Type Of Item (Optional)
+that contains the following attributes : Transaction ID, Name of Customer, Phone, Email, Address, Delivery Timestamp,
+Warehouse location, Cash on Delivery, Comment (Optional) and Type of Item (Optional)
 *** Justification: This is an important feature and it is a must-have. It allows user to insert multiple orders into
 the list.
 ** Refactor the `list` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/239[#239])
