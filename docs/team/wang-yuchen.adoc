@@ -10,8 +10,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 Moreover, it reserves a place for different pages to be displayed. +
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-'''
-
+---
 .Sequence Diagram for Today Feature
 image::InitiateTodayPageSequenceDiagram.png[]
 
@@ -20,8 +19,8 @@ image::InitiateTodayPageSequenceDiagram.png[]
 The UI component passes through the Logic component to fetch `entryList` stored in FitHelper Model.
 `Today Page` is then fed with the data of `todayEntryList` and displays it in GUI list view.
 
-'''
 
+---
 .Activity Diagram for FitHelper Commit Feature
 image::CommitActivityDiagram.png[width = 20%]
 
@@ -30,8 +29,8 @@ image::CommitActivityDiagram.png[width = 20%]
 If user's intended command is "undoable", the `currentStatePointer` is moved backward in the `FitHelperStateList`, and the redundant states are purged.
 Otherwise the command is discarded.
 
-'''
 
+---
 .Sequence Diagram for Diary Feature
 image::DiarySequenceDiagram.png[]
 
@@ -39,7 +38,6 @@ image::DiarySequenceDiagram.png[]
 User input is taken in through UI, handled to LogicManager, converted to an `addDiary` command through the parsers, and finally added to the diary storage.
 
 ---
-
 .Sequence Diagram for Undo Feature
 image::UndoSequenceDiagram.png[]
 

@@ -534,7 +534,7 @@ The entries of food and sports of the given time period are displayed. Food entr
 Same as above.
 
 * *Upcoming list* +
-It displays all entries after the current date and time and within the referenced month. Only entries with status `Undone` will be shown. So if the referenced month is in the past, no entries will be shown. +
+It displays all entries of which start time is after the current date and time and within the referenced month. Only entries with status `Undone` will be shown. So if the referenced month is in the past, no entries will be shown. +
 Format for switching to timetable mode: `calendar m/tb [d/DATE]`
 
 .Calendar timetable mode

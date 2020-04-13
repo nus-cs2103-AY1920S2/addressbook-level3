@@ -27,7 +27,7 @@ public class SortCommand extends Command {
             + "by either calorie or time.\n"
             + "Parameters: ["
             + PREFIX_TYPE + "TYPE (default is both)] "
-            + PREFIX_SORT_BY + "SORT_BY (cal/time)"
+            + PREFIX_SORT_BY + "SORT_BY "
             + PREFIX_SORT_ORDER + "[ORDER (a/d, default is d)]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "sports "
