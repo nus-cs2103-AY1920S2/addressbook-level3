@@ -53,7 +53,6 @@ public class AverageWorkoutTimePerDay extends DataPoint {
      * @return
      */
     private Duration calculateAverageTimePerSession(Duration totalWorkoutDuration, long numberOfDays) {
-        // Round to nearest second
         return totalWorkoutDuration.dividedBy(numberOfDays);
     }
 

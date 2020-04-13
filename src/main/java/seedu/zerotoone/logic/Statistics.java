@@ -1,6 +1,5 @@
 package seedu.zerotoone.logic;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,9 @@ public class Statistics {
      */
     public static StatisticsData generate(List<CompletedWorkout> workouts, Optional<LocalDateTime> startDateRange,
                                           Optional<LocalDateTime> endDateRange) {
-
         LocalDateTime startDateTime = startDateRange.orElseGet(() -> Statistics.getEarliestWorkoutStartTime(workouts));
         LocalDateTime endDateTime = endDateRange.orElseGet(() -> Statistics.getLatestEndDate(workouts));
+
 
         workouts.removeIf(workout -> workout.getStartTime().isBefore(startDateTime));
         workouts.removeIf(workout -> workout.getEndTime().isAfter(endDateTime));
@@ -39,6 +38,7 @@ public class Statistics {
         if (workoutCount.equals(0)) {
             return new StatisticsData();
         }
+
         List<DataPoint> dataPoints = new ArrayList<>();
 
         WorkoutCountDataPoint workoutCountDataPoint = new WorkoutCountDataPoint();
@@ -51,22 +51,6 @@ public class Statistics {
         dataPoints.forEach(point -> point.calculate(workouts));
 
         return new StatisticsData(workouts, startDateTime, endDateTime, dataPoints);
-    }
-
-    /**
-     * Calculate average time spent on workout per session rounded to the nearest second.
-     *
-     * @param totalWorkoutDuration
-     * @param numberOfDays
-     * @return timeSpent
-     */
-    private static Duration calculateAverageTimePerSession(Duration totalWorkoutDuration, long numberOfDays) {
-        if (numberOfDays == 0) {
-            return Duration.ZERO;
-        }
-
-        // Round to nearest second
-        return totalWorkoutDuration.dividedBy(numberOfDays);
     }
 
     /**

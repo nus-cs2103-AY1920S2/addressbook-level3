@@ -1,0 +1,30 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package "Exercise Model" <<Rectangle>> {
+    Interface ReadOnlyExerciseList <<Interface>>
+
+    Class ExerciseList
+    Class UniqueExerciseList
+    Class Exercise
+    Class ExerciseName
+    Class ExerciseSet
+    Class NumReps
+    Class Weight
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .down.> ReadOnlyExerciseList
+
+ExerciseList -left-|> ReadOnlyExerciseList
+ExerciseList *--> UniqueExerciseList
+UniqueExerciseList *--> "*" Exercise
+Exercise *--> "1" ExerciseName
+Exercise *--> "*" ExerciseSet
+ExerciseSet *--> "1" NumReps
+ExerciseSet *--> "1" Weight
+
+@enduml

@@ -7,20 +7,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.AboutCommand;
-import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.workout.CreateCommand;
 import seedu.zerotoone.logic.commands.workout.DeleteCommand;
 import seedu.zerotoone.logic.commands.workout.EditCommand;
 import seedu.zerotoone.logic.commands.workout.FindCommand;
 import seedu.zerotoone.logic.commands.workout.ListCommand;
+import seedu.zerotoone.logic.commands.workout.WorkoutCommand;
 import seedu.zerotoone.logic.commands.workout.exercise.WorkoutExerciseCommand;
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.workout.exercise.WorkoutExerciseCommandParser;
 
 /**
  * Parses user input.
  */
-public class WorkoutCommandParser {
+public class WorkoutCommandParser implements Parser<WorkoutCommand> {
 
     /**
      * Used for initial separation of command word and args.
@@ -34,7 +35,7 @@ public class WorkoutCommandParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parse(String input) throws ParseException {
+    public WorkoutCommand parse(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AboutCommand.MESSAGE_USAGE));

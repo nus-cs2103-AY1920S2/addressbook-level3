@@ -1,0 +1,16 @@
+@startuml
+start
+:User goes to the Exercise Pane;
+
+if (Is Exercise Present?) then ([yes])
+else ([else])
+    :User creates a new exercise;
+endif
+    :User gets Exercise ID from
+    the list that is shown;
+    :User gets the set ID from the
+    desired exercise;
+    :User edits the set
+    in the exercise;
+stop
+@enduml

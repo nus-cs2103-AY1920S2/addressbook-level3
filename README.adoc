@@ -16,7 +16,7 @@ endif::[]
 == Description
 Want to work out at home but don't know how to do so? ZeroToOne is here to help you! Our application is extremely simple and easy to use.
 Its command-line feature enables you to start your workout by just typing a simple command. Being a desktop application also means
-that you can utilise the large screen of your computer for workout completedExercises!
+that you can utilise the large screen of your computer for your personal workouts!
 
 Start using ZeroToOne *today* to make your fitness level go from zero to one!
 

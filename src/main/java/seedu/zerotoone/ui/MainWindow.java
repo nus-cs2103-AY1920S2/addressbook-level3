@@ -2,6 +2,7 @@ package seedu.zerotoone.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TabPane;
@@ -10,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -22,6 +24,7 @@ import seedu.zerotoone.ui.views.about.AboutDisplay;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
+import seedu.zerotoone.ui.views.log.StatisticsWindow;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
 import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
 
@@ -45,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsWindow statisticsWindow;
     private AboutDisplay aboutDisplay;
+    private CommandBox commandBox;
 
     @FXML
     private VBox tabsVBox;
@@ -114,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // Focus on command box
@@ -171,7 +175,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         logic.showdownTimer();
         statisticsWindow.hide();
-        primaryStage.hide();
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> primaryStage.hide());
+        pause.play();
     }
 
     /**

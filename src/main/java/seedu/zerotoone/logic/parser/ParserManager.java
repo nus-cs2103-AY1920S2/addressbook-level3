@@ -32,7 +32,7 @@ import seedu.zerotoone.ui.util.ViewType;
 /**
  * Parses user input.
  */
-public class ParserManager {
+public class ParserManager implements Parser<Command> {
 
     /**
      * Used for initial separation of command word and args.
