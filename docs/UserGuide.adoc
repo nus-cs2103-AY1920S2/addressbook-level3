@@ -67,7 +67,7 @@ Denotes a warning for something critical.
 .  Copy the file to the folder you want to use as the home folder for your notes.
 .  Double-click the file to start the app. The Application should start in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help modal.
 
 == Features
 
@@ -152,7 +152,7 @@ image::demo/Help2.png[]
 
 [TIP]
 ====
-* While the help window is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
+* While the help modal is open, you can hold the kbd:[Up] and kbd:[Down] keys to scroll through it's contents. This is
 a more efficient solution than using your mouse!
 ====
 

@@ -20,12 +20,12 @@ import javafx.stage.Stage;
 /**
  * Controller for a help page
  */
-public class HelpWindow extends ViewPart<Stage> {
+public class HelpModalView extends ViewPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-2.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
-    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(HelpModalView.class);
     private static final String FXML = "HelpWindow.fxml";
 
     private static Stage stage;
@@ -40,11 +40,11 @@ public class HelpWindow extends ViewPart<Stage> {
     private Label helpMessage;
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new help modal.
      *
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param root Stage to use as the root of the help modal.
      */
-    public HelpWindow(Stage root) {
+    public HelpModalView(Stage root) {
         super(FXML, root);
 
         requireAllNonNull(root);
@@ -55,9 +55,9 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new help modal.
      */
-    public HelpWindow() {
+    public HelpModalView() {
         this(new Stage());
     }
 
@@ -73,7 +73,7 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the help modal.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -97,21 +97,21 @@ public class HelpWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the help modal is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the help modal.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the help modal.
      */
     public void focus() {
         getRoot().requestFocus();

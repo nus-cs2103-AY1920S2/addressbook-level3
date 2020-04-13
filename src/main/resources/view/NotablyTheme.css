@@ -407,7 +407,7 @@
     -fx-font-family: "Roboto Medium";
 }
 
-.helpWindow {
+.helpModal {
     -fx-background-color: white;
 }
 

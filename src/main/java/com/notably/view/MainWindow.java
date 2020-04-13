@@ -35,7 +35,7 @@ public class MainWindow extends ViewPart<Stage> {
     private Logic logic;
     private Model model;
 
-    private HelpWindow helpWindow;
+    private HelpModalView helpModalView;
     private SideBarTreeView sidebarTreeView;
     private BlockContentView blockContentView;
     private SuggestionsWindowView suggestionsWindowView;
@@ -111,13 +111,13 @@ public class MainWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Creates and returns the HelpWindow component. In the process, sets a listener to ensure
+     * Creates and returns the HelpModalView component. In the process, sets a listener to ensure
      * that the Help Window is opened when activated.
      *
      * @param model app's model.
      */
     private void initializeHelpWindow(Model model) {
-        helpWindow = new HelpWindow();
+        helpModalView = new HelpModalView();
 
         model.helpOpenProperty().addListener((Observable observable) -> {
             if (model.isHelpOpen()) {
@@ -128,14 +128,14 @@ public class MainWindow extends ViewPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens the help modal or focuses on it if it's already opened.
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
+        if (!helpModalView.isShowing()) {
+            helpModalView.show();
         } else {
-            helpWindow.focus();
+            helpModalView.focus();
         }
     }
 
@@ -151,7 +151,7 @@ public class MainWindow extends ViewPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
+        helpModalView.hide();
         primaryStage.hide();
     }
 
