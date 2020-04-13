@@ -175,100 +175,222 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::aaron-choo[]
+
 === Command History --- Aaron Choo
 
-This feature allows users to save their previously entered commands and to retrieve them using the kbd:[Up] and kbd:[Down] arrow keys, similar to what most modern CLIs offer.
+This feature serves to improve the user experience by allowing users to browse and retrieve their previously entered commands using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
 
 ==== Implementation
 
-This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model `CommandHistoryState` and the storage `CommandHistoryStorage`. The behaviour has been implemented to mimic most modern CLIs, namely:
+This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model class `CommandHistoryState` and the storage utility class `StorageReaderWriter`.
+
+===== Behaviour of this feature
+
+The behaviour of this feature has been implemented to mimic most modern CLIs, namely:
 
 . The empty string, `""`, should not be stored in the history
 . Commands that are similar to the most recently stored command in the history should not be stored (ie. duplicate commands will not be stored)
 . All other user input, be it valid or invalid commands, should be stored
 . Number of commands should only be stored up to a well-defined maximum number (100 in this case, for performance reasons discussed in the later section)
-. Pressing the kbd:[Up] arrow key should browse backwards towards the least recently entered commands
-. Pressing the kbd:[Down] arrow key should browse forwards towards the most recently entered commands
+. Pressing the kbd:[&uarr;] arrow key should browse backwards towards the least recently entered commands
+. Pressing the kbd:[&darr;] arrow key should browse forwards towards the most recently entered commands
 . The caret position should be at the end of the command string when browsing the history
 . Persistent storage of the command history should be supported (ie. a user can quit the app and come back to the same history as his previous usage of the app)
 
-Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[Up] and kbd:[Down] arrow keys must occur in the `CommandBox` class found in the UI, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
+===== How this feature works
 
+Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[&uarr;] and kbd:[&darr;] arrow keys must occur in the JavaFX's `TextField` class found in `CommandBox`, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
+
+.Class Diagram for Command History
 image::CommandHistoryClassDiagram.png[]
 
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `list-c` into FitBiz:
+In the following sequence diagram, we trace the execution of the classes involved in the class diagram given above for when the user decides to enter the command `list-c` into FitBiz:
 
+.Sequence Diagram for Saving a User Entered Command
 image::CommandHistorySequenceDiagram.png[]
+
+`CommandBox` simply passes the user input text to `CommandHistory`, which adds this text to the internal list within `CommandHistoryState`, retrieves the full internal list, converts it to a text-based format, and finally asks `FileUtil` to save the text to storage.
+
+===== How the Command History is persisted on storage
+
+Each command that the user enters is essentially just a line of text. We simply use the utility class `FileUtil` to write these lines of text (where each command represents a new line of text) to a text-based file `command.txt`.
+
+Whenever FitBiz first launches, we will then try to open and read from this same `command.txt` file. If no such file exists, an empty new file will be created for use in the future.
 
 ==== Design Considerations
 
-In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the command history. We currently use an `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`.
+In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the user's command history. We currently use the Java native `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`:
 
-[options='header']
+[options='header', cols="20%h,40%,40%"]
 |====================
-| Data Structure | Pros and Cons
-| Array list |
-*Pros*: Much easier to manipulate using indices
+| Considerations | ArrayList (chosen) | LinkedList
+| Time Complexity | Inserting to the list is O(1).
 
-*Cons*: Slower performance when list has the maximum number of commands stored and has to shift all indices back by 1 when removing the oldest command
-| Linked list |
-*Pros*: Fast removal of the oldest command
+Removal of the first item is O(n).
 
-*Cons*: Harder to implement as pointers have to be manipulated
+Retrieval of any item is always O(1). | Inserting to the list is O(1).
+
+Removal of the first/last item is O(1).
+
+Retrieval of an item that is not the first/last item will require traversal of the list and will be more expensive than O(1).
+| Ease of Implementation | Indices are concrete numbers and thus, are much easier to manipulate than pointers.
+
+The use of indices are enough to support the retrieval operations needed by this feature and is efficient since retrieval is always O(1).
+| Pointers are arguably harder to keep track of and might be more difficult to implement.
+
+A custom linked list (as opposed to just using the native Java `LinkedList`) may have to be developed in order to support the retrieval operations that this feature requires while still keeping the retrieval time complexity to O(1).
 |====================
 
-In the interest of saving developement time and better code readability, we decided to use an array list to store the commands. Since we have capped the maximum size of history to be 100, there is a need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a 100-item array list will require that all 99 remaining items in the list be reassigned to new indices. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity of 100 items is reached and this happens.
+In the interest of saving developement time and better code readability, we decided to use an `ArrayList` to store the commands. Since we have decided to cap the maximum size of the list, should this limit be exceeded, we would then need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a n-item `ArrayList` will require that all remaining items in the list be reassigned to new indices, and thus incur an O(n) time operation. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity is reached.
 
-Moreover, the implementation of `CommandHistoryStorage#saveCommandHistory` will rewrite the whole data file in storage (as opposed to appending the file with the newly entered command). This decision was made to protect the integrity of the storage file, making sure that it always has the exact same data as what is stored in the `CommandHistory` model. As such, this rewriting of the file during the maximum capacity of the array list will be the bigger bottleneck in terms of performance, as opposed to the reassignment of indices.
+Moreover, there is also a need to overwrite the whole storage file `command.txt` whenever this maximum size is reached. Before this maximum size is reached, we can easily append to the existing file the new command that the user has just entered. However, after this limit is exceeded, we must remove the first line stored in `command.txt`, shift all remaining lines up, and then append that new line. Hard disk operations like writing to storage is many order of magnitudes slower than memory operations like the reassignment of indices as discussed above. Since the much larger bottleneck is in the storage, this effectively nullifies the time complexity comparison that a `LinkedList` is faster than an `ArrayList` in removing the first item.
 
-As such, the choice of 100 as the maximum size of the command history is thus chosen. This number must be small enough to not cause the app to lag when the whole history is being written to storage, as well as be big enough to satisfy the user. Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
+In choosing the maximum size of the command history, we have to take note of some important caveats:
 
-=== Command Autocompletion --- Aaron Choo
+. This number must be small enough to not cause the app to lag when the whole history is being written to storage
+. This number must be big enough to satisfy the user
 
-Similar to the previously mentioned "Command History" feature, this feature improves the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
+Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
+=== Command Autocomplete --- Aaron Choo
+
+Similar to the previously mentioned <<Command History --- Aaron Choo, Command History>> feature, this feature also serves to improve the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
+
+[[command-history-implementation]]
 ==== Implementation
 
-This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are. Unambiguous commands are those that can be uniquely identified by the sequence of letters that the user has entered. Ambiguous commands are those that cannot be identified by the said sequence of letters. For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and presses kbd:[Tab], we say that this is an unambiguous command since clearly only `edit-c` can be the correct command. If instead, the user enters `a` and presses kbd:[Tab], we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices. Again, let us start by defining the behaviour (which also has been implemented to mimic most modern CLIs):
+This feature is facilitated by the logic found in the `Autocomplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are:
 
-. The caret position should be at the end of the line after any successful autocompletion of commands
-. Any unambiguous commands should be completed upon pressing of the kbd:[Tab] key
+[options='header']
+|===
+| Unambiguous Commands | Ambiguous Commands
+| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command using the sequence of letters that the user has entered
+|===
+
+[TIP]
+For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and tries to autocomplete the command using kbd:[Tab], we say that this is an unambiguous command since clearly, `edit-c` can be uniquely identified by `e`. If instead, the user enters `a` and presses kbd:[Tab] to autocomplete the command, we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices.
+
+[[command-history-behaviour]]
+===== Behaviour of this feature
+
+Again, this feature has also been implemented to mimic most modern CLIs, namely:
+
+. Any unambiguous commands should be immediately completed upon pressing of the kbd:[Tab] key
 . Any ambiguous commands should be completed up till the longest common prefix of all similar commands
-** Using the ambiguous command example in the introduction above, when the user enters `a` and presses kbd:[Tab], the autocompletion should return `add-` to the user
+** Using the ambiguous command example in the introduction above, when the user enters `a` and presses kbd:[Tab], the autocompletion should return `add-` (the longest common prefix of `add-e` and `add-c`) to the user
 . A list of all similar commands should be presented to the user should he try to autocomplete an ambiguous command
+. [[command-history-behaviour-4]]Pressing kbd:[Tab] when the command has already been completed will bring the user's caret to the next prefix delimitter (`/` in our case) with wraparound
 
-A limitation of the current design is that we are only able to autocomplete _commands_, and not other fields/parameters like names and addresses that have been used by the user before. As such, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to disable this feature (ie. when the user has already completed the command and has moved on to entering the parameters). As such, the following code snippet is used in `AutoComplete#execute` to stop trying to autocomplete if white spaces has been detected:
+===== How the Trie data structure works
+
+Since Java does not provide a native Trie data structure, we had to implement our own version of it. Moreover, Java also does not allow methods with multiple return values, and thus, we had to create a wrapper class `SimilarWordsResult` to store the multiple results returned by `Trie#listAllSimilarWords`. In this section, we shall take a more in depth look at the overall implementation of this data structure.
+
+We first look at the `Node` class provided in the same package which `Trie` relies on. Each `Node` object should contain the following attributes:
+
+* The parent node (`null` if the node is the root of the Trie)
+* The current letter it represents
+* The children nodes (if any)
+* A boolean to know whether that node represents a completed word
+
+Since each node stores with it their parent node pointer, we can easily construct the word represented by a node by recursively building the word up letter by letter until the root is reached. This is implemented in `Node#constructWord`, as shown here:
 
 ```java
-if (currCommand.contains(WHITE_SPACE_STRING)) {
-      return;
+public String constructWord() {
+      if (isRoot()) {
+            return EMPTY_STRING;
+      }
+      return parent.constructWord() + getLetter();
 }
 ```
 
-Similarly, since this feature relies heavily on the UI `CommandBox`, we have decided to let `CommandBox` interact with `AutoComplete` directly. `AutoComplete` makes use of the `Trie` data structure which we will discuss in the next section. As such, the following simplified class diagram shows exactly which classes are responsible for this feature:
+Now, let us discuss about how we implemented `Trie` to support the <<command-history-behaviour, behaviours discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns in 3 distinct cases:
 
+. If the argument `word` matches no words currently in the `Trie`: `null`
+. If the argument `word` is unambiguous: the `Node` whose constructed word (using `Node#constructWord`) is the longest word contained in `Trie` that can be formed from `word`
+. If the argument `word` is ambiguous: the `Node` whose constructed word is the longest common prefix of all words similar to `word` contained in `Trie`
+
+[TIP]
+Refer to <<autocomplete-activity-diagram>> given in the next section for the complete sequence of the key decisions.
+
+Let us move on to `Trie#listAllSimilarWords` which makes use of the `Node` found by `Trie#getLongestPrefixNode`. Cases 1 and 2 discussed above are relatively trivial and we shall not discuss about how they are handled in `Trie#listAllSimilarWords`. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
+
+```java
+Node subtrie = getLongestPrefixNode(word);
+ArrayList<String> similarWords = new ArrayList<>();
+
+Stack<Node> stack = new Stack<>();
+
+stack.push(subtrie);
+
+while (!stack.isEmpty()) {
+      Node current = stack.pop();
+      if (current.isWordEnd()) {
+            similarWords.add(current.constructWord());
+      } else {
+            stack.addAll(current.getChildren().values());
+      }
+}
+```
+
+[NOTE]
+The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach is arbitrary, both should work as expected.
+
+===== How this feature works
+
+Similar to <<Command History --- Aaron Choo, Command History>>, this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `Autocomplete` directly. A simplified class diagram of the classes involved is shown here:
+
+.Simplified Class Diagram for Autocomplete
 image::CommandAutocompleteClassDiagram.png[]
+
+In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as its prefixes):
+
+.Simplified Sequence Diagram for Command Autocomplete
+image::CommandAutocompleteSequenceDiagram.png[]
+
+`CommandBox` retrieves the user input command and caret position from the `TextField`, and calls the `execute` method from `Autocomplete` with these information. This `execute` method (shown and explained in full in the next sequence diagram) creates an `AutocompleteResult` object and returns this to `CommandBox`, which retrieves all the information required and sets the `TextField` and `ResultDisplay` accordingly.
+
+.Sequence Diagram for the Autocomplete#execute Method
+image::CommandAutocompleteSequenceDiagramRef.png[]
+
+Within the `execute` method, `Autocomplete` calls the `listAllSimilarWords` method from `Trie` with the user input text. `Trie`, which would already have all the commands stored, finds the longest prefix node, calls the `constructWord` method from this node, and checks if this node represents the end of a completed word. Since it is indeed a completed word, `Trie` immediately creates a `SimilarWordsResult` object to store these information and returns it to `Autocomplete`. Then, `Autocomplete` retrieves these information, realises that it is dealing with an unambiguous command, and constructs the corresponding prefixes. It then creates a `AutocompleteResult` object to store all the information that `CommandBox` requires, and finally returns this object to `CommandBox`.
+
+Lastly, in order to explain the key decisions that this feature does at each step starting from the point where the user presses kbd:[Tab], we have provided the following activity diagram:
+
+[[autocomplete-activity-diagram]]
+.Activity Diagram for the Autocomplete Logic
+image::CommandAutocompleteActivityDiagram.png[]
+
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to allow users to press kbd:[Tab] to get to the next prefix (<<command-history-behaviour-4, behaviour 4>>): by simply checking for the presence of white spaces from the trimmed user input.
 
 ==== Design Considerations
 
-For the implementation of this feature, we have decided to use a Trie data structure. Since no such data structure exists natively in Java, we had to implement our own version of it. Of course, we have also considered other much simpler alternatives like simply storing all available commands in a `List`. A quick summary of the pros and cons is given here:
+As discussed in the <<command-history-implementation, implementation section>>, we have decided to use a Trie data structure. Of course, we have also considered other much simpler alternatives like simply storing all available commands in a native Java `List`. A quick summary of the pros and cons is given here:
 
-[options='header']
-|====================
-| Data Structure | Pros and Cons
-| Trie |
-*Pros*: Searching is relatively inexpensive, and handles behaviour number 3 discussed above efficiently
+[options='header', cols="20%h,40%,40%"]
+|===
+| Considerations | Trie (chosen) | List
+| Time Complexity | Searching if a word exists is O(n), where n is the number of letters in the word to search for.
 
-*Cons*: Harder initial development of this data structure
-| List |
-*Pros*: Fast initial development
+Finding the longest common prefix of an ambiguous command is O(n), where n is the number of letters in the original word.
+| Searching if a word exists is O(nm), where n is the number of letters in the word to search for, and m is the number of words in the list.
 
-*Cons*: Searching is computationally expensive; does not scale well with the app as the list of commands grow
-|====================
+Finding the longest common prefix of an ambiguous command is not linear with n and m.
+| Ease of Implementation | Initial development might be more difficult; developers might not be familiar with this data structure as it is not as common.
 
-As such, the choice of implementing our own Trie data structure is obvious. Exchanging some initial development time for future scalability of our app will ensure that we, or future developers, do not end up wasting time refactoring what could have been done in the first place. Moreover, as mentioned, the Trie data structure is effective and computationally inexpensive in finding the longest common prefix of all ambiguous commands. The same cannot be said when using just a list.
+Custom class means that additional, custom logic can be easily added.
+| Much faster initial development.
 
-Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that future developers would want to add.
+Custom logic cannot be easily added.
+|===
+
+As such, the choice of implementing our own Trie data structure is obvious. As this app grows bigger in the forseeable future, the number of commands as well as the number of things we would want to autocomplete would increase. Overall, we felt that the Trie data structure will scale much better as compared to a List.
+
+Exchanging some initial development time for future scalability of our app will ensure that we, or future developers, do not end up wasting time refactoring what could have been done in the first place. Moreover, the Trie data structure is much more effective and computationally inexpensive in finding the longest common prefix of all ambiguous commands. The same cannot be said when using a List.
+
+Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that we, or future developers would want to add. For example, future version of this application might want to also include the autocompletion of frequently used parameters by the user.
+
+// end::aaron-choo[]
 
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
@@ -539,10 +661,12 @@ The personal best feature is facilitated by the model `PersonalBest`, and the lo
 
 A simplified class diagram of the classes involved in this feature is given below:
 
+.Simplified Class Diagram for Personal Best
 image::PersonalBestClassDiagram.png[]
 
 In the following sequence diagram, we trace the execution for when the user decides to enter the command `view-c` into FitBiz:
 
+.Sequence Diagram of the View#execute Method for Personal Best
 image::PersonalBestSequenceDiagram.png[]
 
 The explanation for the sequence diagram is as follows: when the user inputs `view-c`, `add-e`, `edit-c` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
@@ -576,6 +700,7 @@ This feature allows users to see the progress graph of the current client in vie
 
 The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
 
+.Simplified Class Diagram for Graph
 image::GraphClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
@@ -586,6 +711,7 @@ These attributes are bounded by these characteristics:
 
 Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `graph` command:
 
+.Activity Diagram for Graph Command
 image::GraphCommandActivityDiagram.png[]
 
 The behaviour of this feature determines the graph plotted of the exercise specified based on these considerations:
@@ -597,6 +723,7 @@ The behaviour of this feature determines the graph plotted of the exercise speci
 
 The flow of the program is illustrated using the sequence diagram below:
 
+.Sequence Diagram for Graph Command
 image::GraphSequenceDiagram.png[]
 
 The explanation is as follows: when the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
@@ -620,6 +747,7 @@ We decided to use the approach of abstracting the axis types away into `AxisType
 
 As our axis values can only be `REPS`, `WEIGHT` or `NA`, we can check for each case using the switch case method instead of checking for equality using raw types. This is also much more efficient than using multiple if-else statements. For example, in the code snippet below, the method `fillSeries()` uses switch case statements to add data values depending on the `AxisType`.
 
+.Code snippet
 [source, java]
 ----
     private void fillSeries() {
@@ -645,7 +773,12 @@ By considering the above two factors, despite having to put in the extra effort 
 This feature allows users to filter the list of clients by specifying the `Tag` or `Sport` of the clients they want to view.
 
 ==== Implementation
-This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `TagAndSportContainsKeywordsPredicate` contains 2 booleans:
+This filtering mechanism is facilitated by `TagAndSportContainsKeywordsPredicate`, that implements `Predicate<Client>` which is a wrapper class for a boolean. `FilterCommand` is associated with `Model` is responsible for calling `Model#updateFilteredClientList` based on `TagAndSportContainsKeywordsPredicate`. `TagAndSportContainsKeywordsPredicate` will call `test` on `Client` to check if the clients 'Tag' and `Sport` contains all the keyword. the relations between these classes are shown in the class diagram below.
+
+image::FilterClassDiagram.png[]
+
+To further elaborate,
+`TagAndSportContainsKeywordsPredicate` contains 2 booleans:
 
 1. `hasTag`: evaluates if the client has all the `Tag` specified
 2. `hasSport`: evaluates if the client has all the `Sport` specified
@@ -658,23 +791,17 @@ image::FilterSequenceDiagram.png[]
 
 ==== Design Considerations
 [options='header']
+.Table of Design Considerations
 |====================
-| Considerations | Pros and Cons
-|Check if a client contains `Tag` and `Sport` keywords seperately before combining the results|
-*Pros*: Code will be neater for debugging and adding more parameters to filter will be easier
-
-*Cons*: Parts of the code will be duplicated
-
-|Combine all keywords and check if all keywords exist in the combined list of `Tag` and `Sport` |
-*Pros*: Lesser duplicated codes and simpler logic
-
-*Cons*: Harder to fix errors or add new attributes to filter
+| |Using separate booleans to check for `Tag` and `Sport` keywords  (Chosen) | Using one boolean to check for all keywords
+| Ease of Implementation | Checks for client's `Tags` and `Sports` containing keywords can be done separately ensuring that individual results are correct before combining them |Simpler logic but errors are more difficult to pinpoint to either `TAG` or `SPORT`
+| Ease of Expanding Feature | Easier to add new parameters to filter since a separate check will be done before combining with the result of previous checks | Boolean conditions can get very complex and logical error will be prone to occur
 
 |====================
 
 We decided to use the first approach of checking if the client contains `Tag` specified and `Sport` specified separately.
 
-Firstly, by separating the checks for each attributes, a correct implementation of checking `Tag` against the keywords will allow us to easily duplicate the check to be done for `Sport`. This makes the code easier to debug as we can simply check the hasAttribute boolean to see if it gives the correct value.
+Firstly, by separating the checks for each attributes, a correct implementation of checking `Tag` against the keywords will allow us to easily duplicate the logic to be done for `Sport`. This makes the code easier to debug as we can simply check the hasAttribute boolean to see if it gives the correct value.
 
 Secondly, separating the checks for each attributes will allow us to add attributes of different types stored in different data structure easier. We could simply add another check on the attribute against the keyword specified then do a logical addition of the result against the others.
 
@@ -694,24 +821,18 @@ image::ViewSequenceDiagram.png[]
 
 [options='header']
 |====================
-| Considerations | Pros and Cons
-|View client using client's `INDEX`|
-*Pros*: Every client has a specific `INDEX`
-
-*Cons*: User has to look through the list for client's `INDEX` to view his information
-
-|View client using client's name|
-*Pros*: User can view information by knowing the name
-
-*Cons*: Clients could have same names and thus user will have to use their `INDEX` or other information to specify whcih client to view
+| | Choose client to view based on `INDEX` (Chosen)| Choose client to view based on `NAME`
+| Adhering to Single Responsibilities Principle| `view-c` only has to retrieve and display the client based on `INDEX` entered
+| `view-c` has to retrieve clients with the same name and use `INDEX` to specify the client to view
+|Ease of Implementation | Easier to implement as `MODEL` only needs to be accessed once | Harder to implement as `view-c` needs to return a list of clients with the same name before using `INDEX` to specify the client
 
 |====================
 
 We decided to use the first approach of using the client's `INDEX` to view his information.
 
-Firstly, as the client's `INDEX` is unique, there will not be conflicts as to which client's information should be displayed, making `view-c` less complex and only responsible for retrieving and displaying the client's information.
+Firstly, as the client's `INDEX` is unique, `view-c` will only be responsible for retrieving and displaying the client's information and will not need to resolve clients with the same names.
 
-Secondly, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
+Secondly, for clients with the same name, `INDEX` qill be used to specify the client to be view. This causes extra work for the implementation. Furthermore, in cases where users manage many clients and some with same names, there are functions like find and filter which allow users to scope the clients list and easily find the desired client's `INDEX`.
 
 Therefore, viewing a client by his `INDEX` minimises the responsibility of the command and will not need to resolve conflicting clients and is the most ideal.
 
