@@ -31,7 +31,7 @@ FitHelper mainly serves as a fitness log book where users can *mark down their d
 .  Copy the file to the folder you want to use as the home folder for your Fitness Helper.
 Please ensure that writing or reading data inside the home folder that you choose
 does **not** require administrator permission.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. (For Mac, the window size can be enlarged but the zoomed out window version is not functioning currently. So, window size should be kept. For Windows, the window size cannot be changed.)
 +
 .A snapshot of the app
 image::Ui.png[width="790"]
