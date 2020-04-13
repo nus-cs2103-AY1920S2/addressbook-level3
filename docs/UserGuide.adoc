@@ -132,9 +132,11 @@ The application will close gracefully, and all data in the current usage complet
 Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you soon for your next workout!
 ```
 
+//tag::session[]
+
 === Starting A Workout Session
 
-Are you ready to start working out now? To begin a new workout completedExercise, simply enter the following command into the command box:
+Are you ready to start working out now? To begin a new workout session, simply enter the following command into the command box:
 
 ```
 start WORKOUT_ID
@@ -148,7 +150,7 @@ start 1
 .Started Workout
 image::user-guide/UgStartWorkout.png[]
 
-The User Interface will automatically switch to the “Home” tab. ZeroToOne will start displaying every exercise set in your workout, guiding you through set by set in your workout.
+The User Interface will automatically switch to the “Home” tab. ZeroToOne will display upcoming sets in your workout, guiding you through set by set in your workout.
 
 ```
 NOTE:
@@ -156,8 +158,8 @@ NOTE:
 * WORKOUT_ID cannot be null and should be a value from the command `workout list`.
 ```
 
-=== Completing An Exercise Set
-Completed your exercise set? To mark the current exercise set as completed and move on to the next set, simply enter this command into the command box:
+=== Completing a Set
+Completed your exercise set? To mark the current exercise set as complete and move on to the next set, simply enter this command into the command box:
 
 ```
 done
@@ -166,10 +168,15 @@ done
 .Done Set
 image::user-guide/UgDoneSet.png[]
 
-The background color of the completed set will turn green in a few seconds, indicating that the set is successfully completed. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout completedExercise after this command is executed.
+The background color of the completed set will turn green, indicating that the set is successfully completed. ZeroToOne will then progress your workout forward, indicating your next set.
+Additionally, the timer will reset to 00:00 and begin counting your rest for you.
+
+After however many seconds you wish to rest, you may continue on to your next set.
+
+If you were already on your last set, ZeroToOne will automatically stop the workout session after this command is executed and save your session to the `Log`.
 
 === Skipping An Exercise Set
-Unable to complete your current exercise set? No worries, it happens to everyone. To skip the current exercise set, simply enter this command into the command box:
+Unable to complete your current exercise set? No worries, it happens to the best of us. To skip the current exercise set, simply enter this command into the command box:
 
 ```
 skip
@@ -178,21 +185,25 @@ skip
 .Skipped Set
 image::user-guide/UgSkippedSet.png[]
 
-The background color of the completed set will turn red for a few seconds, indicating that the set is incomplete. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout completedExercise after this command is executed.
+The background color of the completed set will turn red, indicating that the set is incomplete.
+
+This action is otherwise identical to the `done` command.
 
 === Stopping A Workout Session
-Need to stop the workout completedExercise prematurely? Simply enter this command into the command box:
+Need to stop the workout session prematurely? Simply enter this command into the command box:
 
 ```
 stop
 ```
 
-ZeroToOne will stop the workout that is currently in progress, and will stop tracking the progress of this workout. The user interface will automatically return to the main screen. Any incomplete sets will be logged by ZeroToOne. If stopping a workout completedExercise is successful, you should see the following in the feedback display:
+ZeroToOne will stop the workout that is currently in progress, and save the session into the `Log`. All remaining sets are marked as incomplete. The user interface will automatically return to the main screen. If stopping a workout session is successful, you should see the following in the feedback display with your workout name and time:
 
 
 ```
-Stopped completedExercise: Bench Press at 1 Apr 2020, 10:32:10 AM
+Stopped session: Bench Press at 1 Apr 2020, 10:32:10 AM
 ```
+
+//end::session[]
 
 === Managing Your Exercises
 The commands in this section allows you to manage your customised exercises in ZeroToOne. These exercises will eventually be the building blocks of a workout.
