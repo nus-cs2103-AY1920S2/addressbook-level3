@@ -197,12 +197,17 @@ This is a conscious design choice as elaborated in the next section.
 
 ---
 
-The operations handling these actions are found in OngoingSession:
+The operations handling these actions are found in `OngoingWorkout`:
 
 * `OngoingWorkout#skip()/OngoingWorkout#done()` -- removes and returns the next set and updates queue of remaining sets.
 * `OngoingWorkout#finish()` -- creates and returns an immutable `CompletedWorkout` object for saving and logging.
 
 Further operations are exposed in the `Model` interface as `Model#startSession()` and `Model#stopSession()`.
+
+.Session related models
+image::developer-guide/session/SessionModel.png[]
+
+The above class diagram briefly depicts how the session related models (in `OngoingWorkout`) interact with surrounding classes.
 
 ---
 
