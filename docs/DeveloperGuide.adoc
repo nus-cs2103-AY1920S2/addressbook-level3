@@ -732,7 +732,7 @@ Certain approaches have some certain pros and cons. It depends on how the user w
 === Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Sim Sheng Xue]
 ==== Implementation
 
-
+image::FinanceDiagram.png[]
 Finance type `Miscellaneous` or `m` add command will add a `Finance` with a given Name (description) from the user.
 The amount is sign sensitive, meaning miscellaneous can take in a positive amount or a negative amount corresponding to
 earning or expense depending on the user.
