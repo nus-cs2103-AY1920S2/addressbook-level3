@@ -17,7 +17,7 @@ endif::[]
 By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 // tag::introduction[]
-== Introduction
+== Introduction (Jade Tay)
 
 Welcome to *MODdy*!
 
@@ -36,7 +36,7 @@ Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company 
 // end::introduction[]
 
 // tag::about[]
-== About the User Guide
+== About the User Guide (Jade Tay)
 This user guide aims to provide you with essential information on how to use MODdy.
 
 With the following features of *MODdy* listed below, we hope to provide you a seamless academic management experience in NUS.
@@ -47,6 +47,7 @@ With the following features of *MODdy* listed below, we hope to provide you a se
 - Editing profile, module or task
 - Showing profile, module, semester, course or focus area
 - Deleting profile, module, task or grade
+- Calculating Cumulative Average Point (CAP)
 - Returning to homepage
 - Resetting *MODdy*
 - Exiting *MODdy*
@@ -65,7 +66,7 @@ TIP: This symbol indicates tips provided by us.
 // end::about[]
 
 // tag::quickstart[]
-== Quick Start
+== Quick Start (Ong Wan Xuan)
 
 This section provides you with steps on how you can install *MODdy* on your computer and how to get started with *MODdy*.
 
@@ -104,7 +105,7 @@ The following 11 sections provides you a deeper understanding on how to use the 
 
 // tag::help[]
 [[Help]]
-=== Viewing help : `help`
+=== Viewing help : `help` (Jade Tay)
 
 If you are unsure about the commands and want to seek help, this command opens up a pop-up help window where there are examples for basic command formats.
 For more detailed help, you can visit the link provided in the window, as shown in Figure 3 below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
@@ -117,7 +118,7 @@ image::Help.png[width="790"]
 
 // tag::new[]
 [[New]]
-=== Creating new user profile : `new`
+=== Creating new user profile : `new` (Jade Tay)
 
 If you want to get started on using *MODdy*, you will have to create a new profile. By using this command, it creates a profile for you as shown in the figure below. You will have to provide your details as parameters.
 
@@ -126,11 +127,11 @@ Format: `new n/name c/course y/year.semester [f/focusArea]`
 ****
 * `c/course` and `f/focusArea` is case-insensitive but has to be its *full name*. If you are unsure of what is allowed, you can refer to the <<Appendix, Appendix>> for the list of courses and focus areas supported by *MODdy*.
 * If you have yet to decide on a focus area, you can choose to add it to your profile later using the edit feature mentioned in <<Edit, Section 4.4>>. Other profile fields can be changed using the edit feature as well.
-* `y/year.semester` must be entered as an integer. You should only enter the year and semester that you are *currently* in. If you are now a year 2 semester 1 student, enter `y/2.1`.
+* `y/year.semester` must be entered as an integer. You should only enter the year and semester that you are *currently* in. If you are now a Year 2 Semester 1 student, enter `y/2.1`.
 * You can only have one profile! If you wish to create a new profile, you can remove it with the delete feature mentioned in <<Delete, Section 4.6>>.
 ****
 
-Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a year 2 semester 2 student, as shown in Figure 4 below.
+Example: `new n/John c/Computer Science y/2.2` creates a new profile with the name "John", currently majoring in "Computer Science" and is a Year 2 Semester 2 student, as shown in Figure 4 below.
 
 .New profile created is displayed in the Profile Panel
 image::New.png[width="790"]
@@ -142,7 +143,7 @@ If you know your focus area, using this command will add focus area "Software En
 
 // tag::add[]
 [[Add]]
-=== Adding module or task: `add`
+=== Adding module or task: `add` (Ong Wan Xuan)
 
 If you want to add modules to each of your semesters or add tasks to each of your modules in the current semester, this command is the right one for you!
 
@@ -157,7 +158,7 @@ To add multiple modules, just append the `m/moduleCode` tags right after another
 NOTE: However, you cannot add grades when adding multiple modules.
 
 ****
-* `y/year.semester` must be entered as an integer. You should enter the year and semester that you *took the module* in. If you took the module in year 2 semester 1, enter `y/2.1`.
+* `y/year.semester` must be entered as an integer. You should enter the year and semester that you *took the module* in. If you took the module in Year 2 Semester 1, enter `y/2.1`.
 * As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters, current semester and future semesters as *"COMPLETED"*, *"IN_PROGRESS"* and *"PLANNING"* respectively.
 * `g/grade` is optional. If you have yet to obtain a grade for the module, don't worry, you can always add it to the module later using the edit feature mentioned in <<Edit, Section 4.4>>.
 ****
@@ -168,7 +169,7 @@ Example: `add m/CS2103T y/2.2` adds CS2103T to Year 2 Semester 2, as shown in Fi
 image::AddModule.png[width="790"]
 
 TIP: `add m/CS2105 y/2.1 g/A+` +
-You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under year 2 semester 1.
+You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under Year 2 Semester 1.
 
 ****
 *Checking of Prerequisites* +
@@ -209,7 +210,7 @@ Green: ≥ 11 days
 
 // tag::edit[]
 [[Edit]]
-=== Editing profile, module or task: `edit`
+=== Editing profile, module or task: `edit` (Joycelyn Teo)
 
 If you want to edit any of the attributes you have previously added to *MODdy*, you can do so by using the `edit` command to edit your profile, module details or deadline tasks.
 You don't have to worry about adding any wrong information as you can edit them at any time! +
@@ -276,7 +277,7 @@ You can use this command to edit the deadline of Assignment, under module CS2105
 
 // tag::show[]
 [[Show]]
-=== Showing profile, module, semester, course or focus area: `show`
+=== Showing profile, module, semester, course or focus area: `show` (Tang Guang Yan)
 
 Not all information can be seen at once. To see this information you have added previously, use the `show` command to switch your current *MODdy* display. +
 
@@ -339,7 +340,7 @@ TIP: You can retrieve the list of focus areas under a course using the <<showCou
 
 // tag::delete[]
 [[Delete]]
-=== Deleting profile, module, task or grade: `delete`
+=== Deleting profile, module, task or grade: `delete` (Chan Choon Kong)
 To remove a profile, module, task or grade from *MODdy*, use the `delete` command.
 
 There are *four* ways you can use the `delete` command:
@@ -398,23 +399,27 @@ image::DeleteGrade.png[width="790"]
 NOTE: Any input after the `g/` tag will be ignored.
 // end::delete[]
 
+// tag::cap[]
 [[CAPCalculator]]
-=== Calculating your Cumulative Average Point (CAP)
+=== Calculating Cumulative Average Point (CAP) (Ong Wan Xuan)
 
-If you want to calculate your CAP, *MODdy* has an in-built CAP calculator feature which automatically updates your CAP when you input
-your module grade.
+Tired of calculating your CAP on your own? Fret not! *MODdy* has an in-built CAP calculator feature which automatically updates your CAP when you input
+your module grades.
 
 Example: If you are currently in Year 2 Semester 2, and all the modules taken in previous semester with their grade added will result in
 your current CAP being calculated. This example is highlighted in Figure 20 below.
 
 .Current CAP is being calculated and reflected in the CAP Panel
-image::CAPCalculator.png
+image::CAPCalculator.png[width="790"]
+
+TIP: If you want to simulate your future CAP, you can add grades into modules in your future semesters.
+// end::cap[]
 
 // tag::home[]
 [[Home]]
-=== Returning to Homepage : `home`
+=== Returning to Homepage : `home` (Joycelyn Teo)
 
-If you want to return to *MODdy*'s Homepage, use this command, as shown in the Figure 20 below.
+If you want to return to *MODdy*'s Homepage, use this command, as shown in the Figure 21 below.
 
 Format: `home`
 
@@ -424,7 +429,7 @@ image::Home.png[width="790"]
 // end::home[]
 
 [[Clear]]
-=== Resetting *MODdy*: `clear`
+=== Resetting *MODdy*: `clear` (Joycelyn Teo)
 
 Want a new profile? If you want to clear your profile and data from *MODdy*, use this command. It clears all entries from *MODdy*, as shown in the figure below.
 
@@ -435,21 +440,21 @@ image::Clear.png[width="790"]
 
 
 [[Exit]]
-=== Exiting *MODdy*: `exit`
+=== Exiting *MODdy*: `exit` (Tang Guang Yan)
 
 Done with managing your modules and tasks for the day? If you want to close the GUI and exit *MODdy*, use this command.
 
 Format: `exit`
 
 // tag::save[]
-=== Saving your data
+=== Saving your data (Chan Choon Kong)
 
 If your *MODdy* application closes unexpectedly or if your computer suddenly shuts down by itself, do not worry! +
 Your *MODdy*'s data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually and worry that you will lose any unsaved data.
 // end::sav[]
 
 // tag::faq[]
-== FAQ
+== FAQ (Tang Guang Yan)
 This section provides you with some commonly asked questions you might have when using *MODdy*. +
 Here are our answers to those questions!
 
@@ -464,7 +469,7 @@ Here are our answers to those questions!
 // end::faq[]
 
 // tag:summary[]
-== Command Summary
+== Command Summary (Chan Choon Kong)
 
 This section provides you with a summary of the basic commands you can perform in *MODdy*.
 
@@ -514,7 +519,7 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105
 // end::summary[]
 
 // tag::appendix[]
-== Appendix
+== Appendix (Chan Choon Kong)
 
 . List of courses and focus areas (if applicable) currently supported by *MODdy*
 

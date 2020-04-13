@@ -275,10 +275,10 @@ public class ProfileManager implements Model {
 
     @Override
     public void setNewDeadlineList(Profile editedProfile) {
-
         if (editedProfile.getDeadlines() != null) {
             this.deadlineList.addAll(editedProfile.getDeadlines());
         }
+        System.out.println(this.deadlineList);
     }
 
     @Override
