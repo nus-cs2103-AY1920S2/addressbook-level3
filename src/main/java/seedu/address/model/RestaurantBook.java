@@ -69,8 +69,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Adds a restaurant to the address book.
      * The restaurant must not already exist in the address book.
      */
-    public void addRestaurant(Restaurant p) {
-        restaurants.add(p);
+    public void addRestaurant(Restaurant restaurant) {
+        restaurants.add(restaurant);
     }
 
     /**
@@ -89,8 +89,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Removes {@code key} from this {@code RestaurantBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeRestaurant(Restaurant key) {
-        restaurants.remove(key);
+    public void removeRestaurant(Restaurant restaurant) {
+        restaurants.remove(restaurant);
     }
 
     //// util methods

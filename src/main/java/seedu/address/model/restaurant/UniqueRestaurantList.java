@@ -31,21 +31,21 @@ public class UniqueRestaurantList implements Iterable<Restaurant> {
     /**
      * Returns true if the list contains an equivalent restaurant as the given argument.
      */
-    public boolean contains(Restaurant toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameRestaurant);
+    public boolean contains(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        return internalList.stream().anyMatch(restaurant::isSameRestaurant);
     }
 
     /**
      * Adds a restaurant to the list.
      * The restaurant must not already exist in the list.
      */
-    public void add(Restaurant toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
+    public void add(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        if (contains(restaurant)) {
             throw new DuplicateRestaurantException();
         }
-        internalList.add(toAdd);
+        internalList.add(restaurant);
     }
 
     /**
@@ -73,9 +73,9 @@ public class UniqueRestaurantList implements Iterable<Restaurant> {
      * Removes the equivalent restaurant from the list.
      * The restaurant must exist in the list.
      */
-    public void remove(Restaurant toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+    public void remove(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        if (!internalList.remove(restaurant)) {
             throw new RestaurantNotFoundException();
         }
     }
