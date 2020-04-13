@@ -9,12 +9,17 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
+class ClientViewDisplay
+class ClientView
+class ExerciseListTable
+class PersonalBestTable
 Class ClientListPanel
 Class ClientCard
+Class SchedulePanel
 Class StatusBarFooter
 Class CommandBox
+class GraphWindow
 }
 
 package Model <<Rectangle>> {
@@ -30,31 +35,48 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> ClientListPanel
+MainWindow *-down-> ClientViewDisplay
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> ClientListPanel
+MainWindow *-down-> SchedulePanel
+MainWindow .down.> GraphWindow
 
-ClientListPanel -down-> ClientCard
+ClientListPanel *-down-> ClientCard
+
+ClientViewDisplay *-down-> ClientView
+ClientViewDisplay *-down->  ExerciseListTable
+ClientViewDisplay  *-down->  PersonalBestTable
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ClientListPanel --|> UiPart
-ClientCard --|> UiPart
+ClientCard ---|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+ClientView ---|> UiPart
+ExerciseListTable ---|> UiPart
+PersonalBestTable ---|> UiPart
+SchedulePanel ---|> UiPart
+GraphWindow ----|> UiPart
 
-ClientCard ..> Model
+ClientCard ....> Model
+ExerciseListTable ....> Model
+ClientViewDisplay ....> Model
+ClientView ....> Model
+PersonalBestTable ....> Model
+SchedulePanel ......> Model
+GraphWindow ....> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-ClientListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
+CommandBox -[hidden]right- SchedulePanel
 ResultDisplay -[hidden]left- StatusBarFooter
+ClientListPanel -[hidden]right- GraphWindow
+ClientViewDisplay -[hidden]right- GraphWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml

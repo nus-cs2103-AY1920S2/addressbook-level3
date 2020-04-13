@@ -36,6 +36,6 @@ public class FilterCommandParserTest {
         FilterCommand expectedFilterCommand =
                 new FilterCommand(new TagAndSportContainsKeywordsPredicate(Arrays.asList("normal", "vegetarian"),
                         Arrays.asList("hockey", "sumo")));
-        assertParseSuccess(parser, "t/normal vegetarian s/hockey sumo", expectedFilterCommand);
+        assertParseSuccess(parser, "t/normal t/vegetarian s/hockey s/sumo", expectedFilterCommand);
     }
 }
