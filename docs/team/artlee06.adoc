@@ -63,12 +63,13 @@ I also contributed content to the Developer Guide
 |===
 
 
-include::../UserGuide.adoc[tag=reminder]
+include::../DeveloperGuide.adoc[tag=reminder]
 
-include::../UserGuide.adoc[tag=recurring]
+include::../DeveloperGuide.adoc[tag=recurring]
 
-include::../UserGuide.adoc[tag=manualTesting]
+include::../DeveloperGuide.adoc[tag=userStories]
 
+include::../DeveloperGuide.adoc[tag=manualTesting]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W16-1/main/pull/300[#300], https://github.com/AY1920S2-CS2103T-W16-1/main/pull/306[#306], https://github.com/AY1920S2-CS2103T-W16-1/main/pull/269[#269], https://github.com/AY1920S2-CS2103T-W16-1/main/pull/145[#145], https://github.com/AY1920S2-CS2103T-W16-1/main/pull/299[#299]
@@ -78,3 +79,4 @@ include::../UserGuide.adoc[tag=manualTesting]
 
 ** Tools:
 *** Adobe XD
+*** Adobe Illustrator
