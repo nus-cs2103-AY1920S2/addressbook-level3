@@ -733,7 +733,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
 Expected: Customer with given attributes is added to list. Details of the added customer shown in the status message.
 .. Prerequisites: the following command already has been executed once already +
-Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+Test case: `addc n/John p/98765432` +
 Expected: No customer is added as duplicate customers are not allowed. Error details shown in the status message.
 .. Test case: `addc n/Jane p/98765432 e/jane@example.com a/31 michigan t/friends t/owesMoney t/iphone t/comingThurs t/regular t/giveDiscount` +
 Expected: No customer is added as number of tags should be at most five. Error details shown in the status message.
