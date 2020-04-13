@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
+By: `CS2103T-W12-1`      Since: `Jan 2020`      Licence: `MIT`
 
 //@@author
 == About Us
@@ -25,7 +25,7 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Delino is adapted from the https://se-education.org/addressbook-level3/[AddressBook-Level3] project created by
 https://se-education.org[SE-EDU initiative].
 
-If you wish to contact the team, more details can be found <<AboutUs#, here>>.
+If you wish to contact the Delino team, more details can be found <<AboutUs#, here>>.
 
 == How to navigate this Developer Guide
 This developer guide is written for anyone who wish to extend/modify Delino.
@@ -645,18 +645,18 @@ The `delivered` function allows the user to mark orders or return orders
 as delivered after delivering an order or a return order. +
 
 The `delivered` feature was implemented as the *DeliveredCommand* in the logic package. +
-The `delivered` function requires a valid <<command_prefix, `FLAG`>> and a valid <<command_prefix, `INDEX`>>. +
-i.e. `delivered` <<command_prefix, `INDEX`>> <<command_prefix, `FLAG`>>
+The `delivered` function requires a valid <<command_flags, `FLAG`>> and a valid `INDEX`. +
+i.e. `delivered` `INDEX` <<command_flags, `FLAG`>>
 
-The <<command_prefix, `FLAG`>> can either be '-o' or '-r', which indicates which list
-(order list or return order list respectively) to mark the parcel from. The <<command_prefix, `FLAG`>> is
+The <<command_flags, `FLAG`>> can either be '-o' or '-r', which indicates which list
+(order list or return order list respectively) to mark the parcel from. The <<command_flags, `FLAG`>> is
 only valid when either '-o' and '-r' is used. All other inputs will be regarded as invalid. +
 
-The <<command_prefix, `INDEX`>> is a positive integer that determines
-which order or return order to be marked as delivered. The <<command_prefix, `INDEX`>> is only valid if
+The `INDEX` is a positive integer that determines
+which order or return order to be marked as delivered. The `INDEX` is only valid if
 it is a positive integer and if it is not bigger than the size of the order list or return order list, depending
-on the <<command_prefix, `FLAG`>>that is provided. For instance, if the '-o' <<command_prefix, `FLAG`>> is provided,
-the <<command_prefix, `INDEX`>> should not be greater than the size of the order list. +
+on the <<command_flags, `FLAG`>>that is provided. For instance, if the '-o' <<command_flags, `FLAG`>> is provided,
+the `INDEX` should not be greater than the size of the order list. +
 
 [[execution-paths-delivered]]
 ==== Execution Paths of Delivered Command
@@ -696,22 +696,22 @@ based on the validity of the user's input; which is determined by the `execute` 
 *DeliveredCommand*. +
 
 The `execute` method of *DeliveredCommand* will first check if a valid
-<<command_prefix, `FLAG`>> is present in the user's input. If the <<command_prefix, `FLAG`>>
+<<command_flags, `FLAG`>> is present in the user's input. If the <<command_flags, `FLAG`>>
 is not valid, a *CommandException* will be thrown to the user to tell him/her that their
 input was invalid and tell them the format which their input should follow. +
 
-If a valid <<command_prefix, `FLAG`>> is present, this will trigger the
+If a valid <<command_flags, `FLAG`>> is present, this will trigger the
 processDeliveryOfOrder method in *DeliveredCommand* which will check if
-a valid <<command_prefix, `INDEX`>> is present in the user's input. +
+a valid `INDEX` is present in the user's input. +
 
-If the <<command_prefix, `INDEX`>> is not valid, processDeliveryOfOrder method will throw
+If the `INDEX` is not valid, processDeliveryOfOrder method will throw
 a *CommandException* to the user; telling him/her that their input was invalid and the format
-that their input should follow. i.e. `delivered` <<command_prefix, `FLAG`>>
- <<command_prefix, `INDEX`>> +
+that their input should follow. i.e. `delivered` <<command_flags, `FLAG`>>
+ `INDEX` +
 
-If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an *Order*
-or *ReturnOrder* object will be created based on the <<command_prefix, `FLAG`>>.
-The <<command_prefix, `INDEX`>> will determine which order or return order to take from
+If both <<command_flags, `FLAG`>> and `INDEX` are valid, an *Order*
+or *ReturnOrder* object will be created based on the <<command_flags, `FLAG`>>.
+The `INDEX` will determine which order or return order to take from
 the order list or return order list respectively using the appropriate getter method.
 The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `checkIfOrderWasDelivered(model)` method. +
 
@@ -882,10 +882,11 @@ There are three possible execution paths for the `return` command
 
 1. User provides an invalid `return` command input +
 This will result in a parse exception and an error message will be displayed to the user.
-2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>>, i.e. +
-`return` <<command_prefix, `TRANSACTION_ID`>> +
+2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>> and
+<<command_prefix, `RETURN_TIMESTAMP`>>, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>> +
 If the order with the given <<command_prefix, `TRANSACTION_ID`>> is delivered,
-it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order. +
+it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order with the updated <<command_prefix, `RETURN_TIMESTAMP`>>. +
 This return order will then be added into the return order list.
 3. User provides a valid `return` command input with all compulsory parcel attributes, i.e. +
 `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
@@ -1841,21 +1842,21 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2b. Delino unable to detect any parcel with the <<command_prefix, `INDEX`>> provided.
+* 2b. Delino unable to detect any parcel with the `INDEX` provided.
 [none]
 ** 2b1. Delino shows error message to the user.
 +
 Use case ends.
 
 [none]
-* 2c. Delino unable to detect valid <<command_prefix, `INDEX`>> provided.
+* 2c. Delino unable to detect valid `INDEX` provided.
 [none]
 ** 2c1. Delino shows error message to the user.
 +
 Use case ends.
 
 [none]
-* 2d. Delino unable to detect valid <<command_prefix, `FLAG`>> provided.
+* 2d. Delino unable to detect valid <<command_flags, `FLAG`>> provided.
 [none]
 ** 2d1. Delino shows error message to the user.
 +
@@ -1991,10 +1992,10 @@ Use case ends.
 
 *MSS*
 
-1.  User wants to import a specific orders from an external file.
-2.  User requests to import orders from an external file.
+1.  User wants to import a specific orders from an external csv file.
+2.  User requests to import orders from an external csv file.
 3.  Delino checks for file existence.
-4.  Delino imports all orders from the external file.
+4.  Delino imports all orders from the external csv file.
 5.  Delino displays all orders imported.
 +
 Use case ends.
@@ -2024,6 +2025,7 @@ Use case ends.
 +
 Use case ends.
 //end::use_case_import[]
+
 
 //@@author Amoscheong97
 //tag::use_case_list[]
@@ -2358,9 +2360,9 @@ These instructions only provide a starting point for testers to work on; testers
  <<command_prefix, `DELIVERY_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `CASH_ON_DELIVERY`>>
  <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>>
 
-.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` `cod/$4` +
+.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4` +
    Expected: Inserts an order with the above details to the list and displayed on the GUI
-.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
+.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/90010019` `e/amoscheong@example.com` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
    Expected: Inserts the order to the list, including the item type and the order comment
 .. Test case: Invalid Syntax +
    Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged
@@ -2380,9 +2382,9 @@ These instructions only provide a starting point for testers to work on; testers
  <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>>
  <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>> +
 OR `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>>
-.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
+.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-05-20 1300` `w/Yishun` +
    Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
-.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
+.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/90010019` `e/amoscheong@example.com` `rts/2020-05-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
    Expected: Creates a new return order with the above details, including type and comments and adds it into the return order list. This will be displayed on the GUI
 .. Test case: `return` `tid/1023456789` `rts/2020-05-12 1300` +
    Expected: Checks if an order with the given Transaction ID exists. If it exists and
@@ -2391,10 +2393,9 @@ the delivery time stamp, the order will be converted into a return order and add
 .. Test case: Invalid Syntax +
    Expected: No return order is added. Error details shown in the response message. A help message displayed for user to use the return command accordingly.
 .. Test case: Return order with invalid Transaction ID in order list +
-   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
-.. Test case: Return order with invalid return time stamp in order list +
-   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
-cannot be found in the order list.
+   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID cannot be found in the order list.
+.. Test case: Return order with invalid return time stamp +
+   Expected: An error will occur and a message will be displayed, stating that the return time stamp is not valid.
 .. Test case: Return order with missing parcel attributes +
    Expected: An error will occur and a message will be displayed, indicating the right message usage of the return feature.
 .. Test case: Order to be converted was not delivered +
@@ -2440,9 +2441,9 @@ cannot be found in the order list.
    Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123.
 .. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 841 Yishun st 81 #01-02 S760841` +
    Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 841 Yishun st 81 #01-02 S760841.
-.. Test case: `edit` `-o` `1` `dts/09/08/2020` +
+.. Test case: `edit` `-o` `1` `dts/2020-08-09` +
    Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.
-.. Test case: `edit` `-r` `1` `rts/02/02/1900` +
+.. Test case: `edit` `-r` `1` `rts/1900-02-02` +
    Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
 //end::appendix-edit[]
@@ -2507,10 +2508,10 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 //tag::appendix-delivered[]
 === Mark parcel as delivered
 
-. Mark a parcel's delivery status as delivered based on its <<command_prefix, `INDEX`>> and <<command_prefix, `FLAG`>>
+. Mark a parcel's delivery status as delivered based on its `INDEX` and <<command_flags, `FLAG`>>
 whenever the parcel has been delivered.
 
-.. Delivered command format: `delivered` <<command_prefix, `FLAG`>> <<command_prefix, `INDEX`>>
+.. Delivered command format: `delivered` <<command_flags, `FLAG`>> `INDEX`
 
 .. Prerequisite: Ensure that your order list or return order list has at least one order.
 .. Test case: `delivered` `-o` `1` +

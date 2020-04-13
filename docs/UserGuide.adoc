@@ -300,17 +300,16 @@ Here is how you can convert an order into a return order or create a new return 
 
 *Step 1* : Type in the keyword `return`. +
 *Step 2a* : If you would like to convert an existing order into a return order,
-provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to be converted. +
-*Step 2b*: If you would like to create a new return order in the return order list, provide the
-`<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>` `<<command_prefix, ADDRESS>>`
-`<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, RETURN_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>`
-`<<command_prefix, CUSTOMER_EMAIL>>` `[<<command_prefix, COMMENTS_BY_CUSTOMER>>]` `[<<command_prefix, TYPE OF ITEM>>]` of the parcel. +
+provide the <<command_prefix, `TRANSACTION_ID`>> and the <<command_prefix, `RETURN_TIMESTAMP`>> to the order to be converted. +
+*Step 2b*: If you would like to create a new return order in the return order list, provide the <<command_prefix, `TRANSACTION_ID`>>
+<<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>> <<command_prefix, `RETURN_TIMESTAMP`>>
+<<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `EMAIL`>> <<command_prefix, `[COMMENTS_BY_CUSTOMER]`>> <<command_prefix, `[TYPE_OF_ITEM]`>> of the parcel. +
 *Step 3* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
 ====
 * Please include a whitespace in between the keyword & transaction id or keyword & the attributes aforementioned. +
-i.e. `return` `tid/123abcd` +
+i.e. `return` `tid/123abcd` `rts/2020-05-05 1500` +
  or +
 `return` `tid/A999999` `n/John Doe` `p/98765432` `a/311 Clementi Ave 2 #02-25 S120363` `e/johndoe@gmail.com`
 `rts/2020-05-05 1500` `w/5 Toh Guan Rd E #02-30 S608831` `c/NIL` `type/glass`
