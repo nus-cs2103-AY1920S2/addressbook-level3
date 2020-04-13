@@ -15,7 +15,7 @@ image::kevinputera.png[width="150", align="left"]
 {empty}[https://github.com/kevinputera[GitHub]] [<<kevinputera#, Portfolio>>]
 
 Role: Developer +
-Responsibilities: Correction Engine
+Responsibilities: Correction Engine + Markdown Compiler
 
 '''
 
@@ -51,6 +51,6 @@ image::firzanarmani.png[width="150", align="left"]
 {empty}[http://github.com/firzanarmani[GitHub]] [<<firzanarmani#, Portfolio>>]
 
 Role: Developer +
-Responsibilities: Parser + Commands + Storage
+Responsibilities: Tree Data Model + Storage
 
 '''

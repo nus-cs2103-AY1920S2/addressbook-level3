@@ -41,6 +41,7 @@ public class SuggestionsListCellData extends ViewPart<Region> {
     public SuggestionsListCellData(SuggestionItem suggestionItem, boolean isSelected) {
         super(FXML);
         requireAllNonNull(suggestionItem, isSelected);
+
         setPathLabel(suggestionItem);
         setSearchFrequencyLabel(suggestionItem);
         setSelectedItemLabel(suggestionItem, isSelected);

@@ -1,7 +1,9 @@
 package com.notably.logic.suggestion.handler;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.logic.suggestion.generator.SuggestionGenerator;
 import com.notably.model.Model;
 
@@ -13,6 +15,8 @@ public class ExitSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     private static final String RESPONSE_MESSAGE = "Exit the application";
 
+    private static final Logger logger = LogsCenter.getLogger(ExitSuggestionHandler.class);
+
     private Model model;
 
     public ExitSuggestionHandler(Model model) {
@@ -21,6 +25,7 @@ public class ExitSuggestionHandler implements SuggestionHandler<SuggestionGenera
 
     @Override
     public Optional<SuggestionGenerator> handle() {
+        logger.info("Starting handle method inside ExitSuggestionHandler");
         model.setResponseText(RESPONSE_MESSAGE);
         return Optional.empty();
     }
