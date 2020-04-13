@@ -352,7 +352,8 @@ image::demo/ResponseText2.png[]
 [NOTE]
 We use the term Markdown and GitHub Flavored Markdown interchangably in this document.
 
-Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note. By supporting Markdown, we hope to enhance your typing experience even further!
+Notably supports basic https://guides.github.com/features/mastering-markdown/[GitHub Flavored Markdown (GFM)] as the `BODY` content of a note.
+By supporting Markdown, we hope to enhance your typing experience even further. You can simply type your note in Markdown, and it'll take care of displaying the content of your note in a nice layout for you.
 
 Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
 
@@ -379,6 +380,23 @@ Currently, only unordered lists are supported. In addition, only the hyphen `-` 
 ----
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin dictum accumsan nunc sed feugiat.
+----
+
+==== Example: Writing your note in Markdown
+
+For example, you might write your note as follows:
+
+----
+# Hello Notably
+
+Notably is for those who prefer to use a desktop app for managing notes.
+More importantly, Notably is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+## Getting started
+
+- Ensure you have Java `11` or above installed in your Computer.
+- Download the latest `notably.jar`
+- Double-click the file to start the app. The Application should start in a few seconds.
 ----
 
 ==== (Coming in v2.0) More complete support of Markdown syntax
