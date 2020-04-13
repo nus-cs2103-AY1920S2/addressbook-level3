@@ -43,7 +43,7 @@ Indexes refer to the current tasklist on display, it does not refer to the indic
 
 // tag::quickStart[]
 == Quick Start
-- This section provides a quick guide on firing up BB Productive. 
+- This section provides a quick guide on firing up BB Productive.
 
 .Overview of BBproductive features
 image::BBProductiveQuickStart_Graphic.png[width="790"]
