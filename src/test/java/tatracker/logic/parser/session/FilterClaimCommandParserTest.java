@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.FilterClaimCommand;
 
-public class FilterClaimCommandParserTest  {
+public class FilterClaimCommandParserTest {
 
     private static final String COMMAND_WITH_WRONG_PREFIX_START = "s/14:00";
     private static final String COMMAND_WITH_WRONG_PREFIX_END = "e/19:00";
