@@ -999,7 +999,44 @@ These instructions only provide a starting point for testers to work on; testers
 - The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph, and form a new trend line with previous data points. The top notification is also updated.
 - In profile page, Current Weight and Current BMI remain the same, since the newly added weight record is not the most recent record in the database.
 
+=== Sorting entry lists
 
+. sort and display the entry lists stored in the sample FitHelper
+.. Prerequisite: The data stored in FitHelper are the sample data. To restore to sample data,
+delete all files stored in the data folder and launch the application.
+.. Test case: `sort by/time` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in all three lists (Food Entry History, Sports Entry History and Reminders)
+are sorted by time in the descending order (entry with a later time comes first i.e. at top).
+.. Test case: `sort x/s by/cal o/a` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in Sports Entry History and Reminders list are sorted by calorie value
+in the ascending order (entry with a lower calorie value comes first i.e. at top).
+- Entries in Food Entry History list remain unchanged.
+.. Test case: `sort x/s o/a` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
+
+=== Checking calorie data
+
+. search for calorie intake/consumption of common food/sports
+.. Prerequisite: None, as long as the application is launched properly.
+.. Test case: `check x/s k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows calorie consumption per hour of common swimming styles
+in the bottom left corner.
+.. Test case: `check x/f k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows no matching results message in the bottom left corner.
+.. Test case: `check k/swim` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
 
 === Saving data
 
@@ -1009,5 +1046,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Delete `fithelper.json`, and launch FitHelper again. All user manipulation on entries and diaries will be cleared. `Dashboard`, `Today`, `Calendar` and `Diary` Page will restart with sample data.
 .. Delete `userprofile.json`, and launch FitHelper again. All user manipulation on user profile will be clear. `Profile` page will restart with sample user data.
 .. Delete `weightrecords.json`, and launch FitHelper again. All user manipulation on weight records will be clear. `Profile` page will show Current Weight and Current BMI as "Not Available Now", and `Weight` Page will have no data point on the trend line graph.
+
+
 
 //end::manual_test[]
