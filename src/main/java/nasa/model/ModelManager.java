@@ -127,8 +127,6 @@ public class ModelManager implements Model {
                 if (!test.get(0).equals("null")) {
                     if (type.equals("list") || type.equals("find")) {
                         updateFilteredModuleList(x->true);
-                    } else {
-                        updateFilteredModuleList(x -> true);
                         updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
                     }
                 } else {
