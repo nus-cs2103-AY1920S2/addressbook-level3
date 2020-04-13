@@ -322,9 +322,7 @@ As it is, image processing spans _several_ classes: `FileUtil`, `ImageUtil`, `Ph
 === Finding recipes [Kevin]
 
 The following section describes how the `find` command is implemented as well as design considerations that were taken into account during its implementation.
-Some possible future improvements are also explored.
-
-==== Implementation
+Some possible future improvements are also suggested to improve the functionality of the `find` command.
 
 The `find` command is implemented in the _FindCommand_ class.
 
@@ -333,15 +331,28 @@ The following activity diagram shows the possible paths *CookBuddy* can take whe
 .Activity diagram of finding recipes
 image::FindCommandActivityDiagram.svg[align="center]
 
+==== Implementation
+
+. When entering the `find` command, the user will specify one attribute to search within as well as the search terms. +
+   Possible attributes to search within are _name_ (`n/`), _ingredients_ (`ing/`) and _instructions_ (`ins/`).
+
+. _FindCommandParser_ ensures that only one attribute is specified and returns a _FindCommand_ with the relevant _ContainsKeywordPredicate_ class.
+
+The following sequence diagram summarizes the execution of the `find` command
+
+.Sequence diagram for the execution of a `find` command
+image::FindSequenceDiagram.svg[align="center"]
 
 ==== Design Considerations
 
-
+As the _FindCommand_ class only takes in a single _ContainsKeywordsPredicate_ object,
+CookBuddy can only search within a single attribute at a time.
 
 ==== Possible improvements
 
 As it is currently implemented, the `find` command only accepts finding via one attribute at a time.
 A possible future improvement would enable it to search for recipes using multiple attributes.
+This would greatly enhance the usefulness of the `find` function in *CookBuddy*.
 
 For example, running `find n/Ham ing/toast` will make *CookBuddy* search for recipes with _Ham_ in its name, or _toast_ in its ingredients.
 
