@@ -88,6 +88,7 @@ include::../UserGuide.adoc[tag=deletegood]
 |===
 
 == UML Diagrams
+
 ==== Sequence Diagrams
 
 include::../DeveloperGuide.adoc[tag=ArchitectureSequenceDiagram]
