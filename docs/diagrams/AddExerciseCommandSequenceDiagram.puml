@@ -56,10 +56,7 @@ ref over model, UniqueExerciseList
     addToSorted
 end ref
 
-model -[MODEL_COLOR]-> AddExerciseCommand : editedClient
-deactivate model
-
-AddExerciseCommand -[LOGIC_COLOR]> client2 ** : Client(...)
+model -[MODEL_COLOR]> client2 ** : Client(...)
 note left
 The parameters used
 in the constructor is
@@ -67,8 +64,11 @@ simplified to "..."
 end note
 activate client2 MODEL_COLOR
 
-client2 --[MODEL_COLOR]> AddExerciseCommand : editedClient
+client2 --[MODEL_COLOR]> model : editedClient
 deactivate client2
+
+model -[MODEL_COLOR]-> AddExerciseCommand : editedClient
+deactivate model
 
 note over AddExerciseCommand
 Personal Best sequence
