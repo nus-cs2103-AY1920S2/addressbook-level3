@@ -10,7 +10,7 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- *
+ * Jackson-friendly version of {@link OneTimeSchedule}.
  */
 public class JacksonSchedule {
 
@@ -36,7 +36,6 @@ public class JacksonSchedule {
         OneTimeSchedule oneTimeSchedule = (OneTimeSchedule) source;
         workoutNameToSchedule = oneTimeSchedule.getWorkoutNameToSchedule().fullName;
         dateTime = new JacksonDateTime(oneTimeSchedule.getDateTime());
-        // STEPH_TODO: add support for recurring schedule
     }
 
     /**

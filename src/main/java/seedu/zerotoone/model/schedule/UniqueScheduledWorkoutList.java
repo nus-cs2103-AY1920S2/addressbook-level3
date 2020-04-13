@@ -49,43 +49,6 @@ public class UniqueScheduledWorkoutList implements Iterable<ScheduledWorkout> {
         internalList.add(toAdd);
     }
 
-    // /**
-    //  * Replaces the scheduledWorkout {@code target} in the list with {@code editedScheduledWorkout}.
-    //  * {@code target} must exist in the list.
-    //  * The scheduledWorkout identity of {@code editedScheduledWorkout} must not be the same as another existing
-    //  scheduledWorkout in the list.
-    //  */
-    // public void setScheduledWorkout(ScheduledWorkout target, ScheduledWorkout editedScheduledWorkout) {
-    //     requireAllNonNull(target, editedScheduledWorkout);
-    //
-    //     int index = internalList.indexOf(target);
-    //     if (index == -1) {
-    //         throw new ScheduledWorkoutNotFoundException();
-    //     }
-    //
-    //     if (!target.isSameScheduledWorkout(editedScheduledWorkout) && contains(editedScheduledWorkout)) {
-    //         throw new DuplicateScheduledWorkoutException();
-    //     }
-    //
-    //     internalList.set(index, editedScheduledWorkout);
-    // }
-
-    // /**
-    //  * Removes the equivalent scheduledWorkout from the list.
-    //  * The scheduledWorkout must exist in the list.
-    //  */
-    // public void remove(ScheduledWorkout toRemove) {
-    //     requireNonNull(toRemove);
-    //     if (!internalList.remove(toRemove)) {
-    //         throw new ScheduledWorkoutNotFoundException();
-    //     }
-    // }
-
-    // public void setScheduledWorkouts(UniqueScheduledWorkoutList replacement) {
-    //     requireNonNull(replacement);
-    //     internalList.setAll(replacement.internalList);
-    // }
-
     /**
      * Replaces the contents of this list with {@code scheduledWorkouts}.
      * {@code scheduledWorkouts} must not contain duplicate scheduledWorkouts.
