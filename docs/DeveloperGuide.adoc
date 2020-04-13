@@ -481,8 +481,8 @@ image::undo(2).PNG[align="center"]
 image::undo(3).PNG[align="center"]
 image::undo(3.1).PNG[align="center"]
 image::undo(3.2).PNG[align="center"]
-image::undoSequence(1)[align="center"]
-image::undoSequence(2)[align="center"]
+image::undoSequence(1).PNG[align="center"]
+image::undoSequence(2).PNG[align="center"]
 
 ==== Design Considerations
 === Logging
