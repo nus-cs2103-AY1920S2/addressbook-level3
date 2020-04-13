@@ -241,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-//@@author Eclmist
+    //@@author Eclmist
 
     /**
      * Opens the statistic window or focuses on it if it's already opened.
