@@ -6,8 +6,6 @@ participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":SessionCommandParser" as SessionCommandParser LOGIC_COLOR
 participant ":DoneSessionCommandParser" as DoneSessionCommandParser LOGIC_COLOR
 participant "a:DoneSessionCommand" as DoneSessionCommand LOGIC_COLOR
-participant ":AddSessionCommandParser" as AddSessionCommandParser LOGIC_COLOR
-participant "a:AddSessionCommand" as AddSessionCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -18,7 +16,7 @@ end box
 [-> LogicManager : execute("session done 1")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("session done 1")
+LogicManager -> TaTrackerParser : parse("session done 1")
 activate TaTrackerParser
 create SessionCommandParser
 TaTrackerParser -> SessionCommandParser : SessionCommandParser()
@@ -26,7 +24,7 @@ activate SessionCommandParser
 SessionCommandParser --> TaTrackerParser
 deactivate SessionCommandParser
 
-TaTrackerParser -> SessionCommandParser : parseCommand("session done 1")
+TaTrackerParser -> SessionCommandParser : parse("done 1")
 activate SessionCommandParser
 
 create DoneSessionCommandParser
@@ -35,11 +33,11 @@ activate DoneSessionCommandParser
 DoneSessionCommandParser --> SessionCommandParser
 deactivate DoneSessionCommandParser
 
-SessionCommandParser -> DoneSessionCommandParser : parseCommand("session done 1")
+SessionCommandParser -> DoneSessionCommandParser : parse("1")
 activate DoneSessionCommandParser
 
 create DoneSessionCommand
-DoneSessionCommandParser -> DoneSessionCommand : DoneSessionCommand(1);
+DoneSessionCommandParser -> DoneSessionCommand : DoneSessionCommand(1)
 activate DoneSessionCommand
 DoneSessionCommand --> DoneSessionCommandParser
 deactivate DoneSessionCommand
@@ -60,16 +58,19 @@ deactivate TaTrackerParser
 LogicManager -> DoneSessionCommand : execute()
 activate DoneSessionCommand
 
-alt #beige recurring() > 0
-    DoneSessionCommand -> Model : addSession(updatedSession)
+alt #beige recurring > 0
+    DoneSessionCommand -> Model : addSession(reccuringSession)
     activate Model
-    Model --> AddSessionCommand
+    Model --> DoneSessionCommand
     deactivate Model
 
 end
 
-DoneSessionCommand -> Model : DoneSession()
+DoneSessionCommand -> Model : doneSession(session)
 activate Model
+Model --> DoneSessionCommand
+
+DoneSessionCommand -> Model : deleteSession(session)
 Model --> DoneSessionCommand
 deactivate Model
 
