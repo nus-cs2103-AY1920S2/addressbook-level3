@@ -50,30 +50,65 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+// tag::keyboard[]
+== Keyboard Shortcuts
+`Contributed by: CharmaineKoh`
 
+NASA is optimized for users who prefer CLI. Using the following keyboard shortcuts, you can easily navigate through
+the application without ever leaving the keyboard!
 
-=== Keyboard shortcuts
-
-Navigate around NASA using the following keyboard shortcuts.
 
 [%header,cols=2*]
 |===
-|Shortcut
-|Action
+^|Shortcut
+^|Action
 
-|Tab
-|Switch between tabs
+^.^a|image::tab.png[width="75"]
+|Switch to the next tab. If the last tab is reached, NASA will cycle back to the first tab
 
-|Up arrow key
-|View previous command
 
-|Down arrow key
-|View next command
+^.a|image::up.png[width="50"]
+|View previous command entered. (if any)
+
+^.a|image::down.png[width="50"]
+|View next command entered. (if any)
+
 |===
+// end::keyboard[]
 
+// tag::tabs[]
+== Switching Between Tabs
+`Contributed by: CharmaineKoh`
 
+NASA provides different views to manage your modules through the Modules, Calendar and Statistics tabs.
+ You can navigate through these tabs either by
+
+    1) using the TAB key
+
+Refer to for more details <<Keyboard Shortcuts>>
+
+    2) using the view command followed by the tab name e.g. `view calendar`
+
+// end::tabs[]
+
+[[Features]]
+== Features
+
+// tag::commands[]
+=== Hints
+`Contributed by: CharmaineKoh`
+
+New to NASA? Not to worry! NASA's responsive hint pop up is here to guide you through all the commands.
+
+Simply key in any valid command such as `deadline` and a pop up will appear informing you on exactly which parameters
+to include.
+
+image::parameters.png[]
+
+In addition, you can easily copy the example to your keyboard using the button on the popup. Now you can paste the
+command and view the result easily.
+
+image::Copy.png[]
 
 ====
 *Command Format*
@@ -84,11 +119,29 @@ Navigate around NASA using the following keyboard shortcuts.
 * Parameters can be in any order.
 * For items without `...`, should multiple values for the same field be provided e.g `m/CS2101 m/CS2103T`, only the last value will be used, unless stated otherwise.
 * Commands are **case-insensitive**, unless stated otherwise.
+* Prefixes are **case-sensitive** e.g m/ is valid while M/ is invalid.
 ====
 
 === Viewing help : `help`
+`Contributed by: CharmaineKoh`
+
+Provides a link to this user guide for future reference. Click the CopyURL button to copy the URL to your clipboard.
 
 Format: `help`
+
+image::help.png[]
+
+=== Changing view : `view`
+`Contributed by: CharmaineKoh`
+Changes the NASA view to specified tab
+
+Format: `view TAB_NAME`
+
+Example `view calendar`
+
+image::view.png[]
+// end::commands[]
+
 
 === Adding a module activity-list: `add`
 
@@ -371,43 +424,24 @@ Format: `del-e INDEX m/MODULE_CODE`
 ** INDEX must be specified first in this command! Eg: `del-e m/MODULE_CODE INDEX` is not allowed.
 ====
 
-=== Creating shortcuts: `shortcut` `[coming in v2.0]`
-Creates a shortcut for specified activity. +
-Format: `shortcut s/SHORTCUT c/COMMAND`
-
-** Creates a `SHORTCUT` to the specified `COMMAND`.
-** Can only add `SHORTCUT` to an existing `COMMAND`.
-** Can add multiple `SHORTCUT` for a specific `COMMAND`.
-** A `SHORTCUT` will be generated that is unique for a `COMMAND`.
-
-Examples:
-
-** `shortcut s/l c/list` +
-Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
 === Generating statistics: `statistics`
+`Contributed by: Charmaine Koh`
+
+
 Displays statistics of all activities.
 
-Switch to statistics tab either
+Switch to statistics tab by either
 
     1) using the TAB key
 
     2) using the command `statistics`
 
+    3) using the command `view statistics`
+
 
 Format: `statistics`
 
-*View statistics for specific activity type*
-
-Format: `statistics at/[TYPE_OF_ACTIVITY]`
-
-Customising statistics parameters `[coming in v2.0]`
-** Can add `TYPE_OF_ACTIVITY` to filter statistics by activity type.
-
-Examples:
-
-** `statistics at/deadline` +
-Displays statistics for all deadline activities.
 
 // tag::automation[]
 === Automating a activity: `repeat-d` or `repeat-e`
@@ -612,9 +646,14 @@ Exits the program. +
 Format: `exit`
 
 === Saving the data
+`Contributed by: CharmaineKoh` +
 
-NASA data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+NASA data is saved by default in `nasabook.json` in the hard disk automatically after any command that changes the
+data. There is no need to save manually.
+
+You can edit the data file directly to change any data.
+
+CAUTION:  If there is any invalid input in the data file, NASA will override the file and start with an empty file.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -654,11 +693,16 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 // end::faq[]
 
 == Command Summary
+`Contributed by: Charmaine Koh`
+
+// tag::command_summary[]
 =======
 .List of all commands
+
 [cols="1,3"]
 |===
 |Command|Syntax
+
 
 | *Add* |`add m/MODULE_CODE n/MODULE_NAME`
 | *Deadline* |`deadline m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
@@ -667,9 +711,9 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 | *Delete Deadline* | `del-d INDEX m/MODULE_CODE`
 | *Delete Event* | `del-e INDEX m/MODULE_CODE INDEX`
 | *Delete* | `del m/MODULE_CODE`
-| *Edit module* | `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
-| *Edit deadline* | `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
-| *Edit event* | `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
+| *Edit Module* | `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
+| *Edit Deadline* | `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
+| *Edit Event* | `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DATE] [n/NOTES]`
 | *Export* | `export`
 | *Find* | `find KEYWORD [MORE_KEYWORDS]`
 | *Help* | `help`
@@ -677,10 +721,13 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
 | *Export Calendar*| `calendar [p/FILE_PATH]`
 | *Sort* | `sort SORT_METHOD`
-| *Statistics* | `statistics [at/TYPE_OF_ACTIVITY]`
+| *Statistics* | `statistics`
 | *Redo* | `redo`
 | *Repeat Deadline* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Repeat Event* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
+| *View* | `view` TAB_NAME
 |===
+
+// end::command_summary[]

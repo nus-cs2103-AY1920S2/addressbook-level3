@@ -122,7 +122,7 @@ public class ParserUtil {
         requireNonNull(view);
         String viewTrimmed = view.trim();
 
-        if (!View.isValidView(viewTrimmed)) {
+        if (!View.isValidView(viewTrimmed.toUpperCase())) {
             throw new ParseException(View.MESSAGE_CONSTRAINTS);
         }
         return View.valueOf(view.toUpperCase());

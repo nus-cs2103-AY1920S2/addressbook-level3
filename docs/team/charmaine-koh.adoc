@@ -62,6 +62,7 @@ for all modules and the total tasks completed and not completed for each.
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added table for better organisation of commands in User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
@@ -72,13 +73,19 @@ for all modules and the total tasks completed and not completed for each.
 == Contributions to the User Guide
 
 
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=keyboard]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tabs]
+
+include::../UserGuide.adoc[tag=commands]
+
+include::../UserGuide.adoc[tag=command_summary]
+
 
 == Contributions to the Developer Guide
 
