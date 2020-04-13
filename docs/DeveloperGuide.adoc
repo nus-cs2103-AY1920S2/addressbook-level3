@@ -1354,11 +1354,18 @@ The following is a detailed explanation of the operations `ClearReceiptCommand` 
 
 1. The `ClearReceiptCommand#execute(SplitterModel splitterModel)` method is executed.
 
-2. The `splitterModel#clearReceipt()` method will then be called.
+2. If the Receipt is marked as undone via the `SplitterModel#isReceiptDone()` method, the `SplitterModel#deleteAllEntires()`
+method is called, which calls the `PersonAmountBook#deleteAllEntries()` method. What does method does is that it first
+retrieves the ArrayList<Entry> from the Receipt via the `Receipt#getReceipt()` method, then for each Entry, it gets the
+Item and the Amount owed my each person via the `Entry#getItem()` and `Item#getAmountPerPerson()` methods respectively.
+The Amount is then removed from each Person in the Entry via the `Entry#getPersonsList()` method. After which, the
+`splitterModel#clearReceipt()` method will then be called. This will invoke the `Receipt#clearReceipt()` method which
+creates a new ArrayList and assigns it to the Receipt. At the same time, the boolean `Receipt#isDone` is assigned to
+`false`.
 
-3. This will invoke the `Receipt#clearReceipt()` method which creates a new ArrayList and assigns it to the Receipt.
-
-4. At the same time, the boolean `Receipt#isDone` is assigned to `false`.
+3. If the Receipt is marked as done, the `splitterModel#clearReceipt()` method will then be called. This will invoke
+the `Receipt#clearReceipt()` method which creates a new ArrayList and assigns it to the Receipt. At the same time, the
+boolean `Receipt#isDone` is assigned to `false`.
 
 *Sequence Diagram for Clear Receipt Command*
 
@@ -1366,6 +1373,9 @@ The following sequence diagram summarizes what happens during the execution of t
 
 .Clear Receipt Command Sequence Diagram
 image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
+
+.Execution of Clear Receipt Command
+image::ExpenseSplitterClearReceiptCommandSequenceDiagram2.png[]
 //end::expensesplitterclearreceipt[]
 
 === Logging
