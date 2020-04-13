@@ -24,13 +24,14 @@ Note that the entries in the reminder list will also be sorted in the same manne
 It also helps the user to view entry that he/she may deem more important first
 (for example entry with a higher calorie value, as it has a larger impact on the user's fitness),
 which facilitates editing.
-** Highlights: 
+** Highlights: the user can specify which list to sort and in what order.
 
 * *Major enhancement 2*: added *the ability to search for calorie data of common food/sports*
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
 ** Justification: This feature makes it easier for the user to estimate how much calorie he/she will gain/burn
 by eating/exercising, so that he/she can create food/sports entry without the need to search online for relevant information.
-** Highlights: The application will perform up to 3 rounds of search, each round with different criteria,
+** Highlights: The application will perform up to 3 rounds of search, each round with different criteria
+(from most strict matching to less strict matching),
 to find matching data. This ensures that more relevant data are found and added first, and at the same time
 loosely-matching data can be shown when strictly-matching data are not found.
 ** Credits: The calorie data are collected from the following websites: https://www.calories.info/ and https://www.nutristrategy.com/caloriesburned.htm
@@ -44,42 +45,43 @@ and the link to the user guide.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2.1` (1 release) on GitHub
+*** Managed release `v1.2.1` on GitHub
+** Team-Based tasks:
+*** Frequently perform manual testing of the application, and report bugs/feature flaws promptly to other team members.
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|Given below are sections I wrote in the User Guide.
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=check]
+
+|===
+|Given below are sections I reviewed and edited in the User Guide.
+|===
+
+include::../UserGuide.adoc[tag=command_format]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Given below are sections I wrote in the Developer Guide.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=check]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+|===
+|Given below are sections I reviewed and edited in the Developer Guide.
+|===
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=userStories]

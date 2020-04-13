@@ -585,6 +585,7 @@ The Sequence Diagram below shows how the components interact with each other for
 image:AddWeightSequenceDiagram.png[]
 //end::weight[]
 
+//tag::check[]
 === Check calorie intake/consumption of some common food/sports
 
 ==== Implementation
@@ -635,6 +636,9 @@ The key is the name of the entry and the value is the entry.
 ** Pros: (theoretically) O(1) time complexity for finding an entry given a complete keyword,
 regardless of how many entries are in the HashMap.
 ** Cons: hard to implement partial-key search (i.e. the keyword is only part of the name of the entry).
+
+//end::check[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -662,6 +666,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: achieve fitness control faster than a typical mouse/GUI driven app
 //end::product_scope[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -734,7 +739,7 @@ having to search about these information online.
 
 |=======================================================================
 
-_{More to be added}_
+//end::userStories[]
 
 [appendix]
 == Use Cases

@@ -292,6 +292,7 @@ image::delete.png[]
 .Delete Command Result
 image::delete2.png[]
 
+//tag::sort[]
 ==== Sort food/sports entry list: `sort`
 
 Sorts food or sports entry list, or both of them, based on starting time or
@@ -316,6 +317,9 @@ in descending order of calorie value, i.e. entry with higher calorie intake/cons
 .Dashboard page after all 3 lists are sorted by time in descending order (later entry comes at top)
 image::Sort.png[width="790"]
 
+//end::sort[]
+
+//tag::check[]
 ==== Check calorie intake/consumption of common food/sports: `check`
 
 Searches through the pre-set database for calorie intake/consumption information
@@ -348,6 +352,8 @@ whose name match/contain keyword "apple")
 
 .Check command result (matching data found)
 image::Check.png[width="790"]
+
+//end::check[]
 
 //.Check command result (no matching data)
 //image::Check2.png[width="790"]
