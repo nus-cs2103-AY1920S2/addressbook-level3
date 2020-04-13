@@ -215,7 +215,7 @@ The following sequence diagram shows how the count operation works:
 :figure-caption: Figure
 .Sequence diagram of how `count` command is processed.
 
-image::count-command/CountSequenceDiagram.svg[]
+image::count-command/CountSequenceDiagram.svg[align="center"]
 
 An incorrect syntax will cause a `ParseException` to be thrown by the parser.
 
