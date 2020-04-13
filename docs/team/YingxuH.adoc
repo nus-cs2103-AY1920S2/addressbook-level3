@@ -9,20 +9,15 @@
 
 == Overview
 
-iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers. It is also able to provide an analysis of the entire business to help the owner manage the shop.
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers.
 
 == Summary of contributions
 
 * *Major enhancement*:
 1. Added *the ability to manage transcations*, e.g., *addt*, *editt*, *findt*, *listt*, *undot*, *cleart*.
-** What it does: Adding transaction will record a transaction and update the quantity and sales of the associated product. Editting a transaction will edit any attributes of a trancation as well as the quantity/sales attribute of the associate product, if necessary.
-Finding transaction filters transactions by attributes values, e.g. date time, customer name. Undoing transaction removes a transaction from the system and update the quantity and sales attribute of its product if affected. Listing transaciton shows all the transactions
-to the screen. Clearing transactions simply wipe out all the transactions in the system.
-** Justification: This feature allows the user to manage the inventory by recording transactinos. By adding a transaction, the system will reduce the quantity of certain products and increase the sales of them. By finding or listing a transaction,
-the user can view the specific transctions in certain date or purchased by certain person, or just all the transactions. By undoing or editing transactions, users have the ability to correct any mistakes he/she made. Lastly, users might want to
-clear all transactions only in rare cases, e.g. entering a new financial year or opening a new store.
-** Highlights: Adding/editting/undoing transactions will also update the quantity/sales attributes of related products. E.g. editing a transaction's product will re-store the original product to its previous status and update the quantity & sales of the new product.
-A future date time in the future is not allowed.
+** What it does: It records, edits, lists, finds, deletes transactions from the system. The quantity and sales attribute of products will be affected as well.
+** Justification: This feature allows the customer to manage a large amount of transactions. It improves the usability of the application and increases the efficiency for the user to manage inventory system.
+** Highlights: Adding/editting/undoing transactions will also update the quantity/sales attributes of related products. A future date time in the future is not allowed.
 ** Credits: These operations are inspired from the operations of persons in AB3 system.
 
 2. Added the *ability to plot the quantity sold of a product in a certain time range*.
@@ -33,32 +28,32 @@ could make decisions of whether to stock up or down the product.
 ** Highlights: If a time range is not specified, the command will consider the last 7 days by default. An end date before start date or date in the future is not allowed.
 
 3. Added the histogram of products to the statistics panel.
-** What is does: The two histograms are passivly displayed on the statistics panel, e.g. they are displayed upon the application is launched. It fetches the quantity and sales of all the products and group them by the amount of quantity/sales.
-The data is then plot besides the top selling product lists in a line chart format.
+** What is does: It fetches the quantity and sales of all the products and group them by the amount of quantity/sales.
+The data is then plot in a line chart format.
 ** Justification: It allows the user to understand whether the business is healthy, E.g. whether most of the products have sufficient inventory, is there any super-sales-creator or all the products share the same sales evenly.
-** Highlights: The graph will be updated everytime a user takes any action, e.g. adding a new product.
+** Highlights: They are displayed upon the application is launched. The graph will be updated everytime a user takes any action, e.g. adding a new product.
 
 * *Minor enhancement*:
 ** Update the UI from three side-by-side lists to tab panes with transactions representated by rows in a table (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/186[#186]).
-** Split the original shared quantity class to TransactionQuantity and ProductQuantity with different minimal values (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192]).
-** Set default dateTime and money for transactions given no specific information provided (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117]).
-** Added test for transaction model, logic commands, and logic parser. Created testutils for transaction (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209], https://github.com/AY1920S2-CS2103-T09-2/main/pull/201[#201], https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197],
+** Split the original shared quantity class to TransactionQuantity and ProductQuantity with different minimal values. Merged sales and money class (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117], https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192]).
+** Set default dateTime and money for transactions (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117]).
+** Added test for transaction model, logic, and test utils (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209], https://github.com/AY1920S2-CS2103-T09-2/main/pull/201[#201], https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197],
 https://github.com/AY1920S2-CS2103-T09-2/main/pull/183[#183], https://github.com/AY1920S2-CS2103-T09-2/main/pull/140[#140]).
 
 * *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=YingxuH&tabRepo=AY1920S2-CS2103-T09-2%2Fmain%5Bmaster%5D[tp-dashboard] +
-** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/model/transaction[model: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/model/util/Quantity.java[model/util: quantity]]
-** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/transaction[logic/command: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/commands/product/PlotSalesCommand.java[logic/command/product: PlotSalesCommand],
-https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/transaction[logic/parser: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/parser/product/PlotSalesCommandParser.java[logic/parser/product: PlotSalesCommandParser]]
-** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/storage/transaction[storage: tranasction]]
-** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/transaction[ui: transaction],
+** Model: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/model/transaction[transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/model/util/Quantity.java[util: quantity]]
+** Logic: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/transaction[command: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/commands/product/PlotSalesCommand.java[command: PlotSales],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/transaction[parser: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/parser/product/PlotSalesCommandParser.java[parser: PlotSales]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/storage/transaction[storage: tranasction],
+[https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/transaction[ui: transaction],
 https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/ui/PlotWindow.java[ui: PlotWindow]]
-** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/model/transaction[test/model: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/testutil/transaction[test/testutil: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/commands/transaction[test/logic/commands: transaction],
-https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/parser/transaction[test/logic/parser: transaction],
+** Test: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/model/transaction[model: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/testutil/transaction[testutil: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/commands/transaction[commands: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/parser/transaction[parser: transaction],
 ]
 
 * *Other contributions*:
@@ -66,24 +61,16 @@ https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/ad
 ** Project management:
 *** Set up the issue labels and milestones with my team mates.
 *** Set up `netlify`, `coverall`, auto-build tools (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/17[#17])
-*** Managed releases `v1.3.1` on GitHub
 *** Merge PRs created by my team mates.
-*** Suggested the team to assign people to each issue and properly tag them with to milestones and PRs as required by the instruction.
 ** Enhancements to existing features:
-*** Refactored the process of triggering notification windows from directly generating from the `AddTransactionCommand` to passing signals to command result and making the `MainWindow` to handle the plot.  (Commit https://github.com/AY1920S2-CS2103-T09-2/main/pull/192/commits/803fa013d1d0adc44434a7838fb45a145cf394bd[803fa01] of Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192])
-*** Merged the `Sales` and `Money` class under product and transaction into one class for coding convenience (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117])
-*** Fixed the problem of re-listing all products everytime adding a transaction (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/182[#182])
-*** Fixed the problem of allowing users to input future time. (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197])
-*** Fixed the problem of not updating the statistics window unless re-launching the application (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/134[#134], https://github.com/AY1920S2-CS2103-T09-2/main/pull/186[#186])
-*** Refactored the process of checking duplicate input attributes (this https://github.com/AY1920S2-CS2103-T09-2/main/pull/209/commits/c841de096b6cfb0877416062adaa5770d868bb2c[commit] from Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209])
+*** Refactored the process of triggering notification windows as passing signals to command result and making the `MainWindow` to handle the plot.  (Commit https://github.com/AY1920S2-CS2103-T09-2/main/pull/192/commits/803fa013d1d0adc44434a7838fb45a145cf394bd[803fa01] of PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192])
+*** Refactored the process of checking duplicate input attributes (this https://github.com/AY1920S2-CS2103-T09-2/main/pull/209/commits/c841de096b6cfb0877416062adaa5770d868bb2c[commit] from PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209])
+*** Fixed the bug of re-listing all products everytime adding a transaction, allowing users to input future time, and statistics window not updated after each action (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/182[#182], https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197], https://github.com/AY1920S2-CS2103-T09-2/main/pull/134[#134], https://github.com/AY1920S2-CS2103-T09-2/main/pull/186[#186])
 ** Documentation:
-*** Updated the readme from the template of AB3 to customized iTrackPro page (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/12[#12])
+*** Updated the readme from the template of AB3 to customized iTrackPro page (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/12[#12])
 *** Updated the UG with add/edit/delete/find/list transactions as well as top-selling product, revenue, and low inventory (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/27[#27])
-*** Updated the DG with NFR and Glossary (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/21[#21])
-*** Updated the UG about the plotsales command (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/135[#135])
-*** Updatde the `deletet` to `undot` in UG (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/137[#137])
-*** Updated the Dev Guide about managing transaction and plot sales command. (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/109[#109], https://github.com/AY1920S2-CS2103-T09-2/main/pull/107[#107], https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
-*** Updated some explanations in User Guide (https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
+*** Updated the UG about the plotsales command, renaming `deletet` to `undot`, re-phrase some explanations (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/135[#135], Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/137[#137], https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
+*** Updated the Dev Guide with NFR, Glossary, managing transaction and plot sales command. (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/21[#21], https://github.com/AY1920S2-CS2103-T09-2/main/pull/109[#109], https://github.com/AY1920S2-CS2103-T09-2/main/pull/107[#107], https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
 ** Community:
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/58[#58])
 *** Reviewed the PRs and documentations from other teams in the tutorial together with my team mates(examples:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/104[#104], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/42[#42])
