@@ -80,11 +80,6 @@ public class UniqueRestaurantList implements Iterable<Restaurant> {
         }
     }
 
-    public void setRestaurants(UniqueRestaurantList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
     /**
      * Replaces the contents of this list with {@code restaurants}.
      * {@code restaurants} must not contain duplicate restaurants.
