@@ -39,11 +39,11 @@ public class SortCommand extends Command {
     public static final String DESCENDING_ORDER = " in descending order.\n";
     public static final String MESSAGE_COMMIT = "Sort the entry list and reminder list.";
     public static final String SORT_ORDER_CONSTRAINT = "Sort order can only be ascending (a) or descending (d)";
+    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
 
     private final Type sortType;
     private final SortBy sortBy;
     private final boolean isAscendingSort;
-    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
 
     public SortCommand(Type type, SortBy order, boolean isAscending) {
         requireNonNull(order);
