@@ -481,6 +481,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     private int searchWholeWordPartialMatch(String keywords, Set<CalorieDatum> result,
                                             Set<? extends CalorieDatum> entries, int count) {
+        assert count < 3 : "If already 3 matching results were found, search should terminate early";
         int currentCount = count;
         for (CalorieDatum entry : entries) {
             String name = entry.getName();
@@ -506,6 +507,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     private void searchEachWordPartialMatch(String[] keywordsByWord, Set<CalorieDatum> result,
                                             Set<? extends CalorieDatum> entries, int count) {
+        assert count < 3 : "If already 3 matching results were found, search should terminate early";
         int currentCount = count;
         for (CalorieDatum entry : entries) {
             String name = entry.getName();

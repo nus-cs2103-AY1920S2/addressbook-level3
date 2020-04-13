@@ -8,6 +8,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static fithelper.model.entry.Type.FOOD;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.Model;
@@ -32,14 +35,15 @@ public class SortCommand extends Command {
             + PREFIX_SORT_ORDER + "d";
 
     public static final String BY = " by ";
-    public static final String ASCENDING_ORDER = " in ascending order\n";
-    public static final String DESCENDING_ORDER = " in descending order\n";
+    public static final String ASCENDING_ORDER = " in ascending order.\n";
+    public static final String DESCENDING_ORDER = " in descending order.\n";
     public static final String MESSAGE_COMMIT = "Sort the entry list and reminder list.";
     public static final String SORT_ORDER_CONSTRAINT = "Sort order can only be ascending (a) or descending (d)";
 
     private final Type sortType;
     private final SortBy sortBy;
     private final boolean isAscendingSort;
+    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
 
     public SortCommand(Type type, SortBy order, boolean isAscending) {
         requireNonNull(order);
@@ -70,6 +74,7 @@ public class SortCommand extends Command {
         }
         feedback = editFeedbackBasedOnSortOrder(feedback);
         model.commit(MESSAGE_COMMIT);
+        logger.info(feedback);
         return new CommandResult(feedback, HOME, false);
     }
 

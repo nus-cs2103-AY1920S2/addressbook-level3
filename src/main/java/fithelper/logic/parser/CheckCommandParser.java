@@ -5,8 +5,10 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.CheckCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.Type;
@@ -15,12 +17,17 @@ import fithelper.model.entry.Type;
  * Parses input arguments and creates a new CheckCommand object
  */
 public class CheckCommandParser implements Parser<CheckCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(CheckCommandParser.class);
+
     @Override
     public CheckCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        logger.info("input parameters:" + args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_KEYWORD);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_KEYWORD) || !arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_KEYWORD, PREFIX_TYPE)) {
+            logger.info("throwing wrong format exception");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         }
 

@@ -9,6 +9,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class SortBy {
     public static final String MESSAGE_CONSTRAINTS = "Sort by category can only be cal/c or time/t or name/n.";
+    public static final String CALORIE = "calorie";
+    public static final String TIME = "time";
+    public static final String NAME = "name";
+
     private final String value;
 
     /**

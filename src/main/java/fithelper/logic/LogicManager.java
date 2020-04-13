@@ -28,7 +28,7 @@ import jfxtras.icalendarfx.components.VEvent;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FITHELPER_FILE_OPS_ERROR_MESSAGE = "Could not save data to fithelper file: ";
+    public static final String FITHELPER_FILE_OPS_ERROR_MESSAGE = "Could not save data to fitHelper file: ";
     public static final String USERPROFILE_FILE_OPS_ERROR_MESSAGE = "Could not save data to user profile file: ";
     public static final String WEIGHTRECORDS_FILE_OPS_ERROR_MESSAGE = "Could not save data to weight records file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);

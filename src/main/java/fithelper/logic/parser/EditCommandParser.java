@@ -38,7 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
                         PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE) || !arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
