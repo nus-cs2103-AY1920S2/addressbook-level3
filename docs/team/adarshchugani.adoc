@@ -38,8 +38,8 @@ time, and these fields will be set to 0 if they are omitted.
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (https://github.com/AY1920S2-CS2103T-W12-4/main/issues/71[Pull Request #71])
-*** Wrote additional tests for existing features to increase coverage from 27% to 51% (Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/issues/299[#299], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/300[#300])
+*** Updated the GUI color scheme https://github.com/AY1920S2-CS2103T-W12-4/main/issues/71[Pull Request #71]
+*** Wrote additional tests for existing features to increase coverage from 27% to 51%: Pull requests https://github.com/AY1920S2-CS2103T-W12-4/main/issues/299[#299], https://github.com/AY1920S2-CS2103T-W12-4/main/issues/300[#300]
 ** Documentation:
 *** Did many changes to the User Guide and Developer Guide: Pull Requests
 https://github.com/AY1920S2-CS2103T-W12-4/main/pull/20[#20], https://github.com/AY1920S2-CS2103T-W12-4/main/pull/22[#22],
@@ -61,7 +61,7 @@ https://github.com/AY1920S2-CS2103T-W12-4/main/issues/[here]
 |===
 
 
-include::../UserGuide.adoc[tag=TimeCommand]
+//include::../UserGuide.adoc[tag=TimeCommand]
 include::../UserGuide.adoc[tag=FavCommand]
 include::../UserGuide.adoc[tag=FutureStuff]
 
@@ -75,7 +75,7 @@ include::../UserGuide.adoc[tag=FutureStuff]
 include::../DeveloperGuide.adoc[tag=FavCommandImpl]
 include::../DeveloperGuide.adoc[tag=TimeCommandImpl]
 include::../DeveloperGuide.adoc[tag=ViewCommandImpl]
-include::../DeveloperGuide.adoc[tag=UserStories]
+//include::../DeveloperGuide.adoc[tag=UserStories]
 
 
 == PROJECT: PowerPointLabs
