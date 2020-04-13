@@ -153,7 +153,7 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PersonAmountBook // instanceof handles nulls
+                || (other instanceof PersonAmountBook // instanceof handles null
                 && persons.equals(((PersonAmountBook) other).persons));
     }
 
