@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- *
+ * Model for Scheduler.
  */
 public interface SchedulerModel {
     boolean hasSchedule(Schedule schedule);

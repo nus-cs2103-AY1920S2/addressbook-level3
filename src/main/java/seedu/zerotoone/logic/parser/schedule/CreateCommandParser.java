@@ -13,16 +13,14 @@ import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
 import seedu.zerotoone.model.schedule.DateTime;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Parses input arguments and creates a new CreateCommand object
  */
 public class CreateCommandParser implements Parser<CreateCommand> {
 
     /**
-     * STEPH_TODO_JAVADOC
-     *
-     * @param args STEPH_TODO_JAVADOC
-     * @return STEPH_TODO_JAVADOC
-     * @throws ParseException STEPH_TODO_JAVADOC
+     * Parses the given {@code String} of arguments in the context of the CreateCommand
+     * and returns an CreateCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public CreateCommand parse(String args) throws ParseException {
         requireNonNull(args);

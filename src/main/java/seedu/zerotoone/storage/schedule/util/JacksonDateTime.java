@@ -7,7 +7,7 @@ import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.schedule.DateTime;
 
 /**
- *
+ * Jackson-friendly version of {@link DateTime}.
  */
 public class JacksonDateTime {
 
@@ -20,14 +20,16 @@ public class JacksonDateTime {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Converts a given {@code DateTime} into this class for Jackson use.
+     */
     public JacksonDateTime(DateTime source) {
-        dateTime = source.toString(); // MAY_NOT_WORK
+        dateTime = source.toString();
     }
 
     /**
-     *
-     * @return
-     * @throws IllegalValueException
+     * Converts this Jackson-friendly adapted DateTime object into the model's {@code DateTime} object.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted DateTime.
      */
     public DateTime toModelType() throws IllegalValueException {
         if (dateTime == null) {
