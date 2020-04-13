@@ -294,6 +294,9 @@ One of the consideration while designing was that the commands in exercise are e
 ==== Overview
 The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises.
 
+.Workout Activity Diagram
+image::WorkoutActivityDiagram.png[]
+
 ==== Components
 The Workout Manager consists of a `WorkoutList`, which contains a number of workouts that the user has created.
 Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `WorkoutExerciseList`.
