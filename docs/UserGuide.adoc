@@ -18,69 +18,83 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
+[[intro]]
 == Introduction
 //tag::intro[]
 This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 7 main portions,
-the introduction, getting started, features, FAQ, command summary, glossary and appendix.
+the <<intro, introduction>>, <<getting-started, getting started>>, <<Features,features>>, <<faq, FAQ>>,
+<<command-summary, command summary>>, <<glossary, glossary>> and <<AppendixA, appendix>>.
 
 Hello there! Welcome to EYLAH's User Guide.
-Are you someone who *lives in Temasek hall* in the National University of Singapore (NUS) and
-have *supper frequently with your hall mates?* Do you dread the *tedious and irritating portion of
-splitting large bills*? Have you wished for a *Command Line Interface* (CLI) application that can solve the
-above mentioned issues?
 
-If you answered *"YES!!"*, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that
-developed just for you that will make your
-lives at halls much easier!
+Are you someone who *lives in Temasek Hall* in the National University of Singapore (NUS) and
+has *supper frequently with your hall mates?* Do experience *splitting headaches when splitting large bills amongst
+a large group of friends*? Have you ever wished for a *quick and easy way to manage your calorie intake*?
+Or wished for a *Command Line Interface* (CLI) application that can solve the above mentioned issues?
+
+If you answered *"YES!"* to any of the above questions, Ease Your Life At Halls (EYLAH) is a revolutionary new
+super-application that developed just for you that will make your lives at halls much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
-app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line Interface*
-(CLI).
+app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line
+Interface* (CLI).
 
 EYLAH can solve your problems in halls by *tracking your diet* after those unhealthy suppers
-and *splitting the cost* after each outing or late-night party session with a few pokes of your keyboard.
+and *splitting the cost* after each outing or late-night party session with a few keystrokes of your keyboard.
 Interested? Jump to <<Getting Started>> to get started. Let's go!
 
+Hope you have a pleasant experience using EYLAH!
+
+.Launch screen of EYLAH
 image::Ui.png[width="790"]
-Figure 1. Photo of EYLAH
 //end::intro[]
 
 === Purpose
-* This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
-to aid you in using the application to improve your lives on campus.
+* This documentation serves as an introduction to the features and proper usage of EYLAH, and is made to aid you
+in using the application to improve your lives in Temasek Hall.
 
 
 === Tips on reading the User Guide
 We encourage you to read EYLAH's User Guide from top to bottom.
 
 While reading the User Guide you may encounter some symbols.
-These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
-the symbols and their meaning.
+These symbols are used to highlight crucial information or tips and in this portion we will be explaining the symbols
+and what they stand for.
+
+These symbols include:
 
 [NOTE]
+====
 This block of text with a blue exclamation mark indicates *additional notes* and *information* that you should
 consider to prevent unexpected behaviour you are using EYLAH.
+====
 
 [TIP]
+====
 This block of text with a yellow light bulb indicates *additional tips* that will help you when using EYLAH.
+====
 
 [WARNING]
-This symbol indicates warnings.
+====
+This block of text with a warning sign indicates warnings, information you should take extreme note of.
+====
 
 kbd:[Enter] - This symbol indicates the enter button on the keyboard.
 
-`markup` - A grey highlight (known as a mark-up) indicates that this is a command you can type into EYLAH. +
+`markup` - A grey highlight (known as a mark-up) indicates a command that can be inputted into EYLAH. +
 
 `[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
-(e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
+(e.g: `edit INDEX [-n NAME] [-c CALORIES]` )
 
-Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
+Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or to an external
+website.
 
+[[getting-started]]
 == Getting Started
 
-Follow the steps below to help you set up EYLAH in no time!
+Need help setting up EYLAH? Simply follow the steps below to get started in no time!
 
-.  Ensure you have Java `11` or above installed in your Computer.
+.  Ensure you have `Java 11` or above installed in your Computer.
 .  Download the latest `eylah.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for EYLAH.
 .  Navigate to the folder in terminal and to run the jar file type `java -jar eylah.jar`.
@@ -101,8 +115,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can
 [[Features]]
 == Features
 
-In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
-to to improve your user experience of EYLAH.
+In this section, you can find *all* the commands of EYLAH and some tips and trick you can use to improve your user
+experience while using EYLAH.
 
 [cols= "50%, 50%"]
 
@@ -983,18 +997,23 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 '''
 
 === Saving the data
-In this section, you will learn more about the saving mechanism of the application. EYLAH will automatically
-helps you store the data in the hard disk after any command that changes the data. +
+In this section, you will learn more about the saving mechanism of EYLAH. +
+
+EYLAH will automatically help you store any information that you have inputted into the hard disk. +
 You *do not* need to save manually.
 
+[[faq]]
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EYLAH folder.
 
+[[command-summary]]
 == Command Summary
-In this section, you can find out more about the commands supported by EYLAH (their respective format and example).
+In this section, you can find out more about the commands supported by EYLAH, as well as their respective format and
+example.
 
-If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
+If you would like to know more about a specific command, simply click on the provided links in the table below and you
+will be brought to the respective command.
 
 === For Diet Tracker
 |===
@@ -1127,6 +1146,8 @@ or +
 
 |===
 //end::commandsummaryforexpensesplitter[]
+
+[[glossary]]
 == Glossary
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
@@ -1165,7 +1186,7 @@ image::ExpenseSplitterActivityDiagramV2.png[width="790"]
 
 This diagram below is used in conjunction with the diagram directly above this.
 
-.SimplifiedAddItemActivityDiagram
+.Simplified Add Item Activity Diagram
 image::ExpenseSplitterActivityDiagram.png[width="790"]
 
 
