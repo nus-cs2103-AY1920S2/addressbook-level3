@@ -69,13 +69,13 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the APP. It is responsible for,
+link:{repoURL}/blob/master/src/main/java/seedu/eylah/Eylah.java[`EYLAH`] contains the main class for the application. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -147,14 +147,15 @@ In `Expense Splitter` mode, `SplitterLogic.java` and `SplitterLogicManager.java`
 * `MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
 `Expense Splitter` mode. For example, `MODELogic` given below refers to `SplitterLogic` when in `Expense Splitter` mode.
 
-* `MODEParser` is an exception, when in `Expense Splitter` mode refers to `ExpenseSplitterParser` while in `Diet Tracker` mode refers to `FoodBookParser`.
+* `MODEParser` is an exception. When in `Expense Splitter` mode it refers to `ExpenseSplitterParser`
+while in `Diet Tracker` mode it refers to `FoodBookParser`.
 ====
 
 .  `MODELogic` uses the `MODEParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `MODELogicManager`.
-.  The command execution can affect the `Model` (e.g. deleting a entry).
+.  The command execution can affect the `Model` (e.g. deleting AN entry).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Eylah.java` to perform certain actions, such as go back to main menu or exit the App.
+.  In addition, the `CommandResult` object can also instruct the `Eylah.java` application to perform certain actions, such as to go back to main menu or exit the App.
 
 Given below is the Sequence Diagram for interactions within the `Logic Component` for the `execute("deleteitem 1")` API call.
 
@@ -184,8 +185,8 @@ The `Model Component` deals with the modeling of the object.
 The `MODEModel`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Person Amount Book and Receipt Book data in `Expense Splitter` mode.
-* stores the Food Book and Myself data in `Diet Tracker` mode.
+* stores the PersonAmountBook and ReceiptBook data in `Expense Splitter` mode.
+* stores the FoodBook and Myself data in `Diet Tracker` mode.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
@@ -203,14 +204,14 @@ The `Storage Component` deals with the operations to write and read from the loc
 [NOTE]
 ====
 `MODE` used in the given subsection refers to `Diet` when in `Diet Tracker` mode, `Splitter` when in
-`Expense Splitter` mode. For example, `MODEStorage` given below refers to `SplitterStorage` when in `Expense Splitter` mode.
+`Expense Splitter` mode.For example, `MODEStorage` given below refers to `SplitterStorage` when in `Expense Splitter` mode.
 ====
 
 The `MODEStorage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Person Amount Book and Receipt Book data in json format and read it back in `Expense Splitter` mode.
-* can save the Food Book and MySelf data in json format and read it back in `Diet Tracker` mode.
+* can save the PersonAmountBook and ReceiptBook data in json format and read it back in `Expense Splitter` mode.
+* can save the FoodBook and MySelf data in json format and read it back in `Diet Tracker` mode.
 
 [[Design-Commons]]
 === Common classes
@@ -1969,7 +1970,7 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has `Java 11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
 .  Should have a pre-loaded list of commonly consumed food items in database.
@@ -1977,7 +1978,7 @@ Use case ends.
 .  A user should be able to use EYLAH easily and intuitively.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  An Item should not have a Item Price more than $10,000.
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -2001,8 +2002,6 @@ A contact detail that is not meant to be shared with others
 The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, normal weight, overweight,
 or obese based on tissue mass (muscle, fat, and bone) and height
 
-[[self]] Self:
-A static class used in Diet Tracker to represent the user in the splitterModel.
 
 _Table 1. Diet Tracker Command Prefix_ +
 [width="59%",cols="22%,<23%,<25%,options="header",]
@@ -2321,7 +2320,7 @@ with problems we all face while staying in Temasek Hall.
 
 Hence, we decided to build EYLAH, a super application that has both a diet tracker and a expense splitter functionality.
 EYLAH is significantly different from Address Book 3 (AB3) in many aspects.
-We needed to add audience:specific features to satisfy the needs of our target audience:residents staying in Temasek
+We needed to add audience-specific features to satisfy the needs of our target audience-residents staying in Temasek
 Hall.
 
 
