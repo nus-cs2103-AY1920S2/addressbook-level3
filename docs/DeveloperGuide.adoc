@@ -196,6 +196,8 @@ SortCommandResult extends CommandResult and contains an additional String attrib
 Auto complete is triggered when users press tab while focussed on the command line.
 
 ==== Implementation
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/CommandCompletor.java[`CommandCompletor.java`]
+
 .AutoComplete Sequence Diagram
 image::ACSequenceDiagram.png[]
 
@@ -244,7 +246,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 ==== Auto Complete output:
 As seen from the activity diagram above:
 
-. Known Command UI displayed when:
+. Known Command UI is displayed when:
 .. Any kind of completion has happened or nothing has changed for the input
 ... `CompletorResult` is returned
 .. Any input is deleted (invalid index or sort field)
@@ -289,11 +291,11 @@ Sort field completion is done by iterating through all arguments word by word an
 We've built upon the existing find function in AB-3 to filter tasks based on phrases (with some degree of typing errors) and based on task tags.
 
 ==== Implementation
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand.java`]
 
 .Find Command Sequence diagram
 image::FindSequenceDiagram.png[]
 
-//TODO rephrase
 * After setting the predicate on the model and FilteredList, the FilteredList will apply the Test method of the predicate.
 ** The test method calculates a score for every task and only displays tasks with score < 2.
 * A comparator is then retrived from the Predicate by comparing Tasks based on their score and is used to sort the filtered list to show the more relevant searches first
@@ -306,6 +308,7 @@ Any existing comparator set by previous sort commands is replaced by the find co
 ====
 
 ==== Predicate
+*API* : link:{repoURL}/src/main/java/seedu/address/model/task/NameContainsKeywordsPredicate.java[`NameContainsKeywordsPredicate.java`]
 
 ===== Scoring decision
 The score is first initialized to 2 and is later replaced by name score if the name score is lower than 2. We then subtract tag score from it to get the final score.
@@ -316,15 +319,15 @@ image::PredicateSequenceDiagram.png[]
 ===== Name scoring
 Please refer to the above's name score group
 
-* The name score of a task is the minimum score of all chunks of a task
-** A chunk is a String subsequence of the task name that has the same number of words as the search term
-* We iterate through all chunks of the task name and calculate a score for each chunk
+* The name score of a task is the minimum score of all chunks of a task.
+** A chunk is a String subsequence of the task name that has the same number of words as the search term.
+* We iterate through all chunks of the task name and calculate a score for each chunk.
 * Here is how we set the score for each chunk:
-** edit distance between one of the chunks and the search term < 2, chunk score is set to 1
-** search term matches the start of one of the chunks, chunk score is set to 1
-** one of the chunks is the same as the search term, chunk score is set to 0
-** else chunk score is 2
-* We then get the minimum of these chunk scores
+** edit distance between one of the chunks and the search term < 2, chunk score is set to 1.
+** search term matches the start of one of the chunks, chunk score is set to 1.
+** one of the chunks is the same as the search term, chunk score is set to 0.
+** else chunk score is 2.
+* We then get the minimum of these chunk scores.
 
 .Name scoring in predicate
 image::PredicateNameSequenceDiagram.png[]
@@ -339,15 +342,15 @@ image::PredicateTagSequenceDiagram.png[]
 final score = name score - tag score. Search results are displayed in ascending order of final score.
 
 ===== Design considerations
-. The idea is to first ensure that tasks that are too different are not shown while allowing some degree of typo error on the user's end when searching for a task
-.. This is supported by the use of edit distance and a small threshold
-. Next we also wanted the user to be able to find a task name without searching the full name
-.. We show tasks who have a chunk who's start matches the search term
-. We also wanted to allow users to search by tags
-.. Thus tag score is introduced
+. The idea is to first ensure that tasks that are too different are not shown while allowing some degree of typo error on the user's end when searching for a task.
+.. This is supported by the use of edit distance and a small threshold.
+. Next we also wanted the user to be able to find a task name without searching the full name.
+.. We show tasks who have a chunk who's start matches the search term.
+. We also wanted to allow users to search by tags.
+.. Thus tag score is introduced.
 . While the score helps to determine which tasks to show, it serves another job in providing the search relevance so that while accommodating for some degree of error from user input, they are still seeing what's more relevant first.
-.. Users can also narrow their search by performing find with more tags or a more complete task name so that only that task has a chunk that matches
-. We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
+.. Users can also narrow their search by performing find with more tags or a more complete task name so that only that task has a chunk that matches.
+. We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1.
 
 //end::branson[]
 
