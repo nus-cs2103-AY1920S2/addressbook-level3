@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.DuplicateDeadlineException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -178,6 +177,7 @@ public class AddCommand extends Command {
             throw new CommandException("To add grade to an existing module, use: edit m/MODULE g/GRADE");
         }
 
+        String addDeadlineAppendMsg = "";
         if (addDeadlines != null) {
             // Check if the deadline is added to a module in the current semester
             if (hasModule && semesterOfModule != currentSemester) {
@@ -197,14 +197,28 @@ public class AddCommand extends Command {
                 hasModule = true;
             }
 
-
+            String addDeadlinesSuccessAppendMsg = "";
+            String addDeadlinesDuplicateAppendMsg = "";
             for (Deadline deadline : addDeadlines) {
                 if (personal.hasDeadline(deadline)) {
-                    throw new DuplicateDeadlineException();
+                    if (addDeadlinesDuplicateAppendMsg.equals("")) {
+                        addDeadlinesDuplicateAppendMsg += "\nFailed to add these duplicate task(s): ";
+                    }
+                    addDeadlinesDuplicateAppendMsg += deadline.getDescription() + "; ";
+                } else {
+                    if (addDeadlinesSuccessAppendMsg.equals("")) {
+                        addDeadlinesSuccessAppendMsg += "\nThese task(s) have been added: ";
+                    }
+                    addDeadlinesSuccessAppendMsg += deadline.getDescription() + "; ";
+                    personal.addDeadline(deadline);
+                    profileManager.addDeadline(deadline);
                 }
-
-                personal.addDeadline(deadline);
-                profileManager.addDeadline(deadline);
+            }
+            if (!addDeadlinesSuccessAppendMsg.equals("")) {
+                addDeadlineAppendMsg += addDeadlinesSuccessAppendMsg;
+            }
+            if (!addDeadlinesDuplicateAppendMsg.equals("")) {
+                addDeadlineAppendMsg += addDeadlinesDuplicateAppendMsg;
             }
         }
 
@@ -237,6 +251,9 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(messageShown, moduleCodeToAdd), true);
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
+            if (addDeadlines != null) {
+                messageShown += addDeadlineAppendMsg;
+            }
         }
 
         profile.updateCap();
