@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -31,6 +32,7 @@ public class RemarkList {
 
     public RemarkList(int questionsCount, Instant startTime) {
         this.questionIndices = new int[questionsCount + 1];
+        Arrays.fill(questionIndices, -1);
         this.startTime = startTime;
     }
 
@@ -121,7 +123,7 @@ public class RemarkList {
      */
     public boolean isQuestionAnswered(int questionNumber) throws IllegalValueException {
         try {
-            return questionIndices[questionNumber] != 0;
+            return questionIndices[questionNumber] != -1;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalValueException(String.format(
                     "There are only %d questions in this interview session.", questionIndices.length - 1)
