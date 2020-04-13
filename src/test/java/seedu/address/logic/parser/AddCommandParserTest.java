@@ -38,6 +38,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,48 +54,53 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeB = new ModuleCode(VALID_MODCODE_BOB);
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeB);
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
+
+        ArrayList<Deadline> deadlines = new ArrayList<>();
         String task = VALID_TASK_BOB;
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_BOB);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_BOB, DateTimeFormatter.ofPattern("HH:mm"));
-
-        ArrayList<Deadline> deadlines = new ArrayList<>();
+        String taskA = VALID_TASK_AMY;
+        LocalDate dateA = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
+        LocalTime timeA = LocalTime.parse(VALID_DEADLINE_TIME_BOB, DateTimeFormatter.ofPattern("HH:mm"));
         deadlines.add(new Deadline(VALID_MODCODE_BOB, task, date, time));
+        deadlines.add(new Deadline(VALID_MODCODE_BOB, taskA, dateA, timeA));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCodeB), semester, grade, deadlines));
 
         // multiple modules - all modules accepted
-        /*
-        assertParseSuccess(parser, MODCODE_DESC_AMY + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(Collections.singletonList(moduleCode,
-                new ModuleCode(VALID_MODCODE_AMY)), semester, grade, deadlines));
-        */
+        assertParseSuccess(parser, MODCODE_DESC_AMY + MODCODE_DESC_BOB + SEMESTER_DESC_BOB,
+                new AddCommand(moduleCodes, semester, grade, deadlines));
+
         // multiple semesters - last semester accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_AMY + SEMESTER_DESC_BOB + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCodeB), semester, grade, deadlines));
 
         // multiple grades - last grade accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_AMY + GRADE_DESC_BOB
                 + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
+                new AddCommand(Collections.singletonList(moduleCodeB), semester, grade, deadlines));
 
-        // multiple tasks - last task accepted
-        /*
-        assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_AMY
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB,
-                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
+        // multiple tasks - all tasks accepted
+        assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + TASK_DESC_AMY
+                + TASK_DESC_BOB,
+                new AddCommand(Collections.singletonList(moduleCodeB), semester, grade, deadlines));
 
-        // multiple deadlines - last deadline accepted
-        assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_BOB
-                + DEADLINE_DESC_AMY + DEADLINE_DESC_BOB,
-                new AddCommand(Collections.singletonList(moduleCode), semester, grade, deadlines));
-         */
+        // multiple deadlines - all deadlines accepted
+        assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + TASK_DESC_BOB + DEADLINE_DESC_BOB
+                + TASK_DESC_AMY + DEADLINE_DESC_AMY,
+                new AddCommand(Collections.singletonList(moduleCodeB), semester, grade, deadlines));
+
     }
 
     @Test
@@ -135,6 +141,15 @@ public class AddCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_MODCODE_BOB + VALID_SEMESTER_BOB, expectedMessage);
     }
+
+    @Test
+    public void parse_deadlineFieldMissing_failure() {
+        String expectedMessage = "Please provide a deadline for each task!";
+        // For multiple tasks
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY +
+                TASK_DESC_BOB, expectedMessage);
+    }
+
 
     @Test
     public void parse_invalidValue_failure() {
