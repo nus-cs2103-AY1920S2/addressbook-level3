@@ -30,19 +30,9 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 
 ** *Overview*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=guofeng-tang&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
-** *Functional Code*:
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/schedule[Github Folder] <- Commands
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/schedule[Github Folder] <- Parsers
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/model/schedule[Github Folder] <- Models
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/storage/schedule[Github Folder] <- Storage
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/ui/views/schedule[Github Folder] <- UI
-. https://github.com/Guofeng-Tang/main/tree/master/src/main/resources/view/schedule[Github Folder] <- FXML
+** *Functional Code*: [https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/schedule[Commands]] [https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/schedule[Parsers]] [https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/model/schedule[Models]] [https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/storage/schedule[Storage]] [https://github.com/Guofeng-Tang/main/tree/master/src/main/java/seedu/zerotoone/ui/views/schedule[UI]] [https://github.com/Guofeng-Tang/main/tree/master/src/main/resources/view/schedule[FXML]]
 
-** *Tests*:
-. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/commands/schedule[Github Folder] <- Commands Tests
-. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/schedule[Github Folder] <- Parsers Tests
-. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/model/schedule[Github Folder] <- Models Tests
-. https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/storage/schedule[Github Folder] <- Storage Tests
+** *Tests*: [https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/commands/schedule[Commands Tests]] [https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/schedule[Parsers Tests]] [https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/model/schedule[Models Tests]] [https://github.com/Guofeng-Tang/main/tree/master/src/test/java/seedu/zerotoone/storage/schedule[Storage Tests]]
 
 
 
