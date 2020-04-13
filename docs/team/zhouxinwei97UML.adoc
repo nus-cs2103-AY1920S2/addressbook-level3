@@ -1,39 +1,32 @@
+= Zhou Xinwei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 
 .Component interactions for `moduleAdd m/CS2103T` command
-image::../images/ArchitectureSequenceDiagram.png[width="790"]
+image::../images/ArchitectureSequenceDiagram.png[width="500"]
 
 Shows how the components interact for each of the commands implemented in NUSProductivity
 
 .Structure of the UI Component
-image::../images/UiClassDiagram.png[width="790"]
+image::../images/UiClassDiagram.png[width="500"]
 
 Shows the UI component of NUSProductivity
 
 .Calender UI Class Diagram
-image::../images/CalenderUIClassDiagram.png[]
+image::../images/CalenderUIClassDiagram.png[width="500"]
 
 Shows the class diagram and relationship between the different UI.
 
 .Add task sequence diagram
-image::../images/AddTaskSequenceDiagram.png[]
+image::../images/AddTaskSequenceDiagram.png[width="500"]
 
 Shows how a deadlineAdd interacts with the different components in the program.
 
 .Calendar Activity Diagram
-image::../images/CalendarActivityDiagram.png[]
+image::../images/CalendarActivityDiagram.png[width="500"]
 
 Shows the activity diagram of all calendar feature commands and how it interacts with the UI.
 
-.Notes Open Sequence Diagram
-image::../images/notesOpenSequenceDiagram.png[width="600"]
 
-Shows the sequence diagram of a notesCommand
-
-.Notes List Activity Diagram
-image::../images/NotesList.png[width="600"]
-
-.Notes Open Activity Diagram
-image::../images/NotesCreation.png[width="600"]
-
-Shows the activity diagram when a notesOpen or notesList is executed.

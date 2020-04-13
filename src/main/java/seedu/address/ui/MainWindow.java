@@ -204,12 +204,10 @@ public class MainWindow extends UiPart<Stage> {
         diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
         setAnchorPaneSize(diaryListPanelPlaceholder, diaryListPanelPlaceholder.getChildren().get(0));
 
-        /**
-         * haven finish implementing
-         */
-        diaryEntryMainPage = new DiaryEntryMainPage(logic.getDiaryList().get(0));
-        diaryFullViewPlaceholder.getChildren().add(diaryEntryMainPage.getRoot());
-        setAnchorPaneSize(diaryFullViewPlaceholder, diaryFullViewPlaceholder.getChildren().get(0));
+
+        //diaryEntryMainPage = new DiaryEntryMainPage();
+        //diaryFullViewPlaceholder.getChildren().add(diaryEntryMainPage.getRoot());
+        //setAnchorPaneSize(diaryFullViewPlaceholder, diaryFullViewPlaceholder.getChildren().get(0));
 
         notesListPanel = new NotesListPanel(logic.getFilesInFolderList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
