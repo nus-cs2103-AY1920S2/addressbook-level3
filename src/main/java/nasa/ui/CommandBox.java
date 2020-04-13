@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -87,19 +88,19 @@ public class CommandBox extends UiPart<Region> {
      * @return
      */
     public boolean isValidCommand() {
-
         boolean isCommand = false;
         // We match the longest command
         for (String command : commandList.keySet()) {
             if (commandTextField.getText().trim().toLowerCase().startsWith(command)) {
                 isCommand = true;
                 matchedCommand = command;
-
+                break;
             }
         }
         return isCommand;
-
     }
+
+
 
 
     /**

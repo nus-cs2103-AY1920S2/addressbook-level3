@@ -74,7 +74,7 @@ public class HintWindow extends UiPart<Region> {
     }
 
     /**
-     * Copies the URL to the user guide to the clipboard.
+     * Copies the example for the command.
      */
     @FXML
     private void copyExample() {
