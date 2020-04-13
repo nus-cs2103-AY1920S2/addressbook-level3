@@ -150,7 +150,7 @@ Format: `(ab)delete INDEX`
 Examples:
 
 * `(ab)delete 2` +
-Deletes the 2nd person in the address book. +
+Deletes the 2nd person in the address book
 
 tag::notetaker[]
 
