@@ -1,11 +1,13 @@
 @startuml
 !include style.puml
 
+box Logic LOGIC_COLOR_T1
 Participant ":Autocomplete" as autoComplete LOGIC_COLOR
 Participant ":Trie" as trie LOGIC_COLOR
 Participant "node:Node" as node LOGIC_COLOR
 Participant "swResult:SimilarWordsResult" as similarWordsResult LOGIC_COLOR
 Participant "acResult:AutocompleteResult" as autoCompleteResult LOGIC_COLOR
+end box
 
 group get autocomplete result
 
