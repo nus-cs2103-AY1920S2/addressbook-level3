@@ -7,15 +7,15 @@ import seedu.zerotoone.logic.parser.util.ParserUtil;
 import seedu.zerotoone.model.schedule.DateTime;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ScheduleParserUtil extends ParserUtil {
 
     /**
-     * STEPH_TODO_JAVADOC
-     * @param dateTime STEPH_TODO_JAVADOC
-     * @return STEPH_TODO_JAVADOC
-     * @throws ParseException STEPH_TODO_JAVADOC
+     * Parses a {@code String dateTime} into a {@code DateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid.
      */
     public static DateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);

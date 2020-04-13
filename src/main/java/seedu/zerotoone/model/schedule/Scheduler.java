@@ -13,7 +13,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Main class for the Scheduler. Used to store all the lists related to Scheduler.
  */
 public class Scheduler {
 
@@ -39,9 +39,7 @@ public class Scheduler {
     }
 
     /**
-     *
-     * @param schedule
-     * @return
+     * Returns true if a {@code Schedule} is already present in the Schedule list.
      */
     public boolean hasSchedule(Schedule schedule) {
         requireNonNull(schedule);
@@ -50,8 +48,7 @@ public class Scheduler {
     }
 
     /**
-     *
-     * @param schedule
+     * Adds a {@code Schedule} to the Schedule list.
      */
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
@@ -70,8 +67,7 @@ public class Scheduler {
     }
 
     /**
-     *
-     * @param scheduledWorkoutToDelete
+     * Removes {@code Schedule} from the Schedule list.
      */
     public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
         requireNonNull(scheduledWorkoutToDelete);
@@ -83,8 +79,8 @@ public class Scheduler {
     }
 
     /**
-     *
-     * @param workoutNameToDelete
+     * Removes all instances {@code Schedule} from the Schedule list that are
+     * related to the given {@code WorkoutName}.
      */
     public void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete) {
         requireNonNull(workoutNameToDelete);
@@ -100,9 +96,8 @@ public class Scheduler {
     }
 
     /**
-     *
-     * @param workoutNameToEdit
-     * @param editedWorkoutName
+     * Updates all instances {@code Schedule} from the Schedule list that are
+     * related to the given {@code WorkoutName} with the new {@code WorkoutName}.
      */
     public void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName) {
         requireAllNonNull(workoutNameToEdit, editedWorkoutName);
@@ -119,7 +114,7 @@ public class Scheduler {
     }
 
     /**
-     *
+     * Populates the scheduled workout list by querying schedules in the schedule list.
      */
     public void populateSortedScheduledWorkoutList() {
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
