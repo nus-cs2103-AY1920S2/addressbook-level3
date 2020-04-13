@@ -454,7 +454,9 @@ The following sequence diagram shows how goals are generated through the example
 
 .Add command sequence diagram
 image::AddSequenceDiagram.png[]
+.Reference Frame for Add command sequence diagram
 image::AddRefSequenceDiagram.png[]
+<img src="AddRefSequenceDiagram.png" alt="drawing" width="200"/>
 
 A recipe is initially created with an empty goals set from parser and `calculateGoals()` is then called in the `AddCommand`.
 
@@ -471,7 +473,7 @@ Secondly, by obtaining the quantity in grams through the method calls to `Ingred
 After the calculation for each main ingredient type is completed, an instance of `MainIngredientTypeMagnitude' is created.
 It acts as a container to store the quantities and conduct the checks for whether these quantities meet the minimum quantity
 requirement for their respective food group. This calculation and checks are done through the method call to
-`MainIngredientTypeMagnitude#getMainTypes() which would then return a set of `MainIngredientType` that successfully met the
+`MainIngredientTypeMagnitude#getMainTypes()' which would then return a set of `MainIngredientType` that successfully met the
 minimum requirement.
 
 Lastly, after looping through this set and creating each goal with the mapping from `MainIngredientType` to `Goal` done
