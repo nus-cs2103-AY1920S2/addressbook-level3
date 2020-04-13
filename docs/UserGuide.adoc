@@ -50,8 +50,6 @@ image::Legends3.png[width="800"]
 
 . As shown in the diagram above, Notably allows you to edit and customise your notes in a fuss free manner.
 
-[[LegendsClosed]]
-
 === Symbols used in this guide
 [NOTE]
 Denotes something that you may want to take note of.
@@ -129,7 +127,7 @@ The Root simply serves as a way for Notably to hierarchically organise your note
 visible to you while you are using the application.
 
 [WARNING]
-You cannot open or delete the root note. e.g `Delete /../` is invalid. An error message will be displayed to
+You cannot delete the root note. e.g `Delete ../..` is invalid. An error message will be displayed to
 remind you of this.
 // end::paths[]
 ====
@@ -220,10 +218,12 @@ image::demo/PathDuplicates3.png[]
 
     new -t CS2103T
 
++
+
 [NOTE]
 ====
-* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/WorkspaceNotably` in  <<New2, step 2>>.
-** Not sure where to see this path? Check it out <<LegendsClosed, here>>
+* Observe that the (Absolute) Path to the currently open note is now changed from `/Workspace` in <<New1, step 1>> to `/Workspace/Notably` in  <<New2, step 2>>.
+** Not sure where to see this path? Check it out <<Legends1, here>>
 ** Not sure what Absolute Paths are or why the new note is created in this way? Check it out <<paths, here>>
 ====
 
