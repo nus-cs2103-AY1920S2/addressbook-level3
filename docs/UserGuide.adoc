@@ -117,12 +117,36 @@ Examples:
 `Contributed by: kester-ng` +
 Types of activities available and their description are displayed in the table below. Each type of activity has its own dedicated list in the module. How to add individual types of activities are listed in subsections below.
 
-|===
-| Type of Activity | Description
-| Deadline | Deadlines are activities that needs to be completed by a certain date. An example is assignments or labs.
-| Event | Events are activities that begin from a start time to an end time. Examples include Competitive Programming Competition and recitation lessons.
+==== Deadline
+`Contributed by: kester-ng` +
+Deadlines are activities that needs to be completed by a certain date. An example is assignment or labs. Each module has its own deadline-list. See below image for details and how they are represented.
 
-|===
+image::Deadline-list.png[]
+
+====
+** Deadlines have statuses: `not done` and `done`
+** Deadlines have priorities and are represented by number of exclamation marks (top right corner). The number of them represents priority (the more the higher the priority).
+** Whether a deadline is done or not is represented by a tick-box. From the above image, the first deadline `Lab 10` is done (ticked) but the others are not.
+** Tick-box are not clickable, but can be toggled using `done` and `continue` command.
+** The deadlines are highlighted in two colours - light blue and red. Blue indicates that the deadline is either not over yet or is already done. Red means it is overdue (due date passed and is not done).
+====
+
+==== Event
+`Contributed by: kester-ng` +
+Events are activities that occur for a stipulated period of time. Example of events can include tutorials, examinations and competitions. Each module has its own event-list. See below for details and how they are represented.
+
+image::Event-list.png[]
+
+====
+** Events do not have priorities, the `done` nor `not done` statuses.
+** Events instead have `ongoing/have not started` and `over` statuses.
+** If the events are highlighted light blue then it is `ongoing/have not started`. If it is highlighted red, then it is `over`.
+====
+
+[NOTE]
+====
+** The statuses of deadlines and events are not updated on-the-go. Instead, use `refresh` command or restart the application to see the updated statuses.
+====
 
 ==== Adding a deadline into a module's deadline-list: `deadline`:
 `Contributed by: kester-ng` +
@@ -167,7 +191,6 @@ Format: `event m/MODULE_CODE a/ACTIVITY_NAME sd/START_DATE ed/END_DATE [n/NOTES]
 ** An event that has already passed cannot be added (ie END_DATE has passed).
 ** However, an event that is ongoing (ie START_DATE has passed but not END_DATE) can be added.
 ** There is no priority for events!
-** Unlike deadlines, events have pre-set statuses: `ONGOING`, `UPCOMING` and `PASSED`.
 ====
 
 === Listing all activities : `list`
@@ -403,7 +426,7 @@ Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
 **  The first `ITEM_INDEX` is the sequence of the activity in the list.
 ** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
-**  The activity will be regenerated once user open the application.
+**  The activity will be regenerated once user open the application or enters refresh command.
 
 CAUTION:  Only use index r/0, r/1, r/2, r/3.
 
@@ -480,13 +503,14 @@ Allows the user to see the activities onto a calendar.
 
 Examples:
 
-image::calendar.png[width="300", align="middle"]
+image::Calendar_View.png[width="300", align="middle"]
 
 [TIP]
 ====
 ** Provides users with a great way to see what upcoming deadlines and events over the days, weeks or months.
 ** The calendar updates along with the activities being displayed. This means that if a user enters a `find` command and the activities that matches the keyword are only displayed on the module's tab. Then the calendar tab will also display the same few activities!
 ** This allows users to easily find their tasks and note down when is it going to happen or when is it due. Making it a more pleasant user experience!
+** The individual date cells are scrollable. If any of your activities are not shown, hover your mouse over the dates and scroll down to find it!
 ====
 
 === Export Calendar: `calendar`
