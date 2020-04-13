@@ -65,9 +65,7 @@ The algorithm for calculating both the current streak and highest streak from th
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=achievement]
 
 == Contributions to the Developer Guide
 
@@ -75,10 +73,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=quote]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=streak]
 
 == PROJECT: PowerPointLabs
 

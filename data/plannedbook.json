@@ -1,3 +1,17 @@
 {
-  "plannedRecipes" : [ ]
+  "plannedRecipes" : [ {
+    "recipe" : {
+      "name" : "Asian BBQ Chicken",
+      "time" : "30",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "1.0tbsp,  Garlic & ginger (finely chopped)" ],
+      "proteins" : [ "100.0g,  Chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  Char siew sauce", "1.0tsp,  Honey", "1.0tbsp,  Rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  Sesame oil" ],
+      "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
+      "goals" : [ "Bulk like the Hulk" ]
+    },
+    "date" : "2020-04-20"
+  } ]
 }

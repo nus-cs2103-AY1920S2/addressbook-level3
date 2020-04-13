@@ -163,7 +163,7 @@ public class AddCommandTest {
 
         @Override
         public void commitBook(CommandType commandType, Tab tab) {
-            // throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -326,6 +326,12 @@ public class AddCommandTest {
         public void addRecipe(Recipe recipe) {
             requireNonNull(recipe);
             recipesAdded.add(recipe);
+        }
+
+        @Override
+        public void commitBook(CommandType commandType, Tab tab) {
+            requireNonNull(commandType);
+            requireNonNull(tab);
         }
 
         @Override

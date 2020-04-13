@@ -16,7 +16,7 @@ import seedu.recipe.ui.UiPart;
  */
 public class PlanningListCard extends UiPart<Region> {
 
-    private static final String FXML = "PlanningListCard.fxml";
+    private static final String FXML = "plan/PlanningListCard.fxml";
 
     public final Date plannedDate;
     public final Recipe recipe;

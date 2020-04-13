@@ -63,7 +63,6 @@ public class AchievementCard extends UiPart<Region> {
     public AchievementCard(ObservableList<Quote> quotes, ObservableList<Record> records) throws IOException {
         super(FXML);
         Date today = Date.today();
-        //System.out.println(quote.getContent());
         Random rand = new Random();
         //System.out.print(quotes.size());
         if (quotes.size() > 0) {
@@ -78,7 +77,6 @@ public class AchievementCard extends UiPart<Region> {
 
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
-        System.out.println(records.size());
 
         BorderPane border = new BorderPane();
         scoreTitle.setText("Streak:");

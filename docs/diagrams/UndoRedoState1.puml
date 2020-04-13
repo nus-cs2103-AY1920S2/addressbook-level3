@@ -5,10 +5,10 @@ skinparam ClassBorderColor #000000
 
 title After command "delete 5"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package ArrayList<RecipeBook> {
+    class State1 as "__rb0:RecipeBook__"
+    class State2 as "__rb1:RecipeBook__"
+    class State3 as "__rb2:RecipeBook__"
 }
 
 State1 -[hidden]right-> State2

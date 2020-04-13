@@ -133,11 +133,12 @@ The `Model` component stores a,
 * `CookedRecordBook` object that stores the records of all the cooked recipes.
 * `QuoteBook` object that stores all quotes.
 
-It also exposes four unmodifiable lists that can be 'observed' by the `UI`: +
+It also exposes five unmodifiable lists that can be 'observed' by the `UI`: +
 
 * `ObservableList<Recipe>`
 * `ObservableList<Plan>`
 * `ObservableList<Record>`
+* `ObservableList<GoalCount>`
 * `ObservableList<Quote>` +
 The `UI` can be bound to these lists so that the `UI` automatically updates when the data in the list changes. +
 
@@ -183,6 +184,7 @@ Each `Record` consists of,
 
 * One `Date`
 * One `Name` from a `Recipe`
+* One set of `Goal` list
 
 ==== Quote Model
 .Structure of the Quote Model
@@ -226,12 +228,39 @@ This section describes some noteworthy details on how certain features are imple
 === Basic commands
 
 
-==== Switch command
+==== Switch command (Harshita)
+The `switch` command is facilitated by the `MainWindow`, `MainTabPanel`, `SwitchCommandParser` and `SwitchCommandParser`.
+
+The following lists in sequential order the process of how `switch` behaves with user input.
+
+*The user launches HYBB and the default start tab is set to the recipes tab.
+
+*The user now executes `switch planning` to view the planning tab.
+
+*`LogicManager` uses `RecipeBookParser#parseCommand()` to parse the input from the user upon execution of the `switch` command.
+
+*`RecipeBookParser` determines which command is being used and creates `SwitchCommandParser` to parse the input
+from the user to obtain the arguments.
+
+*`SwitchCommandParser` parses the argument and checks its validity. If it is invalid,
+`SwitchCommandParser` throws an exception and terminates. Else, it returns a `SwitchCommand` that contains a `Tab`.
+
+* `LogicManager` uses `SwitchCommand#execute()` to switch to the planning tab.
+
+* `SwitchCommand` returns a `CommandResult` to the `LogicManager` with the `Tab`. `LogicManager` then
+returns the `CommandResult` to `MainWindow`.
+
+* `MainWindow` checks if there is a change in state for `Tab` and if switching is needed. If there is, `MainWindow` uses
+`MainWindow#handleSwitchTab()` to switch tab. Else, `MainWindow` does nothing.
+
+The following activity diagram shows the flow of activites from when the `switch` command is executed.
+
 
 image::SwitchActivityDiagram.png[]
 
 ==== Add command
 
+// tag::editcommand[]
 ==== Edit command (Beatrice)
 The edit feature allows users to edit the properties of a Recipe with ease using the `edit` command. +
 
@@ -291,6 +320,7 @@ when the `Recipe` is edited.
 
 .Edit sequence diagram focusing on Model
 image::EditModelSequenceDiagram.png[]
+
 ===== Design Considerations
 
 ====== Aspect: How recipes are edited
@@ -331,18 +361,16 @@ filtering and sorting to be supported. For example, plans need to be sorted in c
 recipe list needs to be filtered for our filter feature. +
 Additionally, we would not have enough time in the scope of this project to write our own implementation, and importing from pre-existing
 libraries gives the risk of running into bugs in the future if the the dependencies were not maintained.
-
+// end::editcommand[]
 
 
 ==== Delete command
 
-
+// tag::favouriteunfavourite[]
 ==== Favourite and Unfavourite commands (Brian)
-Description: TODO
-
 ===== Implementation
-For brevity, we will only be talking about the `favourite` command here. Note that the `unfavourite` command is
-implemented in the same way.
+For brevity, we will only talk about the `favourite` command. Note that the `unfavourite` command is implemented in the
+same way.
 
 1. The user input received by `FavouriteCommandParser#parse` will pass on the user input to
 `ParserUtil#parseMultipleIndex` to verify if the indexes keyed in are non-zero, unsigned integers. An error is thrown
@@ -363,58 +391,104 @@ a user specified recipe index is out of bounds.
 5. Finally, we display the names of the recipes that have been newly made favourites, and the names of the recipes that
 were already favourites.
 
-Here is a sample sequence diagram that shows what happens when the user inputs `favourite 2 3`:
+Here is a sample sequence diagram that shows what happens when the user inputs `favourite 3`:
 
 .Favourite command sequence diagram
 image::FavouriteCommandSequenceDiagram.png[]
 
 This operation favourites recipe 2 and 3.
+// end::favouriteunfavourite[]
 
+// tag::undoredo[]
 ==== Undo and Redo commands (Brian)
-The implementation of `undo` and `redo` was adapted from AB3. However, HYBB requires more book-keeping because on top
+The implementation of undo and redo was adapted from AB3. However, HYBB requires more book-keeping because on top
 of the `RecipeBook`, we have a `PlannedBook` and a `CookedRecordBook` to keep track of as well.
 
-For brevity, we will only be talking about the `undo` command here. Note that the `redo` command is implemented in the
-same way.
+For brevity, we will only talk about the `undo` command. Note that the `redo` command is implemented in the same way.
 
-===== Implementation (before `undo` is called)
-1. Whenever a command that changes the state of any of the books is called, `Model#commitBook` is
-called as well.
-+
-`Model#commitBook` will save the `CommandType` and `Tab` of the command in 2 separate stacks in
-`MultipleBookStateManager`. It will also save the current state of the affected book(s) in an ArrayList of that book
-type. All redundant states, regardless of which book it belongs to, will be purged before any saving occurs.
-+
-Note: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
+===== Implementation (before undo is called)
+1. Whenever a command that changes the state of any of the books (RecipeBook, PlannedBook, or CookedRecordBook) is
+called, `Model#commitBook` is called as well.
+
+2. `Model#commitBook` will first purge all redundant states in `MultipleBookStateManager` (ie. if the user called undo
+before and is now committing a new book, he will not be able to redo the actions of those undos anymore). This is the
+behavior that most modern desktop applications like Microsoft Word adopt.
+
+3. `Model#commitBook` also saves the `CommandType` and `Tab` of the command in 2 separate stacks in
+`MultipleBookStateManager`. Finally, it saves the new state of the affected book(s) in an ArrayList of that book type.
+
+Note #1: `CommandType` tells you which book(s) the command affects, while `Tab` tells you which tab should be
 displayed upon execution of the command.
 
-===== Implementation (when `undo` is called)
+Note #2: All 3 ArrayLists of the 3 book types have a "current pointer" each, which points to the respective states of
+the books that the `Model` is currently using (ie. what the user is seeing).
+
+The following diagram summarizes what happens when the user executes a command that changes the state of any book:
+
+.Activity diagram when a command is executed
+image::CommitActivityDiagram.png[]
+
+===== Implementation (when undo is called)
 1. `Model#canUndo` is called to check if there are sufficient actions to be undone. An error is thrown if there are
 insufficient actions to be undone.
 
 2. If able to undo, `Model#undoBook` is called. The `CommandType` stack is popped to know which book(s) need undoing.
-The corresponding books in `Model` are then set to the previous version.
+At the same time, the "current pointer" of the corresponding book ArrayList(s) is/are shifted backwards. All 3 books
+in `Model` are then set to the version of the book that each "current pointer" is pointing to.
 
-The following sequence diagram shows what happens when the user calls an undo operation:
+This class diagram shows the components of `MultipleBookStateManager`:
 
-.Undo command sequence diagram
-image::UndoRedoSequenceDiagram.png[]
+.Class diagram for MultipleBookStateManager
+image::MultipleBookStateManagerClassDiagram.png[]
 
-Result: TODO
+
+The following diagrams show what happens after the execution of various commands:
+
+.When the app is first opened
+image::UndoRedoState0.png[]
+
+.When "delete 5" is called, the state of RecipeBook is changed. This new state is added to ArrayList<RecipeBook>.
+image::UndoRedoState1.png[]
+
+.When "favourite 3" is called, the state of RecipeBook is changed. This new state is added to ArrayList<RecipeBook>.
+image::UndoRedoState2.png[]
+
+.When "undo" is called, the current state pointer of ArrayList<RecipeBook> is shifted back and the Model's RecipeBook is set to this version.
+image::UndoRedoState3.png[]
+
+.When a command like "list" (that does not change the state of any book) is called, the current state pointer remains where it is (ie. there is no change of states).
+image::UndoRedoState4.png[]
+
+.If a command like "clear" (that changes the state of a book) is called while the current pointer is not pointing to the latest version, all versions after the current pointer will be purged and the newest version will be added to the ArrayList.
+image::UndoRedoState5.png[]
 
 ===== Design Considerations
 ====== Aspect: How undo and redo executes
-Challenges faced: TODO
+One concern we had while choosing the design of the undo and redo features was the amount of memory that has to be used
+to keep track of the different states of the 3 books.
+
+On top of the ArrayLists of different book types, we also needed to have 2 additional stacks to keep track of the
+corresponding `CommandType` and `Tab`.
+
+We eventually decided on the current implementation because we do not expect the user to make that many changes to the
+books in a single session. We also do not expect the size of any book to grow so huge that a single commit would take
+up all the memory capacity. In other words, we foresee that the "cons" of our current choice will not happen (it would
+take really abnormal user behavior for it to reach that stage).
 
 * **Alternative 1 (current choice):** Saves the entire recipe book.
 ** Pros: Easy to implement.
-** Cons: May use up a lot of memory space within a single session 1) if there is a large number of recipe book commits
-and/or 2) if the magnitude of a single commit is large (ie. the database is huge, containing many recipes).
+** Cons: May use up a lot of memory space within a single session 1) if there is a large number of book commits
+and/or 2) if the magnitude of a single commit is large (ie. the book being committed is huge just by itself).
 
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory.
 ** Cons: Tedious to ensure the correctness of the implementation of each individual command. Furthermore, some commands
 affect multiple books, making book-keeping even more complicated (and hence, susceptible to error).
+
+===== Future plans
+Currently, the undo and redo command is not compatible with the `quote` command and the QuoteBook. This will be a
+feature that we plan to work on beyond v1.4 so that users will be able to undo and redo the action of adding a quote!
+// end::undoredo[]
 
 ==== Clear command
 
@@ -427,17 +501,34 @@ affect multiple books, making book-keeping even more complicated (and hence, sus
 // tag::recipecustomisation[]
 === Recipe customisation commands (Brian)
 The following commands: `addingredient`, `editingredient`, `deleteingredient`, `addstep`, `editstep`, and `deletestep`
-were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user to make targeted changes to the ingredient or step fields instead of having to rewrite the
-entire field using `edit`.
+were implemented to overcome the limitations of the `edit` command. These recipe customisation commands allow the user
+to make targeted changes to the ingredient or step fields instead of having to rewrite the entire field using `edit`.
 
 ==== Implementation
-TODO
+1. The commands listed above make use of `EditRecipeDescriptor` (ERD) to add, edit, or delete ingredients or steps.
+This is done by comparing the contents of the ERD to the contents of the field to be edited and making the necessary
+changes described below (note that at this point of time, the ERD is already populated with the user's input):
 
-===== Design Considerations
-====== Aspect: TODO
-TODO
+* If the command is `addingredient` or `addstep`, the existing ingredients or steps from the recipe will be added to
+the ERD.
 
-// end::recipecustomisation[]
+* If the command is `editingredient` or `editstep`, the ERD will be checked against the recipe to see if the
+ingredients or step exists in the recipe. If it exists, the remaining ingredients or steps that were not changed
+will be added to the ERD. Otherwise, an exception is thrown.
+
+* If the command is `deleteingredient` or `deletestep`, the ERD will be checked against the recipe to see if the
+ingredients or step exists in the recipe. If it exists, the ERD will be re-populated with the existing ingredients or
+steps from the recipe, less the ones that were specified by the user. Otherwise, an exception is thrown.
+
+2. With the ERD fields set, the specified recipe is edited by `EditCommand#createEditedRecipe` using the ERD.
+
+3. Finally, `Model#setRecipe` will replace the old version of the recipe in RecipeBook with the newly edited one.
+`Model#commitBook` will commit the new state of the RecipeBook to the `MultipleBookStateManager` so that the user will
+be able to undo this command if he wishes to.
+
+.General activity diagram for recipe customisation commands
+image::RecipeCustomisationCommandsActivityDiagram.png[]
+//end::recipecustomisation[]
 
 // tag::advancedfilter[]
 === Filter command (Brian)
@@ -449,12 +540,12 @@ user to find recipes by their name.
 This section explains how the `filter` command is implemented.
 
 1. User specified keywords are directed to `FilterCommandParser#parse` where `ArgumentTokenizer` and
-`ArgumentMultimap` are used to parse the user input. An error will be thrown if no keywords are specified at all.
+`ArgumentMultimap` are used to parse the user input. An exception will be thrown if no keywords are specified at all.
 
 2. The parsed user input is then fed into `RecipeMatchesKeywordPredicate` where a `Predicate`, p, is created. This
 predicate will subsequently be used as the filter to get all recipes that meet the user specified criteria.
 
-3. A new `FilterCommand` object will be created with the predicate and returned to the `LogicManager`.
+3. A new `FilterCommand` object will be created with the predicate, p, and be returned to the `LogicManager`.
 
 4. The `FilterCommand#execute` method is executed and `Model#updateFilteredRecipeList` is called. This tests
 every recipe in the database against the predicate, p, and updates the filtered recipe list with recipes that meet the
@@ -466,6 +557,7 @@ Here is a sample sequence diagram that shows what happens when the user inputs `
 
 .Advanced filter sequence diagram
 image::AdvancedFilterSequenceDiagram.png[]
+
 
 This operation displays all recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
 and 3) contains pasta as an ingredient.
@@ -529,10 +621,11 @@ corresponds to the date we are interested in.
 // end::planning[]
 
 // tag::goals[]
-=== Goals feature
+=== Goals feature (Harshita)
 The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, `edit`, `editIngredient`,
  `cooked`, `listGoals` and 'removeGoals'. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, `edit` or `editIngredient` is executed.
 
+==== Details of Implementation (Auto-generation of goals)
 The following sequence diagram shows how goals are generated through the example of `addIngredient` command execution
 
 .Add command sequence diagram
@@ -564,7 +657,36 @@ be updated in the particular instance of `Recipe r` and `Model#addRecipe(r)` wou
 
 The immutability of each object is supported to ensure the correctness of undo and redo functionality.
 
-==== Proposed Implementation
+==== Details of Implementation (Statistics of cooked recipes)
+
+.Activity diagram when a cooked command is entered
+image::CookedActivityDiagram.png[]
+
+After `CookedCommand#execute(model)` is called, the series of checks shown in the above diagram is done to determine
+if the recipe can be marked as cooked. With multiple recipes inputted (eg "`cooked` 1 2 3", the series of checks will
+loop through for for each recipe.
+
+The checks ensure that all the recipes inputted are valid, else the  `CookedCommand`
+throws an exception and terminates. If successful, a new  `Record` containing the `Name`, current `Date` and set of `Goals`
+associated with the recipe is created and `Model#addRecord(record)` would then update `CookedRecordBook` in storage.
+
+Furthermore, if the recipe marked as cooked was included in the Planned Recipes for the day,
+it will be removed from the planned list.
+
+With reference to the structure of the CookedRecords Model,
+.Class diagram of Record
+image::ModelRecordClassDiagram.png[]
+
+We can see above that once a record is added to the UniqueRecordList two Observable lists will be updated for each
+addition of `Record`. Firstly, it is the `internalRecordsList` that stores unique `Record`. Secondly, based on this list,
+an `internalGoalsTally` that stores `GoalCount` will be updated each time. This `GoalCount` consists of one of the four main goal
+and its respective tally and this observable list is what the pie chart will be listening to for updates and will change
+each time the `internalGoalsTally` has been updated as well.
+
+Hence the `cooked` command is essential in not only archiving data, but also giving the user personalised statistics
+on their overall goal distribution that resembles the Healthy Eating Plate. The immutability of each object is
+supported to ensure the correctness of undo and redo functionality as well.
+
 
 ==== Design Considerations
 
@@ -575,8 +697,13 @@ The immutability of each object is supported to ensure the correctness of undo a
 ** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
 
 * **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
-** Pros: Easy to implement.
+** Pros: Easy to implement. User can filter their preferred goals easily.
 ** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
+
+Alternative 1 was chosen as standardising the goals give the recipes more meaning, especially when we are able
+to calculate statistics and present in in an meaningful and appealing way for users when it models the Healthy eating Plate.
+Furthermore, custom goals would not have checks would not have been implemented. for users to filter preferred recipes,
+the command `favourite` as been implemented.
 
 ===== Aspect: How to determine the criteria for each goal
 
@@ -586,9 +713,46 @@ The immutability of each object is supported to ensure the correctness of undo a
 
 * **Alternative 2 :** Check by variety
 ** Pros: Easy to implement.
-** Cons: Not as accurate as one grain of rice would still be counted as variety.
-// end::goals[]
+** Cons: Not as accurate as one grain of rice or 1 grape would still be counted as variety despite the small portion.
 
+Alternative 1 was chosen because of its higher accuracy, although conversion between different measurement may be
+overestimated. The command `deleteGoal` was then created in order to enable users to delete goals they deem inaccurate.
+
+===== Aspect: How the check for goal is done
+
+* **Alternative 1 (current choice):** Check every time a recipe is added or edited and store this data
+** Pros: More consistent for the user in keeping track of their goals.
+** Cons: Harder to implement as repetitive checks are needed every time ingredients are added or modified.
+Will be more expensive to calculate with a larger database.
+
+* **Alternative 2 :** Calculate the goals for each recipe every time it is retrieved from storage and set in RecipeList.
+** Pros: Easier to implement as only one check is needed for when the recipes are set.
+** Cons: Goals will reset each time the application is open. If goal has been deleted by user with `deleteGoal`, it will
+not be updated the next time the user opens the application as the checks will be the same.
+
+Alternative 1 was chosen as it optimizes the function of deleteGoal`, taking user preference into consideration.
+
+===== Aspect: How to store data for records
+
+* **Alternative 1 (current choice):** Store in a json file called records and calculate goal tally the first time
+it is set and update accordingly
+** Pros: A custom date can be set and it will be easier to iterate through the list to obtain goal tally.
+** Cons: Duplicate data will be stored and is harder to implement.
+
+* **Alternative 2 :** Use recipebook and add boolean attribute isCooked
+** Pros: Easy to implement.
+** Cons: Restricted usage, unable to implement date and do statistical analysis for the user.
+
+* **Alternative 3 :** Store goal tally in a new json file.
+** Pros: No need to iterate through recipe list each time and would be less expensive with a larger database.
+** Cons: Only contains four values.
+
+Alternative 1 was chosen as it optimizes the functions and uses of a Record and the scale for a personal data
+base is smaller, storage would not be an issue. Records need to be iterated through when set initially anyway, hence
+the association between GoalCount and Record makes the tally process more efficient.
+end::goals[]
+
+// tag::quote[]
 === Quote Command (Yue Tong)
 The quote command feature uses the `quote` command for users to input their own quotes to add on to the existing set of
 quotes that is already in the database. This allows the users to add in customised quotes that would suit their preferance
@@ -637,7 +801,9 @@ image::QuoteActivityDiagram.png[]
 ** Pros: Users can customize whicher quotes they want to be displayed
 ** Cons: If they user deletes the quote that is on display for Quote of the Day in the Achievement tab, this could cause
 display problems and as `UniqueQuotesList` is a hidden list, users will have to type out the quote completely similar in order to locate it
+//end::quote[]
 
+// tag::streak[]
 === Streak feature(Yue Tong)
 
 The Streak feature mainly deals with keeping track of the cooked meals that the user has logged into the system. The command
@@ -688,6 +854,7 @@ between 2 consecutive cooked recipes
 jeopardised.
 ** Cons: It is easier for users to lose their streaks and more difficult for users to ascertain when is the deadline to
 maintain their streaks
+//end::streak[]
 
 === Logging
 
@@ -726,6 +893,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
+* university students
 * wishes to lead a healthier lifestyle
 * has trouble thinking about what to cook
 * prefer desktop apps over other types
@@ -734,6 +902,8 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
+Focuses on healthy, simple recipes with short cooking time with ingredients filter to
+minimise food wastage.
 
 [appendix]
 == User Stories
@@ -765,7 +935,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |unmotivated user |track my streak of healthy meals |motivated to keep eating healthy
 
-|`* * *` |defeatist user |look at daily quotes to remind myself |remember why I wanted to continue to be healthy
+|`* * *` |user who loses motivation easily |look at daily quotes to remind myself |remember why I wanted to continue to be healthy
 
 |`* *` |user who dislikes food wastage |see what ingredients I need to buy when I grocery shop |only buy ingredients that I will use
 
@@ -798,8 +968,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |motivational user |add custom quotes to app online |motivate other users with different quotes
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -868,40 +1036,6 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add goal
-
-*MSS*
-
-1.  User requests to see list of goals
-2.  HealthyBaby shows a list of goals
-3.  User requests to add a specific goal in the list
-4.  HealthyBaby starts tracking the goal
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The given goal is invalid.
-+
-[none]
-** 3a1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The given goal is already being tracked.
-+
-[none]
-** 3b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: Find recipe
 
 *MSS*
@@ -922,12 +1056,13 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Schedule a recipe
+=== Use case: Plan for a recipe
 
 *MSS*
 
-1.  User enters which recipe index and date they would like to schedule
-2.  HealthyBaby shows the recipe scheduled under the given date
+1.  User enters the recipe index and date that they would like to plan for
+2.  HealthyBaby adds the new plan to the list of plans
+3.  HealthyBaby displays the success message, switches to the planning tab and displays the updated list of plans.
 +
 Use case ends.
 
@@ -949,71 +1084,24 @@ Use case ends.
 +
 Use case ends.
 
+[none]
+* 2c. A similar plan with the same recipe and date already exists in the list.
++
+[none]
+** 2c1. HealthyBaby shows an error message.
++
+Use case ends.
+
 [discrete]
 === Use case: Clear entire recipe list
 
 *MSS*
 
 1.  User enters the clear command
-2.  User will be prompted with a confirmation question
-3.  User inputs "Y" (Yes) to confirm decision
-4.  HealthyBaby clears the entire recipe list
+2.  HealthyBaby clears the entire recipe and plans list
 +
 Use case ends.
 
-*Extensions*
-
-[none]
-* 3a. User inputs "N" (No) to cancel the clear command.
-+
-Use case ends.
-
-[none]
-* 3b. User inputs an invalid response to the confirmation question.
-+
-[none]
-** 3b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Compare prices
-
-*MSS*
-
-1.  User requests to compare prices
-2.  HealthyBaby shows price of food delivery vs user cooking the food themselves with the specified name
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The name/time/ingredients fields are empty.
-+
-[none]
-** 2a1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-
-[none]
-* 2b. The given food does not exists in database.
-+
-[none]
-** 2b1. HealthyBaby shows an error message.
-+
-Use case resumes at step 2.
-
-* 2c. The given food is not available in delivery services.
-+
-[none]
-** 2c1. HealthyBaby shows an error message.
-+
-Use case resumes at step 1.
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1031,25 +1119,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[main-nutritional-food-group]] Main Nutritional Food Group::
+HYBB identifies Grain, Vegetable, Protein and Fruit to be the main nutritional food groups.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1062,37 +1133,152 @@ These instructions only provide a starting point for testers to work on; testers
 === Launch and Shutdown
 
 . Initial launch
-
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
-
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a recipe
-
-. Deleting a recipe while all recipes are listed
-
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+. Deleting a recipe while all recipes are listed and no plans exist
+.. Prerequisites: List all recipes using the `list` command. +
+Multiple recipes in the list must be present. If required, add recipes by using the `add` command. +
+Plan list is empty. If required, clear plans by using the `clearPlan` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First recipe is deleted from the list. Name of the deleted recipe shown in the result box.
 .. Test case: `delete 0` +
-   Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No recipe is deleted. Error details shown in the result box.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+. Deleting a recipe while all recipes are listed and plans exist
+.. Prerequisites: List all recipes using the `list` command. +
+Multiple recipes in the list must be present. If required, add recipes by using the `add` command. +
+Plan list contains a plan for the recipe at recipe index 1. If required, add a plan using the `plan` command.
+.. Test case: `delete 1` +
+   Expected: First recipe is deleted from the list. Name of the deleted recipe shown in the result box.
+The plan for recipe 1 is removed from the list of plans in the 'Planning' tab.
+
+=== Clearing the recipe list
+. Clearing the list while plans are present.
+
+.. Prerequisites: Plan a recipe using the `plan` command.
+.. Test case: `clear` +
+   Expected: All recipes and plans are cleared from the list.
+
+. Clearing the list while plans are not present.
+.. Prerequisites: No plans are present. Clear the plans by using the `clearPlan` command.
+.. Test case: `clear` +
+   Expected: All recipes are cleared from the list.
+
+=== Adding plans
+. Adding a plan to an empty plan list.
+.. Prerequisites: No plans are present. If required, clear the plans by using the `clearPlan` command. +
+At least one recipe exist in the recipe list. If required, add recipes by using the `add` command.
+.. Test case: `plan 1 d/2020-05-20` +
+   Expected: Recipe at index 1 is planned on 20 May 2020.
+.. Test case: `plan -1 d/2020-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+Other incorrect plan commands to try: `plan`, `plan 0`, `plan x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+.. Test case: `plan 1 d/2019-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+
+. Adding multiple plans to an empty plan list.
+.. Prerequisites: No plans are present. If required, clear the plans by using the `clearPlan` command. +
+Multiple recipes exist in the recipe list. If required, add recipes by using the `add` command.
+.. Test case: `plan 1 2 3 d/2020-05-20` +
+   Expected: Recipes at indexes 1, 2 and 3 are planned on 20 May 2020.
+.. Test case: `plan 1 -2 3 d/2020-05-20` +
+   Expected: No plans are added. Error details shown in the result box.
+.. Test case: `plan 1 2 3 d/2019-05-20` +
+   Expected: Plan is not added. Error details shown in the result box.
+
+. Adding plan(s) to a plan list that is not empty.
+.. Prerequisites: A plan for the recipe at recipe index 1 exists. If required, plan for the recipe by using the `plan` command.
+.. Test case: `plan 1 d/2020-05-20` +
+   Expected: No plans are added. Duplicate message is shown in the result box.
+.. Test case: `plan 1 -2 3 d/2020-05-20` +
+
+=== Deleting plans
+. Deleting a plan while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `deletePlan 1` +
+   Expected: Plan at plan index 1 is deleted.
+.. Test case: `deletePlan -1` +
+   Expected: Plan is not deleted. Error details shown in the result box.
+Other incorrect plan commands to try: `deletePlan`, `deletePlan 0`, `deletePlan x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a plan while multiple plans exist.
+.. Prerequisites: More than one plan are present. If required, add plans by using the `plan` command.
+.. Test case: `deletePlan 1 2` +
+   Expected: Plan at plan indexes 1 and 2 are deleted.
+.. Test case: `deletePlan 1 -2` +
+   Expected: Plan is not deleted. Error details shown in the result box.
+Other incorrect plan commands to try: `deletePlan 1 0`, `deletePlan 2 x`, (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Clearing plans
+. Clearing plans while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `clearPlan` +
+   Expected: All plans in the plan list are cleared.
+
+=== Obtaining grocery list
+. Obtain grocery list while plans exist.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+.. Test case: `groceryList` +
+   Expected: A window appears, listing all the ingredients used for the recipes in the plans.
+
+. Obtain grocery list while no plans exist.
+.. Prerequisites: Plan list is empty. If required, clear plans by using the `clearPlan` command.
+.. Test case: `groceryList` +
+   Expected: No window appears. Error details shown in the result box.
+
+. Update and show grocery list while grocery list window is minimised.
+.. Prerequisites: Plans are present. If required, add plans by using the `plan` command.
+Grocery list window is opened then minimised. If required, open the window first by using the `groceryList` command,
+then minimise that window.
+.. Test case: `groceryList` +
+   Expected: Window with updated grocery list appears.
+
+=== Adding quotes
+. Quote displays while quotelist is not empty.
+..  Prerequisites: Quotes are present. If required, add quotes by using the `quote` command.
+.. Test case: `quote Today is a good day` +
+   Expected: The result box below informs the user that the quote has been added.
+
+. Adding a quote while it already exists in the list
+.. Prerequisites: Quotes list contains quote. If required, add the same quote by using the `quote` command.
+.. Test case: `quote Skip the diet, just eat healthy!` +
+   Expected: The result box below informs the user that the quote is a duplicated and cannot be added in.
 
 _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing data files.
+.. Close the jar file.
+.. Delete one or more files from the data folder.
+.. Double-click the jar file. +
+   Expected: Deleting the files would result in these corresponding results:
+... Recipebook: Default recipes in 'Recipes'
+... Quotebook: Default quotes in 'Achievements'
+... Plannedbook: An empty plan list in 'Planning'
+... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Dealing with corrupted data files.
+.. Close the jar file.
+.. Type '~!@' in any of the files in the data folder and save the file.
+.. Double-click the jar file. +
+   Expected: Adding corrupted data into the files would result in these corresponding results:
+... Recipebook: An empty recipe list in 'Recipes' as well as an empty plan list in 'Planning'
+... Quotebook: An empty quote list in 'Quotes' and default quote in 'Achievements'
+... Plannedbook: An empty plan list in 'Planning'
+... Cookedrecords: An empty cooked meals list with no pie chard in 'Goals'
 
 _{ more test cases ... }_

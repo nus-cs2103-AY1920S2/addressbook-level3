@@ -8,7 +8,8 @@ participant ":UniqueRecipeList" as UniqueRecipeList MODEL_COLOR
 participant ":PlannedBook" as PlannedBook MODEL_COLOR
 participant ":PlannedRecipeMap" as PlannedRecipeMap MODEL_COLOR
 participant ":UniquePlannedList" as UniquePlannedList MODEL_COLOR
-participant "newPlan:Plan" as Plan MODEL_COLOR
+participant ":Plan" as OldPlan MODEL_COLOR
+participant "newPlan:Plan" as NewPlan MODEL_COLOR
 end box
 
 [-> ModelManager : setRecipe(target, editedR)
@@ -38,11 +39,18 @@ deactivate PlannedRecipeMap
 alt oldPlans exist
     loop for all oldPlan that uses target recipe
 
-        PlannedBook -> Plan : setRecipe(editedR)
-        activate Plan
+        PlannedBook -> OldPlan : setRecipe(editedR)
+        activate OldPlan
 
-        Plan --> PlannedBook : newPlan
-        deactivate Plan
+        create NewPlan
+        OldPlan -> NewPlan
+        activate NewPlan
+
+        NewPlan --> OldPlan : newPlan
+        deactivate NewPlan
+
+        OldPlan --> PlannedBook : newPlan
+        deactivate OldPlan
 
         PlannedBook -> UniquePlannedList : setPlan(oldPlan, newPlan)
         activate UniquePlannedList

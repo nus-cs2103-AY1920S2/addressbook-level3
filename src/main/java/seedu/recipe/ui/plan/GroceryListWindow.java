@@ -20,7 +20,7 @@ public class GroceryListWindow extends UiPart<Stage> {
     private static String groceryListMessage = "";
 
     private static final Logger logger = LogsCenter.getLogger(GroceryListWindow.class);
-    private static final String FXML = "GroceryListWindow.fxml";
+    private static final String FXML = "plan/GroceryListWindow.fxml";
 
     @FXML
     private Button copyButton;
