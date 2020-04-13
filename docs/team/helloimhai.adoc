@@ -30,6 +30,9 @@ show all XYZ without having to check what Item type is passed into it.
 ==== Set up the foundation for tests
 Created typical classes, item builders, assert command success and failure to aid the team in the setting up of tests.
 
+==== Manage releases
+managed releases for release v1.3 and v1.4.
+
 === Enhancements implemented:
 ==== Preview a resume: `rpreview`
 * What it does: Allows users to preview their fleshed out resume in the application before generating it.
@@ -51,9 +54,11 @@ to update and give visual feedback to users.
 * Highlights: This feature was morphed from AddressBook so that it can work with our data types, undo, and redo.
 
 ==== Wrote tests for `add`, `clear`, `done`, `list`, `rpreview`, `view`, `JsonAdaptedInternship`, `EditUserCommand`...
+* Played an integral role in pulling coverage up from 23% to 83%.
 
 === *Review/mentoring contributions*:
 ** Took part in reviewing of many PRs (Pull requests
+https://github.com/AY1920S2-CS2103T-F10-1/main/pull/300[#300]
 https://github.com/AY1920S2-CS2103T-F10-1/main/pull/234[#234],
 https://github.com/AY1920S2-CS2103T-F10-1/main/pull/159[#159],
 https://github.com/AY1920S2-CS2103T-F10-1/main/pull/327[#327] and more)
@@ -117,15 +122,8 @@ include::../DeveloperGuide.adoc[tag=command-classes]
 
 {End of extract 2: Implementation of Command Classes} +
 
-{Start of extract 3: User Stories}
+=== More contributions (not rendered for brevity):
 
-include::../DeveloperGuide.adoc[tag=user-stories]
+* User Stories
 
-{End of extract 3: User Stories}
-
-{Start of extract 3: User Stories} +
-
-include::../DeveloperGuide.adoc[tag=manual-testing]
-
-{End of extract 3: User Stories}
-
+* Manual Testing

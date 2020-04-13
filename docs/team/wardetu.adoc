@@ -21,9 +21,9 @@ This portfolio showcases my skills and contributions.
 
 == 1. Summary of contributions
 
-==== 1.1. *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wardetu&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wardetu&tabRepo=AY1920S2-CS2103T-F10-1%2Fmain%5Bmaster%5D[Link to my code contribution via RepoSense] +
+=== 1.1. *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wardetu&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wardetu&tabRepo=AY1920S2-CS2103T-F10-1%2Fmain%5Bmaster%5D[Link to my code contribution via RepoSense] +
 
-==== 1.2. Enhancements implemented
+=== 1.2. Enhancements implemented
 
 * *Major enhancement*:
 ** Added *the ability to undo/redo previous commands*
@@ -44,7 +44,7 @@ easier for user to utilise other commands, especially `redit`.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It is challenging since the functionality is freshly new and no similar implementation exists
 in the original AddressBook Level 3.
 
-==== 1.3 Contributions to documentation:
+=== 1.3 Contributions to documentation:
 ** Updated JavaDoc comments and provided justification where needed.
 
 ** Updated the User Guide for the following sections:
@@ -61,7 +61,7 @@ in the original AddressBook Level 3.
 *** 4.7. Undo/redo feature
 *** 4.8. [Proposed] Data Encryption
 
-==== 1.4 Contributions to team-based tasks:
+=== 1.4 Contributions to team-based tasks:
 
 ** Augmented the code base for `Storage` component from AddressBook Level 3 to accommodate substantially more item types.
 ** Set up the team organization.
@@ -71,19 +71,18 @@ in the original AddressBook Level 3.
 ** Implemented a working ID system for items. https://github.com/AY1920S2-CS2103T-F10-1/main/pull/88[#88]
 ** Refactored usage of item aliases for easier tracking. https://github.com/AY1920S2-CS2103T-F10-1/main/pull/140[#140]
 
-==== 1.5 Reviewing contributions:
+=== 1.5 Reviewing contributions:
 
 *** PRs reviewed with non-trivial review comments. https://github.com/AY1920S2-CS2103T-F10-1/main/pull/253[#253] https://github.com/AY1920S2-CS2103T-F10-1/main/pull/337[#337]
 https://github.com/AY1920S2-CS2103T-F10-1/main/pull/282[#282]
 
 *** Reported bugs and suggestions for other teams in the class. https://github.com/wardetu/ped/issues/5[#5] https://github.com/wardetu/ped/issues/11[#11]
 
-== Contributions to the User Guide
+== 2. Contributions to the User Guide
 
 |===
 |_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=sort]
 
@@ -91,19 +90,16 @@ include::../UserGuide.adoc[tag=undo]
 
 include::../UserGuide.adoc[tag=redo]
 
-
-== Contributions to the Developer Guide
+== 3. Contributions to the Developer Guide
 
 |===
 |_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
 include::../DeveloperGuide.adoc[tag=storage]
 
-include::../DeveloperGuide.adoc[tag=observableuser]
+include::../DeveloperGuide.adoc[tag=observable-user]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=undo-redo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 

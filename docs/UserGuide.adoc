@@ -41,7 +41,7 @@ and job application woes.
 *ResuMe* allows the management of five different item types:
 
 [source,sh]
-[cols="^.^10%,^.^10%,^.^20%,.^60%",options="header",]
+[cols="^.^10%,^.^20%,^.^10%,.^60%",options="header",]
 |=======================================================================
 |No. |Item type |Alias |Attributes
 |1 |Internship |int |name, role, from, to, description, tag
@@ -140,11 +140,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help start`* and pressing kbd:[Enter] will open the help window for getting started.
 .  Try out these example commands:
 
-* **`list`**`i/ res` : lists all `resume` items.
-* **`add`**`i/ res n/ Software Engineering Resume #/ SE #/ frontend`: adds a `resume` named `Software Engineering Resume`
+* `list i/ res` : lists all `resume` items.
+* `add i/ res n/ Software Engineering Resume #/ SE #/ frontend`: adds a `resume` named `Software Engineering Resume`
 with `tags` _"SE"_ and _"frontend"_.
-* **`delete`**`1 i/ res` : deletes the 1st `resume` shown in the resume list.
-* *`exit`* : exits the app.
+* `delete 1 i/ res` : deletes the 1st `resume` shown in the resume list.
+* `exit` : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -210,6 +210,29 @@ You can edit your display profile here! It will then be updated accordingly in t
 
 [NOTE]
 A user profile contains the following fields: `DisplayPicture`, `Name`, `Description`, `Phone`, `Email`, `Github`, `University`, `Major`, `From`, `To`, `CAP`.
+
+* We note that these fields are your essential information which will be displayed in the PDF file of every generated resume. As such,
+each field comes with a format check which you need to fulfill in order to make a valid change.
+
+[source,sh]
+[cols="^.^20%,.^80%",options="header"]
+|=======================================================================
+
+| Field | Format
+
+| Display Picture  | Has to be a valid image file ending with .jpg, .png or .jpeg.
+| Name | Should only contain alphanumeric characters and spaces, and it should not be blank.
+| Description | Can take any characters and it should not be blank.
+| Phone | Should only contain numbers, and it should be at least 3 digits long.
+| Email | Must follow a valid email format.
+| Github | Must follow a valid github username format.
+| University |  Should only contain alphanumeric characters and spaces, with a maximum of 50 characters and should not be blank.
+| Major | Should only contain alphanumeric characters and spaces, with a maximum of 50 characters and should not be blank.
+| From | Should be in the format of MM-yyyy.
+| To | Should be in the format of MM-yyyy and must not be an earlier date than From.
+| Cap | Must be in the format of "CURRENT_CAP MAX_CAP" where "CURRENT_CAP" is not greater than "MAX_CAP". Must contain only non-negative numbers.
+
+|=======================================================================
 
 *Example 1:* Update user profile details +
 
@@ -279,17 +302,17 @@ you have filtered the list.
 * `list i/ res`: Lists all `resume` items.
 +
 .List of all resume items
-image::ListAllResumes.png[width = "450"]
+image::ListAllResumes.png[width = "390"]
 
 * `list i/ int`: Lists all `internship` items.
 +
 .List of all internship items
-image::ListAllInternships.png[width = "450"]
+image::ListAllInternships.png[width = "390"]
 
 * `list i/ note`: Lists all `note` items.
 +
 .List of all note items
-image::ListAllNotes.png[width = "450"]
+image::ListAllNotes.png[width = "390"]
 
 // end::list[]
 
@@ -498,18 +521,20 @@ correct `index` for deletion. Or just fall back on `undo` if you accidentally de
 to the second `resume` item.
 +
 .List of all resume items
-image::BeforeDeleteResumeList.png[width="790"]
+image::BeforeDeleteResumeList.png[width="700"]
 
 . We delete the 2nd `resume` with `delete 2 i/ res` .
 +
 .Application view after deleting the resume item at index 2
-image::ResumeDelete2.png[width="790"]
+image::ResumeDelete2.png[width="700"]
 
 . We delete the 3rd `skill` with `delete 3 i/ ski` . Do note how it is not a must for the list box to display `skill` items for
 deletion to proceed. After the deletion the list box is set to show `skill` items.
 +
+
 .Application view after deleteing the skill item at index 3
-image::DeleteSkill3.png[width="790"]
+image::DeleteSkill3.png[width="700"]
+
 
 // end::delete[]
 
@@ -538,7 +563,7 @@ just like to type.
 --
 [TIP]
 --
-* <<Modifying the content a resume: `redit`,`redit`>> can be very potent when used in conjunction with
+* `redit` can be very potent when used in conjunction with
 `sort`. Sort internships by latest, then call `redit` with `int/ 1 2 3` to add the three most
 recent internships to a resume. So easy!
 --
@@ -567,18 +592,18 @@ recent internships to a resume. So easy!
 . We sort all `resume` items by their name in ascending order with `sort i/ res order/ name`.
 +
 .List of resume items sorted by name in ascending order
-image::SortResByName.png[width="790"]
+image::SortResByName.png[width="700"]
 
 . We sort all `skill` items in descending level of proficiency with `sort i/ ski order/ level reverse/ true` .
 +
 .List of skill items sorted by level in descending order
-image::SortSkiByLevelReverse.png[width="790"]
+image::SortSkiByLevelReverse.png[width="700"]
 
 . We sort all `internship` by their start date in ascending order with `sort i/ int order/ time reverse/ false`, specifying
 `reverse/` this time because we really like to type.
 +
 .List of all note items sorted by deadline in ascending order
-image::SortIntByTime.png[width="790"]
+image::SortIntByTime.png[width="700"]
 
 // end::sort[]
 
@@ -632,7 +657,7 @@ Modifies the content of a `resume` to contain the items specified in the command
 ====
 
 [TIP]
-If you find it a hassle to manually enter items into the `resume`, you can consider using <<Pulling tagged items into the resume: `tagpull`, tagpull>>!
+If you find it a hassle to manually enter items into the `resume`, you can consider using <<Pulling tagged items into a resume: `tagpull`, tagpull>>!
 
 * For each `TYPE`, existing items will be updated to the input items.
 * You can add multiple items of a certain type to a `resume` by chaining
@@ -718,7 +743,7 @@ So by leaving out one of the prefixes (`TYPE/ ITEM_INDEX...`) from the command, 
 { start of `tagpull` section written by: Christian James Welly }
 
 // tag::tagpull[]
-=== Pulling tagged items into the resume: `tagpull`
+=== Pulling tagged items into a resume: `tagpull`
 
 Pulls all the `internship`, `project` and `skill` items with the specified tag(s) into a `resume`.
 
@@ -808,16 +833,16 @@ for instance, using a single `me` command, then `undo` will revert all the chang
 also do a `list i/ proj` to switch to viewing projects because that is how staging for an example works.
 +
 .List of all skill items after deleting "Java"
-image::deleteJava_beforeUndo.png[width="790"]
+image::deleteJava_beforeUndo.png[width="700"]
 +
 .List of all project items
-image::beforeUndo_switchToProj.png[width="790"]
+image::beforeUndo_switchToProj.png[width="700"]
 
 . But Stockholm's syndrome kicks in and we decide that Java has its merits, so we revert our action with `undo`.
 Voila, Java is back, and our list box now displays `skill` items.
 +
 .List of all skill items after undo
-image::postUndo_JavaIsBack.png[width="790"]
+image::postUndo_JavaIsBack.png[width="700"]
 
 // end::undo[]
 
@@ -849,12 +874,12 @@ anymore.
 
 *Example:*
 
-After the Java deletion incidence in the previous example section (for <<Undo a command: `undo`, `undo`>>), we
+After the Java deletion incidence in the previous example section (for `undo`), we
 decide that the merits of Java do not warrant the pain it wreaks so we want to `redo` our original decision to delete
 Java. Once again, Java is removed from our life.
 
 .List of all skill items after redo
-image::redo_success.png[width="790"]
+image::redo_success.png[width="700"]
 
 // end::redo[]
 
@@ -892,15 +917,15 @@ full sentences marked by a full stop.
 . The first command lists out all `resume` items. Assuming that you want to preview the second `resume` in the list box.
 +
 .List of all resume items
-image::ListResumeRPreview.png[width="790"]
+image::ListResumeRPreview.png[width="600"]
 
 . The second command will preview the `resume` at index 2 named "Software Engineering". A pop-up window will be opened,
 featuring a text-based view of the content of "Software Engineering". The screenshots of the results are as shown below:
 +
 .Application view after rpreview is executed
-image::RPreview.png[width = "790"]
+image::RPreview.png[width = "600"]
 .Preview pop-up window
-image::RPreviewIndexTwo.png[width = "790"]
+image::RPreviewIndexTwo.png[width = "600"]
 
 // end::rpreview[]
 
@@ -952,7 +977,7 @@ image::PdfFile.PNG[width="790"]
 // tag::done[]
 
 === Marking a note as done: `done`
-Mark a `note` at a specific index from the current note list as `done`.
+Marks a `Note` at a specific index from the current note list as `done`.
 
 ====
 *Format:* `done INDEX`
@@ -1079,7 +1104,7 @@ These are commands that have consistent format regardless of item type.
 These are commands whose format varies depending on item type.
 
 [source,sh]
-[cols="5%,15%,80%",options="header"]
+[cols="15%,15%,70%",options="header"]
 |=======================================================================
 
 | Command | Type | Format
