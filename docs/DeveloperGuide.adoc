@@ -875,11 +875,12 @@ its ItemPrice and Person(s) involved in splitting that Item.
 will be immutable.
 * <<Paid-Command, `PaidCommand`>> - Reduces the Amount a Person owes.
 * <<Clear-Receipt-Command, `ClearReceipt`>> - Clear the current Receipt to start a new Receipt.
-
-Below is the activity diagram of the entire Expense Splitter.
 //end::expensesplitterintro[]
 
 //tag::expensesplitteractivitydiagram[]
+Below is the activity diagram of the entire Expense Splitter.
+
+
 *Activity Diagram of Expense Splitter:* +
 
 .ExpenseSplitterActivityDiagram
@@ -1069,12 +1070,15 @@ The following activity diagram illustrates what happens when a user executes `li
 .List Receipt Activity Diagram
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Receipt Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listreceipt` command.
+In this section, you will learn more about the relationships between objects related to the `ListReceiptCommand`.
 
 .List Receipt Command Class Diagram
 image::ExpenseSplitterListReceiptCommandClassDiagram.png[]
+
 
 The above class diagram shows the structure of the `ListReceiptCommand` and its associated classes and
 interfaces. Some methods and fields are left out because they are not of concern in `ListReceiptCommand`
@@ -1100,9 +1104,11 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistreceiptcommand[]
 
 //tag::expensesplitterlistamountcommand[]
+
 [[List-Amount-Command]]
 ==== List Amount Command
 
@@ -1124,14 +1130,16 @@ The `listamount` command has the following input format:
 * A person is deleted after they have completely paid the amount they owe.
 ====
 
-The following activity diagram illustrates what happens when a user executes `listamount` command:
+The following activity diagram illustrates what happens when a user executes `listamount` command.
 
 .List Amount Activity Diagram +
 image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
 
+{nbsp}
+
 *Structure of List Amount Command* +
 
-In this section, you will learn more about the relationships between objects related to the `listamount` command.
+In this section, you will learn more about the relationships between objects related to the `ListAmountCommand`.
 
 .List Amount Command Class Diagram
 image::ExpenseSplitterListAmountCommandClassDiagram.png[]
@@ -1160,6 +1168,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistamountcommand[]
 
 [[Done-Receipt-Command]]
@@ -1224,6 +1233,7 @@ image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
 
 
 //tag::expensesplitterpaidcommand[]
+
 [[Paid-Command]]
 ==== Paid Command
 
@@ -1262,7 +1272,7 @@ image::ExpenseSplitterPaidCommandActivityDiagram.png[]
 
 *Structure of Paid Command* +
 
-In this section, you will learn more about the relationships between objects related to the `paid` command.
+In this section, you will learn more about the relationships between objects related to the `PaidCommand`.
 
 .Paid Command Class Diagram
 image::ExpenseSplitterPaidCommandClassDiagram.png[]
@@ -1294,6 +1304,7 @@ image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
 
 .Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+
 //end::expensesplitterpaidcommand[]
 
 //tag::expensesplitterclearreceipt[]
@@ -2235,17 +2246,26 @@ with the number of person splitting that item.
 Expected: No item is added to the current receipt and no change to person amount.
 Error details shown in the response message.
 
-=== List Receipt In Expense Splitter
+//tag::willylistreceiptappendixg[]
+=== List Receipt in Expense Spliter
 
-. Listing the items contained in the current receipt. The order of items listed depends on the order of items added
-by the user.
+. Listing the items contained in the current receipt. The order of items listed depends on the order
+of items added by the user.
 
-.. List Receipt command format: `listreceipt`
+.. ListReceipt Command format: `listreceipt`
+
+.. Prerequisites: NIL.
 
 .. Test case: `listreceipt` +
-Expected: List all items in the current receipt, its price and amount associated with each person involved
-in splitting that item.
+   Expected: If there are items in the receipt: List all items in the current receipt, its price and amount associated with each
+person involved in splitting that item
 
+.. Test case: `listreceipt` +
+   Expected: If there are no items in the receipt: EYLAH will inform user that there is no items currently in the receipt.
+
+//end::willylistreceiptappendixg[]
+
+//tag::willylistamountappendixg[]
 === List Amount In Expense Splitter
 
 . List all the Person(s) and the amount they owe.
@@ -2253,9 +2273,15 @@ in splitting that item.
 .. List Receipt command format: `listamount`
 
 .. Test case: `listamount` +
-Expected: List all Person that currently owe the User money. Those who do not owe any money will be
+Expected: If there are Person in the list: List all Person that currently owe the User money. There should not be anyone
+with $0 as those who do not owe any money will be
 deleted from the PersonList.
 
+.. Test case: `listamount` +
+Expected: If there are no Person in the list: EYLAH will inform user that there no one owes money.
+//end::willylistamountappendixg[]
+
+//tag::willypaidappendixg[]
 === Paid Command In Expense Splitter
 
 . Reduces the amount of money a Person owes.
@@ -2270,7 +2296,7 @@ Expected: Reduces the entire amount of money the Person at Index 1 owes.
 
 .. Test case: `paid -1` +
 Expected: EYLAH will inform the user that INDEX is incorrect.
-
+//end::willypaidappendixg[]
 
 === Saving data
 
