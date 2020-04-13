@@ -186,6 +186,7 @@ image::SortInitliazeDiagram.png[]
 Due to the requirements mentioned, this is how we generate our FilteredList. We set FilteredList to reference the SortedList and then the SortedList to reference the UniqueTaskList.
 
 ==== Updating UI
+.Sequence of how sort updates the UI
 image::SortUiSequenceDiagram.png[]
 
 Meanwhile to update the UI on the newest sorting order, the latest sortOrder is set on the `TaskList`. The LogicManager is then able to access the sort order through the Model and provide the `MainWindow` with the sort order. The MainWindow then sets it on the `TaskListPanel`.
