@@ -704,6 +704,7 @@ Use case ends.
 [none]
 * 1a. No such modules.
 * 1b. Prompt user to add the modules not listed.
+* 1c. Due date has already passed.
 +
 Use case ends.
 
@@ -714,7 +715,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to list activities +
+1.  User requests to list all activities +
 `list`
 2.  NASA will provide a acknowledgement messages
 3.  NASA will display an updated list of all deadlines and events.
@@ -738,6 +739,7 @@ Use case ends.
 [none]
 * 1a. No such module code exists in NASA.
 * 1b. Prompt user to re-enter the correct module code.
+* 1c. Index out of bounds when choosing the activity to edit.
 +
 Use case ends.
 
@@ -781,7 +783,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to repeat a task under CS2103T every week. +
-`repeat m/CS2103T a/task d/1`
+`repeat-d 1 m/CS2103T r/1`
 2.  NASA will provide an acknowledgement message.
 +
 Use case ends.
@@ -791,6 +793,9 @@ Use case ends.
 [none]
 * 1a. Nothing to repeat.
 * 1b. Prompt user no such modules.
+* 1c. Index out of bounds when choosing activity not in the list to edit.
+* 1d. Index out of bounds when choosing repeat type that is < 0 and more than 3.
+`eg. repeat-d -1 m/CS2103T r/4`
 +
 Use case ends.
 
@@ -839,7 +844,7 @@ Use case ends.
 
 1.  User requests for a motivation quote +
 `quote`
-2.  NASA will display a pop-up with a quote.
+2.  NASA will display a pop-up with a quote in the middle of the screen.
 +
 Use case ends.
 
@@ -1098,7 +1103,7 @@ Expected: All activity will be hide, as there is no such activity with the name.
 . Initialise the following data. +
 `add m/CS2030 n/Programming Methodology` +
 `deadline m/CS2030 a/Lab d/20-08-2020 00:00` +
-`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
+`event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 02:01 a/CP contest`
 
 . `edit-d` to edit a deadline and `edit-e` to edit an event.
 .. Test case: `edit-d 1 m/CS2030 n/Remember to do checkstyle testing` +
@@ -1128,8 +1133,14 @@ Expected: No new field is edited error will be shown.
 `deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
 `event m/CS2030 sd/12-05-2020 02:00 ed/12-05-2020 04:00 a/CP contest`
 
+CAUTION:  You may choose to use a different start date and end date that is relevant to you
+at that point of time during your testing. It is important to choose a short-time difference, eg. 1min to see the effects immediately.
+
 .. Test case: `repeat-d 1 m/CS2030 r/1`
 Expected: Activity will display a "Repeat Weekly" in the module card.
+
+.. Test case: `repeat-d 2 m/CS2030 r/2`
+Expected: Activity will display a "Repeat Fortnightly" in the module card.
 
 .. Test case: `repeat-d 1 m/CS2030 r/0`
 Expected: Activity will cancel the repeat function and text "Repeat" will disappear.
