@@ -55,8 +55,8 @@ and job application woes.
 |5 |Note |note |name, time, tag
 |=======================================================================
 
-As you may have noticed from number 4, we are able to manage different `resumes` as well!
-Items from number 1 to 3 can be shared across different `resumes`.
+As you may have noticed from number 4, we are able to manage different `resume` items as well!
+Items from number 1 to 3 can be shared across different `resume` items.
 
 === Preview
 The following is the GUI for our application:
@@ -82,8 +82,8 @@ the list box will be set to display that type.
 . *_User box:_* where you can view your personal information like `name`, `email`, or `phone number`. Any changes made
 to your user profile will be automatically reflected here.
 
-. *_Note box:_* where you can view your list of notes. You can also change the view of this list by using `list` command.
-When a note is marked as done, this box will be automatically updated.
+. *_Note box:_* where you can view your list of `note` items. You can also change the view of this list by using `list` command.
+When a `note` is marked as done, this box will be automatically updated.
 
 ====
 
@@ -140,7 +140,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help start`* and pressing kbd:[Enter] will open the help window for getting started.
 .  Try out these example commands:
 
-* **`list`**`i/ res` : lists all `resumes`.
+* **`list`**`i/ res` : lists all `resume` items.
 * **`add`**`i/ res n/ Software Engineering Resume #/ SE #/ frontend`: adds a `resume` named `Software Engineering Resume`
 with `tags` _"SE"_ and _"frontend"_.
 * **`delete`**`1 i/ res` : deletes the 1st `resume` shown in the resume list.
@@ -209,7 +209,30 @@ You can edit your display profile here! It will then be updated accordingly in t
 ====
 
 [NOTE]
-A user profile contains the following fields: `Display Picture`, `Name`, `Description`, `Phone`, `Email`, `Github`, `University`, `Major`, `From`, `To`, `CAP`.
+A user profile contains the following fields: `DisplayPicture`, `Name`, `Description`, `Phone`, `Email`, `Github`, `University`, `Major`, `From`, `To`, `CAP`.
+
+* We note that these fields are your essential information which will be displayed in the PDF file of every generated resume. As such,
+each field comes with a format check which you need to fulfill in order to make a valid change.
+
+[source,sh]
+[cols="^.^20%,.^80%",options="header"]
+|=======================================================================
+
+| Field | Format
+
+| Display Picture  | Has to be a valid image file ending with .jpg, .png or .jpeg.
+| Name | Should only contain alphanumeric characters and spaces, and it should not be blank.
+| Description | Can take any characters and it should not be blank.
+| Phone | Should only contain numbers, and it should be at least 3 digits long.
+| Email | Must follow a valid email format.
+| Github | Must follow a valid github username format.
+| University |  Should only contain alphanumeric characters and spaces, with a maximum of 50 characters and should not be blank.
+| Major | Should only contain alphanumeric characters and spaces, with a maximum of 50 characters and should not be blank.
+| From | Should be in the format of MM-yyyy.
+| To | Should be in the format of MM-yyyy and must not be an earlier date than From.
+| Cap | Must be in the format of "CURRENT_CAP MAX_CAP" where "CURRENT_CAP" is not greater than "MAX_CAP". Must contain only non-negative numbers.
+
+|=======================================================================
 
 *Example 1:* Update user profile details +
 
@@ -325,7 +348,7 @@ The specific command syntax could be found in the table below:
 [NOTE]
 --
 * An item could have any number of tags _(including 0)_.
-* There are three possible levels for a `skill` item: `ADVANCED`, `INTERMEDIATE` and `BASIC`.
+* There are three possible `levels` for a `skill` item: `ADVANCED`, `INTERMEDIATE` and `BASIC`.
 * A newly added note will be automatically marked as `undone`.
 --
 [TIP]
@@ -344,7 +367,7 @@ _(refer to <<Generating a resume: `rgen`, rgen>> for more details)_
 +
 .List of all project items
 image::ListProject.png[width="600"]
-. A new `project` item named `Duke` with the specified fields is added. This item is automatically reflected in the list box.
+. A new `project` item named "Duke" with the specified fields is added. This item is automatically reflected in the list box.
 +
 .Application view after project "Duke" is added
 image::AddDukeProject.png[width="600"]
@@ -412,7 +435,7 @@ image::EditResumeExample.png[width="790"]
 .List of all skill items
 image::ListSkill1.png[width="790"]
 
-. The second command edits the `skill` item at index 2. It has its level changed to from `INTERMEDIATE` to `ADVANCED` and all its existing `tags` cleared.
+. The second command edits the `skill` item at index 2. It has its `level` changed to from `INTERMEDIATE` to `ADVANCED` and all its existing `tags` cleared.
 +
 .Application view after editing the skill item at index 2
 image::EditSkillExample.png[width="790"]
@@ -469,6 +492,8 @@ image::find-orbital.png[width="790"]
 
 { end of `find` section written by: Nham Quoc Hung }
 
+{ start of `delete` section written by: Nguyen Minh Hoang}
+
 // tag::delete[]
 
 === Deleting an item : `delete`
@@ -496,20 +521,27 @@ correct `index` for deletion. Or just fall back on `undo` if you accidentally de
 to the second `resume` item.
 +
 .List of all resume items
-image::BeforeDeleteResumeList.png[width="790"]
+image::BeforeDeleteResumeList.png[width="700"]
 
-. Delete the 2nd `resume` with `delete 2 i/ res` .
+. We delete the 2nd `resume` with `delete 2 i/ res` .
 +
 .Application view after deleting the resume item at index 2
-image::ResumeDelete2.png[width="790"]
+image::ResumeDelete2.png[width="700"]
 
-. Delete the 3rd `skill` with `delete 3 i/ ski` . Do note how it is not a must for the list box to display `skill` items for
+. We delete the 3rd `skill` with `delete 3 i/ ski` . Do note how it is not a must for the list box to display `skill` items for
 deletion to proceed. After the deletion the list box is set to show `skill` items.
 +
+
 .Application view after deleteing the skill item at index 3
-image::DeleteSkill3.png[width="790"]
+image::DeleteSkill3.png[width="700"]
+
 
 // end::delete[]
+
+{ end of `delete` section written by: Nguyen Minh Hoang}
+
+
+{ start of `sort` section written by: Nguyen Minh Hoang}
 
 // tag::sort[]
 
@@ -531,7 +563,7 @@ just like to type.
 --
 [TIP]
 --
-* <<Modifying the content a resume: `redit`,`redit`>> can be very potent when used in conjunction with
+* `redit` can be very potent when used in conjunction with
 `sort`. Sort internships by latest, then call `redit` with `int/ 1 2 3` to add the three most
 recent internships to a resume. So easy!
 --
@@ -557,23 +589,25 @@ recent internships to a resume. So easy!
 
 *Example:*
 
-. Sort all `resume` items by their name in ascending order with `sort i/ res order/ name`.
+. We sort all `resume` items by their name in ascending order with `sort i/ res order/ name`.
 +
 .List of resume items sorted by name in ascending order
-image::SortResByName.png[width="790"]
+image::SortResByName.png[width="700"]
 
-. Sort all `skill` items in descending level of proficiency with `sort i/ ski order/ level reverse/ true` .
+. We sort all `skill` items in descending level of proficiency with `sort i/ ski order/ level reverse/ true` .
 +
 .List of skill items sorted by level in descending order
-image::SortSkiByLevelReverse.png[width="790"]
+image::SortSkiByLevelReverse.png[width="700"]
 
-. Sort all `internship` by their start date in ascending order with `sort i/ int order/ time reverse/ false`, specifying
+. We sort all `internship` by their start date in ascending order with `sort i/ int order/ time reverse/ false`, specifying
 `reverse/` this time because we really like to type.
 +
 .List of all note items sorted by deadline in ascending order
-image::SortIntByTime.png[width="790"]
+image::SortIntByTime.png[width="700"]
 
 // end::sort[]
+
+{ end of `sort` section written by: Nguyen Minh Hoang}
 
 { start of `view` section written by: Christian James Welly }
 
@@ -642,7 +676,7 @@ Try typing in these commands:
 
 *Outcome:*
 
-. The first command lists out all `resumes`. Assuming you want to modify the contents of the first `resume` in the list box.
+. The first command lists out all `resume` items. Assuming you want to modify the contents of the first `resume` in the list box.
 +
 .List of all resume items
 image::ReditListRes.png[width = "790"]
@@ -666,7 +700,7 @@ Try typing in these commands:
 
 *Outcome:*
 
-. The first command lists out all `resumes`. Assuming you want to modify the contents of the first `resume` in the list box. Since we are following from example 1, the "Winter 2019" `resume` would already have some items in it.
+. The first command lists out all `resume` items. Assuming you want to modify the contents of the first `resume` in the list box. Since we are following from example 1, the "Winter 2019" `resume` would already have some items in it.
 +
 .List of all resume items
 image::ReditListRes2.png[width = "790"]
@@ -691,7 +725,7 @@ Try typing in these commands:
 
 *Outcome:*
 
-. The first command lists out all `resumes`. Assuming you want to modify the contents of the first `resume` in the list box. Since we are following from example 2, the "Winter 2019" `resume` would already have some items in it.
+. The first command lists out all `resume` items. Assuming you want to modify the contents of the first `resume` in the list box. Since we are following from example 2, the "Winter 2019" `resume` would already have some items in it.
 +
 .List of all resume items
 image::ReditListRes3.png[width = "790"]
@@ -761,12 +795,14 @@ image::ReditListRes.png[width = "790"]
 
 . The second command pulls all items which has "SE" _or_ "github" as the tag into the `resume` at index 1, named "Winter 2019". The following screenshot illustrates the outcome of the command if we have 1 `internship` item and 2 `project` items tagged with "SE", and 1 `skill` item tagged with "github".
 +
-.Resume content after `tagpull`
+.Resume content after tagpull
 image::TagPullMultiTags.png[width = "790"]
 
 // end::tagpull[]
 { end of `tagpull` section written by: Christian James Welly }
 
+
+{ start of `undo` section written by: Nguyen Minh Hoang}
 // tag::undo[]
 
 === Undoing a command: `undo`
@@ -797,19 +833,22 @@ for instance, using a single `me` command, then `undo` will revert all the chang
 also do a `list i/ proj` to switch to viewing projects because that is how staging for an example works.
 +
 .List of all skill items after deleting "Java"
-image::deleteJava_beforeUndo.png[width="790"]
+image::deleteJava_beforeUndo.png[width="700"]
 +
 .List of all project items
-image::beforeUndo_switchToProj.png[width="790"]
+image::beforeUndo_switchToProj.png[width="700"]
 
 . But Stockholm's syndrome kicks in and we decide that Java has its merits, so we revert our action with `undo`.
 Voila, Java is back, and our list box now displays `skill` items.
 +
 .List of all skill items after undo
-image::postUndo_JavaIsBack.png[width="790"]
+image::postUndo_JavaIsBack.png[width="700"]
 
 // end::undo[]
 
+{ end of `undo` section written by: Nguyen Minh Hoang}
+
+{ start of `redo` section written by: Nguyen Minh Hoang}
 // tag::redo[]
 
 === Redoing a command: `redo`
@@ -835,14 +874,16 @@ anymore.
 
 *Example:*
 
-After the Java deletion incidence in the previous example section (for <<Undo a command: `undo`, `undo`>>), we
+After the Java deletion incidence in the previous example section (for `undo`), we
 decide that the merits of Java do not warrant the pain it wreaks so we want to `redo` our original decision to delete
 Java. Once again, Java is removed from our life.
 
 .List of all skill items after redo
-image::redo_success.png[width="790"]
+image::redo_success.png[width="700"]
 
 // end::redo[]
+
+{ end of `redo` section written by: Nguyen Minh Hoang}
 
 { start of `rpreview` section written by: Nguyen Chi Hai }
 
@@ -906,7 +947,7 @@ will be located in the same folder as the application `.jar` file.
 
 [TIP]
 It is optional to specify a `FILE_NAME` for the .pdf file.
-If no name is specified, the filename will be set, by default, to the name of the generated `Resume`.
+If no name is specified, the filename will be set, by default, to the name of the generated `resume`.
 
 *Example:* Let's try out the following commands!
 
@@ -915,17 +956,17 @@ If no name is specified, the filename will be set, by default, to the name of th
 
 *Outcome:*
 
-. The first command lists out all `resumes`. Assuming that you want to generate the first `resume` in the list box.
+. The first command lists out all `resume` items. Assuming that you want to generate the first `resume` in the list box.
 +
 .List of all resume items
 image::ListResume.PNG[width="790"]
 
-. The second command generates a `My Resume.pdf` file from the specified resume. The screenshots of the application view
+. The second command generates a "My Resume.pdf" file from the specified resume. The screenshots of the application view
 and of the generated file are as below:
 +
-.Application view after `rgen` is executed
+.Application view after rgen is executed
 image::GenerateResume.PNG[width="790"]
-.Generated `.pdf` file
+.Generated .pdf file
 image::PdfFile.PNG[width="790"]
 
 // end::rgen[]
@@ -995,6 +1036,10 @@ Exits from *ResuMe*.
 
 { end of `exit` section written by: Nham Quoc Hung }
 
+
+{ start of `data-encryption` section written by: Nguyen Minh Hoang}
+
+// tag::data-encryption[]
 === Saving the data
 *ResuMe* data is saved in the hard disk automatically after any command
 that changes the data. There is no need to save manually.
@@ -1004,7 +1049,9 @@ We are currently working on a login feature that will let you set password for R
 your locally stored data encrypted, so that no one (even us) can gain access to your precious information.
 
 We value your privacy and we want you to feel safe. Stay tuned!
-// end::dataencryption[]
+// end::data-encryption[]
+
+{ end of `data-encryption` section written by: Nguyen Minh Hoang}
 
 == FAQ
 
