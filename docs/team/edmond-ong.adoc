@@ -25,29 +25,22 @@ of (weekly, twice weekly and monthly).
 ** Justification: This feature allows user to rectify the error made.
 ** Highlights: Current implementation fits the following functionality of Nasa, however when more functions is added in v2.0, update will be needed on the code for tracking the UI looks.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: involve in building Models from scratch.
 
 * *Minor enhancement*: added a quote command that aims to motivate the user before he/she starts to get into work.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=EdmondOng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added sample data for using application for the first-time (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/255[#255])
+*** In charge of models, wrote base code and test for Models (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/86[#86] https://github.com/AY1920S2-CS2103T-T10-4/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/101[#101])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Contribute to adjusting new commands to the User Guide: https://github.com/AY1920S2-CS2103T-T10-4/main/pull/283[#283]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-T10-4/main/pull/99[#99], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/92[#92], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/115[#115], https://github.com/AY1920S2-CS2103T-T10-4/main/pull/103[#103]
+*** Suggestions for for enhancement (examples: https://github.com/AY1920S2-CS2103T-T10-4/main/issues/266[#266])
 
 _{you can add/remove categories in the list above}_
 
@@ -62,7 +55,7 @@ include::../UserGuide.adoc[tag=automation]
 
 include::../UserGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=quote]
+include::../UserGuide.adoc[tag=quote]
 
 == Contributions to the Developer Guide
 
@@ -70,16 +63,8 @@ include::../DeveloperGuide.adoc[tag=quote]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
 include::../DeveloperGuide.adoc[tag=automation]
 
+include::../DeveloperGuide.adoc[tag=undoredo]
+
 include::../DeveloperGuide.adoc[tag=quote]
-
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

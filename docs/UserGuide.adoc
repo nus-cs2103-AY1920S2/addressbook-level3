@@ -392,6 +392,7 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
+// tag::automation[]
 === Automating a activity: `repeat-d` or `repeat-e`
 
 `Contributed by: EdmondOng`
@@ -417,7 +418,9 @@ Examples:
 ** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
 ** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
+// end::automation[]
 
+// tag::quote[]
 === Quote: `quote`
 
 `Contributed by: EdmondOng`
@@ -433,6 +436,10 @@ Format: `quote`
 Example :
 
 ** `quote` : “Limitations live only in our minds. But if we use our imaginations, our possibilities become limitless.” – Jamie Paolinetti
+
+// end::quote[]
+
+// tag::undoredo[]
 
 === Undo: `undo`
 
@@ -461,6 +468,8 @@ Format: `redo`
 Example :
 
 ** `redo` : "redo last action" else "no last action to redo"
+
+// end::undoredo[]
 
 === Calendar View:
 `Contributed by: kester-ng` +
