@@ -169,15 +169,10 @@ image::CorrectionEngineClassDiagram.png[]
 
 The `CorrectionEngine` component revolves around two _API_ s, namely:
 
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/distance/LevenshteinDistanceCalculator.java[`LevenshteinDistanceCalculator`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
 
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
-
-
-Given below is the Sequence Diagram for interactions within the `StringCorrectionEngine` (one concrete implementation of `CorrectionEngine`) component for the `correct("uncorrected")` API call.
+Given below is the Sequence Diagram for interactions within the link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] (one concrete implementation of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`]) component for the `correct("uncorrected")` API call.
 
 .Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
 image::StringCorrectionEngineSequenceDiagram.png[]
@@ -291,20 +286,20 @@ This section describes the details on how features are implemented.
 
 ==== Current implementation
 
-`CorrectionEngine` revolves around two _API_ s, namely:
+The `CorrectionEngine` component revolves around two _API_ s, namely:
 
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
-* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by link:{repoURL}/src/main/java/com/notably/logic/correction/distance/LevenshteinDistanceCalculator.java[`LevenshteinDistanceCalculator`]. Concrete implementations of link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
 
-Two concrete implementations of the `CorrectionEngine` interface are, namely:
+Two concrete implementations of the link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface are, namely:
 
-* The `StringCorrectionEngine` class, which deals with the correction of plain strings.
-* The `AbsolutePathCorrectionEngine` class, which deals with the correction of absolute paths. The absolute paths here refer to the address of the notes (or blocks, as we call it) that exist in the App.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/StringCorrectionEngine.java[`StringCorrectionEngine`] class, which deals with the correction of plain strings.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/AbsolutePathCorrectionEngine.java[`AbsolutePathCorrectionEngine`] class, which deals with the correction of absolute paths. The absolute paths here refer to the address of the notes (or blocks, as we call it) that exist in the App.
 
 ==== Design considerations
 
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
-2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
+2. Both link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] and link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
 
 //tag::sugengineimpl[]
