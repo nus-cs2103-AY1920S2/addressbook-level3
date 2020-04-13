@@ -1207,10 +1207,9 @@ Example
 |
 `[empty input]`
 |
-When there is no input,
-the `ResultDisplay` will not show anything.
+When there is no input, no action occurs.
 |
-.An empty `ResultDisplay`
+.An empty `CommandBox`
 image::syntax-highlighting/empty-input.png[]
 {fbl}
 
