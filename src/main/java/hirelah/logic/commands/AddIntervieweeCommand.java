@@ -15,7 +15,6 @@ import hirelah.storage.Storage;
  * AddIntervieweeCommand describes the behavior when the
  * client wants to add an interviewee to the list.
  */
-
 public class AddIntervieweeCommand extends Command {
 
     public static final String COMMAND_WORD = "interviewee";

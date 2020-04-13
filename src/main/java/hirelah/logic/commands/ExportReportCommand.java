@@ -21,6 +21,7 @@ import hirelah.model.Model;
 import hirelah.model.hirelah.Attribute;
 import hirelah.model.hirelah.Interviewee;
 import hirelah.model.hirelah.IntervieweeList;
+import hirelah.model.hirelah.QuestionRemark;
 import hirelah.model.hirelah.Remark;
 import hirelah.model.hirelah.exceptions.IllegalActionException;
 import hirelah.storage.Storage;
@@ -335,7 +336,11 @@ public class ExportReportCommand extends Command {
         boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage(), 73);
+            String message = currentRemark instanceof QuestionRemark
+                    ? String.format("Question %d: %s", ((QuestionRemark) currentRemark).getQuestionNumber(),
+                    currentRemark.getMessage())
+                    : currentRemark.getMessage();
+            ArrayList<String> splitRemarks = splitSentence(message, 73);
             boolean firstSentence = true;
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,

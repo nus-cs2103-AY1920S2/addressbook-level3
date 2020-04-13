@@ -1,14 +1,17 @@
 package hirelah.logic.commands;
 
 import static hirelah.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static hirelah.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_INTEGRITY;
 import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_TEAM_WORK;
+import static hirelah.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
 import hirelah.commons.exceptions.IllegalValueException;
+import hirelah.logic.commands.exceptions.CommandException;
 import hirelah.model.Model;
 import hirelah.model.ModelManager;
 import hirelah.model.hirelah.AttributeList;
@@ -31,6 +34,16 @@ class AddAttributeCommandTest {
 
         assertCommandSuccess(command, actual, expectedCommandResult, expected, storage,
                 storage::isAttributesSaved);
+    }
+
+    @Test
+    public void execute_invalidAttribute_commandException() {
+        StorageStub storage = new StorageStub();
+        Model actual = new ModelManager();
+        actual.setAttributeList(new AttributeList());
+        AttributeList expectedAttributeList = new AttributeList();
+        AddAttributeCommand command = new AddAttributeCommand("bad! value");
+        assertThrows(CommandException.class, () -> command.execute(actual, storage));
     }
 
     @Test
