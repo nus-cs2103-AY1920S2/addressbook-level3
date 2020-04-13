@@ -136,7 +136,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker
 (X) but due to a limitation of PlantUML, the lifeline reaches the end of
-diagram.
+diagram. This limitation affects all of the sequence diagrams in this document.
 
 [[Design-Model]]
 === Model component
@@ -151,16 +151,18 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Coupon Stash data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g.
+** some examples of preferences that can be set are the money symbol, or
+window sizes.
+* exposes an unmodifiable `ObservableList<Coupon>` that can be 'observed' e.g.
 the UI can be bound to this list so that the UI automatically updates when the
 data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Coupon Stash`, which
-`Person` can reference.
-This would allow `Coupon Stash` to only require one `Tag` object per unique
-`Tag`, instead of each `Person` needing their own `Tag` object.
+As a more OOP model, we can store a `Tag` list in Coupon Stash, which a
+`Coupon` can reference.
+This would allow Coupon Stash to only require one `Tag` object per unique
+tag, instead of each `Coupon` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
@@ -172,8 +174,7 @@ image:BetterModelClassDiagram.png[]
 image::StorageClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/csdev/couponstash/storage/Storage.java[`Storage.jav
-a`]
+link:{repoURL}/src/main/java/csdev/couponstash/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -215,6 +216,7 @@ Step 1. The user launches the application for the first time.
 The `CouponStash` will be initialized with the initial coupon stash state, and
 the `currStateIndex` pointing to that single coupon stash state.
 
+.CouponStash will be initialized with the initial coupon stash state.
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the
@@ -260,9 +262,6 @@ the undo.
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but
-due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redoCouponStash()`,
 which shifts the `currStateIndex` once to the right, pointing to the previously
@@ -314,6 +313,8 @@ unwanted mutations.
 deleted).
 ** Cons: We must ensure that the implementation of each individual command is
 correct.
+
+// address pros and cons
 // end::undoredo[]
 
 // tag::calendar[]
@@ -344,6 +345,7 @@ image::CalendarClassDiagram.png[]
 
 The sequence diagrams below show how the Calendar works:
 
+.Seqeunce diagram for calendar.
 image::CalendarSequenceDiagram.png[]
 image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[]
 
@@ -359,7 +361,7 @@ Step 1. The user launches the application for the first time.
 
 The Calendar displayed will render the saved coupon data, triggered by the initiation of the UiManager.
 
-Step 2. The user executes a command that alters the ObservableList<Coupon> (any command listed above).
+Step 2. The user executes a command that alters the `ObservableList<Coupon>` (any command listed above).
 
 When a command alters the observable coupon list, the listener of the observable list detects the change and the
 Calendar will be updated accordingly to the list by calling the `CalendarPane#fillUpCalendar()` method.
@@ -412,9 +414,10 @@ The following sequence diagram shows how the Calendar updates with the observabl
 
 image::CalendarExpiringCommandSeqDiagram.png[]
 
-OR
+Or alternatively, instead of step 2,
 
-Step 2. The user clicks on the arrows at the sides of the calendar title to change the month year displayed.
+Step 3. The user clicks on the arrows at the sides of the calendar title to
+change the month year displayed.
 
 When a click alters the observable month view, the listener of the observable month view detects the change and the
 month view display of the calendar will be updated according by calling the `CalendarPane#updateCalendarWithYearMonth`
@@ -507,7 +510,7 @@ coupon. The following methods in the `CouponStash`,
 out archived coupons from a given `CouponStash`.
 
 [#img-archiving]
-.Overview class diagram representation of the the coupon archiving implementation
+.Overview class diagram representation of the the coupon archiving implementation.
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism

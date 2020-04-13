@@ -20,7 +20,7 @@ LogicManager -> CouponStashParser : parseCommand()
 activate CouponStashParser
 
 create SortCommandParser
-CouponStashParser -> SortCommandParser : new SortCommandParser()
+CouponStashParser -> SortCommandParser : SortCommandParser()
 activate SortCommandParser
 
 SortCommandParser --> CouponStashParser : scp
@@ -30,7 +30,7 @@ CouponStashParser -> SortCommandParser : parse()
 activate SortCommandParser
 
 create SortCommand
-SortCommandParser -> SortCommand : new SortCommand()
+SortCommandParser -> SortCommand : SortCommand()
 activate SortCommand
 
 SortCommand --> SortCommandParser : s
