@@ -479,9 +479,6 @@ Pros: Reduce a lot of memory issue.
 Cons: Harder to implement
 
 ==== Opposite Command for edit [Dat]
-Edit command extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
-
-<<<<<<< HEAD
 In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
 
 .Activity Diagram of Pre-processing for Edit commands
@@ -494,8 +491,6 @@ is opposite to this EditCommand) with editing information of the original toEdit
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
 
-=======
->>>>>>> c540e5f9c00cf2a56388cc7d3d14dcfad7ae8c0f
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
 Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
 
@@ -524,25 +519,6 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
-<<<<<<< HEAD
-=======
-
-=======
-In EditCommand class, method `preprocessUndoableCommand` to get the toEdit Object and edited Object.
-
-.Activity Diagram of Pre-processing for Edit commands
-image::ActivityDiagramEditCommand.png[]
-
-Method `executeUndoableCommand` will set the toEdit Object in the ObjectAddressBook to the edited Object.
-
-Method `generateOppositeCommand()` will generate another `EditCommand` (which
-is opposite to this EditCommand) with editing information of the original toEdit Object and push it to undoStack.
-
-When `undo` and `redo` commands are executed, the process is carried out as described above.
-
-==== Opposite command for assign/ unassign
-
->>>>>>> c540e5f9c00cf2a56388cc7d3d14dcfad7ae8c0f
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 
@@ -580,9 +556,6 @@ image::SeqDiagramDeleteStaff.png[]
 
 === View Switching [HIEU]
 To see sub-view details of each section we can issue a select command.
-<<<<<<< HEAD
-=======
-
 Let's see an example of how selecting sub-view data of a student 1 works.
 
 image::ViewSwitchFlowDiagram.png[]
@@ -611,67 +584,11 @@ that the students have without the progresses of this course that the student cu
 To query that, after executing `select sid/ student_id`, the user needs to run
 `select sid/ student_id cid/ course-id` as well
 
-
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
-All assign command variants (i.e `AssignTeacherToCourseCommand`, `AssignStudentToCourseCommand` extends from `AssignCommandBase`
-instead of the abstract `Command` class.
-
-The diagram below shows a simplified flow
-
-.Structure of Commands and Parser
-image::AssignCommandImplementation.png[]
-
-==== Design considerations:
-- Since all assign commands are just linking between two entities, where each of them is distinguised based on
-its ID and its entity name (e.g course, student, teacher, etc). So we have AssignDescriptor which stores this information.
-
-- A factory design pattern to select which assign command based on the AssignDescriptor content.
-
-
-
-=== [Proposed] Tracking Student Progress Feature
-==== Proposed Implementation
-
-This feature is implemented with two main classes - `Progress` and `Assignment`, both of which is controlled by a
-'ProgressAddressBook' and 'AssignmentAddressBook' respectively. Please see the following class diagram
-which proposes the associations between the four classes.
->>>>>>> c540e5f9c00cf2a56388cc7d3d14dcfad7ae8c0f
-
-Let's see an example of how selecting sub-view data of a student 1 works.
-
-image::ViewSwitchFlowDiagram.png[]
----
-
-. `select sid/ 1` command is issued to `ViewController`
-. `ViewController`  will call `ViewModel` method `updateStudentDetailsMap`
-. In turn, that method will invoke managers from `Model` layer, for example `ModelManager`,
-to update `observableStudentDetailMap` inside `ViewModel`
-. Because `StudentDetailsMap` implements an `onChange` function that
-listen to update in `observableStudentDetailMap`, the UI part will be updated correspondingly
-with data of this student 1.
-
-Design considerations:
-
-. Automatically updating the UI sub-view when the app state changes. Let's say the current sub-view
-shown in the UI is of the details of student 1, then some information of the course of that
-student is changed, or the student is removed from the course, the UI should update immediately
-without the need to issue the click command again. To support that, our `ViewModel` will listen to `EventsCenter` , then whenever
-an event of `DataStorageChangeEvent` or `DeleteEntitySyncEvent` happens, it will check
-which `observableMap` (which corresponds to different `DetailedView`) is active then
-do the query again.
-
-. Lazy loading: For example, when seeing details of the students, we only want to show the courses
-that the students have without the progresses of this course that the student currently have.
-To query that, after executing `select sid/ student_id`, the user needs to run
-`select sid/ student_id cid/ course-id` as well
 
 === Managing Staff Feature
-
 ==== Implementation
 This feature is implemented with the main classes - `Staff`, with a permission level specifying `Teacher` and `Admin`.
+
 [source,java]
 ----
 public class Staff extends ModelObject {
