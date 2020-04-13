@@ -22,10 +22,10 @@ It is written in Java, and has about 18 kLoC.
 * *Major enhancement*: Added the *Planning feature*
 ** What it does: Allows the user to plan and remove the plans for a recipe on a certain date. The user is also able to
 obtain all ingredients required for the planned recipes on a simple grocery list.
-** Justification: The planning feature assists university students on their path towards healthy cooking as the user
-can create a complete, healthy meal plan for the next few weeks (or even the entire year) with one simple command.
-This aims ... busy students... plan cooking needsto be planned to fit the right recipe on the right day.
-containing all the required ingredients alleviate costs and food wastage
+** Justification: Assists users in making healthy cooking easier as the user
+can plan for recipes containing Goals for the nutritional food group that they want to focus on.
+Users can save money and reduce food wastage by planning for recipes with similar ingredients and purchasing only
+items that they need using the grocery list command.
 ** Highlights: This enhancement is affected by recipes being modified, as the plans of the modified recipe needs to be
 updated as well. Ensuring that each plan is deleted or updated after each modification was challenging as HYBB supports
 many recipe customisation methods (9 in total).
@@ -34,24 +34,7 @@ many recipe customisation methods (9 in total).
 group in the recipes.
 
 * *Code contributed*:
-** Overview: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=beatricetay&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
-
-** Main folders:
-. Commands: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/java/seedu/recipe/logic/commands/plan[Functional code] |
-https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/test/java/seedu/recipe/logic/commands/plan[Test code]
-
-. Parsers: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/java/seedu/recipe/logic/parser/plan[Functional code] |
-https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/test/java/seedu/recipe/logic/parser/plan[Test code]
-
-. Models: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/java/seedu/recipe/model/plan[Functional code] |
-https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/test/java/seedu/recipe/model/plan[Test code]
-
-. Storage: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/java/seedu/recipe/storage/plan[Functional code] |
-https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/test/java/seedu/recipe/storage/plan[Test code]
-
-. UI: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/java/seedu/recipe/ui/plan[Functional code]
-
-. FXML: https://github.com/AY1920S2-CS2103T-T10-1/main/tree/master/src/main/resources/view/plan[Functional code]
+ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=beatricetay&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
 
