@@ -1,7 +1,7 @@
 package seedu.address.model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -21,13 +21,14 @@ import seedu.address.model.profile.course.module.Title;
 
 //@@author jadetayy
 
-public class ModuleListTest extends ModuleList{
+public class ModuleListTest extends ModuleList {
 
     private ModuleList moduleList = new ModuleList();
-    Module module = new Module(new ModuleCode("CS2103T"), new Title(""), new Prereqs(""), new Preclusions(""),
+
+    private Module module = new Module(new ModuleCode("CS2103T"), new Title(""), new Prereqs(""), new Preclusions(""),
             new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
             new PrereqTreeNode());
-    ModuleCode moduleCode = new ModuleCode("CS2103T");
+    private ModuleCode moduleCode = new ModuleCode("CS2103T");
 
 
     @Test
