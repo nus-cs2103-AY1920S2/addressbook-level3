@@ -37,9 +37,9 @@ It is an application developed by a team of 5 NUS Computing students, adapted fr
 *** Maintained the entire issue tracker by opening issues for each milestone, tagging with the appropriate labels, assigning issues to members and milestones, authoring up to *79* https://github.com/AY1920S2-CS2103T-W13-3/main/issues/created_by/wanxuanong[issues].
 
 ** Team-based tasks:
-*** Updated User Guide sections that are not specific to features implemented by each member, e.g.
+*** Wrote User Guide sections that are not specific to features implemented by each member, e.g.
 https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#introduction[Introduction], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#about-the-user-guide[About the user guide], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#quick-start[Quick Start], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#faq[FAQ], https://ay1920s2-cs2103t-w13-3.github.io/main/UserGuide.html#command-summary[Command Summary].
-*** Updated Developer Guide sections that are not specific to features implemented by each member, e.g.
+*** Wrote Developer Guide sections that are not specific to features implemented by each member, e.g.
 https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#introduction[Introduction], https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#setting-up[Setting up], https://ay1920s2-cs2103t-w13-3.github.io/main/DeveloperGuide.html#Design-Architecture[Design: Architecture].
 *** Did major cosmetic tweaks to revamp the User Guide, redesigning the way information is presented in the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/150[#150], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/156[#156], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/160[#160]).
 
