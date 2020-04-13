@@ -57,7 +57,7 @@ public class NormalParser {
             put("upload", args -> new UploadResumeCommandParser().parse(args.trim()));
             put("export", args -> new ExportReportCommandParser().parse(args));
             put("resume", args -> new OpenResumeCommand(args.trim()));
-            put("close", args -> new CloseSessionCommandParser().parse(args.trim()));
+            put("close", args -> new CloseCommandParser().parse(args.trim()));
         }
     };
 
