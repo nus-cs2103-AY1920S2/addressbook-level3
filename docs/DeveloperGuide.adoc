@@ -1890,3 +1890,30 @@ another window.
 .. Test case: `help` +
 Expected: A web browser window opens, showing
 the Coupon Stash User Guide.
+
+[appendix]
+== Efforts
+Coupon Stash is the first team-based software engineering project for all of us.
+Without much experience, we faced many difficulties in coordinating our features
+and codes. Since Coupon Stash is User Interface intensive, we had to learn
+JavaFX comprehensively to fulfil the high standards that we set for ourselves.
+Learning a new Framework was as good as learning a new language in itself,
+taking us some time to understand how to fully utilize it.
+
+Each of us would push commits every other day every week to try and complete
+our tasking too. While our product is similar to AB3 in terms of data fields, we
+push it further by adding functionality to these fields. The intertwining of these
+functionality was the most difficult part about this project. We would usually
+try to sort out the implementation on chat, but there are times where one of
+us would mess up the implementation somewhere afterwards, causing a bit of
+debugging. We also try to apply as much of our learning from the textbook,
+but again without much practice, it would usually take us a few iterations
+and discussions to correct our code. Nonetheless, we learnt a lot from this
+project throughout these 7 weeks.
+
+What we believe we did well in was getting our project workflow right from the
+start. Using Github’s project board, issue tracker and branch protections, we
+were able to help each other spot mistakes, ensuring that our master branch
+was always working. Even though we started as strangers, the long weekly
+discussions that we have brought us close! We are definitely proud of the
+product that we created, and believe that it serves its purpose well.
