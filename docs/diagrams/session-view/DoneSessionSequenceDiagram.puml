@@ -6,8 +6,6 @@ participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":SessionCommandParser" as SessionCommandParser LOGIC_COLOR
 participant ":DoneSessionCommandParser" as DoneSessionCommandParser LOGIC_COLOR
 participant "a:DoneSessionCommand" as DoneSessionCommand LOGIC_COLOR
-participant ":AddSessionCommandParser" as AddSessionCommandParser LOGIC_COLOR
-participant "a:AddSessionCommand" as AddSessionCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -26,7 +24,7 @@ activate SessionCommandParser
 SessionCommandParser --> TaTrackerParser
 deactivate SessionCommandParser
 
-TaTrackerParser -> SessionCommandParser : parseCommand("session done 1")
+TaTrackerParser -> SessionCommandParser : parseCommand("done 1")
 activate SessionCommandParser
 
 create DoneSessionCommandParser
@@ -39,7 +37,7 @@ SessionCommandParser -> DoneSessionCommandParser : parseCommand("session done 1"
 activate DoneSessionCommandParser
 
 create DoneSessionCommand
-DoneSessionCommandParser -> DoneSessionCommand : DoneSessionCommand(1);
+DoneSessionCommandParser -> DoneSessionCommand : DoneSessionCommand(1)
 activate DoneSessionCommand
 DoneSessionCommand --> DoneSessionCommandParser
 deactivate DoneSessionCommand
@@ -60,10 +58,10 @@ deactivate TaTrackerParser
 LogicManager -> DoneSessionCommand : execute()
 activate DoneSessionCommand
 
-alt #beige recurring() > 0
+alt #beige recurring > 0
     DoneSessionCommand -> Model : addSession(updatedSession)
     activate Model
-    Model --> AddSessionCommand
+    Model --> DoneSessionCommand
     deactivate Model
 
 end

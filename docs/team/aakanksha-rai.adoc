@@ -17,7 +17,7 @@ Lines of Code*.
 *Student View* refers to the view that allows the user to manage their students.
 As the main developer that created *Student View*, my main contributions were in
 the *Student View*. They include *creating models, writing commands, creating tests
-and adding documentation for the Student View*. In total, I wrote about *7kLoc*.
+and adding documentation for the Student View*. In total, I wrote almost *7kLoc*.
 
 ==== Create the Models
 

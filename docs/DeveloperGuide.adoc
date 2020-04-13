@@ -2565,13 +2565,13 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Move to the folder and enter the command `java -jar TaTracker.jar` in the terminal +
+   Expected: TA-Tracker should start in a few seconds.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by following the steps you did in the previous test +
    Expected: The most recent window size and location is retained.
 
 . Default view
