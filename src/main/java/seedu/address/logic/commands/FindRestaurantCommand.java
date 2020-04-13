@@ -21,7 +21,7 @@ public class FindRestaurantCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all restaurants whose names contain "
             + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + COMMAND_WORD
-            + " [" + PREFIX_RESTAURANT + "RESTAURANT_NAME] "
+            + " [" + PREFIX_RESTAURANT + "RESTAURANT NAME] "
             + " [" + PREFIX_LOCATION + "LOCATION] \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_RESTAURANT + "McDonalds ";
 

@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BLANK_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.FindRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.LocationContainsKeywordsPredicate;
@@ -15,6 +18,8 @@ import seedu.address.model.restaurant.RNameContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindRestaurantCommand object
  */
 public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindRestaurantCommand
@@ -37,8 +42,8 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
         boolean hasRName = false;
         boolean hasLocation = false;
         for (int i = 0; i < keywords.length; i++) {
-            if (keywords[i].contains("r/")) {
-                if (keywords[i].substring(0, 2).equals("r/")) {
+            if (keywords[i].contains("n/")) {
+                if (keywords[i].substring(0, 2).equals("n/")) {
                     hasRName = true;
                 }
             }
@@ -51,8 +56,12 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
         if ((hasRName == false) && (hasLocation == false)) {
             // then they did not provide any keywords to search for!
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
         }
+
+        // state check
+        logger.info("hasRName: " + String.valueOf(hasRName));
+        logger.info("hasLocation: " + String.valueOf(hasLocation));
 
 
         for (int i = 0; i < keywords.length; i++) {
@@ -66,6 +75,16 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
                     }
                 }
                 break;
+            }
+        }
+
+        // if they wrote in the prefix but did not supply keywords
+        if (hasRName) {
+            for (int i = 0; i < rNameKeywords.size(); i++) {
+                if (rNameKeywords.get(i).equals("")) {
+                    throw new ParseException(
+                            String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+                }
             }
         }
 
@@ -83,6 +102,18 @@ public class FindRestaurantCommandParser implements Parser<FindRestaurantCommand
             }
         }
 
+        // if they wrote in the prefix but did not supply keywords
+        if (hasLocation) {
+            for (int i = 0; i < locationKeywords.size(); i++) {
+                if (locationKeywords.get(i).equals("")) {
+                    throw new ParseException(
+                            String.format(MESSAGE_BLANK_COMMAND_FORMAT, FindRestaurantCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+
+
+        // assign the keywords to an Array
         String[] rNameKeywordsArray = new String[rNameKeywords.size()];
         for (int i = 0; i < rNameKeywords.size(); i++) {
             rNameKeywordsArray[i] = rNameKeywords.get(i);

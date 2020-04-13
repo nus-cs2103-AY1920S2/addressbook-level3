@@ -409,6 +409,7 @@ image::addRestNote.png[]
 
 end::editRestNote[]
 
+tag::findContacts[]
 === Finding Contacts
 ==== Implementation
 
@@ -451,6 +452,8 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 * **Alternative 2:** Have the user include the prefix before every different keyword they want to search. For instance, if they want to search using 2 different tag keywords like "friends" and "colleagues", they would have to type `(ab)find t/friends t/colleagues`. Then we can use the Argument Multimap to tokenize the arguments.
 * Pros: Easier to implement.
 * Cons: More troublesome for the user because if they want to search for multiple tags, they would have to keep typing the `/t` prefix for each keyword.
+
+end::findContacts[]
 
 === Logging
 
@@ -969,9 +972,9 @@ Expected: No restaurant deleted. Error details shown in the status message.
 
 === Adding a social event
 
-. Test case: `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
+. Test case: `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
 Expected: Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
-.. Test case: `(ev)add t/Birthday party dt/DATETIME d/3 p/Clementi` (where DATETIME is after the current date and time) +
+.. Test case: `(ev)add t/Birthday party d/DATETIME h/3 p/Clementi` (where DATETIME is after the current date and time) +
    Expected: No social event is added. Error details shown in the status message.
 
 === Listing all events
@@ -984,9 +987,9 @@ Expected: List all added social events in the Event Schedule.
 . Edits a social event while all social events are listed
 
 .. Prerequisites: List all social events using the `(ev)list` command. Multiple social events in the list.
-.. Test case: `(ev)edit 1 dt/2020-04-25 11:00 d/2` +
-   Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 25th of April and the estimated duration to be 2 hours.
-.. Test case: `(ev)edit dt/DATETIME` (where DATETIME is before the current date and time) +
+.. Test case: `(ev)edit 1 d/2020-04-09 11:00 h/2` +
+   Expected: Edits the first event in the Event Schedule by changing the timing to 11AM on the 9th of April and the estimated duration to be 2 hours.
+.. Test case: `(ev)edit d/DATETIME` (where DATETIME is after the current date and time) +
    Expected: No social event is edited. Error details shown in the status message.
 
 === Deleting a social event

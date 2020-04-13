@@ -231,6 +231,7 @@ If you want to search for a particular contact, see `(ab)find`
 [TIP]
 If you want more information about a particular contact, see `(ab)get`
 
+tag::findCommand[]
 ==== Finding contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
@@ -245,6 +246,8 @@ Examples:
 
 * `(ab)find o/NUS n/Lim` +
 Finds and lists all contacts that is in organization “NUS” and have the word “Lim” in his name
+
+end::findCommand[]
 
 ==== List everything about a contact in field : `(ab)get`
 
@@ -382,6 +385,7 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
+tag::findRestaurantCommand[]
 ==== Find restaurants : `(rt)find`
 
 Finds restaurants based on a number of criteria. +
@@ -401,6 +405,7 @@ Finds restaurants with the keyword `no signboard`.
 Finds restaurants in the `Bedok` area.
 
 * [COMING SOON] Ability to search by price point and operating hours.
+end::findRestaurantCommand[]
 
 tag::schoolworkTracker[]
 
@@ -506,12 +511,13 @@ Displays 5 days of your generated schedule.
 
 end::schedule[]
 
+tag::eventSchedule[]
 === Event Schedule commands
 
 ==== Create a new social event : `(ev)add`
 
 Creates a social event. +
-Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
+Format: `(ev)add t/EVENT_TITLE d/EVENT_DATE h/DURATION p/PLACE`
 
 ****
 * `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
@@ -519,23 +525,24 @@ Format: `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
 
 Examples:
 
-* `(ev)add t/Facebook job interview dt/2020-05-18 10:00 d/3 p/Facebook APAC HQ` +
-Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and location at "Facebook APAC HQ".
+* `(ev)add t/Facebook job interview d/2020-05-18 10:00 h/3 p/Facebook APAC HQ` +
+Adds a new social event with title "Facebook job interview", event date 2020-05-18, duration of 3 hours and place of event at "Facebook APAC HQ".
 
 ==== Edit a social event : `(ev)edit`
 
 Allows editing of a social event. +
-Format: `(ev)edit [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
+Format: `(ev)edit INDEX [t/EVENT_TITLE] [d/EVENT_DATE] [h/DURATION] [p/LOCATION]`
 
 ****
+* INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
 * At least one field must be non-empty.
 * All the non-empty fields will replace their respective previous data fields.
 ****
 
 Examples:
 
-* `(ev)edit 2 dt/2020-04-25 22:00 d/2` +
-Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 25th of April and the estimated duration to be 2 hours.
+* `(ev)edit 2 d/2020-04-09 22:00 h/2` +
+Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
 
 ==== Deletes a social event : `(ev)delete`
 
@@ -555,6 +562,8 @@ Deletes the 1st Event in the Event Schedule.
 
 Lists all social events in your Event Schedule. +
 Format: `(ev)list`
+
+end::eventSchedule[]
 
 === Saving the data
 
@@ -577,7 +586,7 @@ Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved 
 ** `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG]...`
 ** `(rt)add n/NAME l/LOCATION o/OPERATING_HOURS p/PRICE_POINT v/VISITED`
 ** `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
-** `(ev)add t/EVENT_TITLE dt/EVENT_DATE d/DURATION p/PLACE`
+** `(ev)add t/EVENT_TITLE d/EVENT_DATE h/DURATION p/PLACE`
 * *Delete* :
 ** `(ab)delete INDEX`
 ** `(rt)delete INDEX`
@@ -587,7 +596,7 @@ Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved 
 ** `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG_TO_BE_ADDED]... [-t/TAG_TO_BE_DELETED]...` +
 ** `(rt)edit INDEX [n/RESTAURANT] [l/LOCATION] [v/VISITED] [o/OPERATING_HOURS] [p/PRICE] [c/CUISINE]`
 ** `(st)edit INDEX [t/TITLE] [d/DEADLINE] [e/ESTIMATED_COMPLETION_TIME] [s/STATUS]`
-** `(ev)edit INDEX [t/EVENT_TITLE] [dt/EVENT_DATE] [d/DURATION] [p/PLACE]`
+** `(ev)edit INDEX [t/EVENT_TITLE] [d/EVENT_DATE] [h/DURATION] [p/PLACE]`
 * *Find* :
 ** `(ab)find [o/ORGANIZATION] [n/NAME] [t/TAG]`
 ** `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`

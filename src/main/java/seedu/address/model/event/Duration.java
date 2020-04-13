@@ -10,9 +10,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Duration {
     public static final String MESSAGE_CONSTRAINTS = "Duration cannot be left empty, "
             + "please give an estimate of duration if you are unable to get exact timing"
-            + " and round off to the nearest hour. "
-            + "For instance, if your appointment is half an hour long, please input "
-            + "0.5 as the duration.";
+            + " and round off to the nearest hour. ";
     public static final String VALIDATION_REGEX = "[0-9]{1,2}";
 
     // Instance field
