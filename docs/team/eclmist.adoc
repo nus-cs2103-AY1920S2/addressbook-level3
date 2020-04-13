@@ -1,0 +1,199 @@
+== Haoyi Huang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+=== Project: TA-Tracker
+
+=== Overview
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage all of their claimable hours and the students
+they are teaching in one place.
+
+=== Summary of contributions
+
+* *Major Enhancement - Statistic Report Generation*
++
+One of the key features of TA-Tracker that ties almost every other system together is the generation of a summary report. As the primary owner of this feature, I was able to integrate almost all of my teammates features into one single cohesive system. This report allowed users to have a overview of the most important data that has been keyed into TA-Tracker.
++
+As there were no similar system in The report feature was built from the ground-up. It was necessary for me to build an entire new set of UI systems, as well as new pipelines such that data from all over the application can be gathered in one location.
+
+* *Major Enhancement: Sessions*
++
+Sessions are the core of what makes TA-Tracker work. Users create, edit, and use sessions to accomplish the main goal of TA-Tracker: to manage TAs' teaching dutities. 
++
+As sessions are used by many systems, I needed to design the Session model in way such that it would be easy for my team to both extend and use my system. This includes exposing clear extension points and APIs for my teammates.
+
+* *Minor Enhancement: System Notifications*
++
+I had also worked on a cross-platform notification system. This system allowed TA-Tracker to create a OS-Level notification from anywhere within the code base.
++
+As with my other features, the design of the notification system was one that was rooted in ease of use by other developers. I was able to do this effectively through the _Singleton_ design pattern. This allowed other features such as timed sessions to work.
+
+==== Other contributions & Team tasks
+
+* Setting up GitHub Team, repository and protected branches
+* Application styling & themeing
+* Managed the project by giving feedback on critical pull requests
+* Contributions to various documentations
+
+Some of my relevant PRs are as follows: 
+Relevant PRs: [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/213[#213]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/239[#239]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/358[#358]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/84[#84]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/100[#100]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/101[#101]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/103[#103]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/115[#115]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/116[#116]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/151[#151]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/149[#149]]
+
+The sections of code that I contributed can be found: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=eclmist[All commits]]
+
+=== Contributions to the User Guide
+
+---
+
+==== Statistics Window
+
+===== Generate Statistic Report : `report`
+(Contributed by Haoyi)
+
+You can use this command to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student's ratings
+
+Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
+
+Pressing the `esc` key on your keyboard will close the statistics window.
+
+Format: `report [MOD_CODE]`
+
+[NOTE]
+====
+* Similar to the *Claims View*, the report will only display sessions that have been marked as done.
+* `Total Claimable Hours` is computed using the current specified `rate`. See <<#setrate>>.
+====
+
+Example:
+
+* `report`
++
+image::Statistics.png[,1000]
+Generate and display a report of sessions and students from all modules.
+
+* `report CS2103T`
++
+image::CS2103Statistics.png[,1000]
+Generate and display a report of sessions and students from the module CS3243.
+//end::statistics[]
+//tag::glossary[]
+
+
+==== Contributions to the Developer Guide
+
+---
+
+===== Statistic Report Generation
+
+
+The *Statistics Window* can be generated and displayed using the `report` command.
+The command is used to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student’s ratings
+
+A module code can be specified such that the generated report will only include data from a specific module.
+
+===== Implementation
+
+This section describes the implementation of the `report` command.
+
+The following _Sequence Diagram_ shows the interactions between the `UI` and the `Logic` components of TA-Tracker,
+when the user enters the command `report CS3247`.
+
+.Sequence Diagram for Statistic Report Generation
+image::ReportSequenceDiagram.png[]
+
+The following is an example scenario when the user requests for a report of a particular module,
+with the command `report CS3247`.
+
+. The user command is first read by `MainWindow`, through JavaFX.
+`MainWindow` passes the command as a `String` to the `LogicManager` to be processed.
+
+. `LogicManager` sends the command to `TaTrackerParser` for the command to be parsed.
+
+. The `TaTrackerParser` processes the first word in the command, and identifies it as a `ShowStatisticCommand`.
+
+. `TaTrackerParser` creates a `ShowStatisticCommandParser` object and passes the command argument `CS3247`
+to the `ShowStatisticCommandParser` object.
+
+. The `ShowStatisticCommandParser` stores the target module, `CS3247`, in a `ShowStatisticCommand` object and
+this command object is returned all the way back to the `LogicManager`.
+
+. `LogicManager` executes the `ShowStatisticCommand`, which creates and return a `StatiscCommandResult`. This command
+result is returned by `LogicManager` to `MainWindow`
+
+. `MainWindow` detects that the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
+by creating a `Statistic` object that retrieves data necessary for generating the report, from `ReadOnlyTaTracker`.
+
+. The data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
+
+. A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
+
+. Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
+
+---
+
+==== System Notification - Ready for Use
+(Contributed by Haoyi)
+
+===== Overview
+
+TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within TA-Tracker's code base. This feature can be used to implement time-based features in V2.0.
+
+===== Usage
+
+Notifications can be triggered via the `Notification` class. For example:
+
+```java
+Notification.sendNotification("TA Tracker", "You have a consultation scheduled in 15 minutes!", TrayIcon.MessageType.INFO);
+```
+On MacOS, the following notification will be triggered.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[,500]
+
+===== Implementation
+
+Notifications are implemented with Java's `SystemTray`. A `SystemTray` object will be created when
+`Notification.sendNotification` is invoked for the first time. In order to guarantee that only one
+instance of `SystemTray` is ever created, Notifications are implemented using the defensive _Singleton_ pattern.
+
+The following _Activity Diagram_ shows an example of how a notification can be triggered.
+
+.Activity Diagram for Notification Singleton
+image::NotificationSingletonActivityDiagram.png[,400]
+
+The following is an example scenario when a seperate system requests for two seperate notifications from within TA-Tracker.
+
+.Sequence Diagram for Notification Singleton
+image::NotificationSingletonSequenceDiagram.png[,800]
+
+
+. The static `Notification.sendNotification(...)` method is invoked for the very first time.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since this is the first time a notification has been requested, `getInstance()` constructs the first notification
+singleton object.
+
+. A notification in then requested from the singleton.
+
+. The singleton creates and triggers an OS-level notification.
+
+. Some time later, `Notification.sendNotification(...)` is invoked again.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since the singleton already exists, a notification is requested directly from the existing singleton.
+
+. The singleton creates and triggers the second OS-level notification.
