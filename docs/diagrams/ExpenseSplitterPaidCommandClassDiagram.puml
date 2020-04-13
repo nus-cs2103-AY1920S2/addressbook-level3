@@ -16,7 +16,7 @@ interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : PaidCommand
 }
 
-abstract class Command {
+abstract class Command <E> {
     {abstract} execute(splitterModel:SplitterModel) : CommandResult
 }
 

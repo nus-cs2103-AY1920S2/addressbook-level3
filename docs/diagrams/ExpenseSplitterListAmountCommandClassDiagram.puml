@@ -8,7 +8,7 @@ skinparam classAttributeIconSize 0
 hide circle
 
 
-abstract class Command {
+abstract class Command <E>{
     {abstract} execute(splitterModel:SplitterModel) : CommandResult
 }
 
