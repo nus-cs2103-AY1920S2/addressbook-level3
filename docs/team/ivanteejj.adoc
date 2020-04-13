@@ -1,0 +1,100 @@
+= Tee Jun Jie Ivan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Code Camp X
+
+== Overview
+
+Code Camp X (CCX) is for those who prefer to use a desktop app to manage the administrative tasks of running a coding camp.
+More importantly, CCX is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, CCX can allow you to manage your camp’s administrative tasks faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented Code Base for `Assignment` and `Progress`
+** What it does: This allows the user to add `Assignments`, with a name and deadline into the program.
+This also allowed for future extension where a `Progress` object can be created to tie a `Student` and `Assignment` together.
+** Justification: This allows the users to track all the `Assignments` that is in the camp and will help in the implementation of
+tracking student progress in the subsequent extension.
+** Highlights:
+*** An in-depth analysis was required to determine if `Progress` was really required since
+it takes up a lot of time to successfully add another `AddressBookGeneric` into the program, while taking into account the UI, the storage
+the commands, parsers, etc. However, the group decided that by splitting the logic of `Assignment` and `Progress`, this will
+allow for better usability and testability. This was discussed within the Developer's Guide as well.
+*** Another highlight is that I needed to implement a special form of ID, which I call `CompositeID`, just for `Progress` object, since `Progress` objects
+are identified by 2 IDs, studentID and assignmentID. Due to this, I needed to implement many methods in `ModelManager` in order
+to allow for model handling via this `compositeID`.
+
+
+* *Major enhancement*: Implemented all *Undo/Redo-able* `Assign` & `Un-assign` commands
+** What it does: Allow user to assign/un-assign a `Student`/`Teacher`/`Assignment` to a `Course` and allow for them to undo/redo those commands
+** Justification:
+... This allows the user add/remove a student/teacher/assignment to and from a course, allowing for them to better manage the
+their coding camp.
+... Should they have executed the command wrongly, they are able to undo or redo the commands they have just executed
+while returning to the *correct* previous state.
+** Highlights:
+This was one of the most challenging portions of the program due to these reasons:
+. It ties in many of the functionality and classes implemented.
+For example, the Assign/Un-assign commands need to make sure that entity linking is *correct* and that `Progress` objects added/removed *correctly*.
+As such, it is very dependent on `EdgeManager` and `ProgressManager` for correct implementation.
+. Many design alternatives were considered. Initially, the logic of assigning the edges was within the `Assign`/`Un-assign` command itself,
+but I refactored everything out to the `ModelManager` and subsequently `EdgeManager` to ensure that we better follow design principle of `Single-Responsibility Principle`.
+. Pre-processing of Command was *vital* since our program works via IDs. The method is crucial in making sure that the entities
+are in a `consistent state` before executing the assign command. `Consistent state` means that either the two targeting objects have
+each other's IDs or they do not. There should never be the case where one party has the other's ID but not vice versa.
+. Allow for Undo/Redo-ability into the *correct* state
+.. Generally, when undo/redo is called, we just have to execute the opposite command.
+.. However, we realized that it was not so trivial when we discovered a huge bug where undo-ing an un-assign command
+does not put back the specific `Progress` objects that were removed.
+.. As such, special considerations had to be implemented to ensure that these `Assign`/`Un-assign` commands can work correctly.
+.. These considerations are included in the Developer's Guide as well.
+
+* *Minor enhancement*: Implemented ProgressManager to allow for successful Creation/Deletion of `Progress objects
+* *Minor enhancement*: Implemented Assign/Un-assign portion of EdgeManager
+* *Minor enhancement*: Implemented Done/Undone Commands to mark Progress objects as `Done`/`Undone`
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ivanteejj&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` (1 release) on GitHub
+*** Managed Deadlines and Deliverable
+** Enhancements to existing features:
+*** Allow for additions and removal of `Assigment` object entities
+** Documentation:
+*** Complete documentation of `Model`, `Entity Linking` and `Student Progress Management` in Developer's Guide
+*** Added `Assignment` and `Done`/`Undone` Commands into User Guide
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-W14-1/main/pull/91[#91], https://github.com/AY1920S2-CS2103-W14-1/main/pull/111[#111], https://github.com/AY1920S2-CS2103-W14-1/main/pull/188[#188]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/46[1])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/ivanteejj/ped/issues/2[1], https://github.com/ivanteejj/ped/issues/13[2], https://github.com/ivanteejj/ped/issues/10[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=assignmentmanagement]
+
+---
+
+include::../UserGuide.adoc[tag=donecommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelcomponent]
+
+include::../DeveloperGuide.adoc[tag=entitylinking]
+
+include::../DeveloperGuide.adoc[tag=progressmgmt]
+
+include::../DeveloperGuide.adoc[tag=undoassigncmd]

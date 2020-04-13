@@ -175,6 +175,8 @@ The `ViewModel`,
 * the `ViewModel` will then query the managers from `Model` layer to update its
 observableMap, which in turn will automatically update the corresponding `DetailPanel` view.
 
+// tag::modelcomponent[]
+
 [[Design-Model]]
 === Model component [Tee Jun Jie Ivan]
 
@@ -224,6 +226,9 @@ Benefits::
 .. Easier implementation since lower level implementations can be abstracted away
 .. More decoupling which will lead to be better testability and easier debugging
 
+// end::modelcomponent[]
+
+
 [[Design-Storage]]
 === Storage component [NEED TO UPDATE]
 
@@ -266,6 +271,9 @@ Explain rationale behind using IDs
 Consideration 1
 
 Consideration 2
+
+// tag::entitylinking[]
+
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
@@ -387,6 +395,11 @@ The table below shows the method calls made to `EdgeManager` during an `Assign`/
 .Table Summary of EdgeManager's involvement during Assign/Un-assign Commands
 image::Ivan-AssignSummary.png[]
 ---
+
+// end::entitylinking[]
+
+// tag::progressmgmt[]
+
 [[progress-management]]
 === Student Progress Management [Tee Jun Jie Ivan]
 The `Progress` of students is managed exclusively by the `ProgressManager` class.
@@ -493,6 +506,8 @@ the details will be automatically changed for all `Progress` objects.
 Cons::
 .. Also very memory intensive
 
+// end::progressmgmt[]
+
 === Undo/Redo [Hieu]
 
 Currently we only support undo/redo for commands that modify the storage (or state of the app).
@@ -564,6 +579,8 @@ is opposite to this EditCommand) with editing information of the original toEdit
 
 When `undo` and `redo` commands are executed, the process is carried out as described above.
 
+// tag::undoassigncmd[]
+
 [[undo-assign-command]]
 ==== Opposite command for assign/ un-assign [Tee Jun Jie Ivan]
 Generating of opposite commands for assign and un-assign commands is very intuitive. The opposite of assign is un-assign and vice versa.
@@ -593,6 +610,9 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
+
+
+// end::undoassigncmd[]
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 
