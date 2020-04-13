@@ -19,7 +19,7 @@ CookBuddy is written in Java, and has about 10 kLoC.
 
 * *Major enhancement*: added *Image reading, processing and writing*
 ** What it does: allows users to add images to their recipes. Images are saved in a data folder local to CookBuddy, and are named with a UID (unique identifier).
-** Justification: Users should be able to see what the final dish looks like, and an image goes 
+** Justification: Users should be able to see what the final dish looks like, and an image goes
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
