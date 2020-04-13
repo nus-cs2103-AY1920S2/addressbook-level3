@@ -51,8 +51,6 @@ MODdy is a desktop application used by NUS Computing students to track their cou
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=model]
-
 include::../UserGuide.adoc[tag=show]
 
 include::../UserGuide.adoc[tag=appendix]
@@ -63,6 +61,8 @@ include::../UserGuide.adoc[tag=appendix]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=model]
 
 include::../DeveloperGuide.adoc[tag=show]
 
