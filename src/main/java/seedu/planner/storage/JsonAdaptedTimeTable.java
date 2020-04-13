@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.planner.commons.exceptions.IllegalValueException;
+import seedu.planner.model.module.UniqueEnrollmentList;
 import seedu.planner.model.student.Enrollment;
 import seedu.planner.model.student.TimeTable;
 
@@ -42,9 +43,17 @@ public class JsonAdaptedTimeTable {
      * @throws IllegalValueException if there were any data constraints violated in the adapted timetable.
      */
     public TimeTable toModelType() throws IllegalValueException {
-        final List<Enrollment> modelEnrollments = new ArrayList<>();
+        final UniqueEnrollmentList modelEnrollments = new UniqueEnrollmentList();
+
         for (JsonAdaptedEnrollment enrollment : enrollments) {
-            modelEnrollments.add(enrollment.toModelType());
+            Enrollment modelEnrollment = enrollment.toModelType();
+
+            // Enrollments with the same module code are not allowed
+            if (modelEnrollments.hasModuleCode(modelEnrollment.getCode())) {
+                throw new IllegalValueException("Duplicate enrollments in timetable");
+            }
+
+            modelEnrollments.add(modelEnrollment);
         }
         return new TimeTable(modelEnrollments);
     }

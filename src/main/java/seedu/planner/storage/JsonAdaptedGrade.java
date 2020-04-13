@@ -12,6 +12,9 @@ import seedu.planner.model.grades.LetterGrade;
  * Stores the {@code letterGrade} using its {@code inputName} instead of its {@code toString()} value.
  */
 public class JsonAdaptedGrade {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Grade's %s field is missing!";
+
     protected final String letterGrade;
     protected final boolean isSu;
 
@@ -35,6 +38,12 @@ public class JsonAdaptedGrade {
      * @throws IllegalValueException if there were any data constraints violated in the adapted grade.
      */
     public Grade toModelType() throws IllegalValueException {
+
+        if (letterGrade == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LetterGrade.class.getSimpleName()));
+        }
+
         try {
             return new Grade(LetterGrade.fromInputName(letterGrade), isSu);
         } catch (IllegalArgumentException ex) {

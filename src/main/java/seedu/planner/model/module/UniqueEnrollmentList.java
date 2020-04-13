@@ -150,4 +150,8 @@ public class UniqueEnrollmentList implements Iterable<Enrollment> {
     public void removeIf(Predicate<? super Enrollment> predicate) {
         internalList.removeIf(predicate);
     }
+
+    public boolean hasModuleCode(ModuleCode moduleCode) {
+        return stream().anyMatch(enrollment -> enrollment.getModuleCode().equals(moduleCode));
+    }
 }

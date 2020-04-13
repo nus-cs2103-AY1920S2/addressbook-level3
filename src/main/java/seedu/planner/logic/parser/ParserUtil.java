@@ -97,29 +97,16 @@ public class ParserUtil {
      */
     public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
-        try {
-            switch (semester) {
-            case "ONE":
-            case "1":
-                semester = "ONE";
-                break;
-            case "TWO":
-            case "2":
-                semester = "TWO";
-                break;
-            case "SPECIAL_ONE":
-            case "st1":
-                semester = "SPECIAL_TERM_ONE";
-                break;
-            case "SPECIAL_TWO":
-            case "st2":
-                semester = "SPECIAL_TERM_TWO";
-                break;
-            default:
-                throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
-            }
-            return Semester.valueOf(semester);
-        } catch (IllegalArgumentException e) {
+        switch (semester.trim()) {
+        case "1":
+            return Semester.ONE;
+        case "2":
+            return Semester.TWO;
+        case "st1":
+            return Semester.SPECIAL_TERM_ONE;
+        case "st2":
+            return Semester.SPECIAL_TERM_TWO;
+        default:
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
     }
@@ -133,7 +120,7 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         try {
-            return new Name(name);
+            return new Name(name.trim());
         } catch (IllegalArgumentException e) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -148,7 +135,7 @@ public class ParserUtil {
     public static Major parseMajor(String major) throws ParseException {
         requireNonNull(major);
         try {
-            return new Major(major);
+            return new Major(major.trim());
         } catch (IllegalArgumentException e) {
             throw new ParseException(Major.MESSAGE_CONSTRAINTS);
         }
@@ -163,7 +150,7 @@ public class ParserUtil {
     public static LetterGrade parseLetterGrade(String letterGrade) throws ParseException {
         requireNonNull(letterGrade);
         try {
-            return LetterGrade.fromInputName(letterGrade);
+            return LetterGrade.fromInputName(letterGrade.trim());
         } catch (IllegalArgumentException e) {
             throw new ParseException(LetterGrade.MESSAGE_CONSTRAINTS);
         }

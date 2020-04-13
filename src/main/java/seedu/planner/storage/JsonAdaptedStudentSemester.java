@@ -44,9 +44,7 @@ public class JsonAdaptedStudentSemester {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     SemesterYear.class.getSimpleName()));
         }
-        /*if (!SemesterYear.isValidSemesterYear(semYear)) {
-            throw new IllegalValueException(SemesterYear.MESSAGE_CONSTRAINTS);
-        }*/
+
         final SemesterYear modelSemYear = semYear.toModelType();
 
         try {

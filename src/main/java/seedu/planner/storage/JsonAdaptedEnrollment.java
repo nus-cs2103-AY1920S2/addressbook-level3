@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.model.grades.Grade;
+import seedu.planner.model.module.ModuleCode;
 import seedu.planner.model.student.Enrollment;
+import seedu.planner.model.util.ModuleUtil;
 
 /**
  * Jackson-friendly version of {@link Enrollment}.
@@ -51,7 +53,22 @@ public class JsonAdaptedEnrollment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted enrollment.
      */
     public Enrollment toModelType() throws IllegalValueException {
-        return new Enrollment(code.toModelType(), grade == null ? Optional.empty() : Optional.of(grade.toModelType()),
+        ModuleCode modelCode = code.toModelType();
+
+        // Check that module code exists in module database
+        if (!ModuleUtil.hasModuleWithCode(modelCode)) {
+            throw new IllegalValueException("Invalid module code: " + code);
+        }
+
+        // Ensure that the module credits is non-negative.
+        // NOTE: It is allowed for the module credits to differ from that in the module database.
+        //       This accounts for some special enrollment arrangements.
+        if (credit < 0) {
+            throw new IllegalValueException("Invalid credit: " + credit);
+        }
+
+        return new Enrollment(modelCode,
+                grade == null ? Optional.empty() : Optional.of(grade.toModelType()),
                 credit);
     }
 

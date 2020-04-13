@@ -18,6 +18,11 @@ public class ModuleCode {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}]+";
 
+    /**
+     * 2 to 3 case-insensitive letters, then exactly 4 digits, then at most one case-insensitive letter.
+     */
+    public static final String VALIDATION_REGEX_STRICT = "[\\p{Alpha}]{2,3}[\\p{Digit}]{4}[\\p{Alpha}]?";
+
     public final String value;
 
     public ModuleCode(String code) {
@@ -27,7 +32,8 @@ public class ModuleCode {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string has the format of a valid module code.
+     * This does not validate if the module code corresponds to a module in NUS.
      */
     public static boolean isValidModuleCode(String test) {
         return test.matches(VALIDATION_REGEX);

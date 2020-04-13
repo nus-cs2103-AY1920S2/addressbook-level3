@@ -47,9 +47,20 @@ public class JsonAdaptedTimeTableMap {
     public TimeTableMap toModelType() throws IllegalValueException {
         TimeTableMap map = new TimeTableMap();
         for (JsonAdaptedTimeTablePair timeTable : timeTables) {
-            Pair<JsonAdaptedStudentSemester, JsonAdaptedTimeTable> modelPair = timeTable.toModelType();
-            if (map.put(modelPair.getKey().toModelType(), modelPair.getValue().toModelType()) != null) {
-                throw new IllegalStateException("Duplicate key");
+            Pair<StudentSemester, TimeTable> modelPair;
+
+            // Ignore invalid pairs
+            try {
+                modelPair = timeTable.toModelType();
+            } catch (IllegalValueException ex) {
+                continue;
+            }
+
+            // However, if a pair is valid and the semester is already present, then throw an exception.
+            // NOTE: This allows any number of duplicate semesters in the list,
+            //       as long as only one of them has a valid corresponding timetable.
+            if (map.put(modelPair.getKey(), modelPair.getValue()) != null) {
+                throw new IllegalValueException("Duplicate key");
             }
         }
         return map;

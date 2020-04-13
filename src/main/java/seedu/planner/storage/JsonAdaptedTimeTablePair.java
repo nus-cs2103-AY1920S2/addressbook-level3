@@ -41,7 +41,7 @@ public class JsonAdaptedTimeTablePair {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted timetable entry.
      */
-    public Pair<JsonAdaptedStudentSemester, JsonAdaptedTimeTable> toModelType() throws IllegalValueException {
+    public Pair<StudentSemester, TimeTable> toModelType() throws IllegalValueException {
         if (sem == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StudentSemester.class.getSimpleName()));
@@ -52,6 +52,6 @@ public class JsonAdaptedTimeTablePair {
                     TimeTable.class.getSimpleName()));
         }
 
-        return new Pair<>(sem, timeTable);
+        return new Pair<>(sem.toModelType(), timeTable.toModelType());
     }
 }

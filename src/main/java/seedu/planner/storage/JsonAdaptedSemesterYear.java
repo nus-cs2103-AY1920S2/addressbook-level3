@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.planner.commons.exceptions.IllegalValueException;
-import seedu.planner.model.student.Name;
 import seedu.planner.model.time.Semester;
 import seedu.planner.model.time.SemesterYear;
 
@@ -43,9 +42,15 @@ public class JsonAdaptedSemesterYear {
     public SemesterYear toModelType() throws IllegalValueException {
 
         if (sem == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Semester.class.getSimpleName()));
         }
-        final Semester modelSem = Semester.valueOf(sem);
+        Semester modelSem;
+        try {
+            modelSem = Semester.valueOf(sem);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalValueException("Invalid Semester: " + sem);
+        }
         final int modelAcademicYear = academicYear;
 
         return new SemesterYear(modelSem, modelAcademicYear);

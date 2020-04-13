@@ -23,7 +23,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_DEGREE_YEAR = PREFIX_STUDENT_YEAR + "1";
-    public static final String VALID_SEMESTER = PREFIX_STUDENT_SEM + "SPECIAL_ONE";
+    public static final String VALID_SEMESTER = PREFIX_STUDENT_SEM + "st1";
     public static final String VALID_MAJOR_CS = "CS";
     public static final String VALID_MAJOR_CS_LOWER = "cs";
     public static final String VALID_MAJOR_IS = "IS";

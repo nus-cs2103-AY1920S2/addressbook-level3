@@ -28,6 +28,7 @@ import seedu.planner.model.student.Major;
 import seedu.planner.model.student.Name;
 import seedu.planner.model.student.Student;
 import seedu.planner.model.student.TimeTableMap;
+import seedu.planner.model.util.ModuleUtil;
 
 
 /**
@@ -109,7 +110,19 @@ class JsonAdaptedStudent {
         final List<ModuleCode> modelExemptedModules = new ArrayList<>();
         if (exemptedModules != null) {
             for (JsonAdaptedModuleCode moduleCode : exemptedModules) {
-                modelExemptedModules.add(moduleCode.toModelType());
+                ModuleCode modelCode = moduleCode.toModelType();
+
+                // Ignore module codes not present in the module database
+                if (!ModuleUtil.hasModuleWithCode(modelCode)) {
+                    continue;
+                }
+
+                // Ignore duplicate module codes
+                if (modelExemptedModules.contains(modelCode)) {
+                    continue;
+                }
+
+                modelExemptedModules.add(modelCode);
             }
         }
         GenericSpecialisation modelSpecialisation = null;

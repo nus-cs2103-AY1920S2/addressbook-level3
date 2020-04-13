@@ -24,6 +24,10 @@ public class TimeTable {
         enrollments.forEach(this.enrollments::add);
     }
 
+    public TimeTable(UniqueEnrollmentList enrollments) {
+        enrollments.forEach(this.enrollments::add);
+    }
+
     public void addEnrollment(Enrollment enrollment) {
         enrollments.add(enrollment);
     }
@@ -68,7 +72,7 @@ public class TimeTable {
     }
 
     public boolean hasModuleCode(ModuleCode moduleCode) {
-        return enrollments.stream().anyMatch(enrollment -> enrollment.getModuleCode().equals(moduleCode));
+        return enrollments.hasModuleCode(moduleCode);
     }
 
     public void removeModuleCode(ModuleCode moduleCode) {
