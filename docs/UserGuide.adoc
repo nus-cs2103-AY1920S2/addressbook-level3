@@ -401,7 +401,7 @@ Allows user to repeat-d an activity from a module.
 Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
 
 **  The first `ITEM_INDEX` is the sequence of the activity in the list.
-** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
+** `INDEX` can be in `1 for Weekly`, `2 fortnightly`, `3 for Monthly`.
 **  By default `INDEX` will be `0` hence no automation will be done.
 **  The activity will be regenerated once user open the application.
 
@@ -411,11 +411,11 @@ Examples:
 
 ** `repeat-d 1 m/CS3233 r/0` to cancel.
 ** `repeat-d 1 m/CS3233 r/1` to regenerate weekly.
-** `repeat-d 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-d 1 m/CS3233 r/2` to regenerate fortnightly.
 ** `repeat-d 1 m/CS3233 r/3` to regenerate monthly.
 ** `repeat-e 1 m/CS3233 r/0` to cancel.
 ** `repeat-e 1 m/CS3233 r/1` to regenerate weekly.
-** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
+** `repeat-e 1 m/CS3233 r/2` to regenerate fortnightly.
 ** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
 // end::automation[]

@@ -148,9 +148,9 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
     }
 
     public void setSchedule(Index index, Index type) {
-        T test = internalList.get(index.getZeroBased());
-        test.setSchedule(type.getZeroBased());
-        internalList.set(index.getZeroBased(), test);
+        T item = internalList.get(index.getZeroBased());
+        item.setSchedule(type.getZeroBased());
+        internalList.set(index.getZeroBased(), item);
     }
 
     @Override

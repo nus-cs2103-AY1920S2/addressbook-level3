@@ -258,14 +258,14 @@ The design considerations for the classes are shown below:
 `Contributed by:EdmondOng`
 
 Every time a user stores an activity, start date for event will be recorded for `event` and due date for `deadline`.
-Based on user input to repeat the task either weekly, twice weekly or monthly, our application will check whether today's date has passed
+Based on user input to repeat the task either weekly, fortnightly or monthly, our application will check whether today's date has passed
 `due date` or `end date of event`. Once it passed,
 the newly set date will be updated.
 
 ==== Implementation
 By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat-d` or `repeat-e` followed by
 `INDEX` of the activity in the module list, followed by `module code`
-,and set the activity to `0-Cancel, 1-Weekly-, 2-Twice Weekly, 3-Monthly`.
+,and set the activity to `0-Cancel, 1-Weekly-, 2-Fortnightly, 3-Monthly`.
 
 * An example of command line `repeat-d 1 m/CS3233 r/1`.
 
@@ -1120,7 +1120,7 @@ Expected: Module not found error will be displayed.
 Expected: No new field is edited error will be shown.
 
 === Repeat an activity
-. Repeat an activity by weekly `r/1`, twice weekly `r/2` or monthly `r/3`. To cancel `r/0`.
+. Repeat an activity by weekly `r/1`, fortnightly `r/2` or monthly `r/3`. To cancel `r/0`.
 . Initialise the following data. +
 `add m/CS2030 n/Programming Methodology` +
 `deadline m/CS2030 a/Lab d/20-05-2020 00:00` +
