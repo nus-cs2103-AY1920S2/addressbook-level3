@@ -233,6 +233,12 @@ _All fields with r- prepended refers to a reverse of the original._
 . name -> Shows tasks in alphanumeric order.
 . r-name -> Shows tasks in reverse alphanumeric order.
 
+[NOTE]
+====
+Sort order is removed after any find command is applied. +
+It however remains when any other task commands are applied - add, edit, done, delete, etc.
+====
+
 .Sort success
 image::sort_success.png[width=790]
 
@@ -246,11 +252,16 @@ Oh my after sorting, you still have so many tasks! You can perform a search for 
 * For phrase searching, it is slightly typo tolerant and will show tasks that differ from the `PHRASE` by a little.
 * However, tag names provided must be an exact match (ignoring case).
 
+[NOTE]
+====
+Filtered selection is unapplied when the `add` or `edit` commands are used
+====
+
 .Find success
 image::find_success.png[width=790]
 
 ==== Tag Command
-===== Command :`tag`
+===== Command : `tag`
 
 Hmmm, I wonder what types of tasks I have! You can view all existing tags in BB Productive by entering the Tag command!
 
