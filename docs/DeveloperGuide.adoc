@@ -456,16 +456,18 @@ Current implementation of Predicates uses the `stream` and `anyMatch` commands t
 === Restaurant Book
 ==== Current Implementation
 [.text-justify]
-The `RestaurantBook` helps users keep track of `Restaurants`, so that users can quickly find an eating place given their constraints (e.g. odd hours, location, food cravings, etc)
+The `RestaurantBook` helps users keep track of `Restaurants`, so that users can quickly find an eating place given their constraints (e.g. odd hours, location, food cravings, etc). We will briefly introduce the implementation and logic behind this component as a stepping stone to understand the `undo/redo` implementation in the next section.
 
 [.text-justify]
-From *Fig 1* below, each `Assignment` has four components: `Title`, `Deadline`, `Status` and `Workload`. `Workload` refers to the expected amount of time required to finish the `Assignment`. These components will be used for schedule generation when `(st)schedule n/NUM_DAYS` is executed (explained below).
+The following depicts the class diagram for the `Restaurant`component of the application.
 
 image::rtClassDiagram.PNG[align="center"]
 
-Bla bla bla
+Each `Restaurant` has 9 components `Name`, `Location`, `Visit`, `Hours`, `Price`, `Cuisine`, and 3 lists of `Note`s to represent the recommended, good, and bad food that the user can input. `Visit` represents whether the user has visited the restaurant, and `hours` represent the restaurant's opening hours. The other fields are self-explanatory.
 
-image::rtActivityDiagram.PNG[align="center"]
+We will illustrate how commands to the `RestaurantBook` works using the simple `(rt)add` command, which adds a new `Restaurant` to the `RestaurantBook`.
+
+image::rtAddActivityDiagram.PNG[align="center"]
 
 Example with (rt)add
 
@@ -473,6 +475,15 @@ Example with (rt)add
 
 === Undo/Redo
 ==== Current Implementation
+image::ModelManagerClassDiagram.PNG[align="center"]
+image::undo(1).PNG[align="center"]
+image::undo(2).PNG[align="center"]
+image::undo(3).PNG[align="center"]
+image::undo(3.1).PNG[align="center"]
+image::undo(3.2).PNG[align="center"]
+image::undoSequence(1)[align="center"]
+image::undoSequence(2)[align="center"]
+
 ==== Design Considerations
 === Logging
 
