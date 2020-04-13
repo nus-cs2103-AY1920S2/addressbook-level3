@@ -1,0 +1,34 @@
+@startuml
+
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Package "Workout Storage" <<Rectangle>> {
+    Interface WorkoutListStorage <<Interface>>
+    Class WorkoutListStorageManager
+    Class JacksonWorkout
+    Class JacksonWorkoutList
+    Class JacksonExercise
+}
+
+Package "Exercise Model" <<Rectangle>> {
+    Class Workout MODEL_COLOR
+    Class WorkoutName MODEL_COLOR
+    Class Exercise MODEL_COLOR
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .down.> WorkoutListStorage
+
+WorkoutListStorageManager -up-|> WorkoutListStorage
+WorkoutListStorageManager ..> JacksonWorkoutList : creates >
+JacksonWorkoutList *--> "*" JacksonWorkout
+JacksonWorkout *-left-> "1" String : workout name
+JacksonWorkout *--> "*" JacksonExercise : workout exercise
+JacksonWorkout ..> Workout
+JacksonWorkout ..> WorkoutName
+JacksonExercise ..> Exercise
+
+@enduml

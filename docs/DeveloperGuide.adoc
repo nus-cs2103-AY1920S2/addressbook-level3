@@ -133,14 +133,16 @@ image::developer-guide/common/ModelClassDiagram.png[]
 
 *API* : link:{codeURL}/src/main/java/seedu/zerotoone/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`:
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores an `ExerciseList` that represents the list of exercises.
 * stores a `WorkoutList` that represents the list of workouts available.
 * stores a `ScheduleList` that represents the list of upcoming schedules.
 * stores a `LogList` that represents the list of completed data.
-* exposes an unmodifiable `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `TimerList` that represents a time delta in seconds.
+* stores an `Optional` `OngoingWorkout` that may contain a session, if started.
+* exposes an unmodifiable `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>`, `ObservableList<OngoingSet>`, and `ObservableList<Integer>` (time delta) that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other components.
 
 For more information about each component, check out the 'Implementation' section.
@@ -172,11 +174,14 @@ Classes used by multiple components are in the `seedu.zerotoone.commons` package
 
 This section describes some noteworthy details on how each features are implemented.
 
-// tag::completedExercise[]
+// tag::session[]
+
 === Session (Home)
 ==== Implementation
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
 `OngoingWorkout`, `OngoingSession`, `OngoingSet`, and `OngoingSetList` are models that are vital components of the feature.
+
+The Session feature also seamlessly incorporates a functional timer. Timer functionality is found embedded in the session related functions in `ModelManager`.
 
 The activity diagram below demonstrates the actions of a user with this feature.
 
@@ -192,35 +197,46 @@ This is a conscious design choice as elaborated in the next section.
 
 ---
 
-The operations handling these actions are found in OngoingSession:
+The operations handling these actions are found in `OngoingWorkout`:
 
 * `OngoingWorkout#skip()/OngoingWorkout#done()` -- removes and returns the next set and updates queue of remaining sets.
 * `OngoingWorkout#finish()` -- creates and returns an immutable `CompletedWorkout` object for saving and logging.
 
 Further operations are exposed in the `Model` interface as `Model#startSession()` and `Model#stopSession()`.
 
+.Session related models
+image::developer-guide/session/SessionModel.png[]
+
+The above class diagram briefly depicts how the session related models (in `OngoingWorkout`) interact with surrounding classes.
+
+The `OngoingWorkout` class has a dependency on `Workout`, which has been abstracted for clarity.
+
+In turn, `CompletedWorkout` class has a dependency on `OngoingWorkout`.
+
+`OngoingWorkout` objects are created at the start of a workout session, and can be thought of as 'converted' to `CompletedWorkout` objects at the end of a workout session. `Workout` and `CompletedWorkout` objects are immutable, hence the design choice for using an intermediary, stateuful, `OngoingWorkout` class.
+
 ---
 
-The inner workings of the feature are briefly expounded below through example usage.
+The inner workings of the feature are briefly expounded below through a simple simulation.
 `Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Bench Press`.
 
 
 .Example Workout Session
 image::developer-guide/session/sessionExample.png[]
 
-Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
+Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a session with `start 2`.
 
-* `Logic` and `Parser` redirects control to `StartCommand#execute()` where an instance of `OngoingSession` is created with
-`Arms Day`. The upcoming set of the next exercise is displayed for the user.
+* `Logic` and `Parser` redirect control to `StartCommand#execute()` where an instance of `OngoingWorkout` is created with
+the `Arms Day` object. The upcoming set of the next exercise is displayed for the user.
 
-* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially superfluous, since it's main purpose is to time rest between sets.
+* The timer starts counting. This acts as a visual cue for the user that notifies the start of the workout and is essentially a once-off, superfluous action, since it's main purpose is to time rest between sets.
 
 Step 2. The user completes the first set and types `done`.
 
-* `DoneCommand#execute()` is invoked, which in turn calls `OngoingSession#done()` to obtain the next set and statefully
+* `DoneCommand#execute()` is invoked, which in turn calls `Model#done()` to obtain the last `CompletedSet` object to display on the UI, and statefully
 updates the instance of `OngoingWorkout`.
 
-* The rest timer resets and starts counting from 00:00.
+* The rest timer resets to 00:00 and starts counting.
 
 .DoneCommand sequence diagram
 image::developer-guide/session/DoneCommandSequenceDiagram.png[]
@@ -240,20 +256,21 @@ is saved and passed on for use by the `Log` feature.
 
 * The workout session can be viewed in the `Log` tab.
 
-[Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature (incomplete) ending of a
-workout session.
+[Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature ending of a
+workout session, where all remaining sets are marked as incomplete.
 
 ==== Design Considerations
 ===== Aspect: Seamless user-first experience
-* **Current Implementation:** Minimal commands and typing during an ongoing session.
+* **Current Implementation:** Minimal commands and typing during an ongoing session. Timer functionality is completely automatic.
 ** Pros: Less interruption during actual exercising to enter commands.
 ** Cons: More experienced users are not able to have a more customizable workout.
 
 
-===== Aspect: Beginner-friendly automatic set-ordering
+===== Aspect: Beginner-friendly set order
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
-** Pros: Easier for new user to follow a workout session, less typing required during a workout session.
+** Pros: Easier for new user to follow a workout session, less typing required during a workout session. Session has simple and predictable behaviour.
 ** Cons: Experienced users are not able to have an ad-hoc, customizable workout without creating a new workout with the specific order they want.
+
 // end::session[]
 
 // tag::exercise[]
@@ -351,16 +368,32 @@ However, for exercises, we noted that users tend to reuse the same exercise thro
 // tag::workout[]
 === Workout
 ==== Overview
-The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises.
+The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it, as well as edit the workout and its exercises, and more.
+
+.Activity Diagram for Creating a Workout
+image::developer-guide/workout/WorkoutActivityDiagram.png[]
+
+This is an activity diagram for the user to create a new workout. Essentially, the user will first create a workout with a name that does not contain any exercises yet. The user will then try to find exercises to add, and if their desired exercises cannot be found, the user will create them and add them into the workout.
 
 ==== Components
 The Workout Manager consists of a `WorkoutList`, which contains a number of workouts that the user has created.
 Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `WorkoutExerciseList`.
 
-The following class diagram shows the overview of the Workout Manager:
+The following class diagram shows the overview of the Workout feature:
 
-.Workout Class Diagram
+.Class Diagram for Workout
 image::developer-guide/workout/WorkoutClassDiagram.png[]
+
+* `WorkoutList` implements the interface `ReadOnlyWorkoutList`
+* The `WorkoutList` is managed by the `ModelManager`
+* `FilteredWorkoutList` is an aggregation of one `WorkoutList`, to filter the view of the workout list shown to the user
+* `WorkoutList` composes of a `UniqueWorkoutList`
+* In turn, a `UniqueWorkoutList` contains any number of `Workout` objects
+* Each `Workout` is comprised of two things: a `WorkoutName` and any number of `Exercise` objects
+** `WorkoutName` contains the name of the `Workout`
+** `Exercise` is an exercise that belongs in a `Workout`
+
+NOTE: Each `Workout` can contain any number of `Exercise` objects, including zero. However, a `Workout` must not be empty i.e. have at least one `Exercise`, in order to be scheduled. This is implemented in the Schedule feature as referenced in <<Schedule>>.
 
 ==== Workout Model
 ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
@@ -373,11 +406,31 @@ ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to ca
 * `Model#deleteWorkout(Workout target)` - Deletes a specified workout from the workout list
 * `Model#addWorkout(Workout target)` - Adds a new workout to the workout list
 * `Model#setWorkout(Workout target, Workout editedWorkout)` - Replaces a particular workout with an edited workout
+* `Model#setExerciseInWorkout(Exercise target, Exercise editedExericse` - Replaces a target exercise in any workout with the edited exercise
 * `Model#deleteExerciseFromWorkout(Exercise exercise)` - Deletes any instance of an exercise from all workouts
 * `Model#getFilteredWorkoutList()` - Returns an unmodifiable view of `ObservableList<Workout>`
-* `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` - Updates the filter of `FilteredWorkoutList`
+* `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` - Updates the filter of `FilteredWorkoutList` to show filtered views of the list to the user
 
-==== Command Execution
+==== Storage of Workouts
+.Class Diagram for Workout Storage
+image::developer-guide/workout/WorkoutStorageClassDiagram.png[]
+
+1. The `WorkoutListStorageManager` implements the interface `WorkoutListStorage`. It also creates a `JacksonWorkoutList`.
+2. The `JacksonWorkoutList` composes of any number of `JacksonWorkout` objects.
+3. In turn, each `JacksonWorkout` composes of a `String` which is the workout name, and any number of `JacksonExercise` objects which are the exercises in each workout.
+4. The relationship of the Storage component to the Model component is also shown.
+
+==== Parser for Workouts
+I will go on to explain the Parser structure for the workout commands.
+
+.Class Diagram of the Parser for Workouts
+image::developer-guide/workout/WorkoutParserClassDiagram.png[]
+
+* The `WorkoutCommandParser` creates all `Workout` related Parsers. These parsers allow the user to create, edit, delete and find workouts, as can be seen in the left hand side of the above diagram.
+* In addition, the `WorkoutCommandParser` creates the `WorkoutExerciseCommandParser`.
+* In turn, `WorkoutExerciseCommandParser` creates all workout `Exercise` related Parsers. These parsers allow the user to add, edit and delete said `Exercise` objects.
+
+==== Sample Command Execution
 
 To illustrate an example of a command from the Workout Manager, the following sequence diagram
 depicts flow of the program when the command `workout find w/Arms Workout` is run.
@@ -388,10 +441,10 @@ image::developer-guide/workout/WorkoutSequenceDiagram.png[]
 . When the user runs the command `workout find w/Arms Workout`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
 . The `ParserManager` then has to `parse("workout find w/Arms Workout")`.
 . Next, the `WorkoutCommandParser` has to `parse("find w/Arms Workout")` for the command.
-. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then create a new `WorkoutName`.
-. The `FindCommandParser` can then create a `FindCommand`, which in turn creates a `PredicateFilterWorkoutName`.
+. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`.
+. The `FindCommandParser` can then create a `FindCommand`. This is constructed with the `WorkoutName` for "Arms Workout" (a low-level detail that has been abstracted from the diagram).
 . The `FindCommand` can be returned to the `LogicManager`, where it will `execute()` the `FindCommand`.
-. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s).
+. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s), using the `PredicateFilterWorkoutName` that is returned by the `FindCommand` (a low-level detail that has been abstracted from the diagram).
 . Finally, the resulting output message will be returned as the `CommandResult`.
 
 
@@ -406,12 +459,10 @@ image::developer-guide/workout/WorkoutSequenceDiagram.png[]
 ** Advantage: Creates an extra layer of abstraction and removes the dependency on `Exercise`.
 ** Disadvantage: More code needed which may be redundant.
 
-In the end, I decided to stick with Option 1. This is because creating a new WorkoutExercise class
-is redundant and unnecessary, when there is no functional difference between an Exercise and a WorkoutExercise,
-other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular Exercise from a Workout easier, when an Exercise is deleted from the ExerciseList. Hence, to simplify matters, using the existing Exercise class to construct workouts was better.
+In the end, I decided to stick with Option 1. This is because creating a new `WorkoutExercise` class
+is redundant and unnecessary, when there is no functional difference between an `Exercise` and a `WorkoutExercise`,
+other than the context that they are referenced in. In addition, this would make the deletion of any instance of a particular `Exercise` from a Workout easier, when an `Exercise` is deleted from the `ExerciseList`. Hence, to simplify matters, using the existing `Exercise` class to construct workouts was better.
 // end::workout[]
-
-
 
 // tag::schedule[]
 === Schedule
