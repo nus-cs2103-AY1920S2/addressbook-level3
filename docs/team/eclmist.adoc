@@ -21,7 +21,7 @@ As there were no similar system in The report feature was built from the ground-
 
 * *Major Enhancement: Sessions*
 +
-Sessions are the core of what makes TA-Tracker work. Users create, edit, and use sessions to accomplish the main goal of TA-Tracker: to manage TAs' teaching dutities. 
+Sessions are the core of what makes TA-Tracker work. Users create, edit, and use sessions to accomplish the main goal of TA-Tracker: to manage TAs' teaching dutities.
 +
 As sessions are used by many systems, I needed to design the Session model in way such that it would be easy for my team to both extend and use my system. This includes exposing clear extension points and APIs for my teammates.
 
@@ -38,7 +38,7 @@ As with my other features, the design of the notification system was one that wa
 * Managed the project by giving feedback on critical pull requests
 * Contributions to various documentations
 
-Some of my relevant PRs are as follows: 
+Some of my relevant PRs are as follows:
 Relevant PRs: [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/213[#213]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/239[#239]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/358[#358]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/84[#84]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/100[#100]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/101[#101]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/103[#103]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/115[#115]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/116[#116]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/151[#151]], [https://github.com/AY1920S2-CS2103T-W17-4/main/pull/149[#149]]
 
 The sections of code that I contributed can be found: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=eclmist[All commits]]
