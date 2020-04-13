@@ -278,13 +278,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Command Handling by Managers [Sheng Xue]
-
-==== CRUD Commands Handled by ModelManager
-
-    Explain the flow of a CRUD command from LogicManager -> ModelManager -> publish events -> StorageManager captures the events
-
-=== Unique Identification of Entities [Sheng Xue]
+=== Unique Identification of Entities [Sim Sheng Xue]
 . `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
 
 ==== UUID Manager
@@ -305,7 +299,6 @@ can delete the Finance object). +
 Hence, this means that if the ID is not unique among deleted objects, there may be inconsistent
 information located in the Finance objects.
 
-Consideration 2
 [[entity-linking]]
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course [Tee Jun Jie Ivan]
 
@@ -722,19 +715,35 @@ To pay for `admin`, user has to do it manually using miscellaneous `FinanceType`
 
 Certain approaches have some certain pros and cons. It depends on how the user want to keep track of payment and method to pay to `teacher` and `admin`.
 
-=== Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Dat]
+=== Tracking Miscellaneous Payments/Earnings, Teacher Payments and Student earnings [Sim Sheng Xue]
 ==== Implementation
 
-Miscellaneous transactions can either be payments or earnings, such as purchases of stationary or advertisement revenue. Teacher payments are tracked by courses, where the teacher is paid for each course taught. Student earnings are also tracked by courses, where the student pays for each course taken.
 
 .Class diagram of CourseStudent and CourseTeacher
 image::FinanceDiagram.png[]
+
+Miscellaneous transactions can either be payments or earnings,
+such as purchases of stationary or
+advertisement revenue. Teacher payments are tracked by courses,
+where the teacher is paid for each course taught. Student earnings
+are also tracked by courses, where the student pays for each course taken.
+
+Finance type `Miscellaneous` or `m` will create a Miscellaneous transaction,
+where the `Amount` is specified by the user.
+
+Finance type `CourseTeacher` or `ct` add command will access `CourseAddressBook` and `StaffAddressBook` to ensure `Course` and
+`Staff` exist and make sure this staff is teaching this course. The `Amount` is set to the amount of the `Course`
+(student fee).
 
 Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook` and `StudentAddressBook` to ensure `Course` and
 `Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
 (student fee).
 
-=== Navigation among command history in the command box
+All three Finance types will create a `Finance` object to store the transaction,
+which will be saved in the `FinanceAddressBook`.
+
+
+=== Navigation among command history in the command box [Sim Sheng Xue]
 .Activity diagram of Command History
 image::CommandHistory.png[]
 Coding Camp X supports quick navigation among command history in the command box.
