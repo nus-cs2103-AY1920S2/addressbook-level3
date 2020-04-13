@@ -166,6 +166,12 @@ include::../DeveloperGuide.adoc[tag=expensesplitterpaidcommand]
 
 include::../DeveloperGuide.adoc[tag=willyusecase]
 
+include::../DeveloperGuide.adoc[tag=willylistreceiptappendixg]
+
+include::../DeveloperGuide.adoc[tag=willylistamountappendixg]
+
+include::../DeveloperGuide.adoc[tag=willypaidappendixg]
+
 
 
 

@@ -2109,17 +2109,26 @@ with the number of person splitting that item.
 Expected: No item is added to the current receipt and no change to person amount.
 Error details shown in the response message.
 
-=== List Receipt In Expense Splitter
+//tag::willylistreceiptappendixg[]
+=== List Receipt in Expense Spliter
 
-. Listing the items contained in the current receipt. The order of items listed depends on the order of items added
-by the user.
+. Listing the items contained in the current receipt. The order of items listed depends on the order
+of items added by the user.
 
-.. List Receipt command format: `listreceipt`
+.. ListReceipt Command format: `listreceipt`
+
+.. Prerequisites: NIL.
 
 .. Test case: `listreceipt` +
-Expected: List all items in the current receipt, its price and amount associated with each person involved
-in splitting that item.
+   Expected: If there are items in the receipt: List all items in the current receipt, its price and amount associated with each
+person involved in splitting that item
 
+.. Test case: `listreceipt` +
+   Expected: If there are no items in the receipt: EYLAH will inform user that there is no items currently in the receipt.
+
+//end::willylistreceiptappendixg[]
+
+//tag::willylistamountappendixg[]
 === List Amount In Expense Splitter
 
 . List all the Person(s) and the amount they owe.
@@ -2127,9 +2136,15 @@ in splitting that item.
 .. List Receipt command format: `listamount`
 
 .. Test case: `listamount` +
-Expected: List all Person that currently owe the User money. Those who do not owe any money will be
+Expected: If there are Person in the list: List all Person that currently owe the User money. There should not be anyone
+with $0 as those who do not owe any money will be
 deleted from the PersonList.
 
+.. Test case: `listamount` +
+Expected: If there are no Person in the list: EYLAH will inform user that there no one owes money.
+//end::willylistamountappendixg[]
+
+//tag::willypaidappendixg[]
 === Paid Command In Expense Splitter
 
 . Reduces the amount of money a Person owes.
@@ -2144,7 +2159,7 @@ Expected: Reduces the entire amount of money the Person at Index 1 owes.
 
 .. Test case: `paid -1` +
 Expected: EYLAH will inform the user that INDEX is incorrect.
-
+//end::willypaidappendixg[]
 
 === Saving data
 
