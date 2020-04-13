@@ -3,6 +3,9 @@ package seedu.zerotoone.logic.commands.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -15,9 +18,13 @@ public class ListCommand extends ExerciseCommand {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_SUCCESS = "Listed all exercises";
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info(String.format("Executing %s",
+                getClass().getSimpleName()));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
