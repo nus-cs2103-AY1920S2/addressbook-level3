@@ -33,6 +33,7 @@ import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * UI component to represent the calendar view.
  */

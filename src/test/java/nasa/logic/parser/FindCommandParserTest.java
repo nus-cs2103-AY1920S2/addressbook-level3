@@ -5,6 +5,7 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
+//@@author kester-ng
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();

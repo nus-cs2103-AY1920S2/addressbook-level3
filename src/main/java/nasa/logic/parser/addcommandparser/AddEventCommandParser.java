@@ -18,6 +18,7 @@ import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Parses input arguments and creates an AddEventCommand object.
  */

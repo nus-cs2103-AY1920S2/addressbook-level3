@@ -13,6 +13,7 @@ import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleName;
 
+//@@author kester-ng
 public class ParserUtilTest {
 
     private static final String INVALID_DATE = "2020-12-20 12:59";
@@ -39,17 +40,6 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
-
-    /*
-    @Test
-    public void parseIndex_validInput_success() throws Exception {
-        // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
-
-        // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
-    }
-     */
 
     @Test
     public void parseName_null_throwsNullPointerException() {

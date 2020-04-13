@@ -26,6 +26,7 @@ import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 public class AddEventCommandParserTest {
     private AddEventCommandParser parser = new AddEventCommandParser();
     private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1231);

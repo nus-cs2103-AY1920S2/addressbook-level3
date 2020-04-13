@@ -11,6 +11,7 @@ import nasa.logic.commands.DeleteEventCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Constructor to delete an event.
  * Parser for {@code DeleteEventCommand}.

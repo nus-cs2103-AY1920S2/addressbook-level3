@@ -17,6 +17,7 @@ import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteModuleCommand}.
@@ -28,6 +29,7 @@ public class DeleteModuleCommandTest {
 
     @Test
     public void execute_validModuleUnfilteredList_success() {
+        // need to add in filtered next
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
         DeleteModuleCommand deleteCommand = new DeleteModuleCommand(moduleToDelete.getModuleCode());
 

@@ -22,6 +22,7 @@ import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 
+//@@author kester-ng
 public class AddModuleCommandParserTest {
     private AddModuleCommandParser parser = new AddModuleCommandParser();
 
@@ -51,17 +52,6 @@ public class AddModuleCommandParserTest {
 
          */
     }
-
-    /*
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddModuleCommand(expectedPerson));
-    }
-
-     */
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {

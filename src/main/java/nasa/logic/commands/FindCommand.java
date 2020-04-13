@@ -11,6 +11,7 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
 
+//@@author kester-ng
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.
  * Represents the command for finding specific activities.

@@ -8,6 +8,7 @@ import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 
+//@@author kester-ng
 /**
  * Parses input arguments and creates a new FindCommand object.
  */

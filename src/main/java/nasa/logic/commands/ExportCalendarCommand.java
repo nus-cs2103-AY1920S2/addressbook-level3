@@ -17,6 +17,7 @@ import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+//@@author kester-ng
 /**
  * Exports current calendar to ics format.
  * Represents the command for exporting of calendar.
