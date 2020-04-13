@@ -492,7 +492,7 @@ This `undo` commands adds the diary log back to FitHelper.
 //end::redo[]
 
 //tag::calendar[]
-=== Calendar View: `calendar`
+=== Calendar View
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
 Format for entering calendar view: `calendar`
@@ -532,6 +532,11 @@ image::calendartb.png[]
 A pop up window will display all entries from the chosen date.
 
 Format for showing entries of a particular date: `calendar sh/DATE`
+
+==== Set calendar referenced date: `calendar d/DATE`
+Sets the referenced date of the current calendar page.
+
+Format for showing entries of a particular date: `calendar d/DATE`
 
 Examples:
 

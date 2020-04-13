@@ -36,7 +36,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void testnameContainsKeywordsreturnsTrue() {
+    public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("Chicken"));
@@ -56,7 +56,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void testnameDoesNotContainKeywordsreturnsFalse() {
+    public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new EntryBuilder().withName("Chicken").build()));
