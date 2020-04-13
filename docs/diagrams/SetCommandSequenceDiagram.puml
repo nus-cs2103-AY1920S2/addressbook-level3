@@ -38,10 +38,10 @@ activate SetCommand
 SetCommand --> SetCommandParser
 deactivate SetCommand
 
-SetCommandParser --> AddressBookParser : 
+SetCommandParser --> AddressBookParser
 deactivate SetCommandParser
 
-AddressBookParser --> LogicManager : 
+AddressBookParser --> LogicManager
 deactivate AddressBookParser
 
 LogicManager -> SetCommand : execute()

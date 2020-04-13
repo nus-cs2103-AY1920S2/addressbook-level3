@@ -31,7 +31,7 @@ end ref
 MainWindow -> PomodoroManager : setDefaultStartTime(30.0)
 activate PomodoroManager
 
-PomodoroManager --> MainWindow 
+PomodoroManager --> MainWindow
 deactivate PomodoroManager
 
 MainWindow -> PomodoroDisplay : setTimerText(30.0)

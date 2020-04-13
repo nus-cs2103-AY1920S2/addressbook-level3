@@ -36,10 +36,10 @@ activate DoneCommand
 DoneCommand --> DoneCommandParser
 deactivate DoneCommand
 
-DoneCommandParser --> AddressBookParser : 
+DoneCommandParser --> AddressBookParser
 deactivate DoneCommandParser
 
-AddressBookParser --> LogicManager : 
+AddressBookParser --> LogicManager
 deactivate AddressBookParser
 
 LogicManager -> DoneCommand : execute()

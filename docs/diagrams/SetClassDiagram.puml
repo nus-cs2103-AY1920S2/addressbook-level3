@@ -53,7 +53,7 @@ class SetCommandResult {
 }
 
 class CommandResult {
--feedbacktoUser  
+-feedbacktoUser
 }
 
 CommandResult <|-- SetCommandResult
