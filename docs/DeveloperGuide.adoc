@@ -448,7 +448,7 @@ image::Ivan-SequenceDiagramDoneCommand.png[]
 The implementation of `Done` command is very straight-forward. Only 2 parameter is needed - assignmentID (aid) and studentID (sid).
 
 . Create the CompositeID of `Progress` objects using the aid and sid
-. Obtain using this newly created compositeID, call modelManager#get(ID id, entity.type)
+. Using this newly created compositeID, call modelManager#get(ID id, entity.type)
 .. This returns a `copy` of the `Progress` object - P'.
 . Execute `P'#done()`
 .. If `P'` is already done, an exception will be thrown
