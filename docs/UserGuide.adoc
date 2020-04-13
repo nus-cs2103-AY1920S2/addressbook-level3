@@ -84,7 +84,7 @@ image::Ui.png[width="790"]
 
 +
 . To verify that Calgo is working for you, type your desired command in the command box and press kbd:[enter] to execute it. +
-*Example:* Type *`help`* and press kbd:[enter] to open the `Help Window`, which should look like the diagram in the next page. +
+*Example:* Type *`help`* and press kbd:[enter] to open the `Help Window`, which should look like this: +
 
 +
 .A screenshot of Calgo's Help Window
@@ -244,6 +244,9 @@ Upon entering the command, all your `Food` entries in the  `Food Record` will be
 As mentioned previously, your data in the `Consumption Record` and `Graph Display` is left unchanged.
 
 <<<
+
+// tag::deletecommand[]
+
 === `delete` : Deleting a `Food` from current `Food Record`
 (by Zhang Xian)
 
@@ -270,6 +273,8 @@ image::DeleteCommandAfter.png[]
 
 Once the command has been entered, the `Result Display` shows the results of your command and the `Food Record` no longer shows
 a `Food` entry for `Pizza`.
+
+// end::deletecommand[]
 
 === `exit`: Closing Calgo
 
@@ -734,6 +739,8 @@ relative to your daily goal.
 
 <<<
 
+// tag::updatecommand[
+
 === `update` : Updating Calgo's `Food Record`
 (by Zhang Xian)
 
@@ -803,6 +810,8 @@ image::UpdateCommandCapitaliseAfter.png[]
 Calgo automatically formats the name of your `Food` for you to proper case. Hence, you
 see that instead of a hideous "char KUay TeoW"
 being updated into the `Food Record`, your new `Food` item is updated as "Char Kuay Teow".
+
+// end::updatecommand[]
 
 <<<
 
