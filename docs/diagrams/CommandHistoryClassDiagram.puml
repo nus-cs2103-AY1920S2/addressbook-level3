@@ -1,15 +1,15 @@
 @startuml
 !include style.puml
 
-Package {
-    Class CommandBox UI_COLOR
-    Class CommandHistory LOGIC_COLOR
-    Class CommandHistoryStorage STORAGE_COLOR
-    Class CommandHistoryState MODEL_COLOR
-}
+Class CommandBox UI_COLOR
+Class TextField UI_COLOR
+Class CommandHistory LOGIC_COLOR
+Class FileUtil STORAGE_COLOR
+Class CommandHistoryState MODEL_COLOR
 
-CommandBox "1" *--> "1" CommandHistory
-CommandHistory "1" *--> "1" CommandHistoryStorage
+CommandBox --> "1" CommandHistory
+CommandBox "1" *-right> "1" TextField
+CommandHistory ..> FileUtil
 CommandHistory "1" *--> "1" CommandHistoryState
 
 @enduml

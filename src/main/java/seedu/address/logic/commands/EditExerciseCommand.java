@@ -13,6 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.statistics.PersonalBestFinder;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
@@ -24,14 +25,15 @@ import seedu.address.model.exercise.ExerciseWeight;
 import seedu.address.model.exercise.UniqueExerciseList;
 
 /**
- * Edits the details of an existing exercise done by the client in view.
+ * Edits the details of an existing exercise done by the client in view
+ * in the exercise table(GUI).
  */
 public class EditExerciseCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the exercise identified "
-            + "by the targetInumber used in the displayed exercise table. "
+            + "by the target index number used in the displayed Exercise Table. "
             + "There must be a client in view. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -55,7 +57,7 @@ public class EditExerciseCommand extends Command {
     private final EditExerciseDescriptor editExerciseDescriptor;
 
     /**
-     * @param targetIndex               of the exercise in the exercise list to edit
+     * @param targetIndex               of the exercise in the exercise table to edit
      * @param editExerciseDescriptor details to edit the exercise with
      */
     public EditExerciseCommand(Index targetIndex, EditExerciseDescriptor editExerciseDescriptor) {
@@ -93,20 +95,22 @@ public class EditExerciseCommand extends Command {
         }
 
         Client clientInView = model.getClientInView();
-        UniqueExerciseList editExerciseList = clientInView.getExerciseList();
+        UniqueExerciseList clientToEditExerciseList = clientInView.getExerciseList();
 
-        if (targetIndex.getZeroBased() >= editExerciseList.size()) {
+        if (targetIndex.getZeroBased() >= clientToEditExerciseList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToEdit = editExerciseList.getExercise(targetIndex);
+        Exercise exerciseToEdit = clientToEditExerciseList.getExercise(targetIndex);
         Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
-        if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
+        if (!exerciseToEdit.isSameExercise(editedExercise)
+            && clientToEditExerciseList.contains(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.editExercise(exerciseToEdit, editedExercise);
+        PersonalBestFinder.generateAndSetPersonalBest(clientInView);
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getForOutput()));
     }
 

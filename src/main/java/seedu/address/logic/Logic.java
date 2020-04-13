@@ -4,8 +4,10 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.autocomplete.Autocomplete;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.client.Client;
@@ -81,4 +83,15 @@ public interface Logic {
      * @param url website url to open
      */
     public void openUrlInDefaultWebBrowser(String url);
+
+    /**
+     * Returns the {@code CommandHistory} object.
+     */
+    CommandHistory getCommandHistory();
+
+    /**
+     * Returns the {@code Autocomplete} object.
+     */
+    Autocomplete getAutocomplete();
+
 }

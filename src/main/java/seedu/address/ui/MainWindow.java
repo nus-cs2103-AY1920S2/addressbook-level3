@@ -84,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // set the font
         setFont(primaryStage);
+
     }
 
     public Stage getPrimaryStage() {
@@ -149,7 +150,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitBizFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay);
+        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay,
+                logic.getCommandHistory(), logic.getAutocomplete());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -168,10 +170,19 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Opens FitBiz user guide in the user's default web browser.
      */
-    @FXML
     public void handleHelp() {
         logic.openUrlInDefaultWebBrowser(USER_GUIDE_URL);
         resultDisplay.setFeedbackToUser(SHOWING_HELP_MESSAGE);
+    }
+
+    /**
+     * Opens a graph with the requested information from {@code CommandResult}.
+     */
+    public void handleGraph(CommandResult commandResult) {
+        String clientName = clientViewDisplay.getClientInViewName();
+        GraphWindow graphWindow = GraphWindow.createNewGraph(commandResult.getGraphList(),
+            commandResult.getAxisType(), clientName);
+        graphWindow.show();
     }
 
     void show() {
@@ -258,6 +269,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isOpenGraph()) {
+                handleGraph(commandResult);
             }
 
             if (commandResult.isExit()) {

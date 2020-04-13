@@ -41,11 +41,13 @@ public class Trie {
     }
 
     /**
-     * Returns the longest prefix of the argument {@code word}, or an empty string
-     * if no such prefix can be found.
+     * Returns the {@code Node} whose constructed word (when constructed using
+     * {@code Node#constructWord()}) contain the longest common prefix of the
+     * argument {@code word} and all the words currently in this trie. If no such
+     * {@code Node} can be found, {@code null} is returned.
      *
      * @param word String to search for
-     * @return the longest prefix or an empty string if it does not exist
+     * @return a {@code Node} or {@null} if no such node can be found
      */
     private Node getLongestPrefixNode(String word) {
         requireNonNull(word);
@@ -68,8 +70,8 @@ public class Trie {
 
     /**
      * Returns a {@code SimilarWordsResult} object containing the list of similar
-     * words in this trie that starts with the parameter {@code word} and the
-     * longest similar prefix of these commands.
+     * words in this trie that starts with the parameter {@code word}, and the
+     * longest common prefix of these words.
      *
      * @param word string to match
      * @return an object of type {@code SimilarWordsResult}
@@ -94,7 +96,7 @@ public class Trie {
         }
 
         // case 3: longest prefix is not a completed word
-        // dfs approach
+        // dfs to find all similar words that contain subtrie
         Stack<Node> stack = new Stack<>();
         stack.push(subtrie);
         while (!stack.isEmpty()) {

@@ -55,6 +55,14 @@ public class ExerciseDate {
         }
     }
 
+    public long forPlot() {
+        return value.toEpochDay();
+    }
+
+    public LocalDate getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return this.value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));

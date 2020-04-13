@@ -77,6 +77,10 @@ public class ClientView extends UiPart<Region> {
         remark.setText(fullRemarkForDisplay);
     }
 
+    public String getClientInViewName() {
+        return client.getName().fullName;
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

@@ -1,4 +1,4 @@
-@startuml
+@startuml StorageClassDiagram
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
@@ -6,19 +6,23 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface FitBizStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonFitBizStorage
+Class StorageReaderWriter
 
 StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager -right-> UserPrefsStorage
+StorageManager --> FitBizStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializableClient
-JsonSerializableClient .right.> JsonAdaptedTag
+FitBizStorage <|.right. JsonFitBizStorage
+JsonFitBizStorage .down.> JsonSerializableFitBizStorage
+JsonSerializableFitBizStorage .right.> JsonAdaptedClient
+JsonAdaptedClient -right-> "*" JsonAdaptedTag
+JsonAdaptedClient -right-> "*" JsonAdaptedSport
+JsonAdaptedClient -up-> "*" JsonAdaptedExercise
+JsonAdaptedClient -down-> "*" JsonAdaptedSchedule
 @enduml

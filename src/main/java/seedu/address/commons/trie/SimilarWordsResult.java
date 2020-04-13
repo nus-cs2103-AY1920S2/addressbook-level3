@@ -36,8 +36,12 @@ public class SimilarWordsResult {
         return longestPrefixString;
     }
 
+    /**
+     * Returns a copy of the list {@code similarWords}, any modifications to this
+     * returned list will not affect the original list {@code similarWords}.
+     */
     public ArrayList<String> getSimilarWords() {
-        return similarWords;
+        return new ArrayList<String>(similarWords);
     }
 
 }

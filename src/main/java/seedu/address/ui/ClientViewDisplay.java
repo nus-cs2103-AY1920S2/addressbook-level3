@@ -29,6 +29,10 @@ public class ClientViewDisplay {
         return personalBestTable;
     }
 
+    public String getClientInViewName() {
+        return clientView.getClientInViewName();
+    }
+
     /**
      * Updates the client in {@code ClientView}.
      */
