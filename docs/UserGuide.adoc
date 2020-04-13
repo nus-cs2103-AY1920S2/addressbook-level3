@@ -60,7 +60,7 @@ a|
    . Viewing savings: saved
    . Archiving a coupon: archive
    . Unarchiving a coupon: unarchive
-   . Locating coupons by name: find
+   . Finding coupons by name: find
    . Listing all expiring coupons: expiring
    . Sorting coupons: sort
    . Copying a coupon: copy
@@ -146,6 +146,8 @@ the kbd:[Ctrl] key, which is used for most shortcuts.
 
 == Quick Start
 
+TODO: Preface
+
 .  Ensure you have Java (version 11 or above) installed in your
 Computer. Java is an application development platform
 and version 11 can be downloaded
@@ -158,6 +160,7 @@ Interface (GUI) should appear in a few
 seconds. If nothing occurs, use the command
 `java -jar CouponStash.jar` on your computer's Command Line Interface (CLI) to
 open the file up.
+. TODO: Sample data... Can clear it if you want
 .  Type the command in the command box and press Enter to execute it.
 .  Some example commands you can try:
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
@@ -207,7 +210,7 @@ each tab of Coupon Stash, as well as how to use them.
 
 ==== Coupons tab
 
-WHen you first start Coupon Stash, the default selected tab
+When you first start Coupon Stash, the default selected tab
 is the coupons tabs. The coupons tab contains a visual
 overview of the coupons which you have added to the
 application.
@@ -306,14 +309,13 @@ This section introduces the features of Coupon Stash. There are some examples
 for you to try out in Coupon Stash too! +
 Also, take note of the general format of all the commands below!
 
-[NOTE]
 ====
 ****
 *Command Format* +
 
 * Words in UPPERCASE: parameters to be supplied by you (the user) +
 ** e.g. `add n/NAME`
-* `INDEX`: positive integer that specifies the index number shown in
+* [[index]]`INDEX`: positive integer that specifies the index number shown in
 the displayed coupon list. The index must be a positive
 integer
 ** e.g. 1, 2, 3, …​
@@ -391,7 +393,7 @@ Edits an existing coupon in the coupon book.
 Format: `edit INDEX [n/NAME] [e/EXPIRY_DATE] [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITION] [l/USAGE_LIMIT] [s/SAVINGS_OR_FREE_ITEMS]... [t/TAG]...`
 
 ****
-* Edits the coupon at the specified `INDEX`.
+* Edits the coupon at the specified <<index, `INDEX`>>.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the coupon will be removed. (i.e
@@ -421,18 +423,12 @@ clears all existing tags.
 
 === Deleting a coupon: `delete`
 
-Deletes the specified coupon from the coupon stash.
-
-Version 2.0 will bring new features like confirmation
-of coupons before they are deleted!
-
-Also, a "recycle bin" is in the works for version 3.0,
-similar to the Recycle Bin in Microsoft Windows.
+Deletes the specified coupon from the Coupon Stash.
 
 Format: `delete INDEX`
 
 ****
-* Deletes the coupon at the specified INDEX.
+* Deletes the coupon at the specified <<index, `INDEX`>>.
 ****
 
 Examples:
@@ -452,9 +448,9 @@ Shows a list of coupons in the coupon stash. +
 
 There are 3 types of lists: +
 
-. List of active coupons
-. List of archived coupons
-. List of used coupons
+* List of active coupons
+* List of archived coupons
+* List of used coupons
 
 Format: `list [PREFIX]` +
 
@@ -490,7 +486,7 @@ where `MONETARY_AMOUNT` is a number prefixed by a user-defined currency
 symbol e.g. ($4.50, where the currency symbol is "$").
 
 ****
-* Uses the coupon at the specified INDEX.
+* Uses the coupon at the specified <<index, INDEX>>.
 ****
 
 Examples:
@@ -502,7 +498,7 @@ Uses the first coupon in the coupon stash.
 * `used 1 $10.0` +
 Uses the first coupon in the coupon stash, which also has a percentage savings.
 The total savings of the coupon will be calculated, and can be seen with the
-command `saved`.
+command <<Viewing savings: `saved`, `saved`>>.
 
 [WARNING]
 A coupon cannot be used if it has not reached its start date, or it is archived.
@@ -569,20 +565,20 @@ current stash of coupons.
 [NOTE]
 To view archived coupons, the user can run the <<Listing coupons: `list`, `list
 a/`>> command to list all
-archived coupons. Alternatively, the <<Locating coupons by name: `find`,
+archived coupons. Alternatively, the <<Finding coupons by name: `find`,
 `find`>> command explained below will
 search all archived coupons, thus displaying archives that match the supplied
 keywords below unarchived coupons. Finally, the
 <<Listing all expiring coupons: `expiring`, `expiring`>> command will also
 include all archived coupons that are expiring in its results.
-Read the section on <<Locating coupons by name: `find`, `find`>> and
+Read the section on <<Finding coupons by name: `find`, `find`>> and
 <<Listing all expiring coupons: `expiring`, `expiring`>>
 respectively to find out more.
 
 Format: `archive INDEX`
 
 ****
-* Archives the coupon at the specified INDEX.
+* Archives the coupon at the specified <<index, INDEX>>.
 ****
 
 Examples:
@@ -607,7 +603,7 @@ you can display archived coupons.
 Format: `unarchive INDEX`
 
 ****
-* Unarchive the coupon at the specified INDEX.
+* Unarchive the coupon at the specified <<index, INDEX>>.
 ****
 
 Examples:
@@ -615,7 +611,7 @@ Examples:
 * `unarchive 1` +
 Unarchive the first coupon in the coupon stash.
 
-=== Locating coupons by name: `find`
+=== Finding coupons by name: `find`
 
 Find coupon(s) whose names contain any of the given keywords.
 
@@ -626,7 +622,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 * The order of the keywords does not matter. e.g. Rice Chicken will match
 Chicken Rice.
 * Only full words will be matched e.g. Chicken will not match Chickens.
-* Coupons matching at least one keyword will be returned (i.e. OR search).
+* Coupons matching at least one keyword will be returned.
 e.g. Chicken Rice will return Duck Rice, Chicken Chop.
 ****
 
@@ -641,7 +637,7 @@ For example, coupons with these names would be returned:
 **Ken** Kitchen, **KEN** RIDGE Optical, **ken** you build a snowman.
 
 [NOTE]
-The <<Locating coupons by name: `find`, `find`>> command searches the
+The <<Finding coupons by name: `find`, `find`>> command searches the
 <<Archiving a coupon: `archive`, `archive`>> for matches too. Coupons that are
 found
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
@@ -650,14 +646,15 @@ non-archived matches.
 
 === Listing all expiring coupons: `expiring`
 
-Shows a list of all your coupons expiring on a date or during a MonthYear.
+Shows a list of all your coupons expiring on a date or during a
+<<coupon-stash-monthyear-format, MonthYear>>.
 
 Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
 
 ****
 * Lists all coupons that are expiring on the specified expiry date or during
 the specified month year.
-* The date or MonthYear must follow the
+* The <<coupon-stash-date-format, date>> or <<coupon-stash-monthyear-format, MonthYear>> must follow the
 <<coupon-stash-date-format, Coupon Stash date format>>
 or the <<coupon-stash-monthyear-format, Coupon Stash MonthYear format>>
 respectively.
@@ -679,51 +676,48 @@ displayed **below** the non-archived matches.
 
 === Sorting coupons: `sort`
 
-Sorts the coupons in CouponStash in **ascending** order. It is possible to sort
+Sorts the coupons in Coupon Stash in **ascending** order. It is possible to sort
 by coupon name or expiry date.
 
 [NOTE]
 The sorting order will persist throughout the runtime of the program.
 The command will sort any coupons currently on screen, including
 <<_archiving_a_coupon_archive, archived>> coupons , if they are present on
-screen. Archived coupons will always appear **below** active coupons.
+screen. <<_archiving_a_coupon_archive, Archived>> coupons will always appear **below** active coupons.
 // Put GIF here
 
 Format: `sort PREFIX`
 
 ****
-* The `PREFIX` can be either `n/` or `e/`.
-* Using `n/` would mean sorting by name, while `e/` would mean sorting by
-expiry date.
+* The `PREFIX` can be either `n/`, `e/` or `r/`.
+* Using `n/` would mean sorting by name, `e/` would mean sorting by
+expiry date, and `r/` would mean sorting by reminder date.
 ****
 
 Examples:
 
 * `sort n/` +
-Sorts the coupon stash by name in ascending order.
+Sorts the Coupon Stash by name in ascending order.
 * `sort e/` +
-Sorts the coupon stash by expiry date from earliest to latest.
+Sorts the Coupon Stash by expiry date from earliest to latest.
+* `sort r/` +
+Sorts the Coupon Stash by reminder date from earliest to latest.
+
 
 === Copying a coupon: `copy`
 Copies a coupon as an <<Adding a coupon: `add`, `add`>> command to your
-clipboard so that you can easily share it with your friends/ family!
+clipboard so that you can easily share it with your friends/family!
 
 Format: `copy INDEX`
 
 ****
-* Copies the coupon at the specified INDEX.
+* Copies the coupon at the specified <<index, INDEX>>.
 * The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to
 your clipboard. Simply kbd:[Ctrl] + kbd:[V] to paste it!
 (kbd:[Cmd] + kbd:[V] for macOS)
-****
-// Put GIF
-
-[NOTE]
-====
-****
 * Statistics like number of times used or amount of savings accumulated will
 not be copied.
-* The copied add command will only contain the following fields: +
+* The copied <<Adding a coupon: `add`, `add`>> command will only contain the following fields: +
 ** Name
 ** Savings
 ** Expiry Date
@@ -731,27 +725,34 @@ not be copied.
 ** Promo Code (if any)
 ** Condition (if any)
 ****
-====
+// Put GIF
 
 Examples:
 
 * `list` +
 `copy 2` +
-Copies the 2nd coupon in the coupon stash to an `add` command and copies it to
+Copies the 2nd coupon in the coupon stash to an
+<<Adding a coupon: `add`, `add`>> command and copies it to
 your clipboard.
 * `find chicken` +
 `copy 1` +
-Copies the 1st coupon in the results of the find command to an `add` command
+Copies the 1st coupon in the results of the
+<<Finding coupons by name: `find`, `find`>> command to an <<Adding a coupon: `add`, `add`>> command
 and copies it to your clipboard.
 
 === Sharing a coupon: `share`
-Shares a coupon as a `.png` image file. Now you can post your coupons on
-Instagram!
+Shares a coupon as a `.png` image file (portable network graphic).
+Now you can post your coupons on Instagram!
 
 Format: `share INDEX`
 
-[NOTE]
-Image generated will have an index of 1 regardless of its true index.
+****
+* Shares the coupon at the specified <<index, INDEX>>.
+****
+
+[WARNING]
+Image generated will have an index of 1 regardless of
+its true index!
 Below is a sample of how a shared coupon image looks like:
 
 image::example_shared_coupon.png[]
@@ -760,10 +761,11 @@ Examples:
 
 * `list` +
 `share 2` +
-Shares the 2nd coupon in the coupon stash and save it as a `.png` file.
+Shares the 2nd coupon in the Coupon Stash and save it as a `.png` file.
 * `find chicken` +
 `share 1` +
-Shares the 1st coupon in the results of the find command and save it as a `.png`
+Shares the 1st coupon in the results of the
+<<Finding coupons by name: `find`, `find`>> command and save it as a `.png`
 file.
 
 
@@ -798,12 +800,14 @@ Examples:
 
 * `edit 1 r/ 25-12-2020` +
   `undo` +
+//TODO LINK
 Undo the `edit` command. Remind date of 1st coupon reverts back to its original
 value.
 
 
 * `delete 1` +
   `undo` +
+//TODO LINK
 Revert the `delete` that was performed. Deleted coupon is restored.
 
 === Redoing the undone command: `redo`
@@ -817,6 +821,7 @@ Examples:
 * `edit 1 r/ 25-12-2020` +
   `undo` +
   `redo` +
+//TODO LINK
 Un-undo the `edit` command. Remind date of 1st coupon is edited.
 value.
 
@@ -824,24 +829,28 @@ value.
 * `delete 1` +
   `undo` +
   `redo` +
+//TODO LINK
 Un-undo the `delete` command. 1st coupon is deleted.
 
-=== Displaying a month-year on the calendar: `goto`
+=== Going to a month-year on the calendar: `goto`
+//TODO LINK to Calendar
 Goes to the specified month and year on the calendar. +
 Format: `goto my/MONTH_YEAR`  +
 
 Example:
 
 * `goto my/12-2020` +
+//TODO LINK to Calendar
 Goes to December 2020 on the Calendar
 
-=== Displaying a coupon: `expand`
-Displays a coupon in its own window, giving you a complete view of it.
+=== Expanding a coupon: `expand`
+Displays a coupon in its own window, giving you a
+complete expanded view of it.
 
 Format: `expand INDEX`
 
 ****
-* Expands the coupon at the specified INDEX.
+* Expands the coupon at the specified <<index, INDEX>>.
 ****
 
 Examples:
@@ -864,7 +873,7 @@ to use the new symbol instead.
 ****
 * The currency symbol may affect the visual look of the
 program, as well as modify commands entered!
-* For example, adding a coupon with savings of a certain
+* For example, <<Adding a coupon: `add`, adding a coupon>> with savings of a certain
 monetary amount will require you to use the new symbol instead.
 ****
 
@@ -879,9 +888,11 @@ be visible immediately.
 // end::setcurrency[]
 
 === Viewing help: `help`
-Open a browser window that accesses an offline copy of this user guide. First
-run of this command may take quite some time as the program needs to extract
-an offline copy of this document.
+Open a browser window that accesses an offline copy of this user guide.
+
+[WARNING]
+First run of this command may take some time as the
+program needs to extract an offline copy of the document.
 
 Format: `help`
 
@@ -1160,6 +1171,13 @@ supported in the condition.
 ** `AND`/`OR` functionality is not available.
 
 ==== *Bulk delete*
+
+Version 2.0 will bring new features like confirmation
+of coupons before they are deleted!
+
+Also, a "recycle bin" is in the works for version 3.0,
+similar to the Recycle Bin in Microsoft Windows.
+
 
 Format: `delete _tag_ [where condition]`
 
