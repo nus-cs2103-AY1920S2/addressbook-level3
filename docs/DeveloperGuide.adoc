@@ -170,7 +170,7 @@ The JSON object pulled from the web is then parsed into a `module` object.
 This implementation means that a local cache of the added modules will be available even if the user is offline.
 
 
-
+// tag::ModuleBook[]
 === Profile (Module Book) feature (Wangkai)
 
 This profile feature allows users to manage the modules they have taken before or is taking now in NUS.
@@ -281,6 +281,7 @@ very ideal if the Module Search feature works properly.
 *Reason for chosen implementation*: +
 The current implementation updates the module tasks added in onto the calender and provides the users different ways
 to manage their tasks. (as a whole or separately for each module)
+// end::ModuleBook[]
 
 // tag::Xinwei[]
 === Calendar Feature (Xinwei)

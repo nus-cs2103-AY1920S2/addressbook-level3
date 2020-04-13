@@ -1,0 +1,74 @@
+= Kang Wangkai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUSProductivity
+
+---
+
+== Overview
+
+NUSProductivity is a desktop application for NUS students. The user interacts with it using a CLI, and it has a GUI creasted with JavaFX. The application is intended to help NUS students solve their productivity issues and ease student's daily task in NUS.
+
+== Summary of contributions
+
+* *Major enhancement 1*: Module Book feature
+** What it does: Allows users to be able to manage the modules they have taken or are taking in NUS. (contain functionality to
+add module, delete module, update grades and calculate CAP based on NUS grading system)
+** Justification: This feature improves the product significantly because a user can track what modules they have taken and what grades they have gotten. Moreover, it allows users to get their CAP immediately and can change grade to
+see how the CAP will change accordingly to see room for improvements.
+** Highlights: This enhancement makes it very convenient for users to store their modules and getting the cap. It required an in-depth analysis of design alternatives. The implementation too was challenging as some of the functionality relies on other feature of this product (module search feature)
+so I need to be familiar with that feature's implementation first.
+
+* *Major enhancement 2*: Add in functionality to manage module tasks
+** What it does: This feature allow users to create, delete, mark as done and list all tasks related to any module users have added using the previous feature.
+** Justification: This feature improves the product significantly because a user will be able to manage their tasks for each module separately and it basically avoid users be overwhelmed with lots of tasks from different modules.
+** Highlights: This enhancement requires a comprehensive understanding to the original product because it needs to add in codes for logic, model and storage part of the program.
+
+* *Major enhancement 3*: Add in storage for modules and their tasks and synchronize the module tasks updated to the calendar feature.
+** What it does: This feature allow users to store modules and module tasks they added in before and the module tasks created will be allow updated in the whole task list in Calendar feature.
+** Justification: This feature improves the product significantly because users do not need to input everything every time they relaunch and makes the module task feature and calendar feature live together.
+** Highlights: The implementation was very challenging because it depends on other feature which I need to get familiar with and need to change original code to fit to calendar feature after discussing with teammates which actually differs with my original idea.
+
+* *Minor enhancement 1*: Add some commands and its parsers to Calendar feature
+** What it does: Adds in command skeletons such as sorting and finding tasks commands and their parsers, which let the user be able to sort and find tasks in Calendar.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=kangwkk&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tp dashboard]
+* *Other contributions*:
+
+** Project management:
+*** Setting up team organization and team repository
+*** Enable Travis CI for the team repo.
+*** Set up auto-publishing of docs for the team repo.
+*** Open up issues for user stories and manage milestones.
+
+** Documentation:
+*** Added contents for user guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/12[#12], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/199[#199], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/203[#203]
+*** Added contents for developer guide: https://github.com/AY1920S2-CS2103T-W16-4/main/pull/41[#41], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/205[#205], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/205[#208]
+
+** Reviewing/mentoring contribution:
+*** Gave feedbacks and reviewed on code pull requests https://github.com/AY1920S2-CS2103T-W16-4/main/pull/45[#45], https://github.com/AY1920S2-CS2103T-W16-4/main/pull/185[#185]
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/30[#30])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=ProfilePart1]
+
+include::../UserGuide.adoc[tag=ProfilePart2]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ModuleBook]
+

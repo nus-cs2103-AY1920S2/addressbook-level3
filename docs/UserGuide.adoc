@@ -154,7 +154,7 @@ Deadline tasks are defaulty tagged with the lowest priority.
 
 - Schedules a module task, this module task includes priority level, module that is associated with the task.
 
-- Format: `taskAdd desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY PRI/PRIORITY-LEVEL`
+- Format: `moduleTask desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY pri/PRIORITY-LEVEL`
 
 .Adding Module Tasks
 image::moduleTaskAdd.png[width="790"]
@@ -394,7 +394,7 @@ A person can have any number of tags (including 0)
 
 - Format: `clear`
 
-
+// tag::ProfilePart1[]
 === Profile / Module Book (Part 1: Manage your modules)
 
 - This feature allows individuals to see their own profile, their current cap and the all modules that the individual have taken and all the grades gotten.
@@ -490,7 +490,9 @@ You don't need to indicate the modular credits for each module when you add it i
 
 .View current CAP
 image::Cap.png[width="790"]
+// end::ProfilePart1[]
 
+// tag::ProfilePart2[]
 === Profile / Module Book (Part 2: Manage your tasks separately for each module)
 
 Most of the functionality here has been integrate into the Calendar feature but these commands left here still can be used.
@@ -628,6 +630,7 @@ it refers to the index of list of module tasks shown in the result display panel
 image::TaskBreakDown.png[width="790"]
 
 ==== States major taken : `major` (coming in v2.0)
+// end::ProfilePart2[]
 
 === Module planning
 
