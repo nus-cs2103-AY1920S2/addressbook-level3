@@ -93,5 +93,3 @@ include::../UserGuide.adoc[tag=unarchive]
 |===
 
 include::../DeveloperGuide.adoc[tag=archiving]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]

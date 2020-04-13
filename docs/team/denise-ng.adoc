@@ -8,8 +8,10 @@
 ---
 
 == Overview
-Coupon Stash is a desktop coupons manager that allows users to keep track of their coupons. The user interacts with it
-using a CLI, and it has a beautiful GUI created with JavaFX. It is written in Java, and has about 15kLoC.
+Coupon Stash is a desktop coupon manager that allows users to keep track of their coupons. The user interacts with it
+using a Command Line Interface (CLI) in the application, with an aesthetically pleasing GUI created with JavaFX. It is
+written in Java with about 15kLoC. This application caters to fast-typists as all of the commands and features can be
+executed using the CLI.
 
 == Summary of contributions
 
@@ -45,8 +47,7 @@ https://github.com/AY1920S2-CS2103T-F09-1/main/pull/105[#105]
 clipboard (Pull requests https://github.com/AY1920S2-CS2103T-F09-1/main/pull/134[#134]
 , https://github.com/AY1920S2-CS2103T-F09-1/main/pull/198[#198] (Renamed from export to copy))
 
-** Added the goto command that allows the user to navigate the calendar using the Command Line
-Interface (CLI) (Pull request https://github.com/AY1920S2-CS2103T-F09-1/main/pull/202[#202])
+** Added the goto command that allows the user to navigate the calendar using the CLI (Pull request https://github.com/AY1920S2-CS2103T-F09-1/main/pull/202[#202])
 
 
 * *Code contributed*: Click on this
@@ -76,34 +77,32 @@ https://github.com/AY1920S2-CS2103T-F09-1/main/pull/179[#179])
 , https://github.com/AY1920S2-CS2103T-F09-1/main/pull/151[#151])
 *** Edited parts of Developer Guide (Pull requests https://github.com/AY1920S2-CS2103T-F09-1/main/pull/159[#159]
 , https://github.com/AY1920S2-CS2103T-F09-1/main/pull/167[#167])
-
-
-
-** Community:
-*** Reported bugs and suggestions for other teams in the class as a team (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+** Tool:
+*** Integrated a continuous integration workflow (Netlify) on GitHub  into team repo
 
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|Given below are sections I contributed to the User Guide.
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=expiring]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=copy]
+
+include::../UserGuide.adoc[tag=goto]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Given below are sections I contributed to the Developer Guide.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=calendar]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=reminder]
+
 
