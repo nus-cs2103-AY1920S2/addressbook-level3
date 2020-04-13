@@ -214,7 +214,7 @@ The following sequence diagram shows how the count operation works:
 :figure-caption: Figure
 .Sequence diagram of how `count` command is processed.
 
-image::count-command/CountSequenceDiagram.png[]
+image::count-command/CountSequenceDiagram.svg[]
 
 An incorrect syntax will cause a `ParseException` to be thrown by the parser.
 
@@ -239,7 +239,7 @@ The following activity diagram summarizes what happens when the user executes `c
 
 :figure-caption: Figure
 .Activity diagram of executing the `count`command.
-image::count-command/CountActivityDiagram.png[,650]
+image::count-command/CountActivityDiagram.svg[,650]
 
 
 // tag::undoredo[]
