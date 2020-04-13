@@ -11,6 +11,8 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Pet" as Pet MODEL_COLOR
+participant ":Pomodoro" as Pomodoro MODEL_COLOR
 end box
 
 [-> LogicManager : execute("Set pet/momu pom/30 daily/150")
@@ -45,8 +47,26 @@ deactivate AddressBookParser
 LogicManager -> SetCommand : execute()
 activate SetCommand
 
-SetCommand -> Model : setPetName(String)
+SetCommand -> Model : setPetName("Momu")
 activate Model
+
+Model -> Pet: setPetName("Momu")
+activate Pet
+
+Pet -> Model
+deactivate Pet
+
+Model -> SetCommand
+deactivate Model
+
+SetCommand -> Model : setPomodoroDefaultTime(30)
+activate Model
+
+Model -> Pomodoro: setDefaultTime("30.0")
+activate Pomodoro
+
+Pomodoro -> Model
+deactivate Pomodoro
 
 Model -> SetCommand
 deactivate Model
