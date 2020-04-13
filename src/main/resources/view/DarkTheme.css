@@ -313,6 +313,11 @@
     -fx-border-width: 0;
 }
 
+#cardPaneDetail {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
 #assignmentCardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
