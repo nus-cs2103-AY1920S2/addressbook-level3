@@ -151,6 +151,8 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 Changes the 2nd person’s name to Elysia Tan, and organization to Comp Club.
 * `(ab)edit 2 t/best friend -t/good friend` +
 Removes the tag good friend from the 2nd person and adds the tag best friend to him/her.
+* `(ab)edit 3 e/ a/` +
+Deletes the email and address of the 3rd person.
 
 end::editPerson[]
 
@@ -419,7 +421,7 @@ Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 Example:
 
 * `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/1` +
-Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 PM and which takes an estimated one hour to complete. Status of this assignment is 'Uncompleted' by default.
+Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11 November 2020 23:59 PM and which takes an estimated one hour to complete. Status of this assignment is 'Uncompleted' by default.
 
 ==== Editing an assignment: `(st)edit`
 
