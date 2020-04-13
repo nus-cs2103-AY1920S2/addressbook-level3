@@ -16,7 +16,7 @@
 == Summary of contributions
 === Major Enhancements:
 * *Added the ability to allow users to generate their upcoming schedule*
-** *What it does:* Generates the user’s schedule for a specified number of day(s) based on the stored uncompleted assignments, their individual deadlines and estimated completion time.
+** *What it does:* Generates the user’s schedule for a specified number of day(s) based on their stored uncompleted assignments, their individual deadlines and estimated completion time.
 ** *Justification:* Generally, students will consider outstanding assignments and the estimated amount of time required to complete them before deciding whether they have the time to hang out with friends. However, often times there are just too many assignments and it is difficult to estimate the work hours per day for the next few days at the back of their minds.
 ** *Highlights:*
 *** Each day will be colour-coded based on the estimated work hours for the day.
@@ -33,6 +33,7 @@
 ** *Justification:* As a university student with a busy life and many things to remember, often times we may unintentionally forget the birthdays of our friends and family. As such, this feature will help to serve as a reminder for users.
 ** *Highlights:*
 *** Upcoming birthdays are colour-coded based on when the contact’s birthday is and is sorted in increasing date order when displayed.
+*** Displayed upon start-up and offered as a command as well.
 *** Can be extended to provide gift or celebration suggestions to users based on the remarks stored for that particular contact.
 
 * Changed the functionality of the given `edit` Person command
@@ -47,9 +48,9 @@
 ** Enhancements to existing features:
 *** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/68[#68], https://github.com/AY1920S2-CS2103-W14-3/main/pull/145[#145])
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/65[#65], https://github.com/AY1920S2-CS2103-W14-3/main/pull/179[#179])
-*** Added in the birthday field to Person, allowed tags for a Person to include spaces and updated the existing commands to accommodate these changes.
+*** Added in the birthday field to Person, allowed tags for a Person to include spaces and updated the existing commands to accommodate these changes. (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/44[#44], https://github.com/AY1920S2-CS2103-W14-3/main/pull/145[#145])
 ** Documentation:
-*** Contributed to both the User Guide and Developer Guide for this project.
+*** Contributed to both the User Guide and Developer Guide for this project (shown below).
 ** Contribution to team-based tasks:
 *** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150])
 *** Maintained the issue tracker
@@ -57,7 +58,7 @@
 ** Community:
 *** Over 30 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+author%3AElysiaTanZY+[Pull Requests] on Github
 *** Over 20 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+commenter%3AElysiaTanZY+[Reviews] on Github
-*** Helped team members debug problems and gave suggestions on how to enhance features
+*** Helped team-members debug code and gave suggestions on how to enhance features
 *** Reported bugs and suggestions for other teams in the module (https://github.com/ElysiaTanZY/ped/issues?q=is%3Aissue+is%3Aall[1])
 
 == Contributions to the User Guide
