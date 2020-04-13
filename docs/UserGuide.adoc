@@ -316,6 +316,11 @@ will update your current budget settings to the new one, but at the same time re
 of the cycle, your remaining budget, as well as an overview of your spendings in your budget. +
 (But not to worry, all of your transactions are still saved!)
 
+NOTE: When you set a weekly or monthly budget, you get to see an average daily budget available to
+spend over 5 days (if weekly) or 20 days (if monthly). Sometimes you may want to comfort yourself,
+so it’s still okay to spend more than the daily average budget, as long as your remaining budget
+doesn’t reach $0 before the end of the week/month!
+
 Format: `budget set PERIOD AMOUNT`
 
 Parameters:
