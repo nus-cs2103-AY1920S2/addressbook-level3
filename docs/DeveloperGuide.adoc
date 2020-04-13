@@ -1621,13 +1621,12 @@ by creating a `Statistic` object that retrieves data necessary for generating th
 //end::statistic[]
 //tag::logging[]
 
-=== System Notification
+=== System Notification - Ready for Use
 (Contributed by Haoyi)
 
 ==== Overview
 
-TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within
-TA-Tracker's code base.
+TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within TA-Tracker's code base. This feature can be used to implement time-based features in V2.0.
 
 ==== Usage
 
