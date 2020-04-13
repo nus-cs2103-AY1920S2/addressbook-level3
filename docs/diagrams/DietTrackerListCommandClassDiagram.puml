@@ -23,6 +23,10 @@ abstract class Command {
 
 class ListCommand extends Command {
     /' Fields '/
+    + COMMAND_WORD : String = "list"
+    + MESSAGE_USAGE : String
+    + MESSAGE_USAGE_DAYS : String
+    + MESSAGE_SUCCESS : String
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult
@@ -30,15 +34,22 @@ class ListCommand extends Command {
 }
 
 interface DietModel <<Interface>> {
+    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
 
     + listFoods(mode : String) : String
     + updateFilteredFoodList(predicate : Predicate<Food>) : void
 
 }
 
+class ParserUtil {
+    <u> + parseTag(tag : String) : Tag
+    <u> + parseDays(days : String) : int
+}
+
 
 
 ListCommandParser ..> ListCommand
+ListCommandParser ..> ParserUtil
 ListCommand ..> DietModel
 
 

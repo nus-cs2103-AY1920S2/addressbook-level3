@@ -23,6 +23,11 @@ abstract class Command {
 
 class EditCommand extends Command {
     /' Fields '/
+    + COMMAND_WORD : String = "edit"
+    + MESSAGE_USAGE : String
+    + MESSAGE_SUCCESS : String
+    + MESSAGE_DUPLICATE_FOOD : String
+    + MESSAGE_NOT_EDITED : String
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult
@@ -30,6 +35,8 @@ class EditCommand extends Command {
 }
 
 interface DietModel <<Interface>> {
+    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+
     + hasFood(food : Food) : boolean
     + setFood(food : Food, editedFood : Food) : void
     + getFilteredFoodList() : ObservableList<Food>
@@ -41,8 +48,17 @@ class Index {
     + getOneBased()
 }
 
+class ParserUtil {
+    <u> + parseIndex(oneBasedIndex : String) : Index
+    <u> + parseCalories(calories : String) : Calories
+    <u> + parseName(name : String) : Name
+    <u> + parseTag(tag : String) : Tag
+    <u> + parseTags(tags : Collection<Tag>) : Set<Tag>
+}
+
 
 EditCommandParser ..> EditCommand
+EditCommandParser ..> ParserUtil
 EditCommand ..> DietModel
 EditCommandParser ..> Index
 EditCommand --> Index
