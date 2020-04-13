@@ -450,6 +450,7 @@ corresponds to the date we are interested in.
 The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, `edit`, `editIngredient`,
  `cooked`, `listGoals` and 'removeGoals'. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, `edit` or `editIngredient` is executed.
 
+==== Details of Implementation (Auto-generation of goals)
 The following sequence diagram shows how goals are generated through the example of `addIngredient` command execution
 
 .Add command sequence diagram
@@ -481,7 +482,9 @@ be updated in the particular instance of `Recipe r` and `Model#addRecipe(r)` wou
 
 The immutability of each object is supported to ensure the correctness of undo and redo functionality.
 
-==== Proposed Implementation
+==== Details of Implementation (Statistics of cooked recipes)
+
+
 
 ==== Design Considerations
 
