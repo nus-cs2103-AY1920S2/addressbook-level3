@@ -140,6 +140,7 @@ image::Ui.png[]
 
 == Commands
 
+====
 This section introduces the syntax and the usages of the commands available in FitBiz. In explaining the syntax, we will adhere to the following format:
 
 * Words in `UPPER_SNAKE_CASE` are the parameters to be supplied by the user
@@ -150,6 +151,7 @@ This section introduces the syntax and the usages of the commands available in F
 ** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order
 ** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
+====
 
 === View help: `help`
 
@@ -160,9 +162,9 @@ Entering `help` into FitBiz will bring you right here! 😬
 
 You can list all clients on the *Client List*. This is useful when your *Client List* has been filtered by the `filter-c` command, and you want to view all clients again. When using `list-c`, there will be no difference to the *Client List* if it is already showing all clients.
 
-==== Parameters
+*Format*: `list-c`
 
-Format: `list-c`
+==== Parameters
 
 The command is simply `list-c`, and has no additional parameters.
 
@@ -197,16 +199,16 @@ image::UGListCDiagram1.png[]
 === Find clients by name: `find-c` --- Yong Jie
 `find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire *Client List* might be troublesome and difficult. `find-c` is the command for you.
 
+*Format*: `find-c NAME`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
-
-Format: `find-c NAME`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| NAME |
+| `NAME` |
 * Substitute `NAME` with keywords you want to search with +
 
 * You can use multiple keywords for `NAME`. +
@@ -226,6 +228,7 @@ For a detailed explanation, you can refer to the commons errors / problems secti
 |====================
 
 ==== Example
+
 Let's say that you want to find a client named "Bryan Low" in *Client List*. You can simply use the `find-c` command as shown.
 
 . Type `find-c bryan` into *Command Box*, and press `Enter` to execute it.
@@ -281,87 +284,141 @@ You can try to enter keywords for `NAME` that are more specific to the client yo
 // tag::add-c-command[]
 
 === Add a new client profile: `add-c` --- Toh Ker Wei
+
 After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
 
-==== Format
+*Format*: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+
+==== Parameters
 
 This section summarises the format and important information to note while using the `add-c` command.
 
-Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
-
 [options='header']
-[cols= "15%,85%"]
-|===
-|Parameter | Important notes
-|n/NAME| `NAME` is the name of the client you want to add and is compulsory. +
+[cols="15%,85%"]
+|====================
+| Parameters | Important points to note
+| `INDEX` |
+* Substitute `INDEX` with the index of the desired client to edit. +
 
-`NAME` is case insensitive. +
-e.g `ray` will match `Ray` +
+* `INDEX` is compulsory and you have to specify it. +
 
-The order of the `NAME` matters. +
-e.g `Hanson Ong` is not the same as `Ong Hanson`
+* `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
 
-|p/PHONE_NUMBER| `PHONE_NUMBER` is the phone number of the client you want to add and is compulsory. +
+| `NAME` |
+* Substitute `NAME` with the name of the client.
 
-`PHONE_NUMBER` must be longer than 2 digits and contain numbers only. +
-e.g. `94325321` or `933`
+* `NAME` should only contain alphanumeric characters, spaces and commas, and it should not be blank.
 
-|e/EMAIL| `EMAIL` is the email of the client you want to add and is compulsory. +
+* `NAME` is compulsory.
 
-`EMAIL` should be in the format local-part@domain. Local-part and domain can be any value. +
-e.g. `rachelt@kmail.com` or `123@123.com`
+| `PHONE` |
+* Substitute `PHONE` with the phone number of the client. +
 
-|a/ADDRESS| `ADDRESS` is the address of the client you want to add and is compulsory. +
+* `PHONE` should only contain numbers. +
 
-`ADDRESS` can be any value. +
-e.g. `Maple Ave 123 - greenland sunshine's valley`
+* `PHONE` should be at least 3 digits long.
 
-|[g/GENDER]| `GENDER` is gender of the client you want to add and is optional. +
+* `PHONE` is compulsory.
 
-`GENDER` is case insensitive and the following values are accepted: +
-`male` or `m` for male +
-`female` or `f` for female +
-`others` or `o` for others
+| `EMAIL` |
+* Substitute `EMAIL` with the email of the client. +
 
-|[b/BIRTHDAY]| `BIRTHDAY` is the birthday of the client you want to add and is optional. +
+* `EMAIL` should be of the format `xxx@yyy`, where: +
 
-`BIRTHDAY` should be in the format DD-MM-YYYY and must be before today's date and after 11th April 1900. +
-e.g. `12-12-2019` or `04-04-1901`
+* `xxx` should only contain alphanumeric characters and the set of special characters* shown below this table
 
-|[h/HEIGHT]| `HEIGHT` is the height of the client you want to add and is optional. +
+* `yyy` must be at least 2 characters long, start and end with alphanumeric characters, and consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
 
-`HEIGHT` is in cm. +
+* `EMAIL` is compulsory.
 
-`HEIGHT` must be non-negative and can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
-e.g. `164` or `180.12`
+| `ADDRESS` |
 
-|[cw/CURRENT_WEIGHT]| `CURRENT_WEIGHT` is the current weight of the client you want to add and is optional. +
+* Substitute `ADDRESS` as the address of the client.
 
-`CURRENT_WEIGHT` is in kg. +
+* `ADDRESS` can take any value, but it should not be blank, or start with a whitespace.
 
-`CURRENT_WEIGHT` must be non-negative and can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
-e.g. `75` or `60.50`
+* `ADDRESS` is compulsory.
 
-|[tw/TARGET_WEIGHT]| `TARGET_WEIGHT` is the is the target weight of the client you want to add and is optioanl. +
+| `GENDER` |
 
-`TARGER_WEIGHT` is in kg. +
+* Substitue `GENDER` with the gender of the client.
 
-`TARGET_WEIGHT` must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places. +
-e.g. `50` or `69.69`
-|[r/REMARK]|`REMARK` is the remarks of the client you want to add and is optional. +
+* `GENDER` is case insensitive
 
-`REMARK` can be any value. +
-e.g. `Need to eat 2800kcal everyday` or `severely overweight`
+* `GENDER` can only be `male` or `m`, `female` or `f`, or `others` or `o`.
 
-|[s/SPORT]| `SPORT` is the sports participated by the client you want to add and is optional. +
+* `GENDER` is optional.
 
-`SPORT` should contain letters, numbers or spaces only. +
-e.g. `Ultimate frisbee` or `sumo wrestler`
+| `BIRTHDAY` |
 
-|[t/TAG]| `TAG` is the tag given to the client you want to add and is optional. +
-`TAG` should contain letters or numbers only.
-e.g. `healthy` or `doing well`
-|===
+* Substitue `BIRTHDAY` with the birthday of the client.
+
+* `BIRTHDAY` should be in the format DD-MM-YYYY
+
+* `BIRTHDAY` cannot exceed the current date.
+
+* `BIRTHDAY` cannot be earlier than 120 years from the current year.
+
+* `BIRTHDAY` is optional.
+| `CURRENT_WEIGHT` |
+
+* Substitute `CURRENT_WEIGHT` with the current weight of the client.
+
+* `CURRENT_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `CURRENT_WEIGHT` is optional.
+| `TARGET_WEIGHT` |
+
+* Substitute `TARGET_WEIGHT` with the target weight for the client.
+
+* `TARGET_WEIGHT` must take the value of a whole or decimal number(eg. 65 or 86.22)
+
+* `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `TARGET_WEIGHT` is optional.
+| `HEIGHT` |
+
+* Substitue `HEIGHT` with the height of the client.
+
+* `HEIGHT` must either be a whole or decimal number.
+
+* `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
+
+* `HEIGHT` is optional.
+| `SPORT` |
+
+* Substitute `SPORT` with the sports of the client.
+
+* `SPORT` should only contain alphanumeric characters and spaces.
+
+* Sports given in this command will overwrite all of the client's existing sports.
+
+* `SPORT` is optional.
+| `TAG` |
+
+* Substitue `TAG` with a tag for the client.
+
+* `TAG` should only contain alphanumeric characters.
+
+* Tags given in the command will overwrite the Client's existing tags
+
+* You can remove all of the client's tags by typing `t/` without specifying any `TAG`
+
+* `TAG` is optional.
+
+| `REMARK` |
+
+* Substitute `REMARK` with remarks for the client.
+
+* `REMARK` should be alphanumeric.
+
+* Any whitespace at the start of `REMARK` will be removed.
+
+* `REMARK` is optional.
+
+|====================
 
 ==== Example
 Lets say you want to add a new client with the following details: +
@@ -396,7 +453,7 @@ For example, when you want to add a `Rachel Tan` into FitBiz but did not include
 +
 image::AddNoAddress.png[]
 +
-Afterpressing enter, the following error message will be shown.
+After pressing enter, the following error message will be shown.
 +
 image::AddNoAddressError.png[]
 +
@@ -430,34 +487,32 @@ To solve this issue, ensure that any new client you add does not have the same p
 
 `edit-c` allows you to edit an existing client's details from the *Client List*. There are various attributes that can be edited for the client using this command, which will be covered in this section.
 
+*Format*: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIRTHDAY] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [h/HEIGHT] [s/SPORT]... [t/TAG]... [r/REMARK]`
+
 ==== Parameters
 
 This section acts as a summary of the important things to note when using `edit-c` and its parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified. The ellipsis after a parameter `...` means that there can be multiple of that same type of parameter.
-
-Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIRTHDAY] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [h/HEIGHT] [s/SPORT]... [t/TAG]... [r/REMARK]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 * Substitute `INDEX` with the index of the desired client to edit. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
 * `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
 
-| NAME |
+| `NAME` |
 * Substitute `NAME` with the name of the client.
 
 * `NAME` should only contain alphanumeric characters, spaces and commas, and it should not be blank.
 
 * `NAME` is optional.
 
-| PHONE |
+| `PHONE` |
 * Substitute `PHONE` with the phone number of the client. +
-
-* `PHONE` is optional.
 
 * `PHONE` should only contain numbers. +
 
@@ -465,7 +520,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * `PHONE` is optional.
 
-| EMAIL |
+| `EMAIL` |
 * Substitute `EMAIL` with the email of the client. +
 
 * `EMAIL` should be of the format `xxx@yyy`, where: +
@@ -476,7 +531,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * `EMAIL` is optional.
 
-| ADDRESS |
+| `ADDRESS` |
 
 * Substitute `ADDRESS` as the address of the client.
 
@@ -484,7 +539,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * `ADDRESS` is optional.
 
-| GENDER |
+| `GENDER` |
 
 * Substitue `GENDER` with the gender of the client.
 
@@ -494,7 +549,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * `GENDER` is optional.
 
-| BIRTHDAY |
+| `BIRTHDAY` |
 
 * Substitue `BIRTHDAY` with the birthday of the client.
 
@@ -505,7 +560,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 * `BIRTHDAY` cannot be earlier than 120 years from the current year.
 
 * `BIRTHDAY` is optional.
-| CURRENT_WEIGHT |
+| `CURRENT_WEIGHT` |
 
 * Substitute `CURRENT_WEIGHT` with the current weight of the client.
 
@@ -514,7 +569,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 * `CURRENT_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `CURRENT_WEIGHT` is optional.
-| TARGET_WEIGHT |
+| `TARGET_WEIGHT` |
 
 * Substitute `TARGET_WEIGHT` with the target weight for the client.
 
@@ -523,7 +578,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 * `TARGET_WEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `TARGET_WEIGHT` is optional.
-| HEIGHT |
+| `HEIGHT` |
 
 * Substitue `HEIGHT` with the height of the client.
 
@@ -532,7 +587,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 * `HEIGHT` can only have a maximum of 3 digits before the decimal place and a maximum of 2 digits after the decimal place (eg. 101.25 or 120.20)
 
 * `HEIGHT` is optional.
-| SPORT |
+| `SPORT` |
 
 * Substitute `SPORT` with the sports of the client.
 
@@ -541,7 +596,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 * Sports given in this command will overwrite all of the client's existing sports.
 
 * `SPORT` is optional.
-| TAG |
+| `TAG` |
 
 * Substitue `TAG` with a tag for the client.
 
@@ -553,7 +608,7 @@ Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [b/BIR
 
 * `TAG` is optional.
 
-| REMARK |
+| `REMARK` |
 
 * Substitute `REMARK` with remarks for the client.
 
@@ -600,21 +655,21 @@ In the example above, the `EMAIL` field was faulty. This behaviour of FitBiz als
 
 // end::edit-c[]
 
-
 === Delete a client: `delete-c` --- Li Zi Ying
 
 You find that your client list contains a client who is no longer working with you and you would like to remove his details from your client list. `delete-c` allows you to delete the client at the specified index from your list of clients.
 
-==== Parameters
-This section acts as a summary of the important things to note when using `delete-c` including their parameters.
+*Format*: `delete-c INDEX`
 
-Format: `delete-c INDEX`
+==== Parameters
+
+This section acts as a summary of the important things to note when using `delete-c` including their parameters.
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 `INDEX` refers to the index number shown in the displayed client list +
 
 `INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
@@ -651,16 +706,16 @@ To correct this, you have to enter a valid `INDEX` that is not more than the num
 
 You might want to view the complete information of a certain client in your client list. This complete information includes the client's full details, their exercise table and personal best table. `view-c INDEX` shows all available information of the client at the specified index.
 
+*Format*: `view-c INDEX`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `view-c` including their parameters.
-
-Format: `view-c INDEX`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 `INDEX` refers to the index number shown in the displayed client list +
 
 `INDEX` must be a positive integer (ie. 1, 2, 3, ...) +
@@ -699,16 +754,16 @@ To correct this, you have to enter a valid `INDEX` that is not more than the num
 === Add a client's exercise: `add-e`  --- YongJie
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in the *Exercise Table*.
 
+*Format*: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
-
-Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| n/NAME |
+| `n/NAME` |
 * Substitute `NAME` with the name of the exercise. +
 
 * `n/NAME` is compulsory and you have to specify it. +
@@ -716,7 +771,7 @@ Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SET
 * `n/NAME` is case sensitive. +
 e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
-| d/DATE |
+| `d/DATE` |
 * Substitute `DATE` with the date of the exercise. +
 
 * `d/DATE` is compulsory and you have to specify it. +
@@ -725,21 +780,21 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 
 * The range of `DATE` is from one year before the current date to the current date (inclusive).
 
-| [reps/REPS] |
+| `[reps/REPS]` |
 * Substitute `REPS` with the reps of the exercise. +
 
 * `reps/REPS` is optional.
 
 * Range for `REPS` is 1-9999. +
 
-| [sets/SETS] |
+| `[sets/SETS]` |
 * Substitute `SETS` with the sets of the exercise. +
 
 * `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
-| [ew/WEIGHT] |
+| `[ew/WEIGHT]` |
 * Substitute `Weight` with the weight of the exercise. +
 
 * `ew/WEIGHT` is optional.
@@ -800,21 +855,21 @@ To solve this, we suggest incrementing the sets of the existing exercise by usin
 === Edit a client's exercise: `edit-e` --- YongJie
 `edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in *Exercise Table*.
 
+*Format*: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
+
 ==== Parameters
 This section acts as a summary of the important things to note when using `edit-e` including their parameters. The square bracket shows that it is optional and your command will still execute even if you do not enter them. However, at least one of them have to be specified.
-
-Format: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 * Substitute `INDEX` with the index of the exercise shown on the table. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
-| n/NAME |
+| `n/NAME` |
 * Substitute `NAME` with the name of the exercise. +
 
 * `n/NAME` is optional. +
@@ -822,7 +877,7 @@ Format: `edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/EXERCISE_WEIGHT] [reps/REPS
 * `n/NAME` is case sensitive. +
 e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
-| d/DATE |
+|`d/DATE` |
 * Substitute `DATE` with the date of the exercise. +
 
 * `d/DATE` is optional. +
@@ -831,21 +886,21 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 
 * The range of `DATE` is from one year before the current date to the current date (inclusive).
 
-| [reps/REPS] |
+| `[reps/REPS]` |
 * Substitute `REPS` with the reps of the exercise. +
 
 * `reps/REPS` is optional.
 
 * Range for `REPS` is 1-9999. +
 
-| [sets/SETS] |
+| `[sets/SETS]` |
 * Substitute `SETS` with the sets of the exercise. +
 
 * `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
-| [ew/WEIGHT] |
+| `[ew/WEIGHT]` |
 * Substitute `Weight` with the weight of the exercise. +
 
 * `ew/WEIGHT` is optional.
@@ -942,6 +997,8 @@ If you find that you are unable to execute this command successfully, there are 
 
 `Schedule` allows you to assign weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. You can assign multiple schedules to a client at once, by adding more arguments following the command. All of the schedules from the current *Client List* will be displayed on the *Schedule Panel*.
 
+*Format*: `schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME]...`
+
 [NOTE]
 The `schedule` command overwrites the client's existing schedule with the new schedules given in the command.
 
@@ -949,20 +1006,18 @@ The `schedule` command overwrites the client's existing schedule with the new sc
 
 This section acts as a summary of the important things to note when using `schedule`. The square bracket shows that it is optional and your command will still execute even if you do not enter them.
 
-Format: `schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME]...`
-
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| INDEX |
+| `INDEX` |
 * Substitute `INDEX` with the index of the desired client to add the schedule to. +
 
 * `INDEX` is compulsory and you have to specify it. +
 
 * `INDEX` must be a positive number, and must be a valid index number for a client as displayed from the list of clients. +
 
-| DAY |
+| `DAY` |
 * Substitute `DAY` with the first three letters of the day. +
 eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
@@ -972,7 +1027,7 @@ eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
 * `DAY` is not case sensitive.
 
-| STARTTIME |
+| `STARTTIME` |
 * Substitute `STARTTIME` with the starting time of the schedule slot. +
 
 * `STARTTIME` is compulsory.
@@ -981,7 +1036,7 @@ eg. MON / TUE / WED / THU / FRI / SAT / SUN
 
 * `STARTTIME` must always be earlier than or equal to `ENDTIME`.
 
-| ENDTIME |
+| `ENDTIME` |
 * Substitute `ENDTIME` with the ending time of the schedule slot. +
 
 * `ENDTIME` is compulsory.
@@ -1043,6 +1098,8 @@ image::UGScheduleDiagram8.png[]
 
 `export` allows you to export your client's recorded exercises into a spreadsheet format which you can then easily save or share with your clients. Note that this will create a CSV file, which you can view and open in other applications like Microsoft Excel, or Google Sheets (as shown in the example later).
 
+*format*: `export`
+
 [NOTE]
 This command can only be used when you have a client in view; make sure you know how to view a client first. Refer to <<view-c-command>> for more information.
 
@@ -1083,8 +1140,9 @@ If you find that you are unable to execute this command successfully, there are 
 
 When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
 
-==== Format
-Format: `filter-c [t/TAG]... [s/SPORT]...
+*Format*: `filter-c [t/TAG]... [s/SPORT]...`
+
+==== Parameters
 
 [options='header']
 [cols= "15%,85%"]
@@ -1149,17 +1207,17 @@ image::FilterTagSuccess.png[]
 
 `graph` allows you to see a graphical visualisation of a client’s exercise progress within a specified timeframe, so that you can easily track your client's progress and improvement.
 
+*Format*: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
+
 ==== Parameters
 
 This section acts as a summary of important things to note when using `graph` including their parameters.
-
-Format: `n/EXERCISE_NAME a/Y_AXIS sd/START_DATE ed/END_DATE`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
-| n/EXERCISE_NAME |
+| `n/EXERCISE_NAME` |
 Substitute `EXERCISE_NAME` with the name of the exercise. +
 
 `n/EXERCISE_NAME` is compulsory and you have to specify it. +
@@ -1167,7 +1225,7 @@ Substitute `EXERCISE_NAME` with the name of the exercise. +
 `n/EXERCISE_NAME` is case sensitive. +
 e.g. An exercise `pushup` will be considered to be different from the exercise `Pushup`.
 
-| a/Y_AXIS |
+| `a/Y_AXIS` |
 Substitute `Y_AXIS` with the y-axis of your choice. +
 
 `Y_AXIS` is compulsory and you have to specify it. +
@@ -1175,7 +1233,7 @@ Substitute `Y_AXIS` with the y-axis of your choice. +
 `Y_AXIS` must either be `reps` or `weight` (case insensitive), allowing you to specify the exercise attribute you wish to focus on +
 e.g. `Reps`, `weigHt` and `WEIGHT` will be valid inputs for `Y_AXIS`. +
 
-| sd/START_DATE |
+| `sd/START_DATE` |
 Substitute `START_DATE` with the start date of your graph. +
 
 `sd/START_DATE` is compulsory and you have to specify it. +
@@ -1186,7 +1244,7 @@ The range of `START_DATE` is from one year before the current date to the curren
 
 `START_DATE` cannot be chronologically after `END_DATE` +
 
-| ed/END_DATE |
+| `ed/END_DATE` |
 Substitute `END_DATE` with the end date of your graph +
 
 `ed/END_DATE` is compulsory and you have to specify it. +
@@ -1287,7 +1345,7 @@ Examples:
 |Command | Summary
 |`export INDEX`| Exports client's training record to a CSV file.
 |`help`| Shows all available commands and their description.
-|`view-s TYPE`| Shows schedule for today or time specified.
+|`view-s TYPE` [v2.0]| Shows schedule for today or time specified.
 |=======================================================================
 
 === Client Commands
@@ -1299,9 +1357,10 @@ Examples:
 |`delete-c INDEX`| Deletes a client and its associated exercises.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`| Edits an existing client.
 |`filter-c [t/TAG]... [s/Sport]...`| Filters the list of clients based on specified tags or sports.
+|`find-c NAME...`| Filters the list of clients based on specified name.
 |`list-c`| Displays the list of clients in FitBiz.
-|`view-c INDEX`| Displays detailed information of a client.
-|`schedule INDEX [day/DAY] [st/STARTTIME] [et/ENDTIME]`| Assigns a schedule to a client.
+|`schedule INDEX sch/DAY-STARTTIME-ENDTIME`| Assigns a schedule to a client.
+|`view-c INDEX`| Shows detailed information of a client.
 |=======================================================================
 
 === Exercise Commands
@@ -1309,7 +1368,8 @@ Examples:
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to a client.
-|`delete-e INDEX`| Deletes an exercise in the exercise list of the client.
-|`graph e/Push Ups`| Shows a graph of the exercise progress done by a client.
+|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
+|`delete-e INDEX`| Deletes an exercise in the exercise list of the client being viewed.
+|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
+|`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
