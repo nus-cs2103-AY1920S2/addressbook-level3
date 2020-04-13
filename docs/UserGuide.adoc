@@ -60,10 +60,10 @@ Also, as you may be wondering from the previous section, any words that are mark
 
 Check out the list below on how to use this User Guide.
 
-* If you are a first-time user, start from this <<Quick Start, section>> that guides you on how to download Calgo.
-* If you are unsure of the GUI of Calgo, start from this <<GUI, section>> to learn what each component of the App is.
-* If you are interested to learn about the various features Calgo has, check out this <<Commands, section>>.
-* If you are already familiar with Calgo, but need a slight refresher, check out the Command Summary section over <<CommandSummary, here>>.
+* If you are a first-time user, start from <<Quick Start, *here*>> for instructions for downloading and setting up Calgo.
+* If you are unsure of the GUI of Calgo, start from <<GUI, *here*>> to learn what each component of the App is.
+* If you are interested to learn about the various features Calgo has, check out the Commands section <<Commands, *here*>>.
+* If you are already familiar with Calgo, but need a slight refresher, check out the Command Summary section <<CommandSummary, *here*>>.
 
 
 <<<
@@ -514,7 +514,7 @@ just as the `Food Record` previously appeared:
 ****
 
 [TIP]
-You can think of this as the reverse of a `find` command.
+You can think of this as the reverse of a <<FindCommand, `find`>> command.
 After a `find` command, you are advised to complete your intended actions first, before using the `list` command to
 reset the display. This allows for a smoother workflow as you will now avoid the need to perform the same `find` command again.
 
