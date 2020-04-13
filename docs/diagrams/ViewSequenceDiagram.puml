@@ -19,16 +19,16 @@ activate LogicManager LOGIC_COLOR
 LogicManager -[LOGIC_COLOR]> FitBizParser : parseCommand("view-c 3")
 activate FitBizParser LOGIC_COLOR
 
-FitBizParser -[LOGIC_COLOR]> ViewCommandParser : ViewCommandParser()
+FitBizParser -[LOGIC_COLOR]> ViewCommandParser ** : ViewCommandParser()
 activate ViewCommandParser LOGIC_COLOR
 
 ViewCommandParser --[LOGIC_COLOR]> FitBizParser
 deactivate ViewCommandParser
 
-FitBizParser -[LOGIC_COLOR]> ViewCommandParser : parse("3")
+FitBizParser -[LOGIC_COLOR]> ViewCommandParser  : parse("3")
 activate ViewCommandParser LOGIC_COLOR
 
-ViewCommandParser -[LOGIC_COLOR]> ViewCommand : ViewCommand()
+ViewCommandParser -[LOGIC_COLOR]> ViewCommand ** : ViewCommand()
 activate ViewCommand LOGIC_COLOR
 
 ViewCommand --[LOGIC_COLOR]>> ViewCommandParser : v
@@ -49,7 +49,7 @@ activate Model MODEL_COLOR
 Model --> ViewCommand
 deactivate Model
 
-ViewCommand -[LOGIC_COLOR]> CommandResult
+ViewCommand -[LOGIC_COLOR]> CommandResult **
 activate CommandResult  LOGIC_COLOR
 
 CommandResult --[LOGIC_COLOR]> ViewCommand : result
