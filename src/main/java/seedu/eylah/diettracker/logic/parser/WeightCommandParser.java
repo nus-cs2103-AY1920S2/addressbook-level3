@@ -2,7 +2,6 @@ package seedu.eylah.diettracker.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
