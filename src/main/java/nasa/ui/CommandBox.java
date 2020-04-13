@@ -65,7 +65,7 @@ public class CommandBox extends UiPart<Region> {
                     handleCommandEntered();
                 }
                 break;
-            default:
+            case SPACE:
                 if (isValidCommand()) {
                     main.getHint(commandList.get(matchedCommand));
                     commandTextField.requestFocus();
