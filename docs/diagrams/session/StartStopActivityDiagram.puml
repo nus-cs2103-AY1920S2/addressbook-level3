@@ -4,16 +4,17 @@ start
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
-
 repeat
+:Timer starts counting from 00:00;
 :Load next set;
     if (Complete Set?) then ([yes])
-        :Mark set as completed;
+        :Mark set as complete;
     else ([no])
         :Mark set as incomplete;
 endif
 
 repeat while (Sets still remaining?) is (yes)
 ->no;
+:Reset timer to 00:00;
 stop
 @enduml

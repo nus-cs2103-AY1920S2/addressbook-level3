@@ -1,12 +1,13 @@
 = Liow Jia Chen - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/
 :stylesDir: ../stylesheets
 
 == PROJECT: ZeroToOne
 
----
+.Screenshot
+image::user-guide/UgLogList.png[]
 
 == Overview
 
-ZeroToOne is a desktop application that serves as an all-in-one exercise tracker and personal aide. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ZeroToOne is a desktop application that serves as an all-in-one exercise tracker and personal aide. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 26 kLoC.

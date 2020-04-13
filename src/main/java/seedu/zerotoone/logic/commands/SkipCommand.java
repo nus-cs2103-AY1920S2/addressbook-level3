@@ -3,7 +3,9 @@ package seedu.zerotoone.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.commands.util.Commands;
 import seedu.zerotoone.model.Model;
@@ -18,6 +20,7 @@ public class SkipCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Skipped set:%1$s";
     public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
             + "your workout session is done and saved!";
+    private static final Logger logger = LogsCenter.getLogger(SkipCommand.class);
 
     public SkipCommand() {
     }
@@ -25,6 +28,7 @@ public class SkipCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing skip command.");
         if (!model.isInSession()) {
             throw new CommandException(MESSAGE_SESSION_NOT_STARTED);
         }
