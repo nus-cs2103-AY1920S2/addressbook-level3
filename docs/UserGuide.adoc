@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
+By: `CS2103T-W12-1`      Since: `Jan 2020`      Licence: `MIT`
 
 //@@author cherweijie
 //tag::introduction[]
@@ -1322,7 +1322,7 @@ the provided link in the table below.
 |`exit`
 
 |<<search, *Search*>>
-|`search` `[<<command_flags, FLAG>>]` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `FLAG` `ORDER_ATTRIBUTE_PREFIX/KEYWORD` `[MORE_KEYWORDS]...` `[ORDER_ATTRIBUTE_PREFIX/KEYWORD MORE_KEYWORDS]...`
 |`search` `-r` `tid/ac1e345x7s` +
 `search` `-r` `Jeremy Loh` +
 `search` `-o` `tid/asj2od3943` +
@@ -1334,8 +1334,21 @@ the provided link in the table below.
 |`help`
 
 |<<show, *Show*>>
-|`show`
-|`show`
+|`show` `START_DATE` `[END_DATE]`
+|`show` `2020-01-01` `2020-12-31`
+
+|
+|`show` `all`
+|`show` `all`
+
+|
+|`show` `today`
+|`show` `today`
+
+|
+|`show` `DATE`
+|`show` `2020-03-20`
+
 
 |<<import, *Import*>>
 |`import` `FILE_NAME`
@@ -1348,10 +1361,15 @@ the provided link in the table below.
 `list` `undone`
 
 |<<return, *Return*>>
-|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM`
-|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore S169814` `p/91230456` `rts/2020-12-12 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
 `return` `tid/ac17s2a` +
-`return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+`return` `tid/b1230512` `n/Aaron Teo` `a/256 Delta Road #03-222, Singapore S169256` `p/91230456` `e/aaron@example.com` `rts/2020-12-12 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+|
+|`return` `tid/TRANSACTION_ID` `rts/RETURN_DATE_&_TIME`
+|`return` `tid/ac17s2a` `rts/2020-12-12 1301`
 
 |<<nearby, *Nearby*>>
 |`nearby` `[FLAG]` `POSTAL_SECTOR` +
