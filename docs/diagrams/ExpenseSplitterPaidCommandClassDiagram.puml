@@ -12,7 +12,7 @@ class PaidCommandParser implements Parser {
     + parse(args : String) : PaidCommand
 }
 
-interface Parser<T extends Command> {
+interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : PaidCommand
 }
 
@@ -62,6 +62,7 @@ class SplitterModelManager implements SplitterModel {
 
     /' Methods '/
     + listAmount() : String
+    + paidPerson(person : Person, amountPaid : String) : void
 }
 
 interface ReadOnlyPersonAmountBook <<Interface>> {
@@ -69,7 +70,25 @@ interface ReadOnlyPersonAmountBook <<Interface>> {
         + getPersonList() : ObservableList<Person>
         + getPersonByIndex(indexOfPerson : int) : Person
 
+}
 
+class Person {
+     /' Fields '/
+     - name : Name
+     - amount : Amount
+
+     /' Methods '/
+     + removeAmount(amount : Amount) : void
+     + getAmount() :Amount
+}
+
+class Amount{
+    /' Fields '/
+    + amount : BigDecimal
+
+    /' Methods '/
+    + isValidAmount(test : BigDecimal) : boolean
+    + getBigDecimal() : BigDecimal
 }
 
 
@@ -79,7 +98,9 @@ PaidCommandParser ..> PaidCommand
 PaidCommand ..> SplitterModel
 PaidCommandParser ..> Index
 PaidCommand --> Index
-SplitterModel --> ReadOnlyPersonAmountBook
+PaidCommand --> ReadOnlyPersonAmountBook
+PaidCommand --> Person
+Person *-right->"1" Amount
 
 
 @enduml
