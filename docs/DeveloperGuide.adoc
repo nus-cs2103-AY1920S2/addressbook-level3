@@ -294,6 +294,7 @@ Pomodoro has settings that can be configured by the user:
 
 This data is captured and stored in the `Pomodoro` class in `seedu.address.model`, which interacts with the app’s storage system. `PomodoroManager` also updates the `Pomodoro` model on what task is being run and the time remaining in a particular cycle. This allows the time progress to be persistent in between app closures and relaunches.
 
+// tag::reminder[]
 === Reminders
 The user's reminder functionality is achieved by calculating the time delay from the current time and the time from the user input. This time delay as well as the Task name and description is passed to the MainWindow for the reminder to be triggered as a pop up at the right time.
 
@@ -305,7 +306,9 @@ Reminder is stored as a string in the `JsonAdaptedTask`. This string contains th
 .Reminder Sequence Diagram
 image::ReminderSequenceDiagram.png[width=790]
 
+// end::reminder[]
 
+// tag::recurring[]
 === Recurring
 The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. The behaviour for this recurring feature is mainly represented in the activity diagram below.
 
@@ -325,10 +328,9 @@ Additionally, a flag has been made to check if the task needs to be changed, if 
 
 Recurring is stored as a string in the `JsonAdaptedTask`. This string contains the LocalDateTime information for the reference date as well as the type of interval itself. A special constructor for this string is used to reconstruct the recurring attribute when reading from storage.
 
-
-
 .Task Class Diagram with all aforementioned attributes including recurring and reminder
 image::TaskClassDiagram.png[width=790]
+// end::recurring[]
 
 === Logging
 
@@ -376,6 +378,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: We integrate a Pomodoro-Pet environment into a full fledged task manager. The pet system serves to gamify the act of doing tasks, thereby motivating users, and the Pomodoro helps users get into a regular work/rest cycle. This integrationcovers all aspects of productivity in line platform. It covers motivation, organising of tasks and also how to go about doing them. This all in one solution is seldom found in other applications which implement maybe 1 or 2 of these features.
 
+// tag::userStories[]
 [appendix]
 == User Stories
 
@@ -434,6 +437,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+
+// end::userStories[]
 [[UseCases]]
 == Use Cases
 
@@ -776,6 +781,7 @@ Cons:
 * ...
 * ...
 
+// tag::manualTesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -891,3 +897,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+// end::manualTesting[]
