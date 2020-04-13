@@ -22,7 +22,7 @@ deactivate Model
 LogicManager -> PreSessionParser : parseCommand("add interviewee Jane Doe")
 activate PreSessionParser
 
-PreSessionParser --> LogicManager : throw ParserException("Unknown command")
+PreSessionParser --> LogicManager : throw ParseException("Unknown command")
 deactivate PreSessionParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 PreSessionParser -[hidden]-> LogicManager

@@ -8,7 +8,7 @@ repeat
 :User enters command to the app;
 :Parser parse the Command;
 if () then ([command is in invalid format])
-:throw ParserException;
+:throw ParseException;
 else ([command is in valid format])
   :Create a Command object;
 endif

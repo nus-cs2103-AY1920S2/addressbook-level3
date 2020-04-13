@@ -633,7 +633,6 @@ Interview with Jane Doe started!
 image::Screenshots/Interview.png[]
 {empty} +
 
-
 ==== Record Remarks
 
 After starting the interview, *HireLah!* allows you to easily take notes within the app itself.
@@ -810,7 +809,7 @@ image::Screenshots/EndInterview.png[]
 
 // end::interviewPhase[]
 
-// tag::report[]
+// tag::open[]
 ==== Viewing Interviewee Reports
 After interviewing a candidate, you can view the interview transcript any
 time by doing an open command. To close the report, you can use a close command.
@@ -839,7 +838,7 @@ Successfully opened Interviewee report: Jane Doe
 
 image::Screenshots/Report.png[]
 {empty} +
-// end::report[]
+// end::open[]
 
 // tag::export[]
 ==== Exporting Interviewee Reports to PDF
