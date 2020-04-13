@@ -1,0 +1,19 @@
+@startuml
+start
+:Notification is requested;
+
+:Checks if singleton exists;
+
+if () then ([singleton exists])
+
+else ([singleton does not exist])
+    :Instance of a singleton is created;
+    :Instance of a TrayIcon is created;
+
+endif
+:Singleton requests for notification from TrayIcon;
+:TrayIcon triggers a system notification;
+:Notification is shown to the User;
+
+stop
+@enduml

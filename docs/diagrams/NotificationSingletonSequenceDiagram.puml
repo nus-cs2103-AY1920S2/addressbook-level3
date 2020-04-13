@@ -1,0 +1,78 @@
+@startuml
+!include ../style.puml
+box Logic LOGIC_COLOR_T1
+participant "Notification" as Notification LOGIC_COLOR
+participant "singleton:Notification" as SNotification LOGIC_COLOR
+participant ":TrayIcon" as TrayIcon LOGIC_COLOR
+end box
+
+[-> Notification : Requests Notification
+activate Notification
+
+
+Notification -> Notification : getInstance()
+activate Notification
+
+create SNotification
+Notification -> SNotification
+activate SNotification
+
+create TrayIcon
+SNotification -> TrayIcon
+activate TrayIcon
+TrayIcon --> SNotification
+deactivate TrayIcon
+
+SNotification --> Notification : singleton
+deactivate SNotification
+
+return
+
+Notification -> SNotification : notify(...)
+activate SNotification
+
+SNotification -> TrayIcon
+activate TrayIcon
+
+TrayIcon -> TrayIcon : displayMessage(...)
+activate TrayIcon
+TrayIcon --> TrayIcon
+deactivate TrayIcon
+
+TrayIcon --> SNotification
+deactivate TrayIcon
+
+SNotification --> Notification
+deactivate SNotification
+
+[<--Notification
+deactivate Notification
+
+[-> Notification : Requests Second Notification
+activate Notification
+
+Notification -> Notification : getInstance()
+activate Notification
+Notification --> Notification
+deactivate Notification
+
+Notification -> SNotification : notify(...)
+activate SNotification
+
+SNotification -> TrayIcon
+activate TrayIcon
+
+TrayIcon -> TrayIcon : displayMessage(...)
+activate TrayIcon
+TrayIcon --> TrayIcon
+deactivate TrayIcon
+
+TrayIcon --> SNotification
+deactivate TrayIcon
+
+SNotification --> Notification
+deactivate SNotification
+
+[<--Notification
+deactivate Notification
+@enduml
