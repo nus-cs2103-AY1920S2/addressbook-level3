@@ -58,7 +58,7 @@ Major design consideration was required to ensure that the timer was not computa
 *** Add documentation coverage for the entire workout session feature including diagrams. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/110[#14]
 *** Edit Model Component diagram. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/238[#238]
 *** Update all screenshots in user guide. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/241[#241]
-*** Add DG Appendix G: Effort. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/244[#244]
+*** Add DG Appendix F and G. https://github.com/AY1920S2-CS2103T-W16-2/main/pull/244[#244], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/254[#254]
 ** Review Contributions:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S2-CS2103T-W16-2/main/pull/66[#66], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/114[#114]
