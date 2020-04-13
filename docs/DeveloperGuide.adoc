@@ -884,10 +884,11 @@ There are three possible execution paths for the `return` command
 
 1. User provides an invalid `return` command input +
 This will result in a parse exception and an error message will be displayed to the user.
-2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>>, i.e. +
-`return` <<command_prefix, `TRANSACTION_ID`>> +
+2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>> and
+<<command_prefix, `RETURN_TIMESTAMP`>>, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>> +
 If the order with the given <<command_prefix, `TRANSACTION_ID`>> is delivered,
-it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order. +
+it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order with the updated <<command_prefix, `RETURN_TIMESTAMP`>>. +
 This return order will then be added into the return order list.
 3. User provides a valid `return` command input with all compulsory parcel attributes, i.e. +
 `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
