@@ -113,7 +113,7 @@ This section shows the detailed list of usable commands.
 image::switching_tabs.png[width="790"]
 +
 
-
+// tag::Calendar[]
 
 === Calendar
 
@@ -226,6 +226,10 @@ The dots on the calendar will not disappear and will show that there is still ta
 .Listing all tasks
 image::listTask.png[width="790"]
 
+// end::Calendar[]
+
+
+// tag::Notes[]
 
 === Notes
 
@@ -294,7 +298,7 @@ image::notesDeleteUG.png[width="790"]
 [NOTE]
 This can only be use to delete a file and not a folder
 
-
+// end::Notes[]
 
 === Address Book
 
@@ -649,15 +653,6 @@ professor’s contact associated with the module.
 
 * `search CS2103T`
 
-==== Module planning: `mymodplan` (coming in v2.0)
-
-- Shows list of modules taken/to be taken to fulfill major requirements.
-
-- Format:
-
-a.	`mymodplan`: shows module planning list
-b.	`mymodplan add MODULE CODE`: adds a module to the module plan
-c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 === Diary
 
