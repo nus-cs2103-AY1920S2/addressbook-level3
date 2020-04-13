@@ -133,11 +133,12 @@ The `Model` component stores a,
 * `CookedRecordBook` object that stores the records of all the cooked recipes.
 * `QuoteBook` object that stores all quotes.
 
-It also exposes four unmodifiable lists that can be 'observed' by the `UI`: +
+It also exposes five unmodifiable lists that can be 'observed' by the `UI`: +
 
 * `ObservableList<Recipe>`
 * `ObservableList<Plan>`
 * `ObservableList<Record>`
+* `ObservableList<GoalCount>`
 * `ObservableList<Quote>` +
 The `UI` can be bound to these lists so that the `UI` automatically updates when the data in the list changes. +
 
@@ -183,6 +184,7 @@ Each `Record` consists of,
 
 * One `Date`
 * One `Name` from a `Recipe`
+* One set of `Goal` list
 
 ==== Quote Model
 .Structure of the Quote Model
@@ -226,7 +228,7 @@ This section describes some noteworthy details on how certain features are imple
 === Basic commands
 
 
-==== Switch command
+==== Switch command (Harshita)
 The `switch` command is facilitated by the `MainWindow`, `MainTabPanel`, `SwitchCommandParser` and `SwitchCommandParser`.
 
 The following lists in sequential order the process of how `switch` behaves with user input.
@@ -614,7 +616,7 @@ corresponds to the date we are interested in.
 // end::planning[]
 
 // tag::goals[]
-=== Goals feature
+=== Goals feature (Harshita)
 The main functionalities and commands associated with the entire goals feature are `add`, `addIngredient`, `edit`, `editIngredient`,
  `cooked`, `listGoals` and 'removeGoals'. Goals are auto-generated and added to a recipe every time `add`, `addIngredient`, `edit` or `editIngredient` is executed.
 
@@ -657,12 +659,28 @@ image::CookedActivityDiagram.png[]
 
 After `CookedCommand#execute(model)` is called, the series of checks shown in the above diagram is done to determine
 if the recipe can be marked as cooked. With multiple recipes inputted (eg "`cooked` 1 2 3", the series of checks will
-loop through for for each recipe. The checks ensure that all the recipes inputted are valid, else the  `CookedCommand`
+loop through for for each recipe.
+
+The checks ensure that all the recipes inputted are valid, else the  `CookedCommand`
 throws an exception and terminates. If successful, a new  `Record` containing the `Name`, current `Date` and set of `Goals`
 associated with the recipe is created and `Model#addRecord(record)` would then update `CookedRecordBook` in storage.
 
-With reference to the structure of the CookedRecords Model (<<Structure of the Record Model>>),
+Furthermore, if the recipe marked as cooked was included in the Planned Recipes for the day,
+it will be removed from the planned list.
 
+With reference to the structure of the CookedRecords Model,
+.Class diagram of Record
+image::ModelRecordClassDiagram.png[]
+
+We can see above that once a record is added to the UniqueRecordList two Observable lists will be updated for each
+addition of `Record`. Firstly, it is the `internalRecordsList` that stores unique `Record`. Secondly, based on this list,
+an `internalGoalsTally` that stores `GoalCount` will be updated each time. This `GoalCount` consists of one of the four main goal
+and its respective tally and this observable list is what the pie chart will be listening to for updates and will change
+each time the `internalGoalsTally` has been updated as well.
+
+Hence the `cooked` command is essential in not only archiving data, but also giving the user personalised statistics
+on their overall goal distribution that resembles the Healthy Eating Plate. The immutability of each object is
+supported to ensure the correctness of undo and redo functionality as well.
 
 
 ==== Design Considerations
@@ -674,8 +692,13 @@ With reference to the structure of the CookedRecords Model (<<Structure of the R
 ** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
 
 * **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
-** Pros: Easy to implement.
+** Pros: Easy to implement. User can filter their preferred goals easily.
 ** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
+
+Alternative 1 was chosen as standardising the goals give the recipes more meaning, especially when we are able
+to calculate statistics and present in in an meaningful and appealing way for users when it models the Healthy eating Plate.
+Furthermore, custom goals would not have checks would not have been implemented. for users to filter preferred recipes,
+the command `favourite` as been implemented.
 
 ===== Aspect: How to determine the criteria for each goal
 
@@ -686,7 +709,43 @@ With reference to the structure of the CookedRecords Model (<<Structure of the R
 * **Alternative 2 :** Check by variety
 ** Pros: Easy to implement.
 ** Cons: Not as accurate as one grain of rice or 1 grape would still be counted as variety despite the small portion.
-// end::goals[]
+
+Alternative 1 was chosen because of its higher accuracy, although conversion between different measurement may be
+overestimated. The command `deleteGoal` was then created in order to enable users to delete goals they deem inaccurate.
+
+===== Aspect: How the check for goal is done
+
+* **Alternative 1 (current choice):** Check every time a recipe is added or edited and store this data
+** Pros: More consistent for the user in keeping track of their goals.
+** Cons: Harder to implement as repetitive checks are needed every time ingredients are added or modified.
+Will be more expensive to calculate with a larger database.
+
+* **Alternative 2 :** Calculate the goals for each recipe every time it is retrieved from storage and set in RecipeList.
+** Pros: Easier to implement as only one check is needed for when the recipes are set.
+** Cons: Goals will reset each time the application is open. If goal has been deleted by user with `deleteGoal`, it will
+not be updated the next time the user opens the application as the checks will be the same.
+
+Alternative 1 was chosen as it optimizes the function of deleteGoal`, taking user preference into consideration.
+
+===== Aspect: How to store data for records
+
+* **Alternative 1 (current choice):** Store in a json file called records and calculate goal tally the first time
+it is set and update accordingly
+** Pros: A custom date can be set and it will be easier to iterate through the list to obtain goal tally.
+** Cons: Duplicate data will be stored and is harder to implement.
+
+* **Alternative 2 :** Use recipebook and add boolean attribute isCooked
+** Pros: Easy to implement.
+** Cons: Restricted usage, unable to implement date and do statistical analysis for the user.
+
+* **Alternative 3 :** Store goal tally in a new json file.
+** Pros: No need to iterate through recipe list each time and would be less expensive with a larger database.
+** Cons: Only contains four values.
+
+Alternative 1 was chosen as it optimizes the functions and uses of a Record and the scale for a personal data
+base is smaller, storage would not be an issue. Records need to be iterated through when set initially anyway, hence
+the association between GoalCount and Record makes the tally process more efficient.
+end::goals[]
 
 === Quote Command (Yue Tong)
 The quote command feature uses the `quote` command for users to input their own quotes to add on to the existing set of
