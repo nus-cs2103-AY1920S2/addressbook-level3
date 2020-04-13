@@ -50,6 +50,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+Note: during initialisation, modules may not fit full size of screen due to rendering speed. Please resize your
+window to enable responsiveness of module size.
+
 // tag::keyboard[]
 == Keyboard Shortcuts
 `Contributed by: CharmaineKoh`
@@ -133,6 +136,7 @@ image::help.png[]
 
 === Changing view : `view`
 `Contributed by: CharmaineKoh`
+
 Changes the NASA view to specified tab
 
 Format: `view TAB_NAME`
@@ -645,6 +649,7 @@ Format: `snooze-e INDEX m/MODULE_CODE [d/REMIND_DATE]` for events
 Exits the program. +
 Format: `exit`
 
+// tag::save[]
 === Saving the data
 `Contributed by: CharmaineKoh` +
 
@@ -654,6 +659,8 @@ data. There is no need to save manually.
 You can edit the data file directly to change any data.
 
 CAUTION:  If there is any invalid input in the data file, NASA will override the file and start with an empty file.
+
+// end::save[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -727,7 +734,7 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 | *Repeat Event* | `repeat-d INDEX m/MODULE_CODE r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
-| *View* | `view` TAB_NAME
+| *View* | `view TAB_NAME`
 |===
 
 // end::command_summary[]

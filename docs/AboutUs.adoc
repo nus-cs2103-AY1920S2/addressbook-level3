@@ -34,7 +34,7 @@ image::charmainekoh.png[width="150", align="left"]
 {empty}[http://github.com/CharmaineKoh[github]] [<<CharmaineKoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Backend
+Responsibilities: UI + Backend
 
 '''
 
@@ -42,7 +42,7 @@ Responsibilities: Backend
 image::don-tay.png[width="150", align="left"]
 {empty}[http://github.com/don-tay[github]] [<<don-tay#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: UI + Backend
 
 '''
