@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram of Coupo Stash.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the
@@ -69,7 +69,7 @@ Each of the four components
 The _Sequence Diagram_ below shows how the components interact with each other
 for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 1` command.
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,7 +77,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component.
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
@@ -88,7 +88,7 @@ All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The TabsPanel can be further divided into three tabs - `HelpPane`, `SummaryPane`
 and the `CouponListPanel`. The `CouponListPanel` contains the `CouponCard` that
-represents the `Coupon` s themselves.
+represents the ``Coupon``s themselves.
 
 The `CalendarResultsDisplayPanel` is split into two UI components - the
 `CalendarPane` and the `ResultDisplay`. As the name suggests, the `CalendarPane`
@@ -114,7 +114,7 @@ modified data.
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic Component.
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -131,7 +131,7 @@ certain actions, such as displaying help to the user.
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete 1` Command.
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker
@@ -141,7 +141,7 @@ diagram. This limitation affects all of the sequence diagrams in this document.
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component.
 image::ModelClassDiagram.png[]
 
 *API* :
@@ -170,7 +170,7 @@ image:BetterModelClassDiagram.png[]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+.Structure of the Storage Component.
 image::StorageClassDiagram.png[]
 
 *API* :
@@ -251,7 +251,7 @@ state, and restores the coupon stash to that state. Plus, the command text is
 returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
-.`currStateIndex` shifted once to the left
+.`currStateIndex` shifted once to the left.
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -357,6 +357,7 @@ the `Logic#getMonthView()` method.
 
 The class diagram below shows the interaction between classes that affects the Calendar:
 
+.Class Diagram representation of the Calendar mechanism
 image::CalendarClassDiagram.png[]
 
 The sequence diagrams below show how the Calendar works:
@@ -394,7 +395,7 @@ observable coupon list will not be altered and the calendar will not be altered.
 
 The following sequence diagram shows how the Calendar updates with the observable coupon list:
 
-.Sequence diagram representation of the Calendar for the "find chicken" Command
+.Sequence diagram representation of the Calendar for the "find chicken" Command.
 image::CalendarFindCommandSeqDiagram.png[]
 
 ===== Updating the Calendar with a Different Month View
@@ -431,6 +432,7 @@ observable month view will not be altered and the calendar will not be altered.
 
 The following sequence diagram shows how the Calendar updates with the observable month view:
 
+.Sequence diagram representation of the Calendar when the month view is updated.
 image::CalendarExpiringCommandSeqDiagram.png[]
 
 Or alternatively, instead of step 2,
@@ -514,7 +516,7 @@ by Coupon Stash.
 
 [#img-automaticarchiving]
 .Activity diagram representation of the general flow of archiving of coupons in Coupon Stash
-image::ArchivingActivityDiagram.png[]
+image::ArchivingActivityDiagram.png[width="300"]
 
 **Archiving of Expired Coupons**
 
@@ -578,9 +580,9 @@ image::ArchiveExhaustedSequenceDiagram.png[]
 ** Cons: Saved data may get get considerably huge after heavy usage of
 application.
 
-* **Alternative 2:** Archived `Coupon` s are stored in another separate data file.
+* **Alternative 2:** Archived ``Coupon``s are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. ability
-to limit the functions on archived `Coupon` s
+to limit the functions on archived ``Coupon``s
 ** Cons: Sharply increases the maintainability and coupling of the application
 with two data files.
 
@@ -742,7 +744,7 @@ When a `sort` command is executed, the field to sort by is indicated by the
 inputted prefix. The sequence diagram below describes what happens when a
 `sort` command is run.
 
-.Sequence diagram describing the process of sorting coupons
+.Sequence diagram describing the process of sorting coupons.
 image::SortCommandSeqDiagram.png[]
 
 Depending on the prefix to sort by, `ModelManager#sortCoupons()` will be
@@ -758,7 +760,7 @@ leads to a change of the comparator of the `SortedList` stored in
 
 * *Alternative 1 (current choice):* Make sorting non - persistent.
 ** Pros: Sorting is faster as no write to disk is needed to make the new
-order persistent. Addtionally, with the coupons being sorted by the time they
+order persistent. Additionally, with the coupons being sorted by the time they
 are added to the coupon stash by default, there is no way to restore this order
 without storing the time a coupon was added to the stash. Thus, the non -
 persistent approach shines here as restoring the original order of the coupon
@@ -811,6 +813,7 @@ class, RemindCommand class and RemindWindow class.
 The following activity diagram depicts what happens when the user runs a
 `edit` command to edit a coupons's `RemindDate`.
 
+.
 image::EditRemindActivityDiagram.png[]
 
 ==== Implementation of reminder pop up
