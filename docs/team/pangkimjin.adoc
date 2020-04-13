@@ -42,12 +42,12 @@ feature extension.
 ** Project management:
 *** There were a total of 4 releases, from version 1.1 to 1.4. I contributed to each release from project planning, feature implementation, enhancement, to testing.
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase test coverage (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/52[#36])
+*** Wrote additional tests for existing features to increase test coverage (Pull request https://github.com/AY1920S2-CS2103-T09-3/main/pull/52[#52])
 ** Documentation:
 *** Contributed multiple diagrams in the Developer Guide to better illustrate the new software architecture, Model component, `filter` feature,
 proposed Data Encryption feature, and proposed ExpenseLa Statement feature: https://github.com/AY1920S2-CS2103-T09-3/main/pull/167[#167] https://github.com/AY1920S2-CS2103-T09-3/main/pull/176[#176]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-T09-3/main/pull/180[#180], https://github.com[#181]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-T09-3/main/pull/180[#180], https://github.com/AY1920S2-CS2103-T09-3/main/pull/181[#181]
 *** Reported bugs and suggestions for other teams in the class (https://github.com/PangKimJin/ped/issues/1[1])
 
 
