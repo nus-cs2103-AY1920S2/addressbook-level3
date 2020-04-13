@@ -554,16 +554,21 @@ Lastly, do note that there are 2 types of commands:
 
 For alternative 3, the current implementation seems to store the entire application, but in reality, the end objects that the pointers in each `ModelState` are pointing to are largely the same. For example, suppose we have 1,000 persons in the AddressBook and we edit person 1000. The new `ModelState` actually points to the same Person object for the 1st 999 objects and only differs in the 1000th object.
 
-===== Aspect: How undo & redo executes
-** *Alternative 1*: Creates and saves the entire state of the application from scratch
-*** Pros: Easy to implement
-*** Cons: Requires huge amount of memory
-** *Alternative 2*: Stores only the individual command entered
-*** Pros: Minimal memory usage
-*** Cons: More difficult to ensure correctness as there will be many more alternate paths (scales as the number of commands go up)
-** *Alternative 3 (current choice)*: Partially stores the entire application
-*** Pros: Easy to implement
-*** Cons: Require significant amount of memory, but less than alternative 1
+===== Aspect: Which commands will cause a state change
+** *Alternative 1*: Every command will generate a new state
+*** Pros: Easy to implement (need not differentiate); can be more intuitive to some users (e.g. the user accidentally `(rt)list` and would like to go back to what the user was viewing previously)
+*** Cons: Requires more memory; can be less intuitive to some users as the `undo` for commands such as `(rt)list` only changes what the user sees but does not perform any real changes to the state
+** *Alternative 2 (current choice)*: Only commands that change the state will cause state transitions
+*** Pros: Less memory usage, can be more intuitive to some users; in reality, difficult to tell which is more intuitive to users without more data
+*** Cons: More difficult to ensure correctness as we need to ensure the exact set of commands that cause state transitions
+
+===== Aspect: What to show when the user executes a `undo` or `redo`
+** *Alternative 1*: Simply show the same screen
+*** Pros: Easy to implement, need to only take care of the backend without worrying about the UI; user might not want to move away from his/her current screen
+*** Cons: User has no confirmation that the undo did happen (e.g. if the user undoes adding a restaurant but we don't show the updated restaurant list)
+** *Alternative 2 (current choice)*: Displays what the user has undone/redone (e.g. if the user undoes adding a note to a contact, we should show the details of that contact upon the `undo` operation)
+*** Pros: Gives user confirmation of the new data and that the command is indeed undone
+*** Cons: More difficult to implement and requires more memory as we will have to store more information to flash to the user the correct screen that corresponds to the command
 
 end::rtundoredo[]
 
@@ -672,8 +677,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *`| user who has visited many different restaurants | be able to keep track of terrible dishes at each restaurant | I can avoid ordering them again.
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
