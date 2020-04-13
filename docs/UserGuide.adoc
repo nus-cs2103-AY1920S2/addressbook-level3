@@ -277,7 +277,7 @@ Sets the 1st deadline in CS2030 deadline-list to done.
 === Setting a deadline to ongoing: `continue`:
 `Contributed by kester-ng`
 Sets a deadline to ongoing +
-Format `continue INDEX m/MODULE_CODE`
+Format: `continue INDEX m/MODULE_CODE`
 
 ====
 ** Sets the deadline associated with the index in the module's deadline-list to ongoing.
@@ -517,14 +517,16 @@ exports the current calendar into nasa.ics file that is located at `./nasa` dire
 Sorts all deadlines and events in their respective modules by a specified criteria. +
 Format: `sort SORT_METHOD`
 
-* All sort method will sort both deadline and event, unless stated otherwise (eg. Priority)
+* All sort method will sort both deadline and event, unless stated otherwise. (eg. Priority)
+* Where stated, a command will sort both deadline and event using different sort method. (eg. Due date and start date)
 
-The list of sort methods is given below: +
+The list of sort methods is given in the table below: +
 
 |===
 |*Sort Method* |*Format* |*Sort order (top to bottom)*
 |Lexicographical order (case-insensitive) |`sort name` | A to Z
-|Due date |`sort date` | Earliest to latest
+|Due date (for deadline) +
+Start date (for event)|`sort date` | Earliest to latest
 |Priority *(for deadline only)*|`sort priority`| Highest (5) to lowest (1)
 |===
 // end::sort[]

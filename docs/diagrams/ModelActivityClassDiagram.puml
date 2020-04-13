@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam padding 12
+skinparam minClassWidth 100
+skinparam arrowFontSize 12
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Activity {
+abstract "{abstract}\nActivity" as Activity
+Class Name
+Class Date
+Class Note
+Class Schedule
+}
+
+Package Activity {
+Class Activity
+}
+
+Activity *--> "1" Name
+Activity *--> "1" Date
+Activity *--> "1" Note
+Activity *--> "1" Schedule
+
+@enduml
