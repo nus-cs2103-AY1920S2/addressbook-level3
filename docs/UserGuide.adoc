@@ -148,6 +148,8 @@ If you want to add a new note (to the path of the currently open note), use the 
 ====
 * Use the optional `-o` flag to immediately open the note after creating it.
 * Leaving out the `-o` open flag can be useful if you want to create multiple notes quickly for future use, but you don't need to edit them right away!
+* Want to save some time? Use the `n` shorthand instead of `new`
+** `n -t TITLE [-o]`
 ====
 
 [#duplicateNotes]
@@ -249,27 +251,73 @@ image::demo/Edit.png[]
 
 If you no longer need a note, or if you have accidentally created a wrong note, don't worry! You can always delete that note. +
 
-*Format:* `delete [-t] [PATH/TO/]TITLE`
+*Format:* `delete [-t] AbsolutePath/RelativePath`
+[NOTE]
+====
+* Requires prior understanding of `AbsolutePath` and `RelativePath`. You can refer <<paths, here>> for an explanation
+====
 
 [WARNING]
 ====
 * Deleting a note will also delete its child notes. Be very careful! You can refer to the example below for an illustration
+* Deleting the root note (i.e. `delete /`) is prohibited.
 ====
 
-==== Example: Deleting an existing note
+[TIP]
+====
+* You can delete the currently open note using the command `delete .`
+** Refer to <<deleteCurrent, example 3.6.2>>
+* Want to save some time? Drop the optional `-t` flag and use the `d` shorthand instead of `delete`
+** `d AbsolutePath/RelativePath`
+====
+
+==== Example: Deleting a note under the currently open note
 . Let's delete the `Notably` note using this command:
 
     delete -t Notably
-
++
 [NOTE]
 ====
-* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are child notes of `Notably`
+* The currently open note is `Workspace`
 * The above example uses `RelativePath`. You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
+** Not sure about `AbsolutePath` and `RelativePath`? You can refer <<paths, here>> for a clearer explanation
 ====
-.Demo for the `delete` command
-image::demo/Delete1.png[]
 
-.Demo for the `delete` command (after deletion)
+. The note with the title `Notably` is deleted successfully since it exists!
++
+[WARNING]
+====
+* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are notes under `Notably`
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete1.png[]
++
+.Final state after deletion
+image::demo/Delete2.png[]
+
+[#deleteCurrent]
+==== Deleting the currently open note
+. In this example, `Notably` is the currently open note. Let's delete it using the command:
+
+    delete .
++
+[NOTE]
+====
+* The `.` in the command is a `RelativePath` that points to the path of the currently open note
+====
++
+. `Notably` note is deleted and the currently open note is now `Workspace`
++
+[NOTE]
+====
+* This will change the currently open note to the deleted note's parent note
+====
++
+.Step 1 - Key in the example command
+image::demo/Delete3.png[]
++
+.Final state after deletion
 image::demo/Delete2.png[]
 
 === Find a note based on certain keywords: `search`
