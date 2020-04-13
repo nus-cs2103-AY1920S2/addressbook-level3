@@ -80,4 +80,3 @@ include::../UserGuide.adoc[tag=summary]
 |===
 
 include::../DeveloperGuide.adoc[tag=exercise]
-include::..DeveloperGuide.adoc[tag=UI]
