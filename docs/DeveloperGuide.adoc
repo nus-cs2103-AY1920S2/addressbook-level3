@@ -734,6 +734,31 @@ Finance type `CourseStudent` or `cs` add command will access `CourseAddressBook`
 `Student` exist and make sure this student is taking this course. The `Amount` is set to the amount of the `Course`
 (student fee).
 
+=== Navigation among command history in the command box
+.Activity diagram of Command History
+image::CommandHistory.png[]
+Coding Camp X supports quick navigation among command history in the command box.
+Whenever the user executes a command, it will be added to a stack. If the command
+fails to execute or is exactly the same as the previous command executed,
+it will not be added to the stack. +
+
+The user can click the [UP ARROW] or [DOWN ARROW] keys in the command box
+to navigate through the executed command history. Since the implementation
+for [UP ARROW] is similar(as seen in the activity diagram), this guide will explain
+[DOWN ARROW] in details.
+
+When the user clicks the [DOWN ARROW], the application will check
+if the Right Stack is empty. If the Right Stack is empty, this means
+that there is no commands below to navigate to. In this case, the command
+box will still show the initial command.(No change) +
+
+Else if the Right Stack is not empty, the next command will be popped
+from the top of the Right Stack. Now, two actions will occur in parallel.
+The command will be added to the Left Stack, and this command will also be
+shown in the command box. This allows the user to navigate back to
+the command after with an [UP ARROW] key command. The process will then
+come to an end.
+
 === Logging
 
 We are using `java.util.logging` package for logging.
