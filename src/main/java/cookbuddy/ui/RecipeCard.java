@@ -65,7 +65,7 @@ public class RecipeCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().toString());
-        calorie.setText("Calorie: " + recipe.getCalorie().toString());
+        calorie.setText("Calorie: " + recipe.getCalorie().toString() + " kcal");
         fav.setText(recipe.getFavStatus().toString());
         done.setText("Attempted: " + recipe.getDoneStatus().toString());
         timing.setText("\uD83D\uDD52: " + recipe.getPrepTime().toString());
