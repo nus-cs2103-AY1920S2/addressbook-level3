@@ -17,12 +17,15 @@ import tatracker.model.TaTracker;
  */
 public class ClearCommand extends Command {
 
+    // @@author potatocombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLEAR,
             "Clears all data stored inside TA-Tracker",
             List.of(),
             List.of()
     );
+
+    // @@author
 
     public static final String MESSAGE_CLEAR_SUCCESS = "TA-Tracker has been cleared!";
 

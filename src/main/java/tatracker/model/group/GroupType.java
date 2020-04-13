@@ -21,6 +21,7 @@ public enum GroupType {
     public static final String MESSAGE_CONSTRAINTS =
             "These are the only group types: lab, tutorial, recitation, other";
 
+    //@@author potatocombat
     private static final Map<String, GroupType> GROUP_TYPES = Arrays.stream(values())
             .collect(Collectors.toUnmodifiableMap(type -> type.name().toLowerCase(), type -> type));
 
@@ -33,6 +34,7 @@ public enum GroupType {
         return GROUP_TYPES.get(groupType.toLowerCase());
     }
 
+    //@@author aakanksha-rai
     @Override
     public String toString() {
         String name = name();

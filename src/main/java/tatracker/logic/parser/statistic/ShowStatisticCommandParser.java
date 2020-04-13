@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.logic.parser.statistic;
 
 import tatracker.logic.commands.statistic.ShowStatisticCommand;

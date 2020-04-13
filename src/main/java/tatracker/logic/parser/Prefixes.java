@@ -1,3 +1,5 @@
+//@@author potatocombat
+
 package tatracker.logic.parser;
 
 /**

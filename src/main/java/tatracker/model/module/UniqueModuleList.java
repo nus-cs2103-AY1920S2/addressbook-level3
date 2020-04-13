@@ -11,6 +11,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import tatracker.model.module.exception.DuplicateModuleException;
+import tatracker.model.module.exception.ModuleNotFoundException;
+
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
  * A module is considered unique by comparing using {@code Module#equals(Object)}. As such, adding and updating of
@@ -76,9 +79,9 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     public Module getModule(Module module) {
-        for (int i = 0; i < internalList.size(); i++) {
-            if (module.getIdentifier().equals(internalList.get(i).getIdentifier())) {
-                return internalList.get(i);
+        for (Module actualModule : internalList) {
+            if (module.getIdentifier().equals(actualModule.getIdentifier())) {
+                return actualModule;
             }
         }
         return null;

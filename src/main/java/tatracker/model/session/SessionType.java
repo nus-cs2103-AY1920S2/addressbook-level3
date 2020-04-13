@@ -1,3 +1,5 @@
+//@@author fatin99
+
 package tatracker.model.session;
 
 import static java.util.Objects.requireNonNull;
@@ -24,6 +26,8 @@ public enum SessionType {
     public static final String MESSAGE_CONSTRAINTS =
             "These are the only session types: lab, tutorial, consultation, grading, preparation, other";
 
+    //@@author potatocombat
+
     private static final Map<String, SessionType> SESSION_TYPES = Arrays.stream(values())
             .collect(Collectors.toUnmodifiableMap(type -> type.name().toLowerCase(), type -> type));
 
@@ -40,12 +44,16 @@ public enum SessionType {
         return SESSION_TYPES.get(sessionType.toLowerCase());
     }
 
+    //@@author Eclmist
+
     public static SessionType getSessionTypeById(int id) {
         if (id < 0 || id >= NUM_SESSION_TYPES) {
             throw new IllegalArgumentException("The requested SessionType ID is invalid!");
         }
         return SESSION_TYPE_IDS.get(id);
     }
+
+    //@@author fatin99
 
     @Override
     public String toString() {

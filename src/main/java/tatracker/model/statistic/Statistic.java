@@ -1,3 +1,5 @@
+//@@author Eclmist
+
 package tatracker.model.statistic;
 
 import java.util.ArrayList;
