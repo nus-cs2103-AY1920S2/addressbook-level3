@@ -1,0 +1,65 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+    Interface Model <<Interface>>
+    Interface UserPrefsModel <<Interface>>
+    Interface SessionModel <<Interface>>
+    Interface ExerciseModel <<Interface>>
+    Interface WorkoutModel <<Interface>>
+    Interface SchedulerModel <<Interface>>
+    Interface LogModel <<Interface>>
+    Interface ObservableList <<Interface>>
+
+    Class ExerciseList
+    Class WorkoutList
+    Class ScheduleList
+    Class LogList
+
+    Class Model
+    Class ModelManager
+    Class UserPrefs
+
+    Package Exercise {
+        Class HiddenExerciseModel #FFFFFF
+    }
+
+    Package Workout {
+        Class HiddenWorkoutModel #FFFFFF
+    }
+
+    Package Schedule {
+        Class HiddenSchedulerModel #FFFFFF
+    }
+
+    Package Log {
+        Class HiddenLogModel #FFFFFF
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> Model
+
+Model -up-|> UserPrefsModel
+Model -up-|> SessionModel
+Model -up-|> ExerciseModel
+Model -up-|> WorkoutModel
+Model -up-|> SchedulerModel
+Model -up-|> LogModel
+Model .right.> ObservableList
+
+ModelManager .up.|> Model
+ModelManager o--> "1" UserPrefs
+ModelManager o--> "1" ExerciseList
+ModelManager o--> "1" WorkoutList
+ModelManager o--> "1" ScheduleList
+ModelManager o--> "1" LogList
+
+ExerciseList ...down.> Exercise
+WorkoutList ...down.> Workout
+ScheduleList .down.> Schedule
+LogList .down.> Log
+@enduml

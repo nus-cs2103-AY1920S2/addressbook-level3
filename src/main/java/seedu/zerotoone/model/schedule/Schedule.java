@@ -6,7 +6,7 @@ import java.util.Optional;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Represents a Schedule that is able to return ScheduledWorkout when requested.
  */
 public interface Schedule {
     WorkoutName getWorkoutNameToSchedule();

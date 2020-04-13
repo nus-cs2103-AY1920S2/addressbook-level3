@@ -1,0 +1,37 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class "{abstract}\nCommand" as Command
+
+Package "Exercise Commands" <<Rectangle>> {
+    Class "{abstract}\nExerciseCommand" as ExerciseCommand
+    Class CreateCommand
+    Class DeleteCommand
+    Class EditCommand
+    Class FindCommand
+    Class ListCommand
+
+    Package "Exercise Set Commands" <<Rectangle>> {
+        Class "{abstract}\nSetCommand" as SetCommand
+        Class AddCommand
+        Class "DeleteCommand" as SetDeleteCommand
+        Class "EditCommand" as SetEditCommand
+    }
+}
+
+ExerciseCommand -up-|> Command
+CreateCommand --up-|> ExerciseCommand
+DeleteCommand --up-|> ExerciseCommand
+EditCommand --up-|> ExerciseCommand
+FindCommand --up-|> ExerciseCommand
+ListCommand --up-|> ExerciseCommand
+
+SetCommand --up-|> ExerciseCommand
+AddCommand --up-|> SetCommand
+SetDeleteCommand --up-|> SetCommand
+SetEditCommand --up-|> SetCommand
+
+@enduml

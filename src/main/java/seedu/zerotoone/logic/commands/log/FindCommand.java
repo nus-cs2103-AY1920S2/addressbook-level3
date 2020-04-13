@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -20,10 +22,12 @@ import seedu.zerotoone.model.workout.WorkoutName;
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends LogCommand {
+
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "Usage: " + Commands.LOG_FIND;
     public static final String MESSAGE_LOGS_LISTED_OVERVIEW = "Listed %1$d logged workout session(s) found!";
 
+    private static final Logger logger = LogsCenter.getLogger(FindCommand.class);
     private final Optional<LocalDateTime> startRange;
     private final Optional<LocalDateTime> endRange;
     private final Optional<WorkoutName> workoutNameOptional;
@@ -42,6 +46,9 @@ public class FindCommand extends LogCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        logger.info("Executing log find command");
+
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
         }

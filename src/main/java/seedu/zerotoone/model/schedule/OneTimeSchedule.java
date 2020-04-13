@@ -7,7 +7,8 @@ import java.util.Optional;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Represents a one time schedule in the schedule list.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class OneTimeSchedule implements Schedule {
 

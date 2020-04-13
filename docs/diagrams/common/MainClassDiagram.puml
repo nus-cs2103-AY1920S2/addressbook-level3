@@ -1,0 +1,29 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MAIN_COLOR_T1
+skinparam classBackgroundColor MAIN_COLOR
+
+package Main <<Rectangle>>{
+    Class Main
+    Class MainApp
+    Class SplashScreen
+    Class Preloader
+    Class Application
+}
+
+package Ui <<Rectangle>> {
+    Class HiddenUi #FFFFFF
+}
+
+MainApp -up-|> Application
+Preloader -up-|> Application
+SplashScreen -up-|> Preloader
+SplashScreen -right[hidden]- MainApp
+
+Main -up-> SplashScreen
+Main -up-> MainApp
+
+MainApp -right-> Ui
+
+@enduml
