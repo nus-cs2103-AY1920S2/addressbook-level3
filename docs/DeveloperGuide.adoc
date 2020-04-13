@@ -210,7 +210,7 @@ Auto completion of a word happens when either:
 . the input matches the start of a target word
 . the edit distance between the input and the target < 2.
 =====
-[#completion criteria]
+[#criteria]
 
 The above diagram provides a big picture overview of decisions `CommandCompletor` goes through when processing user input.
 
@@ -227,7 +227,7 @@ The above diagram provides a big picture overview of decisions `CommandCompletor
 . If input is a delete/done command
 .. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
 . If input is a sort command
-.. Auto completion of fields is performed based on the <<completion criteria>>
+.. Auto completion of fields is performed based on the <<criteria, criteria>>
 .. If the field is not recongized, then it is removed
 
 ==== Auto Complete output:
@@ -272,7 +272,7 @@ image::ACIndexActivityDiagram.png[]
 Similar to before, we iterate through the arguments and we remove indexes that are either out of the displayed TaskList's size or that is not a positive integer. We then append it to a removed list so that we can inform the user what input has been removed.
 
 ==== Sort field Completion
-Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<completion criteria>>.
+Sort field completion is done by iterating through all arguments word by word and performing the auto complete checks against all possible sort fields. The auto complete checks were the same as the above <<criteria, criteria>>.
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
