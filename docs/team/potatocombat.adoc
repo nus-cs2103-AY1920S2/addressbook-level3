@@ -38,7 +38,7 @@ I created the `Rating` model to represent a student's rating from scratch.
 *Justification:* Since our *target users* are Teaching Assistants (TAs), they may need to rate students as part of their teaching duties.
 
 ==== Code contributed
-* [https://github.com[Functional code]] [https://github.com[Test code]]
+The section of code that I contributed can be found [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=potatocombat[here]].
 
 ==== Other Contributions
 
