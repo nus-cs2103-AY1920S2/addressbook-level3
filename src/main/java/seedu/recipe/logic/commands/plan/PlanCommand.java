@@ -2,7 +2,6 @@ package seedu.recipe.logic.commands.plan;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
