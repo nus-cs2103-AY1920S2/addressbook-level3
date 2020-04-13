@@ -240,8 +240,10 @@ Deletes the 2nd student in TAble.
 `deleteStudent 1` +
 Deletes the 1st student in the list resulting from the `findStudent` command.
 
-==== Sort students alphabetically by name: `sortStudentName` [coming in v2.0]
-Sorts the current list of students according to their name in alphabetical order
+==== Sort students alphabetically by name: `sortStudentName`
+Sorts the current list of students according to their name in alphabetical order. If there
+are two students with the same name they will be sorted by matric number, meaning the
+student with the lower matric number will be higher on the list.
 Format: `sortStudentName`
 
 //end::Student[]
@@ -844,7 +846,8 @@ e.g. `findStudent James Jake`
 * *Find Student with a certain matric number* : `findStudentMatricNumber matric/matric_number` +
 e.g. `findStudentMatricNumber matric/A0123456A`
 * *List* : `listStudent`
-e.g. `listStudent`
+* *Sorts the list of students in alphabetical order* : `sortStudent`
+
 
 
 === Module

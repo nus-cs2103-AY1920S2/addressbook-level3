@@ -20,6 +20,7 @@ quickly see information information regarding each student.  Any edit or deletio
 * *Minor enhancements*:
 ** Added labels on the Graphical User Interface which allows the user to identify which module and tutorials each student is currently enrolled in
 *** Eliminates the need for user to look through all tutorials to identify the tutorials each student is currently enrolled in, which is repetitive and can be inefficient especially when the number of tutorials in TAble increases significantly.
+** Implemented a sorting feature which allows the user to sort the students in TAble in alphabetical order. If there are students with the same full names, these students will be sorted using their matric number, the student with the smallest matric number will appear highest on the list.
 * *All code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=shunde97&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense - Code Report]]
 
 * *Other contributions*:

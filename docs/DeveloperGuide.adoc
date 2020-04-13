@@ -212,8 +212,8 @@ Reason for choosing Alternative 1:  From a user design perspective, a teaching a
 to check if the student has been added , or to identify which tutorial and modules the student has been added in. When the list gets bigger,
 he would have to scroll further to search for the student he is looking for or to check if a particular student has been added. With both `findStudent` and `findStudentMatricNumber` commands present,
 it would be more efficient to find the student using either of 2 commands than scrolling through the list of students. This also aligns with the project constraints that typing is preferred over mouse use.
-The functionality of sorting the list of students alphabetically via a command will be implemented in version 2.0 for a better user experience and a more presentable list of studenst.
-Currently the functionality that both `findStudent` and `findStudentMatricNumber` provides an efficient solution to identify students or check if they have been added.
+The functionality of sorting the list of students alphabetically via a command was implemented to bring about a better user experience and a more presentable list of students.
+However the functionality of both `findStudent` and `findStudentMatricNumber` provides an efficient solution to identify students or check if they have been added, without the need to sort the list of students.
 
 // end::student[]
 
@@ -816,7 +816,24 @@ Use case ends.
 *MSS*
 
 1.  User requests to list all existing students in the database
-2.  System shows the list of existing students students
+2.  System shows the list of existing students
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort students (U07)
+
+*MSS*
+
+1.  User requests to sort all existing students in the database
+2.  System shows the list of existing students sorted in alphabetical order
 +
 Use case ends.
 
@@ -830,7 +847,7 @@ Use case ends.
 // end::sd[]
 
 [discrete]
-=== Use case: Add consult (U07)
+=== Use case: Add consult (U08)
 
 *MSS*
 
@@ -852,7 +869,7 @@ Use case ends.
 // tag::hc[]
 
 [discrete]
-=== Use case: Edit consult (U08)
+=== Use case: Edit consult (U09)
 
 *MSS*
 
@@ -879,7 +896,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Delete consult (U09)
+=== Use case: Delete consult (U10)
 
 *MSS*
 
@@ -907,7 +924,7 @@ Use case ends.
 // end::hc[]
 
 [discrete]
-=== Use case: List consults (U10)
+=== Use case: List consults (U11)
 
 *MSS*
 
@@ -925,7 +942,7 @@ Use case ends.
 
 // tag::sarah[]
 [discrete]
-=== Use case: Add tutorial (U11)
+=== Use case: Add tutorial (U12)
 
 *MSS*
 
@@ -945,7 +962,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Delete tutorial (U12)
+=== Use case: Delete tutorial (U13)
 
 *MSS*
 
@@ -973,7 +990,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: List tutorials (U13)
+=== Use case: List tutorials (U14)
 
 *MSS*
 
@@ -983,7 +1000,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Add a student to an existing tutorial (U14)
+=== Use case: Add a student to an existing tutorial (U15)
 
 *MSS*
 
@@ -1019,7 +1036,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Remove a student from an existing tutorial (U15)
+=== Use case: Remove a student from an existing tutorial (U16)
 
 *MSS*
 
@@ -1055,7 +1072,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Mark attendance of student (U16)
+=== Use case: Mark attendance of student (U17)
 
 *MSS*
 
@@ -1083,7 +1100,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View attendance sheet (U17)
+=== Use case: View attendance sheet (U18)
 
 *MSS*
 
@@ -1095,7 +1112,7 @@ Use case ends.
 
 // tag::cranston[]
 [discrete]
-=== Use case: Add reminder (U18)
+=== Use case: Add reminder (U19)
 
 *MSS*
 
@@ -1115,7 +1132,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Mark reminder as done (U19)
+=== Use case: Mark reminder as done (U20)
 
 *MSS*
 
@@ -1142,7 +1159,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Update reminder (U20)
+=== Use case: Update reminder (U21)
 
 *MSS*
 
@@ -1169,7 +1186,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Delete reminder (U21)
+=== Use case: Delete reminder (U22)
 
 *MSS*
 
@@ -1189,7 +1206,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: List reminders (U22)
+=== Use case: List reminders (U23)
 
 *MSS*
 
@@ -1206,7 +1223,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Find reminders (U23)
+=== Use case: Find reminders (U24)
 
 *MSS*
 
@@ -1230,7 +1247,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Snooze reminder (U24)
+=== Use case: Snooze reminder (U25)
 
 *MSS*
 
@@ -1265,7 +1282,7 @@ Use case ends.
 // end::cranston[]
 
 [discrete]
-=== Use case: Create Module (U25)
+=== Use case: Create Module (U26)
 
 *MSS*
 
@@ -1290,7 +1307,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View Module (U26)
+=== Use case: View Module (U27)
 
 *MSS*
 
@@ -1310,7 +1327,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Update Module (U27)
+=== Use case: Update Module (U28)
 
 *MSS*
 
@@ -1330,7 +1347,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Add Module links (U28)
+=== Use case: Add Module links (U29)
 
 *MSS*
 
@@ -1358,7 +1375,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Clear All Module links (U29)
+=== Use case: Clear All Module links (U30)
 
 *MSS*
 
@@ -1379,7 +1396,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Open Calendar Window (U30)
+=== Use case: Open Calendar Window (U31)
 
 *MSS*
 

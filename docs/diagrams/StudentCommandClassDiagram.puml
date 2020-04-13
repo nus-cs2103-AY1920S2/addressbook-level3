@@ -44,7 +44,7 @@ note top of XYZStudentCommandParser: XYZCommandParser refers to \nthe correspond
 
 
 
-Student *-up- "*" Name
+Student *-up- "1" Name
 Student *-up- "1"MatricNumber
 Student *-up- "1" Email
 Student *-up- "*" Tag

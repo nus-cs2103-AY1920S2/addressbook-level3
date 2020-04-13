@@ -46,7 +46,8 @@ public class SampleDataUtil {
             new Student(new Name("Bernice Yu"), new MatricNumber("A0125875G"), new Email("berniceyu@example.com"),
                 getTagSet("perfect", "hardworking", "future TA")),
             new Student(new Name("Charlotte Oliveiro"), new MatricNumber("A0123456A"),
-                    new Email("charlotte@example.com"), getTagSet("noisy", "distracting", "2nd time as my student")),
+                    new Email("charlotte@example.com"), getTagSet("noisy", "distracting",
+                    "2nd time as my student")),
             new Student(new Name("David Li"), new MatricNumber("A0356982H"), new Email("lidavid@example.com"),
                 getTagSet()),
             new Student(new Name("Irfan Ibrahim"), new MatricNumber("A0167954H"), new Email("irfan@example.com"),
@@ -97,11 +98,11 @@ public class SampleDataUtil {
         Location location = new Location("SR1");
         Tutorial tutorial = new Tutorial(modCode, tutorialName, weekday, startTime, endTime, location);
         Student alex = new Student(new Name("Alex Yeoh"), new MatricNumber("A0187596R"),
-                new Email("alexyeoh@example.com"), getTagSet("friends"));
+                new Email("alexyeoh@example.com"), getTagSet("too quiet"));
         Student bernice = new Student(new Name("Bernice Yu"), new MatricNumber("A0125875G"),
-                new Email("berniceyu@example.com"), getTagSet("colleagues", "friends"));
+                new Email("berniceyu@example.com"), getTagSet("perfect", "hardworking", "future TA"));
         Student charlotte = new Student(new Name("Charlotte Oliveiro"), new MatricNumber("A0123456A"),
-                new Email("charlotte@example.com"), getTagSet("neighbours"));
+                new Email("charlotte@example.com"), getTagSet("noisy", "distracting", "2nd time as my student"));
         tutorial.setEnrolledStudents(alex);
         tutorial.setEnrolledStudents(bernice);
         tutorial.setEnrolledStudents(charlotte);
