@@ -69,7 +69,7 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 *** Helped the team define sections in the Developer Guide to fill in for better organisation. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/108[#108])
 
 ** Community:
-*** I reviewed a total of 28 of 69 PRs made by other team members.
+*** I reviewed a total of 31+ PRs.
 *** Regularly collated and updated a list of deadlines and deliverables in our group chat, to help everyone keep track of deadlines.
 *** Created a full set of app mockups while the project was still in its early planning stages, including the key user flows and UI design. This acted as a concrete goal for us to work towards as we developed the app.
 
