@@ -11,7 +11,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Delino is a desktop application for couriers to manage delivery tasks. The user
-interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 16 kLoC.</p>
 </div>
 </div>
 </div>
@@ -200,9 +200,9 @@ Why will you want to use the <code>edit</code> command? If you wish to edit any 
 </div>
 <div class="paragraph">
 <p><strong>Step 1</strong> : Type in the keyword <code>edit</code><br>
-<strong>Step 2</strong> : Provide the <code><a href="#command_flags">FLAG</a></code> corresponding to the parcel order type you want to edit<br>
+<strong>Step 2</strong> : Provide the <code>FLAG</code> corresponding to the parcel order type you want to edit<br>
 <strong>Step 3</strong> : Provide the <code>INDEX</code> of the parcel displayed on the screen that you wish to edit<br>
-<strong>Step 4</strong> : Provide the <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> coupled with a front slash <code>/</code> and the new value you want to change to.<br>
+<strong>Step 4</strong> : Provide the <code>ORDER_ATTRIBUTE_PREFIX</code> coupled with a front slash <code>/</code> and the new value you want to change to.<br>
 <strong>Step 5</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
 </div>
 <div class="admonitionblock note">
@@ -235,7 +235,7 @@ Why will you want to use the <code>edit</code> command? If you wish to edit any 
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit</code> <code>FLAG</code> <code>INDEX</code> <code>ORDER_ATTRIBUTE_PREFIX/NEW_VALUE</code> <code>[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]&#8230;&#8203;</code></p>
+<p><code>edit</code> <code><a href="#command_flags">FLAG</a></code> <code>INDEX</code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/NEW_VALUE</code> <code>[<a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/NEW_VALUE]&#8230;&#8203;</code></p>
 </li>
 </ul>
 </div>
@@ -294,8 +294,8 @@ Why will you want to use the <code>edit</code> command? If you wish to edit any 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the phone number of the second order displayed on the orders list.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-o</code> <code>2</code> <code>p/9999 4444</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>2</code> customer&#8217;s phone number of the order list will be changed changed to <code>9999 4444</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-o</code> <code>2</code> <code>p/99994444</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>2</code> customer&#8217;s phone number of the order list will be changed changed to <code>99994444</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the address of the first order displayed on the orders list.</p></td>
@@ -304,7 +304,7 @@ Why will you want to use the <code>edit</code> command? If you wish to edit any 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If you want to edit the name, phone number and address of the third return order displayed on the returns list.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/0123 4567</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/96959321</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The index <code>3</code> customer&#8217;s name, phone and address of the return order list will be changed accordingly to the prefix.</p></td>
 </tr>
 </tbody>
@@ -328,7 +328,7 @@ Why will you want to use the <code>edit</code> command? If you wish to edit any 
 <p>Only can be used when there is at least an order displayed.</p>
 </li>
 <li>
-<p>The <code>FLAG</code> can only be either <code>-o</code> or <code>-r</code>, please refer to <a href="#command_flags">here</a> for more information.</p>
+<p>The <code>FLAG</code> can only be either <code>-o</code> or <code>-r</code>.</p>
 </li>
 </ul>
 </div>
@@ -377,7 +377,7 @@ Why will you want to use the <code>search</code> command? If you wish to search 
 </table>
 </div>
 <div class="paragraph">
-<p><strong>Step 3 (optional)</strong> : If you wish to only specifically search for keywords in a field, you should provide the <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a></code> coupled with a front slash <code>/</code> and the keyword you want to search for.<br>
+<p><strong>Step 3 (optional)</strong> : If you wish to only specifically search for keywords in a field, you should provide the <code>ORDER_ATTRIBUTE_PREFIX</code> coupled with a front slash <code>/</code> and the keyword you want to search for.<br>
 <strong>Step 4</strong> : Provide any number of alphanumeric words you wish to search for in the parcel.<br>
 <strong>Step 5</strong> : Press <code>Enter</code> on your keyboard to see the magic!</p>
 </div>
@@ -584,9 +584,9 @@ the provided link in the table below.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#edit"><strong>Edit</strong></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>FLAG</code> <code>INDEX</code> <code>ORDER_ATTRIBUTE_PREFIX/VALUE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit</code> <code>-r</code> <code>2</code> <code>n/Xuan En</code><br>
-<code>edit</code> <code>-o</code> <code>2</code> <code>p/9999 4444</code><br>
+<code>edit</code> <code>-o</code> <code>2</code> <code>p/99994444</code><br>
 <code>edit</code> <code>-o</code> <code>1</code> <code>a/Blk 123 Pasir Ris Street 51 #12-21 S510123</code><br>
-<code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/0123 4567</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
+<code>edit</code> <code>-r</code> <code>3</code> <code>n/Mr Tan</code> <code>p/99994567</code> <code>a/Blk 141 Yishun st 71 #09-09 S760141</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#exit"><strong>Exit</strong></a></p></td>
@@ -595,7 +595,7 @@ the provided link in the table below.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#search"><strong>Search</strong></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>[<a href="#command_flags">FLAG</a>]</code> <code><a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD</code> <code>[MORE_KEYWORDS]&#8230;&#8203;</code> <code>[<a href="#command_prefix">ORDER_ATTRIBUTE_PREFIX</a>/KEYWORD MORE_KEYWORDS]&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>FLAG</code> <code>ORDER_ATTRIBUTE_PREFIX/KEYWORD</code> <code>[MORE_KEYWORDS]&#8230;&#8203;</code> <code>[ORDER_ATTRIBUTE_PREFIX/KEYWORD MORE_KEYWORDS]&#8230;&#8203;</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code> <code>-r</code> <code>tid/ac1e345x7s</code><br>
 <code>search</code> <code>-r</code> <code>Jeremy Loh</code><br>
 <code>search</code> <code>-o</code> <code>tid/asj2od3943</code><br>
@@ -609,8 +609,23 @@ the provided link in the table below.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#show"><strong>Show</strong></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>START_DATE</code> <code>[END_DATE]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>2020-01-01</code> <code>2020-12-31</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>all</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>today</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>today</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>DATE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show</code> <code>2020-03-20</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#import"><strong>Import</strong></a></p></td>
@@ -626,10 +641,15 @@ the provided link in the table below.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#return"><strong>Return</strong></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>rts/RETURN_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>c/COMMENTS_BY_CUSTOMER</code> <code>type/TYPE_OF_ITEM</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/ac17s2a</code> <code>n/BOBBY TAN</code> <code>a/123 Delta Road #03-333, Singapore 123456</code> <code>p/91230456</code> <code>rts/12-12-2020 1301</code> <code>w/Jurong Warehouse</code> <code>c/NIL</code> <code>type/glass</code><br>
-<code>return</code> <code>tid/ac17s2a</code><br>
-<code>return</code> <code>tid/b1230512</code> <code>n/Aaron Teo</code> <code>a/256 Alpha Road #03-222, Singapore 123567</code> <code>p/91230456</code> <code>e/aaron@example.com</code> <code>rts/12-12-2020 1400</code> <code>w/Jurong Warehouse</code> <code>c/Leave it at the lobby</code> <code>type/metal</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/TRANSACTION_ID</code> <code>n/CUSTOMER_NAME</code> <code>a/ADDRESS</code> <code>p/PHONE_NUMBER</code> <code>e/EMAIL</code> <code>rts/RETURN_DATE_&amp;_TIME</code> <code>w/WAREHOUSE_LOCATION</code> <code>[c/COMMENTS_BY_CUSTOMER]</code> <code>[type/TYPE_OF_ITEM]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/ac17s2a</code> <code>n/BOBBY TAN</code> <code>a/123 Delta Road #03-333, Singapore S169814</code> <code>p/91230456</code> <code>rts/2020-12-12 1301</code> <code>w/Jurong Warehouse</code> <code>c/NIL</code> <code>type/glass</code><br>
+<code>return</code> <code>tid/ac17s2a</code><br></p>
+<p class="tableblock"><code>return</code> <code>tid/b1230512</code> <code>n/Aaron Teo</code> <code>a/256 Delta Road #03-222, Singapore S169256</code> <code>p/91230456</code> <code>e/aaron@example.com</code> <code>rts/2020-12-12 1400</code> <code>w/Jurong Warehouse</code> <code>c/Leave it at the lobby</code> <code>type/metal</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/TRANSACTION_ID</code> <code>rts/RETURN_DATE_&amp;_TIME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>return</code> <code>tid/ac17s2a</code> <code>rts/2020-12-12 1301</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#nearby"><strong>Nearby</strong></a></p></td>
@@ -1197,11 +1217,11 @@ Expected: The first index is edited where the address of the customer of the ord
 Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 841 Yishun st 81 #01-02 S760841.</p>
 </li>
 <li>
-<p>Test case: <code>edit</code> <code>-o</code> <code>1</code> <code>dts/09/08/2020</code><br>
+<p>Test case: <code>edit</code> <code>-o</code> <code>1</code> <code>dts/2020-08-09</code><br>
 Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.</p>
 </li>
 <li>
-<p>Test case: <code>edit</code> <code>-r</code> <code>1</code> <code>rts/02/02/1900</code><br>
+<p>Test case: <code>edit</code> <code>-r</code> <code>1</code> <code>rts/1900-02-02</code><br>
 Expected: The response box will display an error message as it is impossible to put a date that is already passed.</p>
 </li>
 </ol>
@@ -1257,4 +1277,4 @@ Expected: Specifically search for any order from the order list that has a Trans
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 14:36:18 SGT</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 17:14:25 SGT</div></div></div></body></html>
