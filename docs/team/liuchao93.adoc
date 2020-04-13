@@ -1,0 +1,61 @@
+= Liu Chao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: InventoryManager
+
+== Overview
+
+This desktop application titled “Inventory Manager” is aiming to assist store managers to manage their records of transactions
+of goods 1) between managers and suppliers, and 2) between managers and customers. Managers could use this application to record
+suppliers’ information and source suppliers to buy goods from. Each transaction of buying goods from suppliers or selling goods
+to customers is recorded with this application.
+
+== Summary of contributions
+
+* *Major enhancement 1*: Edit Supplier
+** What it does: The command allows users to edit the information of a supplier such as company name, company address, phone number, email address and good price pairs recorded in the supplier's goods list. Users could edit any field of these information and could edit multiple good price pairs at once. In addition, if the input good price pairs are not included in the original supplier's goods list, the input will be a new entry in the supplier's goods list. This provides an option for users to add new entries of price good pairs to the suppliers' goods list.
+** Justification: users (store managers) need to consistently update information of suppliers in order to perform day to day tasks. In addition, users need an option to edit the information if there is error in the information.
+** Highlights: AddressBook Level 3's edit function only allows users to edit the supplier's goods list by creating a fresh goods list in our project's context. For example, if a user wants to update an entry of good price pair such as for apple in a supplier's list, AddressBook Level 3's edit command will erase the whole supplier's goods list and include only the new entry of good price pair for apple. Hence, the user needs to retype all the already recorded good price pairs that are in the supplier's goods list in order to edit only the good price pair of apple.
+The command of this application does not require users to retype all the good price pairs and only requires the users to type the new information for only the good price pairs they want to edit, e.g. only type command for apple. In addition, the command allows users to add new entries of good price pairs to the suppliers' goods list, unlike the edit command in AddressBook Level 3.
+** Credits: The command builds on the edit command of https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook Level 3] by SE Initiative.
+
+* *Major enhancement 2*: Delete GP from Supplier
+** What it does: The command allows users to delete entries of good price pairs from a supplier goods list. Users could input multiple good names to delete multiple entries of good price pairs in one command. The command will inform users all of the goods successfully deleted and all of the goods that could not be found at the end of the command.
+** Justification: Users (store managers) need to update the goods that are sold by the suppliers if the suppliers cease to sell certain goods. The difference between this command and edit command is that edit command could not take away entries of good price pairs.
+** Highlights: This command's implementation is rarely difficult as it requires researching on Java stream's methods to search in set and delete entries from set by using a specific keywords. In addition, the implementation needs to tie well with undo and redo features, e.g. managing model comit well. Furthermore, multiple types of test need to be designed to prevent bugs.
+
+* *Major enhancement 3*: Source supplier for a good
+** What it does: Users could use this command to find all existing suppliers who sell certain specific goods through the usage of keywords that are part of or all of good's name. For example, the command could find supplier selling fuji apple by just using keyword 'apple'.
+Users could find multiple suppliers selling different goods by using keywords relating to those goods at one command.
+** Justification: This feature is the core of the application which allows stock manager to find suppliers to buy specific goods from.
+** Highlights: In order to provide the maximum convenience for the users, this command allows both using keywords instead of full names and having case insensitive keywords. This implementation is much more difficult than merely using specific full name of goods. In addition, multiple tests have to be designed to eliminate potential bugs.
+** Credits: To https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook Level 3] by SE Initiative for providing ways to find specific entries by keywords.
+
+* *Minor enhancement*:
+** Add Supplier: Improvement on AddressBook Level 3's add command by implementing another class offer in the supplier object to record price and good's name.
+** List Supplier: Adjusting AddressBook Level 3's list command to this application's context.
+** Clear Supplier: Adjusting AddressBook Level 3's clear command to this application's context.
+** Find Supplier: Adjusting AddressBook Level 3's find command to this application's context.
+** Delete Supplier: Adjusting AddressBook Level 3's delete command to this application's context.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=liuchao93&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=LiuChao93&tabRepo=AY1920S2-CS2103-W14-2%2Fmain%5Bmaster%5D[Code]]
+
+* *Documentation (User Guide)*
+Added the user guide for the following commands:
+. Adding a supplier
+. Listing all suppliers
+. Clearing all supplier entries
+. Deleting a supplier
+. Deleting an entry or entries of good-price pair(s) in the supplier’s list
+. Editing a supplier
+. Locating suppliers by name
+. Source supplier(s) for good(s)
+
+* *Documentation (Developer Guide)*
+** Added the developer guid for supplier feature with UMLs and design considerations in section 3.3 of the developer guide.
+** The UMLs that I have added:
+. Activity Diagram for Edit Supplier command (ActivityDiagramEditSupplier.jpg)
+. class diagram of supplier (SupplierModelClassDiagram.jpg)
+. Sequence Diagram of Edit Supplier command (SequentialDiagramEditSupplier.png)
