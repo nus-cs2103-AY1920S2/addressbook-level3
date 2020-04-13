@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 //@@author gyant6
 
@@ -152,12 +151,6 @@ public class ProfileManagerTest {
     @Test
     public void deleteDeadline_nullDeadline_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> profileManager.deleteDeadline(null));
-    }
-
-    @Test
-    public void deleteDeadline_deadlineNotInList_throwsDeadlineNotFoundException() {
-        Deadline deadline = new Deadline("CS1101S", "Dummy description");
-        assertThrows(DeadlineNotFoundException.class, () -> profileManager.deleteDeadline(deadline));
     }
 
     @Test

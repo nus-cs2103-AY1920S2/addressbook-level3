@@ -67,10 +67,3 @@ include::../DeveloperGuide.adoc[tag=model]
 include::../DeveloperGuide.adoc[tag=show]
 
 include::../DeveloperGuide.adoc[tag=appendixEffort]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

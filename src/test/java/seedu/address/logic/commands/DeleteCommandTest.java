@@ -1,21 +1,27 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
-//import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_FAILURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_DEADLINE_SUCCESS;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_FAILURE;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_GRADE_SUCCESS;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
-//import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_NOT_TAKING_MODULE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -96,22 +102,8 @@ public class DeleteCommandTest {
                 new DeleteCommand(Collections.singletonList(new ModuleCode(null))));
     }
 
-    // Invalid module code, user inputs "delete m/123abc"
-    // Check in the DeleteCommandParser
-
-    //@Test
-    //public void execute_invalidModuleCode_throwsCommandException() {
-    //    ModuleCode moduleCode = new ModuleCode("123abc");
-    //    DeleteCommand deleteCommandModule = new DeleteCommand(moduleCode);
-
-    //    assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
-    //            deleteCommandModule.execute(
-    //                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-    //}
-
-
     // Module has not been added to profile before
-    /*
+
     @Test
     public void execute_moduleNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
@@ -121,7 +113,7 @@ public class DeleteCommandTest {
                 deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
-    */
+
 
     // Valid module code, different capitalizations
     @Test
@@ -149,6 +141,77 @@ public class DeleteCommandTest {
         }
     }
 
+    // All invalid module codes
+    @Test
+    public void execute_allInvalidModuleCodes_throwsCommandException() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeCs = new ModuleCode("CS1111");
+        ModuleCode moduleCodeMa = new ModuleCode("MA2000");
+        moduleCodes.add(moduleCodeCs);
+        moduleCodes.add(moduleCodeMa);
+        DeleteCommand deleteCommandModule = new DeleteCommand(moduleCodes);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, moduleCodes), () ->
+                deleteCommandModule.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    }
+
+    // Some invalid module codes
+    @Test
+    public void execute_someInvalidModuleCodes_throwsCommandException() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        List<ModuleCode> invalidModuleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeCs = new ModuleCode("CS1111");
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeCs);
+        invalidModuleCodes.add(moduleCodeCs);
+        DeleteCommand deleteCommandModule = new DeleteCommand(moduleCodes);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, invalidModuleCodes), () ->
+                deleteCommandModule.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    }
+
+    // Multiple modules, some modules not taking
+    @Test
+    public void execute_someModulesNotAdded_throwsCommandException() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeB = new ModuleCode(VALID_MODCODE_BOB);
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeB);
+        List<ModuleCode> modulesNotTaking = new ArrayList<>();
+        modulesNotTaking.add(moduleCodeB);
+        DeleteCommand deleteCommandModules = new DeleteCommand(moduleCodes);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, modulesNotTaking), () ->
+                deleteCommandModules.execute(
+                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+
+    }
+
+    // Multiple modules deleted
+    @Test
+    public void execute_multipleModules_success() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeB = new ModuleCode("CS1101S");
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeB);
+        DeleteCommand deleteCommandModules = new DeleteCommand(moduleCodes);
+
+        try {
+            assertEquals(deleteCommandModules.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                    new ModuleManagerStubCs()).getFeedbackToUser(),
+                    String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCodes));
+        } catch (CommandException e) {
+            fail();
+        }
+
+    }
+
+
     // User inputs "delete t/homework" without module tag
     @Test
     public void constructor_noModuleCodeForDeleteTask_throwsNullPointerException() {
@@ -162,29 +225,60 @@ public class DeleteCommandTest {
     }
 
     // Task to be deleted does not exist
-    /*
+
     @Test
     public void execute_taskDoesNotExist_throwsCommandException() {
         String moduleCode = VALID_MODCODE_AMY;
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
         ArrayList<Deadline> tasks = new ArrayList<>();
-        tasks.add(new Deadline(moduleCode, VALID_TASK_AMY, date, time));
+        tasks.add(new Deadline(moduleCode, "tutorial", date, time));
         DeleteCommand deleteCommandTask =
                 new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, tasks.toString()), () ->
-                deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStubCs()));
+        String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
+        String deleteError = String.format("Failed to delete these task(s) as they were not added: %1$s; ", "tutorial");
+        updateMessage += "\n" + deleteError;
+
+        try {
+            assertEquals(deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                            new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+        } catch (CommandException e) {
+            fail();
+        }
     }
 
+    // Multiple tasks deleted
+    @Test
+    public void execute_allTasks_success() {
+        String moduleCode = VALID_MODCODE_AMY;
+        ArrayList<Deadline> tasks = new ArrayList<>();
+        Deadline taskA = new Deadline(moduleCode, VALID_TASK_AMY);
+        Deadline taskB = new Deadline(moduleCode, VALID_TASK_BOB);
+        tasks.add(taskA);
+        tasks.add(taskB);
+        DeleteCommand deleteCommandTasks =
+                new DeleteCommand(Collections.singletonList(new ModuleCode(moduleCode)), tasks);
 
-     */
+        String updateMessage = String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, moduleCode);
+        String deleteSuccess = String.format("These task(s) have been deleted: %1$s; %2$s; ",
+                VALID_TASK_AMY, VALID_TASK_BOB);
+        updateMessage += "\n" + deleteSuccess;
+
+        try {
+            assertEquals(deleteCommandTasks.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                    new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+        } catch (CommandException e) {
+            fail();
+        }
+
+    }
+
 
     // No grade to be deleted
     @Test
     public void execute_gradeNotAdded_throwsCommandException() {
-        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCode = new ModuleCode("CS1101S");
         String grade = VALID_GRADE_AMY;
         DeleteCommand deleteCommandGrade = new DeleteCommand(Collections.singletonList(moduleCode), grade);
 
@@ -194,6 +288,44 @@ public class DeleteCommandTest {
                                 new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 
+    // Multiple modules, some missing grades
+    @Test
+    public void execute_someGradesNotAdded_throwsCommandException() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        List<ModuleCode> modulesNoGrades = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        String grade = "";
+        ModuleCode moduleCodeCs = new ModuleCode("CS1101S");
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeCs);
+        modulesNoGrades.add(moduleCodeCs);
+        DeleteCommand deleteCommandGrades = new DeleteCommand(moduleCodes, grade);
+
+        assertThrows(CommandException.class,
+                String.format(MESSAGE_DELETE_GRADE_FAILURE, modulesNoGrades), () ->
+                        deleteCommandGrades.execute(new ProfileManagerWithNonEmptyProfile(),
+                                new CourseManagerStub(), new ModuleManagerStubCs()));
+    }
+
+    // Multiple modules' grades deleted
+    @Test
+    public void execute_allGrades_success() {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        ModuleCode moduleCodeA = new ModuleCode(VALID_MODCODE_AMY);
+        ModuleCode moduleCodeIs = new ModuleCode("IS1103");
+        moduleCodes.add(moduleCodeA);
+        moduleCodes.add(moduleCodeIs);
+        String grade = "";
+        DeleteCommand deleteCommandGrades = new DeleteCommand(moduleCodes, grade);
+
+        try {
+            assertEquals(deleteCommandGrades.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                    new ModuleManagerStubCs()).getFeedbackToUser(),
+                    String.format(MESSAGE_DELETE_GRADE_SUCCESS, moduleCodes));
+        } catch (CommandException e) {
+            fail();
+        }
+    }
 
 
     private class ProfileManagerStub extends ProfileManager {
@@ -231,23 +363,47 @@ public class DeleteCommandTest {
 
     private class ProfileManagerWithNonEmptyProfile extends ProfileManagerStub {
         private ProfileManagerWithNonEmptyProfile() {
-            Module module = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""), new Preclusions(""),
+            Module moduleA = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
-            Deadline deadline = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
-            String grade = VALID_GRADE_AMY;
+            Module moduleCs = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
+                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
+                    new PrereqTreeNode());
+            Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
+                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
+                    new PrereqTreeNode());
+
+            Deadline deadlineA = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
+            Deadline deadlineB = new Deadline(VALID_MODCODE_AMY, VALID_TASK_BOB);
+            ArrayList<Deadline> deadlines = new ArrayList<>();
+            deadlines.add(deadlineA);
+            deadlines.add(deadlineB);
+
+            String gradeA = VALID_GRADE_AMY;
+            String gradeIs = VALID_GRADE_BOB;
+
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("JOHN"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
                     new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
+
             try {
-                profile.addModule(1, module);
+                profile.addModule(1, moduleA);
+                profile.addModule(1, moduleCs);
+                profile.addModule(1, moduleIs);
             } catch (MaxModsException e) {
                 fail();
             }
-            Personal personal = new Personal();
-            personal.addDeadline(deadline);
-            personal.setGrade(grade);
+
+            Personal personalA = new Personal();
+            moduleA.setPersonal(personalA);
+            personalA.addDeadline(deadlineA);
+            personalA.addDeadline(deadlineB);
+            personalA.setGrade(gradeA);
+
+            Personal personalIs = new Personal();
+            moduleIs.setPersonal(personalIs);
+            personalIs.setGrade(gradeIs);
             profileList.add(profile);
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);
@@ -338,18 +494,22 @@ public class DeleteCommandTest {
 
     private class ModuleManagerStubCs extends ModuleManagerStub {
         private ModuleManagerStubCs() {
-            Module moduleCs = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
+            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
                     new SemesterData(new ArrayList<>()), new PrereqTreeNode());
             Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
                     new SemesterData(new ArrayList<>()), new PrereqTreeNode());
-            Module module = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
+            Module moduleCs = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
-            moduleList.add(moduleCs);
+            Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
+                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
+                    new PrereqTreeNode());
+            moduleList.add(moduleAmy);
             moduleList.add(moduleBob);
-            moduleList.add(module);
+            moduleList.add(moduleCs);
+            moduleList.add(moduleIs);
         }
     }
 }

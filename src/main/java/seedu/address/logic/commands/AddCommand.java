@@ -49,13 +49,14 @@ public class AddCommand extends Command {
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    public static final String MESSAGE_ADD_SUCCESS = "New Module added: %1$s";
+    public static final String MESSAGE_ADD_SUCCESS = "New Module(s) added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
             + "are already added in the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module(s) already in profile: %1$s\n"
             + "If you're adding task(s), please specify specify task name and/or deadline.\n"
             + "If you're adding module(s), check that the module(s) are not currently in the profile.";
+    public static final String MESSAGE_MODULE_NOT_ADDED = "Error: Please add this module to a semester first.";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
             + "%1$s before year %2$s semester %3$s";
     public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";
@@ -162,8 +163,8 @@ public class AddCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, moduleCodeToAdd));
             }
         } else { // Module does not exist
-            if (addSemester == 0) {
-                throw new CommandException("Error: Please add this module to a semester first.");
+            if (addSemester == 0 | addDeadlines != null) {
+                throw new CommandException(MESSAGE_MODULE_NOT_ADDED);
             }
             // Create Personal object
             personal = new Personal();

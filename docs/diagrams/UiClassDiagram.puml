@@ -44,17 +44,17 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> ProfileListPanel
-MainWindow *-down-> StatusBarFooter
-MainWindow *-down-> DeadlineListPanel
-MainWindow *-down-> FocusAreaPanel
-MainWindow *-down-> CoursePanel
-MainWindow *-down-> OverviewPanel
-MainWindow *-down-> ModuleListPanel
-MainWindow *-down-> IndividualModulePanel
-MainWindow *-down-> WelcomeViewPanel
+MainWindow *-down- CommandBox
+MainWindow *-down- ResultDisplay
+MainWindow *-down- ProfileListPanel
+MainWindow *-down- StatusBarFooter
+MainWindow *-down- DeadlineListPanel
+MainWindow *-down- FocusAreaPanel
+MainWindow *-down- CoursePanel
+MainWindow *-down- OverviewPanel
+MainWindow *-down- ModuleListPanel
+MainWindow *-down- IndividualModulePanel
+MainWindow *-down- WelcomeViewPanel
 
 
 
