@@ -949,7 +949,7 @@ which is a subclass of `Savings` that never holds
 ``PercentageAmount``s. The class diagram below illustrates this.
 
 .Class diagram describing the structure of `PureMonetarySavings`.
-image:PureMonetarySavingsClassDiagram.png[]
+image::PureMonetarySavingsClassDiagram.png[]
 
 The reason why ``PercentageAmount``s are not allowed in
 accumulated savings is because a percentage
