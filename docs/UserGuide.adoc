@@ -346,21 +346,28 @@ image::complete_fail.png[]
 BBProductive provides an avenue to remember to do time sensitive tasks in the form of reminders. When the time for the reminder has arrived, BBProductive alerts you to do the task! Never forget to do buy milk or any other time sensitive task ever again!
 
 ==== How do you use it?
-Add a reminder to your task by adding `r/DD/MM/YY@HH:MM` when editing or adding a task. A pop up containing the task name and description will then appear reminding you to complete the task at the specified date and time.
+Add a reminder to your task by adding `r/DD/MM/YY@HH:mm` when editing or adding a task. A pop up containing the task name and description will then appear reminding you to complete the task at the specified date and time.
 
 ==== Command `r/DD/MM/YY@HH:MM`
 ===== Add Task with reminder
-Add task with reminder with the following command `add n/<name> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more.
+Add task with reminder with the following command `add n/<name> r/DD/MM/YY@HH:mm`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `add n/Buy Milk r/11/11/20@23:59` as shown below.
 
 .Input for adding a task with reminder.
 image::reminder_add.png[width=395]
 
-Results in a task with the reminder's date in the task card.
+This results in a task with the reminder's date in the task card.
 
 .Success for adding a task with reminder.
 image::reminder_add_success.png[width=790]
+
+[IMPORTANT]
+====
+- Firstly, the format for the date must adhere strictly to the `r/DD/MM/YY@HH:mm` format or else it will not be recognized. 
+- Secondly, the date can only be set in the future and not the past. +
+An error message will be shown on the result display if either of the 2 aforementioned issues are breached. This applies for editing as task to have a reminder as well.
+====
 
 ===== Edit Task with reminder
 Edit a task to include a reminder with the following command `edit <index> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more.
@@ -392,10 +399,18 @@ For example: `add n/Buy Milk rec/d` as shown below.
 .Input for adding recurring attribute to task.
 image::recurring_add.png[width=395]
 
-Results in a task with the recurring attribute in the task card.
+Results in a task with the recurring attribute in the task card as well as result display giving feedback.
 
-.Success for adding recurring attribute to task.
+.Success for adding recurring attribute shown on result display.
+image::recurring_add_success_resultDisplay.png[width=396]
+
+.Success for adding recurring attribute to task card.
 image::recurring_add_success.png[width=790]
+
+[IMPORTANT]
+====
+The format for recurring is strictly `rec/d` or `rec/w` as there is only daily and weekly recurring tasks. Any other input will be recognized as invalid and an error message will be shown on the result display.
+====
 
 ===== Edit Task with recurring
 Edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
@@ -410,6 +425,33 @@ Results in a task with the reminder's date in the specific task card.
 .Success for editing recurring attribute to task.
 image::recurring_edit_success.png[width=790]
 
+=== Recurring behaviour when task is marked as done
+Mark a task as done as you would normally using the command `done <index>`. For a recurring task, after the stipulated amount of time(either daily or weekly), the task will be reset as undone. 
+
+For example: `done 1`. After a day's worth of time, the task will be set from done to undone.
+
+.Task initially marked as done on task card.
+image::recurring_behaviour_done.png[width=790]
+
+.Task has been reset shown on result display.
+image::recurring_behaviour_undone_resultDisplay.png[width=395]
+
+.Task has been reset shown on task card.
+image::recurring_behaviour_undone.png[width=790]
+
+=== Recurring behaviour when task has reminder
+Add a reminder as you would normally using the command `edit <index> r/DD/MM/YY@HH:mm` or `add n/<name> r/DD/MM/YY@HH:mm rec/<type>` if you are adding the task. For a recurring task, after the stipulated amount of time(either daily or weekly), the reminder will increment by the time interval if it has been triggered. This means the reminder will be incremented by 1 day if the time interval is daily, and 7 days if the time interval is weekly.
+
+For example: `done 1`. After a day's worth of time, the task will be set from done to undone.
+
+.Task initially has a reminder for 13th April 2020 at 12:41PM.
+image::recurring_behaviour_reminder.png[width=790]
+
+.Task has been reset shown on result display with updated reminder time of 14th April 2020 at 12:41PM.
+image::recurring_behaviour_new_reminder_resultDisplay.png[width=395]
+
+.Task has been reset shown on task card with updated reminder time of 14th April 2020 at 12:41PM..
+image::recurring_behaviour_new_reminder.png[width=790]
 
 [[Navigation]]
 === Navigation
