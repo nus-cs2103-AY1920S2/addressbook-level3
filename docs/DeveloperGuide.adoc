@@ -211,6 +211,7 @@ And then call method `addModule` in `ModuleBook` to create the module as require
 
 - The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
 
+
 .Sequence diagram when moduleAdd command is executed
 image::ModuleAddSequenceDiagram.png[width="950"]
 
