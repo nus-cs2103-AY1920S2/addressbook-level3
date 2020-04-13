@@ -25,6 +25,7 @@ public class ExerciseListStorageManager implements ExerciseListStorage {
     private Path filePath;
 
     public ExerciseListStorageManager(Path filePath) {
+        logger.fine("Initializing manager with " + filePath);
         this.filePath = filePath;
     }
 
@@ -45,6 +46,8 @@ public class ExerciseListStorageManager implements ExerciseListStorage {
      */
     public Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
+
+        logger.fine("Reading Exercise List from " + filePath);
 
         Optional<JacksonExerciseList> jsonExerciseList = JsonUtil.readJsonFile(
                 filePath, JacksonExerciseList.class);
@@ -74,6 +77,7 @@ public class ExerciseListStorageManager implements ExerciseListStorage {
         requireNonNull(exerciseList);
         requireNonNull(filePath);
 
+        logger.fine("Saving Exercise List " + exerciseList + " in " + filePath);
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JacksonExerciseList(exerciseList), filePath);
     }

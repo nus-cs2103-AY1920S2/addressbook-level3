@@ -1,8 +1,11 @@
 package seedu.zerotoone.storage.exercise.util;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.exercise.NumReps;
@@ -17,6 +20,7 @@ class JacksonExerciseSet {
 
     private final String weight;
     private final String numReps;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Constructs a {@code JacksonExerciseSet} with the given {@code exerciseSet}.
@@ -42,6 +46,8 @@ class JacksonExerciseSet {
      * @throws IllegalValueException if there were any data constraints violated in the adapted exerciseSet.
      */
     public ExerciseSet toModelType() throws IllegalValueException {
+        logger.fine("Converting JSON data to ExerciseSet");
+
         if (weight == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weight.class.getSimpleName()));
         } else if (!Weight.isValidWeight(weight)) {
