@@ -1,9 +1,9 @@
-== Haoyi Huang - Project Portfolio
+= Haoyi Huang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-=== Project: TA-Tracker
+== Project: TA-Tracker
 
 === Overview
 
