@@ -407,6 +407,7 @@ Finds restaurants in the bedok area at a low price point.
 * [COMING SOON] Ability to search by price point and operating hours.
 
 tag::schoolworkTracker[]
+
 === Schoolwork Tracker commands
 ==== Adding an assignment : `(st)add`
 
