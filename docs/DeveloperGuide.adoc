@@ -358,6 +358,292 @@ For example, running `find n/Ham ing/toast` will make *CookBuddy* search for rec
 
 // end::FindCommandImpl[]
 
+
+// tag::FavCommandImpl[]
+=== Favouriting recipes [Adarsh]
+
+The following section describes how the `fav` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `fav` command.
+
+The `fav` command is implemented in the _FavCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `fav` command is run.
+
+.Activity diagram of the `fav` command
+image::FavActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `fav` command, the user will specify the index of the recipe to be favourited.
+
+. _FavCommandParser_ ensures that index specified is valid and returns a _FavCommand_.
+
+The following sequence diagram summarizes the execution of the `fav` command
+
+.Sequence diagram for the execution of a `fav` command
+image::FavSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
+
+
+
+
+==== Possible improvements
+
+In the current implementation, you are able to favourite recipes, even if they have already been favourited.
+A possible improvement would be to notify users if the recipe they are trying to favourite has already been favourited.
+This would greatly enhance the usefulness of the `fav` function in *CookBuddy*.
+
+// end::FavCommandImpl[]
+
+
+// tag::UnfavCommandImpl[]
+=== Un-favouriting recipes [Adarsh]
+
+The following section describes how the `unfav` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `unfav` command.
+
+The `unfav` command is implemented in the _UnFavCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `unfav` command is run.
+
+.Activity diagram of the `unfav` command
+image::UnfavActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `unfav` command, the user will specify the index of the recipe to be un-favourited.
+
+. _UnFavCommandParser_ ensures that index specified is valid and returns a _UnFavCommand_.
+
+The following sequence diagram summarizes the execution of the `unfav` command
+
+.Sequence diagram for the execution of a `unfav` command
+image::UnfavSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
+
+==== Possible improvements
+
+In the current implementation, you are able to un-favourite recipes, even if they are not favourited.
+A possible improvement would be to notify users if the recipe they are trying to favourite has not been favourited.
+This would greatly enhance the usefulness of the `find` function in *CookBuddy*.
+
+// end::UnFavCommandImpl[]
+
+
+// tag::DoneCommandImpl[]
+=== Marking recipes as done [Adarsh]
+
+The following section describes how the `done` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `done` command.
+
+The `done` command is implemented in the _DoneCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `done` command is run.
+
+.Activity diagram of the `done` command
+image::DoneActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `done` command, the user will specify the index of the recipe to be mared as done.
+
+. _DoneCommandParser_ ensures that index specified is valid and returns a _DoneCommand_.
+
+The following sequence diagram summarizes the execution of the `done` command
+
+.Sequence diagram for the execution of a `done` command
+image::DoneSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
+
+==== Possible improvements
+
+In the current implementation, you are able to mark recipes as done, even if they are already marked as done.
+A possible improvement would be to notify users if the recipe they are trying to favourite has already been marked as done.
+This would greatly enhance the usefulness of the `done` function in *CookBuddy*.
+
+// end::DoneCommandImpl[]
+
+
+// tag::UndoCommandImpl[]
+=== Un-marking recipes as done [Adarsh]
+
+The following section describes how the `undo` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `undo` command.
+
+The `undo` command is implemented in the _UndoCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `undo` command is run.
+
+.Activity diagram of the `undo` command
+image::UndoActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `undo` command, the user will specify the index of the recipe to be un-favourited.
+
+. _UndoCommandParser_ ensures that index specified is valid and returns a _UndoCommand_.
+
+The following sequence diagram summarizes the execution of the `undo` command
+
+.Sequence diagram for the execution of a `undo` command
+image::UndoSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: How many indexes should be taken in?
+
+* Alternative 1 (Chosen): Only 1 index to be specified per use of the command
+
+** Pros: Less error-prone
+** Cons: Less efficient
+
+* Alternative 2: Multiple indexes can be specified per use of the command
+
+** Pros: More efficient
+** Cons: More error prone
+
+==== Possible improvements
+
+In the current implementation, you are able to mark recipes as not attempted, even if they have not been marked as attempted.
+A possible improvement would be to notify users if the recipe they are trying to unmark as done has not been attempted.
+This would greatly enhance the usefulness of the `undo` function in *CookBuddy*.
+
+// end::UndoCommandImpl[]
+
+
+// tag::ViewCommandImpl[]
+=== Viewing recipes [Adarsh]
+
+The following section describes how the `view` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `view` command.
+
+The `view` command is implemented in the _ViewCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `view` command is run.
+
+.Activity diagram of the `view` command
+image::ViewActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `view` command, the user will specify the index of the recipe that they wish to view.
+
+. _ViewCommandParser_ ensures that index specified is valid and returns a _ViewCommand_.
+
+The following sequence diagram summarizes the execution of the `view` command
+
+.Sequence diagram for the execution of a `view` command
+image::ViewSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: How should the user specify the recipe they want to view
+
+* Alternative 1 (Chosen): Using the index of the recipe
+
+** Pros: Easily identified from the GUI
+** Cons: -
+
+* Alternative 2: Using the name of the recipe
+
+** Pros: Users may know the name of the recipe better than the index
+** Cons: Less efficient
+
+==== Possible improvements
+
+In the current implementation, the `view` command only takes in the index of the recipe.
+A possible improvement would be to allow users to input the recipe name they want viewed.
+That way, users can input either the recipe name or index.
+
+// end::ViewCommandImpl[]
+
+
+// tag::TimeCommandImpl[]
+=== Assigning a time to a recipe [Adarsh]
+
+The following section describes how the `time` command is implemented as well as design considerations that were taken into account during its implementation.
+Some possible future improvements are also suggested to improve the functionality of the `time` command.
+
+The `time` command is implemented in the _TimeCommand_ class.
+
+The following activity diagram shows the possible paths *CookBuddy* can take when a `time` command is run.
+
+.Activity diagram of the `time` command
+image::TimeActivityDiagram.svg[align="center]
+
+==== Implementation
+
+. When entering the `time` command, the user will input the index of the recipe they wish to assign a time, as well as the time they wish to assign to the recipe. The time is to be in the following format (hh:MM:ss). Minutes and seconds are optional, and would be set to 0 if no values are provided for them.
+
+. _TimeCommandParser_ ensures that index specified is valid and returns a _TimeCommand_.
+
+The following sequence diagram summarizes the execution of the `time` command
+
+.Sequence diagram for the execution of a `time` command
+image::TimeSequenceDiagram.svg[align="center"]
+
+==== Design Considerations
+
+===== Aspect: Should the minutes and seconds be mandatory inputs
+
+* Alternative 1 (Chosen): No, they can be optional inputs
+
+** Pros: More efficient
+** Cons: -
+
+* Alternative 2: Yes, they should be mandatory inputs
+
+** Pros: -
+** Cons: Much less efficient
+
+==== Possible improvements
+
+In the current implementation, we are parsing the hours, minutes and seconds as integers.
+A possible improvement would be to use the java.util.time class.
+
+// end::TimeCommandImpl[]
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
