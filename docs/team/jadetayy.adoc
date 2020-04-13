@@ -45,7 +45,7 @@ The implementation too was challenging as it required careful design and impleme
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Redesigned the UI (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/125[#125], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/136[#136] )
+*** Redesigned the UI (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/74[#74], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/125[#125], https://github.com/AY1920S2-CS2103T-W13-3/main/pull/136[#136])
 *** Wrote additional tests for existing features to increase coverage from 57% to 60% (Pull requests https://github.com/AY1920S2-CS2103T-W13-3/main/pull/322[#322], https://github.com[#38])
 
 ** Documentation:

@@ -142,6 +142,9 @@ image::New.png[width="760"]
 
 TIP: `new n/John c/Computer Science y/2.2 f/Software Engineering` +
 If you know your focus area, using this command will add focus area "Software Engineering" to your new profile alongside other details.
+
+NOTE: The maximum Year and Semester you can go up to is Year 8 Semester 2.
+
 // end::new[]
 
 
@@ -174,6 +177,8 @@ image::AddModule.png[width="760"]
 
 TIP: `add m/CS2105 y/2.1 g/A+` +
 You can add CS2105 with its resulting grade, A+, concurrently to the list of modules under Year 2 Semester 1.
+
+NOTE: You can add up to a maximum of 10 modules per semester in *MODdy*.
 
 ****
 *Checking of Prerequisites* +
