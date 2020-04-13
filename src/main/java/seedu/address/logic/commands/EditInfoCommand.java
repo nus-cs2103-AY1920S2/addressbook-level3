@@ -29,7 +29,7 @@ public class EditInfoCommand extends Command {
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
             + PREFIX_LINE_NUMBER + "LINE_NUMBER " + PREFIX_REMARK + "INFO\n"
-            + "\nExample: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LINE_NUMBER + "2 " + PREFIX_REMARK + " Likes to swim.";
 
     public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited remark for Person: %1$s";

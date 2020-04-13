@@ -27,7 +27,7 @@ public class DeleteInfoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_LINE_NUMBER + "LINE_NUMBER] "
+            + PREFIX_LINE_NUMBER + "LINE_NUMBER "
             + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_LINE_NUMBER + "2 ";
 
