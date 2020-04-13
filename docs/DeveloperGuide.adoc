@@ -73,14 +73,15 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
 
+=== UI component
+//tag::UI[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/fithelper/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EntryListPanel`, `ReminderList` etc.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PagePane`, `ButtonList`, `CurrentPageTitle` etc.
 Moreover, it reserves a place for different pages that can be filled and displayed.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -90,11 +91,14 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -432,7 +436,7 @@ image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[][height = "50"]
+image::CommitActivityDiagram.png[]
 
 
 // tag::calendar[]

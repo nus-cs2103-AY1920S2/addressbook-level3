@@ -1,0 +1,25 @@
+= Wang Yuchen - UML Diagrams
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+.Sequence Diagram for Today Feature
+image::InitiateTodayPageSequenceDiagram.png[]
+
+.Sequence Diagram for Diary Feature
+image::DiarySequenceDiagram.png[]
+
+.Sequence Diagram for Undo Feature
+image::UndoSequenceDiagram.png[]
+
+.Activity Diagram for FitHelper Commit Feature
+image::CommitActivityDiagram.png[]
+
+image::UndoRedoState0.png[]
+image::UndoRedoState1.png[]
+image::UndoRedoState2.png[]
+image::UndoRedoState3.png[]
+image::UndoRedoState4.png[]
+image::UndoRedoState5.png[]

@@ -23,8 +23,8 @@ Class HiddenLogic #FFFFFF
 }
 
 note "XYZCard & Pages refer to the\nindividual components of FitHelper GUI." as N1
-note "Pages represents a several GUI page classes\n located at the `PagePane` placeholder in MainWindow.\nIt includes DashBoard, TodayPage, CalendarPage,\n ProfilePage, DiaryPage,WeightPage, and HelpPage,\n which can be switched." as N2
-note "XYZCard corresponds to the GUI elements in Pages,\nincluding FoodCard, SportCard, DiaryCard,\nReminderCard, DayCard, and EventCard." as N3
+note "Pages represents a several GUI page classes\n located at the `PagePane` placeholder in MainWindow." as N2
+note "XYZCard corresponds to the GUI elements in Pages." as N3
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
