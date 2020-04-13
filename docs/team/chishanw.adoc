@@ -14,19 +14,42 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 
 == Summary of contributions
 
-* *Major enhancement*: Added Workout functionality.
+* *Major enhancement*: Added Workout feature.
 
-** *What it does*: Allows users to manage their workouts and the corresponding exercises in each of their workouts. Users can create workouts, edit their workout names, and delete workouts. Users can add existing exercises to existing workouts, edit these exercises, and delete these exercises from their workouts. This whole set of functionality can be viewed from the Workout tab in the app.
+** *What it does*: Allows users to manage their workouts and the corresponding exercises in each of their workouts. Users can perform CRUD operations on workouts, and on exercises belonging to workouts. This whole set of functionality can be viewed from the Workout tab in the app.
 
 ** *Justification*: This feature improves the product significantly because a user will want to group and organise different exercises into a workout. This allows the user to have different workouts for different fitness purposes.
 
 ** *Highlights*: This enhancement affects the existing Exercise, Schedule and Log features. Future expansions will likely utilise Workouts because it has significant practical usage in order to work out. Hence, this feature required an in-depth analysis of design alternatives.
 
-** *Credits*: The base for the Workout code was the AB3 code. I morphed the AB3 code to support Workouts instead of Persons. However, it ended up significantly different from Persons, as the Workout object was different from a Person object. Hence, an additional layer of code was added to support Workout objects that in turn managed Exercise objects.
+** *Credits & Enhancements*: Some ideas for this feature was taken from the AB3 code. However, it ended up significantly different, as the purpose of the code differed. Hence, an additional layer of code was added to support Workout objects that in turn managed Exercise objects.
 
-* *Minor enhancement*: Added an About tab to allow users to easily access information about ZeroToOne in-app, without needing to refer to a User Guide. The tab displays some basic information about the app, and also a full list of all commands that can be executed.
+* *Major enhancement*: Added the About display.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chishanw[tP Code Dashboard]] [https://github.com/chishanw/main/tree/master/src/main[Functional Code]] [https://github.com/chishanw/main/tree/master/src/test[Test Code]]
+** *What it does*: It is a separate tab in the app, which displays some basic information about the app, and also a full list of all commands that can be executed.
+
+** *Justification*: Allows users to easily access information about ZeroToOne in-app, without needing to refer to a User Guide.
+
+* *Code contribution*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chishanw[RepoSense]]
+
+|===
+|*Feature* |*Component* |*Functional Code* |*Test Code*
+
+.5+|Workout Feature |Model |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/model/workout[Link]] |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/model/workout[Link]]
+
+|Commands |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/workout[Link]] |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/logic/commands/workout[Link]]
+
+|Parser |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/parser/workout[Link]] |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/logic/parser/workout[Link]]
+
+|Storage |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/storage/workout[Link]] |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/test/java/seedu/zerotoone/storage/workout[Link]]
+
+|Ui |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/ui/views/workout[Link]] |NA
+
+.3+|About Display |Command |[https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/logic/commands/AboutCommand.java[Link]] |[https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/test/java/seedu/zerotoone/logic/commands/AboutCommandTest.java[Link]]
+|Util |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/java/seedu/zerotoone/logic/commands/util[Link]] |NA
+|Ui |[https://github.com/AY1920S2-CS2103T-W16-2/main/tree/master/src/main/resources/view/about[Link]] |NA
+
+|===
 
 * *Other contributions*:
 
@@ -34,11 +57,11 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 *** Managed releases `v1.3` (1 release) on GitHub. Generated the jar file and updated the User Guide to reflect the details of this particular release.
 
 ** Enhancements to existing features:
-*** Enhanced the GUI overall style and colour scheme. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/173[#173])
-*** Implemented switching of UI views via commands on the CLI. (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/176[#176])
-*** Helped implement the initial Exercise model. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/54[#54])
-*** Wrote additional tests for my existing Workout feature to increase coverage by 8.8%. (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/182[#182], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/198[#198])
-*** Wrote additional tests for the Exercise feature to increase coverage by 4.2%. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/62[#62])
+*** Did a major enhancement to the GUI overall style and colour scheme. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/173[#173])
+*** Implemented switching of UI views via CLI. (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/176[#176])
+*** My organisation of the Model code (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/94/commits/6b06e631b2be105a60aef73fc417843a511805d6[#94]) was adopted by one of my team members (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/172[#172]) and subsequently the whole team. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/228[#228])
+*** Wrote additional tests for my existing Workout feature to increase coverage of files related to my Workout feature. (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/182[#182], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/198[#198])
+*** Wrote additional tests for the Exercise feature to increase coverage. (Pull request https://github.com/AY1920S2-CS2103T-W16-2/main/pull/62[#62])
 
 ** Documentation:
 *** Moved User Guide from our shared Google Docs over into the adoc file, for both our initial version of the User Guide and for the v1.3 release. (Pull requests https://github.com/AY1920S2-CS2103T-W16-2/main/pull/11[#11], https://github.com/AY1920S2-CS2103T-W16-2/main/pull/115[#115])
