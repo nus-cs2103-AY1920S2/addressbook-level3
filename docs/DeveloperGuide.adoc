@@ -1236,7 +1236,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output to a `.log` file.
 
 *Logging Levels*
 
