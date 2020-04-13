@@ -30,9 +30,8 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public ModuleListPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
-
-        moduleListView.setFillHeight(true);
-
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
 
         if (!moduleObservableList.isEmpty()) {
             noModules.setManaged(false);
@@ -52,5 +51,6 @@ public class ModuleListPanel extends UiPart<Region> {
                 }
             }
         });
+
     }
 }
