@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes schedule task command;
+if () then ([task exist in plan])
+    if () then ([date is in schedule])
+        :Get free slot for the day;
+        if () then ([task is schedulable within given free slot])
+            :Task generates an event based on the
+            free slots and task requirement;
+            :Task adds the new event into schedule;
+        else ([else])
+            :Ui shows error message;
+        endif
+    else ([date exceed schedule range])
+        :Ui shows error message;
+    endif
+else ([else])
+    :Ui shows error message;
+endif
+stop
+@enduml

@@ -3,34 +3,60 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":LogicParser" as LogicParser LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant "u:AbUndoCommand" as AbUndoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Mode" as Mode MODEL_COLOR
 participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
+LogicManager -> LogicParser : parseCommand("undo")
+activate LogicParser
+
+LogicParser -> Model : getMode()
+activate Model
+
+Model --> LogicParser : mode
+
+LogicParser -> Model : getModeEnum()
+
+Model -> Mode : getModeEnum()
+activate Mode
+
+Mode --> Model : modeEnum
+deactivate Mode
+
+Model --> LogicParser : modeEnum
+deactivate Model
+
+LogicParser -> AddressBookParser : parseCommand("undo", "")
 activate AddressBookParser
 
-create UndoCommand
-AddressBookParser -> UndoCommand
-activate UndoCommand
+create AbUndoCommand
+AddressBookParser -> AbUndoCommand
+activate AbUndoCommand
 
-UndoCommand --> AddressBookParser
-deactivate UndoCommand
+AbUndoCommand --> AddressBookParser
+deactivate AbUndoCommand
 
-AddressBookParser --> LogicManager : u
+AddressBookParser --> LogicParser : u
 deactivate AddressBookParser
 
-LogicManager -> UndoCommand : execute()
-activate UndoCommand
+LogicParser --> LogicManager : u
+deactivate LogicParser
 
-UndoCommand -> Model : undoAddressBook()
+LogicManager -> AbUndoCommand : execute()
+activate AbUndoCommand
+
+AbUndoCommand -> Model : undoAddressBook()
 activate Model
 
 Model -> VersionedAddressBook : undo()
@@ -40,13 +66,20 @@ VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
 VersionedAddressBook --> Model :
 deactivate VersionedAddressBook
 
-Model --> UndoCommand
+Model --> AbUndoCommand
 deactivate Model
 
-UndoCommand --> LogicManager : result
-deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
+create CommandResult
+AbUndoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AbUndoCommand
+deactivate CommandResult
+
+AbUndoCommand --> LogicManager : result
+deactivate AbUndoCommand
+AbUndoCommand -[hidden]-> LogicManager : result
+destroy AbUndoCommand
 
 [<--LogicManager
 deactivate LogicManager

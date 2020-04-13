@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":LogicParser" as LogicParser LOGIC_COLOR
+participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":ScheduleTaskCommandParser" as ScheduleTaskCommandParser LOGIC_COLOR
+participant ":PlannerScheduleTaskCommand" as PlannerScheduleTaskCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Mode" as Mode MODEL_COLOR
+participant ":Plan" as Plan MODEL_COLOR
+end box
+[-> LogicManager : execute("schedule p\\task t\2020-02-20")
+activate LogicManager
+
+LogicManager -> LogicParser : parseCommand("schedule p\\task t\2020-02-20")
+activate LogicParser
+
+LogicParser -> Model :getMode()
+activate Model
+
+Model --> LogicParser
+
+LogicParser -> Model :getModeEnum(mode)
+
+Model -> Mode: getModeEnum()
+activate Mode
+
+Mode --> Model
+deactivate Mode
+
+Model --> LogicParser
+deactivate Model
+
+LogicParser -> PlannerParser : parseCommand("schedule p\\task t\2020-02-20")
+activate PlannerParser
+
+create ScheduleTaskCommandParser
+PlannerParser -> ScheduleTaskCommandParser
+activate ScheduleTaskCommandParser
+
+ScheduleTaskCommandParser --> PlannerParser
+deactivate ScheduleTaskCommandParser
+
+PlannerParser -> ScheduleTaskCommandParser: parse("p\\task t\2020-02-20")
+activate ScheduleTaskCommandParser
+
+create PlannerScheduleTaskCommand
+ScheduleTaskCommandParser -> PlannerScheduleTaskCommand
+activate PlannerScheduleTaskCommand
+
+PlannerScheduleTaskCommand --> ScheduleTaskCommandParser: command
+deactivate PlannerScheduleTaskCommand
+
+ScheduleTaskCommandParser --> PlannerParser: command
+deactivate ScheduleTaskCommandParser
+ScheduleTaskCommandParser -[hidden]-> PlannerParser: command
+destroy ScheduleTaskCommandParser
+
+PlannerParser --> LogicParser: command
+deactivate PlannerParser
+
+LogicParser --> LogicManager: command
+deactivate LogicParser
+
+LogicManager -> PlannerScheduleTaskCommand : execute()
+activate PlannerScheduleTaskCommand
+
+PlannerScheduleTaskCommand -> Model : generateTaskEvent(task, 2020-02-20)
+activate Model
+
+Model -> Plan : generateTaskEvent(task, 2020-02-20, schedule)
+activate Plan
+
+Plan --> Model
+deactivate Plan
+
+Model --> PlannerScheduleTaskCommand
+deactivate Model
+
+create CommandResult
+PlannerScheduleTaskCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PlannerScheduleTaskCommand
+deactivate CommandResult
+
+PlannerScheduleTaskCommand --> LogicManager: result
+deactivate PlannerScheduleTaskCommand
+
+[<--LogicManager: result
+deactivate LogicManager
+@enduml

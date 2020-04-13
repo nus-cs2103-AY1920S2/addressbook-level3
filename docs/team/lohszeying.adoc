@@ -1,0 +1,98 @@
+= Loh Sze Ying - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NOVA
+
+== Overview
+
+This portfolio sumarises my contribution to NOVA's development.
+NOVA is a desktop application to help CS2103T with event planning and managing schedules, and is developed by a team of 5 members from NUS School of Computing. +
+
+NOVA is written in Java. Within NOVA's code, I am in charge of features related to Address Book
+
+== Summary of contributions
+
+* *Major enhancement*: Refactored and implemented address book feature
+** What it does: Allows the user to do contacts management on their fellow CS2103T students within NOVA
+** Justification: This feature improves a product as a student using NOVA for CS2103T management would want to do
+contacts management on NOVA
+
+* *Minor enhancement*: added **the ability to sort and list contacts by category within Address Book mode**
+** What it does: Allows the user to sort fellow CS2103T students by classmate or teammate, as well as viewing contacts by classmate or teammate
+** Justification: User can easily see who are their fellow classmates or teammates
+** Highlights: This enhancement affects the existing code from address book level 3, and needed some consideration to make category field compulsory rather than optional
+
+* *Minor enhancement*: added **the ability to view remarks only with list category command**
+** What it does: Allows the user to only view fellow classmate's or teammate's remark with list category command
+** Justification: When users want to view their contact list, they would want to only view their necessary contact information
+
+* *Minor enhancement*: added the **ability to undo or redo commands within Address Book mode**
+** What it does: Allows the user to undo or redo whatever the commands that they typed within Address Book
+** Justification: User can easily accidentally edit, delete or clear contacts within Address Book
+** Highlights: This enhancement affects the existing code within Address Book mode
+** Credits: Implementation of Undo/Redo from link:https://github.com/nus-cs2103-AY1920S2/addressbook-level3/blob/master/docs/DeveloperGuide.adoc[here] under Section 3.1.
+
+* *Minor enhancement*: added **sort contacts alphabetically automatically**
+** What it does: Allows the user to have an easier time to find added contacts
+** Justification: User can easily find their contacts after using list
+
+* *Minor enhancement*: added **the ability to format contact's name automatically**
+** What it does: Allows the user to quickly add or edit a contact without worry about the format of name, eg. whether the name starts with capital letter, or if is there many spaces in-between the name
+** Justification: This feature allows the user to quickly add a contact and NOVA will automatically format the person's name
+** Highlights: There is a need to edit current implementation of `Name` class for this to work
+** Example: User types `aLICe yeoH` into name parameter, and NOVA automatically converts it to `Alice Yeoh`
+
+* *Code contributed*:
+** Please click https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f10-3&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lohszeying&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D[here] to view my Reposense.
+
+** Note: If the above link does not work, please copy and paste the URL manually: +
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f10-3&sort=totalCommits%20dsc&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lohszeying&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.1` to `v1.3` (2 releases on GitHub) link:https://github.com/AY1920S2-CS2103T-F10-3/main/releases[here]
+*** Refactored AddressBook commands (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/86[#86])
+
+** Enhancements to existing features:
+*** Edited index tag within NOVA's Address Book from `[index]` to `i\[index]` (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/244[#244])
+*** Sorted contact list alphabetically automatically (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/347[#347])
+
+** Documentation:
+*** Updated About Us and team member's portfolio with template (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/23[#23])
+*** Edited SettingUp.adoc, DevOps.adoc, Documentation.adoc, Testing.adoc to fit NOVA's product (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/355[#355], https://github.com/AY1920S2-CS2103T-F10-3/main/pull/416[#416])
+*** Contributed and updated NOVA's User Guide and Developer Guide. Details below.
+
+** Community:
+*** Gave suggestions to other team link:https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-370052563[here]
+**** Note: If the above link does not work, please copy and paste the URL manually: +
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-370052563
+*** Tested other team's application and reported bugs link:https://github.com/lohszeying/ped/issues[here]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+Written the User Guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/UserGuide.adoc[here], most notably under the section Address Book (Section 5.2).
+
+Note: _Special thanks to https://github.com/xCelestialPhoenix[@xcelestialphoenix] for helping to put screenshot for Address Book feature, and managing of documents for User Guide and Developer Guide!_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Written the Developer Guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/DeveloperGuide.adoc[here], most notably under Section 3.2's Address Book implementation. +
+Also edited section https://github.com/AY1920S2-CS2103T-F10-3/main/pull/355[2.1]'s Figure 3, and edited section https://github.com/AY1920S2-CS2103T-F10-3/main/pull/207[2.6].
+
+* Added and edited Address Book's user stories (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/19[#19], https://github.com/AY1920S2-CS2103T-F10-3/main/pull/207[#207], https://github.com/AY1920S2-CS2103T-F10-3/main/pull/416[#416])
+* Added NFR (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/19[#19], https://github.com/AY1920S2-CS2103T-F10-3/main/pull/355[#355])
+* Added use case (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/355[#355], https://github.com/AY1920S2-CS2103T-F10-3/main/pull/416[#416])
+* Added glossary (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/416[#416])
+* Edited Instructions for Manual Testing (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/355[#355])
+* Removed product survey appendix (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/416[#416])

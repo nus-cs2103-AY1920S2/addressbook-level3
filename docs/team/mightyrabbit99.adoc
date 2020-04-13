@@ -1,0 +1,61 @@
+= Tan Wah Ken - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NOVA
+
+== Overview
+
+NOVA is a desktop application to help CS2103T with event planning and managing schedules.
+
+== Summary of contributions
+
+* *Major enhancement*: added *planner feature*
+** What it does: Tracks the progress of user study plan and assists in planning study events based on the tasks inside study plan.
+** Justification: This feature reminds the user of their study progress so that user are able to plan ahead their study events before being distracted by other things and lack behind on their study.
+** Highlights: There's no need for user to think of the detail (e.g. start time, end time) of the event.
+User only needs to specify the task and the date, planner will generate a study event on that day based on the task.
+Due to time constraint of this module, the algorithm for choosing the free slot for generating event is first-fit algorithm for now.
+More suitable algorithm needs to be developed in the future in order to make it more human-friendly.
+
+* *Major enhancement*: added *find free slot function*
+** What it does: List the free slots in user's schedule.
+** Justification: This feature is needed due to the fact that we don't have a schedule GUI. User are unable to grasp when they are free especially when there is many events in their schedule.
+
+* *Minor enhancement*:
+** Make dialog window wrap text automatically whenever window is resized. reference: https://github.com/AY1920S2-CS2103T-F10-3/main/pull/345[22]
+
+* *Code contributed*:
+** [https://github.com/AY1920S2-CS2103T-F10-3/main/issues?q=is%3Aclosed+author%3Amightyrabbit99[Functional code]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=mightyrabbit99&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mightyrabbit99&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+//** Project management:
+
+//** Enhancements to existing features:
+
+//** Documentation:
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#discussion_r388685822[12]
+
+//** Tools:
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=studyplanner]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=studyplannerfeature]
+include::../DeveloperGuide.adoc[tag=studyplannerusecase]
+include::../DeveloperGuide.adoc[tag=studyplannermss]

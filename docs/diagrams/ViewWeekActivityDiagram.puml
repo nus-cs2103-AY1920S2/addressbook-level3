@@ -1,0 +1,39 @@
+@startuml
+start
+:User executes command;
+
+if () then ([mode is schedule])
+    : ScheduleParser
+    parse command;
+    if () then ([commandword is view])
+        : ScViewCommandParser parse command;
+        if() then ([only one tag])
+            if () then ([preamble is week])
+                if () then ([tag is index])
+                    : Creates view
+                    week command;
+                else ([else])
+                    : Invalid command format;
+                endif
+            else ([else])
+                if () then ([tag is date])
+                    : Creates view
+                    day command;
+                else ([else])
+                    : Invalid command format;
+                endif
+            endif
+        else ([else])
+        : Invalid command format;
+        endif
+    else ([else])
+        : Details
+        omitted;
+    endif
+
+else ([else])
+    :Details
+    omitted;
+endif
+stop
+@enduml

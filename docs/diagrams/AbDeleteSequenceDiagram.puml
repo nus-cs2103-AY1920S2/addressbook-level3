@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":LogicParser" as LogicParser LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AbDeleteCommandParser" as AbDeleteCommandParser LOGIC_COLOR
+participant ":AbDeleteCommand" as AbDeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Mode" as Mode MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete i\1")
+activate LogicManager
+
+LogicManager -> LogicParser : parseCommand("delete i\1")
+activate LogicParser
+
+LogicParser -> Model : getMode()
+activate Model
+
+Model --> LogicParser : mode
+
+LogicParser -> Model : getModeEnum()
+
+Model -> Mode : getModeEnum()
+activate Mode
+
+Mode --> Model : modeEnum
+deactivate Mode
+
+Model --> LogicParser : modeEnum
+deactivate Model
+
+LogicParser -> AddressBookParser : parseCommand("delete", "i\1")
+activate AddressBookParser
+
+create AbDeleteCommandParser
+AddressBookParser -> AbDeleteCommandParser
+activate AbDeleteCommandParser
+
+AbDeleteCommandParser --> AddressBookParser
+deactivate AbDeleteCommandParser
+
+AddressBookParser -> AbDeleteCommandParser : parse("i\1")
+activate AbDeleteCommandParser
+
+create AbDeleteCommand
+AbDeleteCommandParser -> AbDeleteCommand
+activate AbDeleteCommand
+
+AbDeleteCommand --> AbDeleteCommandParser : command
+deactivate AbDeleteCommand
+
+AbDeleteCommandParser --> AddressBookParser : command
+deactivate AbDeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AbDeleteCommandParser -[hidden]-> AddressBookParser
+destroy AbDeleteCommandParser
+
+AddressBookParser --> LogicParser : command
+deactivate AddressBookParser
+
+LogicParser --> LogicManager : command
+deactivate LogicParser
+
+LogicManager -> AbDeleteCommand : execute()
+activate AbDeleteCommand
+
+AbDeleteCommand -> Model : deletePerson(1)
+activate Model
+
+Model --> AbDeleteCommand
+deactivate Model
+
+create CommandResult
+AbDeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AbDeleteCommand
+deactivate CommandResult
+
+AbDeleteCommand --> LogicManager : result
+deactivate AbDeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -2,6 +2,11 @@
 @import "asciidoctor.css"; /* Default asciidoc style framework - important */
 
 /* Custom block: details */
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
 
 .sidebarblock.details > .content {
     border-left: .25rem solid rgba(0, 0, 0, 0.1);
@@ -16,6 +21,12 @@
     border: none;
     padding-bottom: 0;
     padding-top: 0;
+}
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
 }
 
 /* Overrides for asciidoctor.css */
@@ -211,4 +222,8 @@ table.tableblock > .title,
     #site-header {
         display: none;
     }
+
+    a[href]:after {
+        content: none !important;
+      }
 }

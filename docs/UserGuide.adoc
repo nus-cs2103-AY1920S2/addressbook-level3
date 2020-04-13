@@ -1,8 +1,10 @@
-= AddressBook Level 3 - User Guide
+[[Top]]
+= NOVA - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -12,166 +14,1028 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+:repoURL: https://github.com/AY1920S2-CS2103T-F10-3/main
 
-== Introduction
+By: `CS2103T-F10-3`      Since: `Apr 2020`      Licence: `MIT`
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+[[Intro]]
+// tag::intro[]
+== Introduction (Terence)
 
+Welcome to the user guide (UG) for Next-gen Organizing Virtual Assistant (NOVA).
+
+NOVA is a one-stop desktop application for CS2103T students to manage all CS2103T related activities. Be it studying
+or planning project meetings, NOVA has you covered. NOVA is designed for users who prefer to interact with programs
+through typing.
+
+image::userguide/guiComponents.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 1: UI Components of NOVA#_
+
+// end::intro[]
+// tag::about[]
+
+[[About]]
+== About (Terence)
+
+This UG is a reference guide to help you use NOVA. This document contains a <<QuickStart, quick start>> section to get
+you up and
+running soon.
+
+There is an entire <<Features, section>> dedicated to how to use any particular feature in NOVA. Examples are provided
+for your
+better understanding. We have also provided a <<Summary, summary of commands>> for your quick reference. Should you
+face any problems, take a look at the <<FAQ, FAQ section>>.
+
+// end::about[]
+// tag::notation[]
+
+[[Notation]]
+== Notations (Terence)
+In this guide, you'll be seeing the following markup being used.
+
+[NOTE]
+This icon indicates details that could help you better understand how to use NOVA.
+
+[WARNING]
+This icon indicates actions that could negatively affect your experience while using NOVA.
+
+`Commands` and `input fields` are highlighted.
+
+// end::notation[]
+
+[[QuickStart]]
 == Quick Start
+Here are some steps to get you started:
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java *11* or above installed in your Computer.
+.  Download the latest *nova.jar* link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your NOVA.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 4.1: GUI of NOVA#_
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Type the command in the command box and press kbd:[Enter] to execute it.
+.  Try the following commands to get you warmed up:
+
+* *`nav ab`*: navigates to address book mode.
+
+[NOTE]
+====
+You can use the following commands once you are in address book mode:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+
+* `add n\John Doe p\98765432 e\\john@gmail.com c\classmate` : adds a contact named John Doe to the Address Book
+ and categorise as classmate
+====
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+Refer to <<Features, Features>> for details of each command.
 
 [[Features]]
 == Features
+Features are grouped together in modes of operation. There is a set of common commands which can be used in any mode,
+and within every mode, there is also a set of commands for you to use and get things done.
 
+=== Common
+NOVA offers a set of common functionalities across all modes. These commands can be executed within any mode in NOVA.
+
+==== Exit : `exit`
+You can exit NOVA with this command. While exiting NOVA, contacts, schedules and notes will be saved.
+
+Format: +
+`exit`
+
+<<Top, [Back to Top]>>
+
+==== Navigation: `nav`
+You can navigate to the desired mode to use its features.
+
+Format: +
+`nav [home/ab/schedule/planner/progresstracker]`
+
+[NOTE]
+`ab` refers to address book.
+
+Example: +
+Suppose you want to use the schedule,
+
+enter the command: `nav schedule`
+
+NOVA will change the mode to schedule as seen below.
+
+image::userguide/schedule_nav.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.1.2: GUI of NOVA after entering `nav schedule`#_
+
+<<Top, [Back to Top]>>
+
+=== Address Book (Loh Sze Ying)
+Learn how to work with the Address Book in NOVA. The address book feature allows you to keep in contact with
+your teammates and classmates, and contacts are automatically sorted by alphabetical order. +
+
+You need to be in address book mode to use the features. Access this mode by entering the command `nav ab`. Your NOVA should look something
+like Figure 5.2 below.
+
+image::userguide/addressbook.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.2: GUI of NOVA after entering `nav ab`#_
+
+==== Add Contact: `add`
+You can add your classmate or teammate as contact.
+
+Format: `add n\[name] p\[phone number] e\[email address] c\[classmate/teammate]`
+
+[NOTE]
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `[name]` is not case-sensitive. (E.g. "Jane doe" is the same as "jane Doe"). +
+The name you add will be automatically formatted. (E.g. "jane doe" will become "Jane Doe")
+* `[classmate/teammate]` is not case-sensitive. (E.g. "ClassMate" is the same as "classmate")
+* You can only add either `classmate` or `teammate` as category
 ====
 
-=== Viewing help : `help`
+Example: +
+Suppose you want to add your classmate named Jane Doe, with phone number 12345678 and email address janedoe@gmail.com
+into NOVA,
 
-Format: `help`
+enter the command: `add n\Jane Doe p\12345678 e\\janedoe@gmail.com c\classmate`
 
-=== Adding a person: `add`
+NOVA will add a new contact named Jane Doe, phone number 12345678 and email address janedoe@gmail.com into the
+classmate category and display a confirmation message as seen below.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+image::userguide/addressbook_add.PNG[width="690" align="center"]
+[.text-center]
+_[.small]#Fig 5.2.1: Display message after entering +
+`add n\Jane Doe p\12345678 e\\janedoe@gmail.com c\classmate`#_
 
-[TIP]
-A person can have any number of tags (including 0)
+<<Top, [Back to Top]>>
 
-Examples:
+==== List all Contacts: `list`
+You can list the contact's name, phone number and category of all contacts.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+<<Top, [Back to Top]>>
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== List Category Contact: `list`
+You can list the name and phone number of all the contacts under a specified category, be it classmate or teammate.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `list c\[classmate/teammate]`
 
-Examples:
+[NOTE]
+====
+* `[classmate/teammate]` is not case-sensitive. (E.g. "ClasSMate" is the same as "classmate")
+* There are only `classmate` and `teammate` categories
+====
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Example:
 
-=== Locating persons by name: `find`
+* Suppose you want to view all the classmate contacts that you have added into NOVA,
++
+enter the command: `list c\classmate`
++
+NOVA will lists all your contacts in the `classmate` category. +
+ +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+* Suppose you want to view all the teammate contacts that you have added into NOVA,
++
+enter the command: `list c\teammate`
++
+NOVA will lists all your contacts in the `teammate` category.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+<<Top, [Back to Top]>>
 
-Examples:
+==== Find Contact: `find`
+You can find a contact added to the address book easily, either with the full name or just with the person's first or the last name.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Format: `find n\[name]`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[NOTE]
+====
+* `[name]` is not case-sensitive. (E.g. "Jane doe" is the same as "jane Doe")
+====
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Example:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+* Suppose you want to find Jane Doe within NOVA,
++
+enter the command: `find n\Jane doe`
++
+NOVA will find and list saved contacts named Jane Doe.
 
-Examples:
+* Or you can find Jane Doe with just Jane,
++
+enter the command: `find n\Jane`
++
+NOVA will find and list saved contacts named Jane.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+<<Top, [Back to Top]>>
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Edit Contact: `edit`
+You can edit the contacts that you have added. If the contact you want to edit does not exist, NOVA will let you know. +
 
-Clears all entries from the address book. +
+Format: `edit i\[index] n\[name] p\[phone number] e\[email address] c\[classmate/teammate]`
+
+[WARNING]
+====
+The `[index]` will apply on the list of your most recent `list`, `list c\[classmate/teamate]` or `find` command.
+Confirm the position of the contact in your most recent list to avoid editing other contact.
+====
+
+[NOTE]
+====
+* At least one of the optional fields must be provided (`n\[name]`, `p\[phone number]`,
+`e\[email address]` or `c\[classmate/teammate]`)
+* The `[index]` must be a positive integer. (E.g. 1, 2, 3, ...)
+* `[name]` and `[classmate/teammate]` are not case-sensitive. (E.g. "Jane doe" is the same as "jane Doe")
+* The name you add will be automatically formatted. (E.g. "jane doe" will become "Jane Doe")
+* You can only edit either `classmate` or `teammate` as category
+====
+
+Example: +
+Suppose you want to edit the Alex Yeoh's phone number in your address book after using `list` as shown below,
+
+image::userguide/addressbook_list.PNG[width="690" align="center"]
+[.text-center]
+_[.small]#Fig 5.2.5.1: Example display message after entering `list`#_
+
+enter the command: `edit i\1 p\88888888`
+
+NOVA will edit the phone number of Alex Yeoh to 88888888 as shown below.
+
+image::userguide/addressbook_edit.PNG[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.2.5.2: Display message after entering `edit i\1 p\88888888`#_
+
+<<Top, [Back to Top]>>
+
+==== Add, Edit or Delete Remark: `remark`
+You can add remarks that are category specific, to a contact.
+
+Format: `remark i\[index] r\[remark]`
+
+[WARNING]
+====
+The `[index]` will apply on the list of your most recent `list`, `list c\[classmate/teamate]` or `find` command.
+Confirm the position of the contact in your most recent list to avoid editing other contact.
+====
+
+[NOTE]
+====
+* The `[index]` must be a positive integer. (E.g. 1, 2, 3, ...)
+* To remove any remarks, use `remark i\[index] r\` or `remark i\[index]`
+====
+
+Example: +
+Suppose you want add remark to Bernice Yu in your address book after using `list` as seen in Fig 5.2.5.1,
+
+enter the command: `remark i\2 r\She\'s a nice teammate`
+
+NOVA will add the remark "She's a nice teammate" to Bernice Yu in your address book as shown below.
+
+image::userguide/addressbook_remark.PNG[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.2.6.2: Display message after entering `remark i\2 r\She's a nice teammate`#_
+
+<<Top, [Back to Top]>>
+
+==== Delete Contact: `delete`
+You can delete a contact that you have added. If the contact you try to delete does not exist, NOVA will let you know.
+
+Format: `delete i\[index]`
+
+[WARNING]
+====
+The `[index]` will apply on the list of your most recent `list`, `list c\[classmate/teamate]` or `find` command.
+Confirm the position of the contact in your most recent list to avoid editing other contact.
+====
+
+[NOTE]
+====
+* Deletes the contact at the specified `[index]` in the displayed contact list
+* The `[index]` must be a positive integer. (E.g. 1, 2, 3, ...)
+====
+
+Example: +
+Suppose you want to delete Alex Yeoh's contact after using the `list` as seen in Fig 5.2.5.1,
+
+enter the command: `delete i\1`
+
+NOVA will delete Alex Yeoh from your the address book.
+
+image::userguide/addressbook_delete.PNG[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.2.7.2: Display message after entering `delete i\1`#_
+
+<<Top, [Back to Top]>>
+
+==== Clear all Contacts: `clear`
+You can clear all the contacts that you have added in your address book.
+
 Format: `clear`
 
-=== Exiting the program : `exit`
+[WARNING]
+Using `clear` command will **delete all** the contacts that you have saved.
 
-Exits the program. +
-Format: `exit`
+<<Top, [Back to Top]>>
 
-=== Saving the data
+==== Undo Command: `undo`
+You can undo a command that you have entered. If you cannot undo, NOVA will let you know.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format: `undo`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+<<Top, [Back to Top]>>
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Redo Command: `redo`
 
+You can redo undone commands. To use `redo`, you must first have used `undo`. If you cannot redo, NOVA will let you know.
+
+Format: `redo`
+
+[WARNING]
+After you successfully entered a command (apart from undo) after an undo command, you will lose all undone commands.
+
+<<Top, [Back to Top]>>
+
+=== Schedule
+Learn how to work with the schedule feature in NOVA. You can track important events by adding them into the schedule
+and manage them easily.
+
+You need to be in schedule mode. Enter the schedule mode by entering the command `nav schedule`.
+Your NOVA should look something like Figure 5.3 below.
+
+image::userguide/schedule_nav.png[width="790" align="center"]
+[.text-center]
+_[.small]#Figure 5.3: GUI of NOVA after user typed `nav schedule`#_
+
+// tag::events[]
+
+==== Add a Meeting: `meeting`(Chua Huixian)
+You can add a meeting as one of your events.
+If there is already an event in the time slot, NOVA will inform you.
+
+Format: `meeting d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)]`
+
+[NOTE]
+====
+* The `[End time (HH:MM)]` must be later than the `[Start time (HH:MM)]`.
+* Events cannot span across more than a day (`00:00` is the start of a day, `23:59` is the end of a day).
+* You can only add meetings to dates that fall within the semester.
+* All prefixes (i.e. `d\`, `v\` and `t\`) must be present.
+* `[description]` and/or `[venue]` can be left as blank spaces if you wish (i.e. " ").
+====
+
+Example: +
+Suppose you wish to add a project meeting into your schedule, which is from 2pm to 3pm on 20 Feb 2020, +
+
+enter the command: `meeting d\CS2103T website set-up v\COM1 t\2020-02-20 14:00 15:00`
+
+NOVA will create an event for a team meeting at COM1 on 20 Feb 2020 to set up CS2103T website from 2pm to 3pm.
+
+image::userguide/EventMeeting.png[width="400" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.1: Display message after entering +
+ `meeting d\CS2103T website set-up v\COM1 t\2020-02-20 14:00 15:00`#_
+
+<<Top, [Back to Top]>>
+
+==== Add a Study Session: `study` (Chua Huixian)
+You can add a study session as one of your events.
+If there is already an event in the time slot, NOVA will inform you.
+
+Format: `study d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)]`
+
+[NOTE]
+====
+* The `[End time (HH:MM)]` must be later than the `[Start time (HH:MM)]`.
+* Events cannot span across more than a day (`00:00` is the start of a day, `23:59` is the end of a day).
+* You can only add study sessions to dates that fall within the semester.
+* All prefixes (i.e. `d\`, `v\` and `t\`) must be present.
+* `[description]` and/or `[venue]` can be left as blank spaces if you wish (i.e. " ").
+====
+
+Example: +
+Suppose you wish to add a group study session from 4pm to 5pm on 20 Feb 2020, +
+
+enter the command: `study d\cool peeps revision v\COM1 t\2020-02-20 16:00 17:00`
+
+NOVA will create an event for study session at COM1 on 20 Feb 2020 from 4pm to 5pm.
+
+image::userguide/EventStudy.png[width="400" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.2: Display message after entering +
+ `study d\cool peeps revision v\COM1 t\2020-02-20 16:00 17:00`#_
+
+<<Top, [Back to Top]>>
+
+==== Add a Consultation Session: `consultation` (Chua Huixian)
+You can add a consultation session as one of your events.
+If there is already an event in the time slot, NOVA will inform you.
+
+Format: `consultation d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)]`
+
+[NOTE]
+====
+* The `[End time (HH:MM)]` must be later than the `[Start time (HH:MM)]`.
+* Events cannot span across more than a day (`00:00` is the start of a day, `23:59` is the end of a day).
+* You can only add consultation sessions to dates that fall within the semester.
+* All prefixes (i.e. `d\`, `v\` and `t\`) must be present.
+* `[description]` and/or `[venue]` can be left as blank spaces if you wish (i.e. " ").
+====
+
+Example: +
+Suppose you wish to add a consultation session from 3pm to 4pm on 20 Feb 2020, +
+
+enter the command: `consultation d\clarify UML v\COM1 t\2020-02-20 15:00 16:00`
+
+NOVA will create an event for consultation at COM1 on 20 Feb 2020 to clarify UML from 3pm to 4pm.
+
+image::userguide/EventConsultation.png[width="400" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.3: Display message after entering +
+ `consultation d\clarify UML v\COM1 t\2020-02-20 15:00 16:00`#_
+
+<<Top, [Back to Top]>>
+
+==== Add a Lesson: `lesson` (Chua Huixian)
+You can add weekly lessons as one of your events.
+If there is already an event in the time slot, NOVA will inform you.
+
+Format: `lesson d\[description] v\[venue] t\[day] [Start time (HH:MM)] [End time (HH:MM)]`
+
+[NOTE]
+====
+* The `[End time (HH:MM)]` must be later than the `[Start time (HH:MM)]`.
+* Events cannot span across more than a day (`00:00` is the start of a day, `23:59` is the end of a day).
+* The lesson will be repeated weekly from weeks 1 to 13.
+* There will not be lessons in the recess week.
+* All prefixes (i.e. `d\`, `v\` and `t\`) must be present.
+* `[description]` and/or `[venue]` can be left as blank spaces if you wish (i.e. " ").
+====
+
+Example: +
+Suppose you wish to add a weekly lesson from 3pm to 4pm on Friday, +
+
+enter the command: `lesson d\CS2103T tutorial v\COM1-B103 t\Friday 15:00 16:00`
+
+NOVA will create weekly events for CS2103T tutorial at COM1-B103 on Friday from 3pm to 4pm for the entire semester.
+
+image::userguide/EventLesson.png[width="400" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.4: Display message after entering +
+ `lesson d\CS2103T tutorial v\COM1-B103 t\Friday 15:00 16:00`#_
+
+<<Top, [Back to Top]>>
+
+==== Delete Event: `delete` (Chua Huixian)
+You can delete an event that you no longer want.
+If the event does not exist, NOVA will inform you.
+
+Format: `delete t\[YYYY-MM-DD] i\[index]`
+
+[NOTE]
+====
+* `[index]` must be a positive integer. (E.g. 1, 2, 3, ...)
+* All prefixes (i.e. `t\` and `i\`) must be present.
+====
+
+Example: +
+Suppose you wish to remove the second event from the list of events on 20 Feb 2020, +
+
+enter the command: `delete t\2020-02-20 i\2`
+
+NOVA will delete the second event on 20 Feb 2020.
+
+image::userguide/EventDelete.png[width="400" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.5: Display message after entering `delete t\2020-02-20 i\2`#_
+
+<<Top, [Back to Top]>>
+
+==== Add Notes to Event: `note` (Chua Huixian)
+You can add additional notes about an event. If the event does not exist, NOVA will inform you.
+
+Format: `note d\[description] t\[YYYY-MM-DD] i\[index]`
+
+[NOTE]
+====
+* `[index]` must be a positive integer. (E.g. 1, 2, 3, ...)
+* All prefixes (i.e. `d\`, `t\` and `i\`) must be present.
+* `[description]` can be left as a blank space if you wish (i.e. " ").
+====
+
+Example: +
+Suppose you wish to add a note that indicates the work allocation to a meeting event, +
+
+enter the command: `note d\Alice - Contact Us page, Bob - Readme Page t\2020-02-20 i\1`
+
+NOVA will add a note with the description "note d\Alice - Contact Us page, Bob - Readme Page t\2020-02-20 i\1"
+to the first event on 20 Feb 2020.
+
+image::userguide/EventNote.png[width="400" align="center"]
+[.text-center]
+
+_[.small]#Fig 5.3.6: Display message after entering +
+`note d\Alice - Contact Us page, Bob - Readme Page t\2020-02-20 i\1`#_
+
+// end::events[]
+
+<<Top, [Back to Top]>>
+
+// tag::view[]
+==== View Schedule of a Day: `view` (Terence)
+You can view the schedule of a specified day. If there is nothing to do on that day, NOVA will tell you.
+
+Format: +
+`view t\[YYYY-MM-DD]`
+
+Example: +
+Suppose you want to check out what events are happening on 20 Feb, +
+
+enter the command: `view t\2020-02-20`
+
+NOVA will show your schedule on 20 Feb 2020 as seen below.
+
+image::userguide/schedule_view_date.png[width="450" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.7: Display message after entering `view t\2020-02-20`#_
+
+<<Top, [Back to Top]>>
+
+==== View Schedule of a Week: `view` (Terence)
+You can view the schedule of a specified week. If there is nothing to do on that week, NOVA will tell you.
+
+Format: +
+`view week i\[week #]`
+
+[NOTE]
+====
+* `[week #]` must be a positive integer. (E.g. 1, 2, 3, ...)
+* Week number for special weeks are as such:
+** Recess week is week 16
+** Reading week is week 14
+** Final examination week is week 15
+====
+
+Example: +
+Suppose you are interested in what is going to happen in week 6 of the semester, +
+
+enter the command: `view week i\6`
+
+NOVA will show your schedule in week 6 of the semester as seen below.
+
+image::userguide/schedule_view_week.png[width="450" align="center"]
+[.text-center]
+_[.small]#Fig 5.3.8: Display message after entering `view week i\6`#_
+
+<<Top, [Back to Top]>>
+
+==== Find Free Slots: `freeslot` (Terence)
+You can find free slots on a day easily within your schedule without looking through your schedule.
+
+Format: +
+`freeslot t\[YYYY-MM-DD]`
+
+Example: +
+Suppose you want to find pockets of free time on 20 Feb 2020, +
+
+enter the command: `freeslot t\2020-02-20`
+
+NOVA will show you your freeslots on 20 Feb 2020.
+
+<<Top, [Back to Top]>>
+
+// end::view[]
+//tag::studyplanner[]
+=== Daily Study Planner (Tan Wah Ken)
+Learn how to work with the planner feature in NOVA. You can add daily/weeky tasks into your study plan and schedule it
+on any day you like hassle-free.
+
+You need to be in planner mode. Enter the planner mode by entering the command
+`nav planner`.
+
+image::userguide/planner.PNG[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.4: GUI of NOVA after user typed contact `nav planner`#_
+
+==== Create Routine Task: `routine`
+You can create routine tasks in your study plan. When being scheduled, the tasks will lasts for 30 minutes weekly if
+possible.
+
+Format: +
+`routine p\[task name] f\[daily/weekly] d\[event duration in minutes]`
+
+[NOTE]
+`[event duration in minutes]` must be between 0 and 1440
+
+Example: +
+Suppose you want to create a weekly routine task "read cs2103 textbook",
+
+enter the command: `routine p\read cs2103 textbook f\weekly d\30`
+
+NOVA will create a new task “read cs2103 textbook”.
+
+<<Top, [Back to Top]>>
+
+==== Create Flexible Day-Task: `flexible`
+You can create flexible tasks in your study plan, which will create one event per day when being scheduled. When
+being scheduled, these tasks will create events with duration as long as possible, from 10 minutes to 60 minutes.
+
+Format: +
+`flexible p\[task name] t\[total minutes] mind\[maximum event duration in minutes] maxd\[maximum event duration in minutes]`
+
+[NOTE]
+====
+* `[total minutes]` must be greater than `[minimum event duration in minutes]`
+* `[maximum event duration in minutes]` must be greater or equal to `[minimum event duration in minutes]`
+* `[minimum event duration in minutes]` and `[maximum event duration in minutes]` must be between 0 and 1440
+====
+
+Example: +
+Suppose you want to create a flexible task "study vocabulary", +
+ +
+enter the command: `flexible p\study vocabulary t\100 mind\10 maxd\60`
+
+NOVA will create a new task “study vocabulary”. When being scheduled, this task will create one event “study vocabulary”
+with duration as long as possible, from 10 minutes to 60 minutes. The total duration of all the event scheduled will
+not exceed 100 minutes.
+
+<<Top, [Back to Top]>>
+
+==== Delete task: `delete`
+You can delete a task, and all its related future events.
+
+Format: +
+`delete p\[task name]`
+
+Example: +
+Suppose you want to delete the task "study vocabulary",
+
+enter the command: `delete p\study vocabulary`
+
+NOVA will delete the task “study vocabulary” and all its related future events.
+
+<<Top, [Back to Top]>>
+
+==== View Statistics: `stats`
+You can view the statistics of every tasks currently in study plan. The statistics are as follows:
+
+* For weekly routine task, statistics consists of:
+** Number of weeks completed and incomplete since its creation
+** All the events related to the task
+* For daily routine task, statistics consists of:
+** Number of days done and not done since its creation
+** All the events related to the task
+
+* For flexible tasks, statistics consists of:
+** Percentage done (Total duration of every event created / Total minutes)
+** All the events related to the task
+
+Format: +
+`stats`
+
+NOVA will display the statistics of all the tasks currently in study plan.
+
+<<Top, [Back to Top]>>
+
+==== Schedule Task: `schedule`
+You can generate an event on a random spot on the specified day according to the requirements of the task if
+possible. The event is generated on a random slot, you will need to manually modify the event generated if you wish.
+If it is impossible to schedule an event for the task for that day, you will be notified.
+
+Format: +
+`schedule p\[task name] t\[YYYY-MM-DD]` +
+
+Example:
+
+* Suppose you want to schedule the weekly routine task "read cs2103 textbook",
++
+enter the command: `schedule p\read cs2103 textbook t\2020-03-20`
++
+NOVA will finds a free slot bigger than 30 minutes as specified by the task, and creates an event “read cs2103
+textbook” that lasts for 30 minutes on a random spot within the free slot.
+
+* Suppose you want to schedule the flexible task "study vocabulary",
++
+enter the command: `schedule p\study vocabulary t\2020-03-20` +
++
+NOVA will finds a free slot bigger than 10 minutes as specified by the task, and creates an event “read cs2103
+textbook” on a random spot within the free slot.
+
+<<Top, [Back to Top]>>
+
+//end::studyplanner[]
+//tag::ProgressTracker[]
+
+=== Progress Tracker  (Yap Wen Jun Bryan)
+Learn how to work with the progress tracker feature in NOVA. You can track important project tasks by adding them into the progress tracker
+and manage them easily.
+
+You need to be in Progress Tracker mode. Enter the Progress Tracker mode by entering the
+command `nav progresstracker`. Your NOVA should look something like Figure 5.5 below.
+
+image::userguide/progressTracker.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.5: GUI of NOVA after typing command `nav progresstracker`#_
+
+==== Add Project Task: `add`
+You can add tasks under projects in the progress tracker.
+
+Format: +
+`add p\[ip/tp] w\[week number] d\[task description]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input
+====
+
+[WARNING]
+====
+* `add` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task description]` cannot be empty
+====
+
+Example: +
+Suppose you want to add a task to week 3 of IP project to remind yourself to do up javaFx,
+
+enter the command: `add p\ip w\3 d\Do up javaFx`
+
+NOVA will add a task “Do up javaFx” to week 3 of IP in progress tracker.
+
+image::userguide/addPtTaskResult.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.1: Display message after entering `add p\ip w\3 d\Do up javaFx`#_
+
+<<Top, [Back to Top]>>
+
+==== View Project Task: `list`
+You can view tasks under a certain week for projects in the progress tracker.
+
+Format: +
+`list p\[ip/tp] w\[week number]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input
+====
+
+[WARNING]
+====
+* `list` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+====
+
+Example: +
+Suppose you would like to view the tasks you have added to week 3 of IP project,
+
+enter the command: `list p\ip w\3`
+
+NOVA will list the tasks in week 3 of IP project.
+
+image::userguide/listPtTask.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.2: Display message after entering `list p\ip w\3`#_
+
+<<Top, [Back to Top]>>
+
+==== Delete Project Task: `delete`
+You can remove tasks under projects in the progress tracker.
+
+Format: `delete p\[ip/tp] w\[week number] t\[task number]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input
+====
+
+[WARNING]
+====
+* `delete` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task number]` must be a positive integer (E.g. 1, 2, 3, …)
+====
+
+Example: +
+Suppose you wish to delete task number 1 in week 3 of IP project,
+
+enter the command: `delete p\ip w\3 t\1`
+
+NOVA will delete task 1 in week 3 of IP in progress tracker.
+
+image::userguide/deletePtTaskResult.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.3: Display message after entering `delete p\ip w\3 t\1`#_
+
+<<Top, [Back to Top]>>
+
+==== Complete Tasks: `done`
+You can mark tasks in the progress tracker as done/ not done.
+
+Format: +
+`done p\[ip/tp] w\[week number] t\[task number]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input
+* Calling `done` on a done task will set it to not done and vice versa
+====
+
+[WARNING]
+====
+* `done` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task number]` must be a positive integer (E.g. 1, 2, 3, …)
+====
+
+Example: +
+Suppose you wish to set task number 1 in week 3 of IP project as done or undone,
+
+enter the command: `done p\ip w\3 t\1`
+
+NOVA will set task 1 in week 3 of IP in progress tracker as done/undone depending on it's status originally.
+
+image::userguide/setDonePtTaskResult.png[width="470" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.4: Display message after entering `done p\ip w\3 t\1`#_
+
+<<Top, [Back to Top]>>
+
+==== Add Notes: `addNote`
+You can add notes to project tasks in the progress tracker.
+
+Format: +
+`addNote p\[ip/tp] w\[week number] t\[task number] d\[note]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input
+====
+
+[WARNING]
+====
+* `addNote` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[note]` cannot be empty
+====
+
+Example: +
+Suppose you wish to add a note to remind yourself to create a branch and tag for task number 2 in week 3 of IP project,
+
+enter the command: `addNote p\ip w\3 t\1 d\Need create branch and tag`
+
+NOVA will add a note “Need create branch and tag” to task 1 in week 3 of IP.
+
+image::userguide/addPtNote.png[width="790" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.5: Display message after entering `addNote p\ip w\3 t\1 d\Need create branch and tag`#_
+
+<<Top, [Back to Top]>>
+
+==== Edit Note: `editNote`
+You can edit the note that you have added to tasks in projects in the progress tracker.
+
+Format: +
+`editNote p\[ip/tp] w\[week number] t\[task number] d\[new note]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input.
+====
+
+[WARNING]
+====
+* `editNote` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[new note]` cannot be empty
+====
+
+Example: +
+Suppose you wish to edit the note added in task 1 of week 3 in IP project,
+
+enter the command: `editNote p\ip w\3 t\1 d\consult tutor`
+
+NOVA will edit the note under task 1 of week 3 of IP.
+
+image::userguide/editPtNote.png[width="500" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.6: Display message after entering `editNote p\ip w\3 t\1 d\consult tutor`#_
+
+<<Top, [Back to Top]>>
+
+==== Delete Note: `deleteNote`
+You can delete the note that you have added to tasks in projects in the progress tracker.
+
+Format: +
+`deleteNote p\[ip/tp] w\[week number] t\[task number]`
+
+[NOTE]
+====
+* Only `ip` and `tp` projects are available and are not case-sensitive
+* There are only weeks 1 to 13 in each project
+* When multiple same tags are keyed, the last tag will be taken as the input.
+====
+
+[WARNING]
+====
+* `deleteNote` is case-sensitive
+* `[week number]` must be a positive integer (E.g. 1, 2, 3, …)
+* `[task number]` must be a positive integer (E.g. 1, 2, 3, …)
+====
+
+Example: +
+Suppose you wish to delete the note added in task 1 of week 3 in IP project,
+
+enter the command: `deleteNote p\ip w\3 t\1`
+
+NOVA will delete the note under task 1 of week 3 of IP.
+
+image::userguide/deletePtNote.png[width="500" align="center"]
+[.text-center]
+_[.small]#Fig 5.5.7: Display message after entering `deleteNote p\ip w\3 t\1`#_
+
+//end::ProgressTracker[]
+<<Top, [Back to Top]>>
+
+[[Summary]]
+== Command Summary (Terence and Bryan)
+
+[%autowidth,cols="<.^,<.^,<.^",options="header"]
+|=========================================================
+| Mode | Command | Description
+.2+| Common
+| exit | Exits NOVA
+| nav [home/ ab/ schedule/ planner/ tracker] | Changes the mode of NOVA
+
+.10+| Address Book
+| add n\[name] p\[phone number] e\[email address] c\[classmate/teammate] | Adds a contact into your address book
+| clear | Deletes all contacts within your address book
+| delete i\[index] | Deletes the contact at the specified index
+| edit i\[index] n\[name] p\[phone number] e\[email address] c\[classmate/teammate] | Edits the contact at the
+specified index to the specified fields
+| find n\[name] | Finds a contact in your address book
+| list | Lists all the contacts in your address book
+| list c\[classmate/teammate] | Lists all the contacts of the specified category in your address book
+| redo | Redoes an undone command
+| remark i\[index] r\[remark] | Adds a category specific remark to the contact at the specified index
+| undo | Undoes a command
+
+.9+| Schedule
+| consultation d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)] | Adds a consultation
+event to your schedule
+| delete t\[YYYY-MM-DD] i\[index] | Deletes the event at the specified index on the specified day
+| freeslot t\[YYYY-MM-DD] | Find pockets of free time you have on the specified day
+| lesson d\[description] v\[venue] t\[day] [Start time (HH:MM)] [End time (HH:MM)] | Adds a lesson to your schedule
+| meeting d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)] | Adds a meeting event to
+your schedule
+| note d\[description] t\[YYYY-MM-DD] i\[index] | Adds a note to the event at the specified index of the specified date
+| study d\[description] v\[venue] t\[YYYY-MM-DD] [Start time (HH:MM)] [End time (HH:MM)] | Adds a study session event
+into your schedule
+| view t\[YYYY-MM-DD] | Shows the events happening on the specified date
+| view week i\[week #] | Shows the events happening on the specified week
+
+.5+| Daily Study Planner
+| delete p\[task name] | Deletes a task and all its events
+| flexible | Creates a flexible task
+| routine p\[task name] f\[daily/weekly] d\[event duration in minutes]| Creates a routine task
+| schedule | Schedules a tasks in the schedule
+| stats | Views the statistics of your planner
+
+.7+| Progress Tracker
+| add p\[ip/tp] w\[week number] d\[task description] | Adds a task to the specified week and project
+| list p\[ip/tp] w\[week number] | Lists the tasks that have been added to the specified week and project
+| delete p\[ip/tp] w\[week number] t\[task number] | Deletes the specified task
+| done p\[ip/tp] w\[week number] t\[task number] | Sets the status of the specified task to done/undone
+| addNote p\[ip/tp] w\[week number] t\[task number] d\[note] | Adds a note to the specified task
+| editNote p\[ip/tp] w\[week number] t\[task number] d\[new note] | Overwrites the existing note with the new note
+| deleteNote p\[ip/tp] w\[week number] t\[task number] | Deletes the note in the specified task
+|=========================================================
+
+<<Top, [Back to Top]>>
+
+[[FAQ]]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: You can install the app on the other computer and overwrite the empty data file it creates with the file that
+contains the data of your previous NOVA folder.
 
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+<<Top, [Back to Top]>>

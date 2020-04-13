@@ -1,8 +1,9 @@
-= AddressBook Level 3 - Developer Guide
+= NOVA - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -12,13 +13,14 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+:repoURL: https://github.com/AY1920S2-CS2103T-F10-3/main
+
+By: `CS2103T-F10-3`      Since: `Apr 2020`      Licence: `MIT`
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+Refer to the guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/SettingUp.adoc[here].
 
 == Design
 
@@ -31,10 +33,10 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams[diagrams] folder.
+Refer to the https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/UsingPlantUml.adoc[Using PlantUML guide] to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/blob/master/src/main/java/seedu/nova/Main.java[`Main`] and link:{repoURL}/blob/master/src/main/java/seedu/nova/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -58,78 +60,78 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+.Architecture Diagram of the Logic Component
+image::LogicArchitecture.png[]
 
 [discrete]
-==== How the architecture components interact with each other
+==== How the architecture components interact with each other (Loh Sze Ying)
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete i\1` after navigating to Address Book mode with `nav ab`. +
+The same type of interaction applies to other mode within NOVA, such as Schedule mode, Planner mode or Progress Tracker mode.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `delete i\1` command
+image::ArchitectureSequenceDiagram.png[width=500]
 
 The sections below give more details of each component.
 
+//tag::UI[]
 [[Design-Ui]]
-=== UI component
+=== UI component (Yap Wen Jun Bryan)
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/nova/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay` and `HelpBox`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files (HelpBox does not have a `.fxml` file) that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/nova/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
-=== Logic component
+
+// tag::logic[]
+=== Logic component (Chua Huixian)
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/nova/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `LogicParser` class to determine which mode the user is in when they input a command.
+.  After which, the relevant parser is called (e.g. `AddressBookParser`).
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
-=== Model component
+// tag::model[]
+=== Model component (Terence)
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/nova/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
+* stores a 'Schedule' object that represents the user's schedule.
+* stores a 'ProgressTracker' object that represents the user's progress in their project tasks.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+// end::model[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,25 +139,97 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/nova/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save NOVA's data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common classes (Loh Sze Ying)
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.nova.commons` package.
+All of the classes under `Commons` work independently.
+
+Most notably,
+
+* *API* : link:{repoURL}/blob/master/src/main/java/seedu/nova/commons/core/LogsCenter.java[`LogsCenter.java`] +
+The `LogsCenter` is used by NOVA to display logs when running NOVA in terminal.
+
+* *API* : link:{repoURL}/blob/master/src/main/java/seedu/nova/commons/core/Messages.java[`Messages.java`] +
+The `Messages` is used by NOVA and deals with messages to display relating to NOVA's features.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::events[]
+
+=== Manage Events (Chua Huixian)
+The manage events feature handles the events of the user, including meetings, consultations, study sessions and lessons.
+Users are able to:
+
+* add events
+* delete events
+* add notes to events
+
+==== Implementation - Deleting an event
+The delete feature allows users to remove events from the schedule.
+This feature is facilitated by `ScheduleParser`, `EventDeleteCommandParser` and `EventDeleteCommand`.
+The operation is exposed in the `Model` interface as `Model#deleteEvent()`.
+
+Given below is an example usage scenario and how the delete mechanism behaves at each step.
+
+1. The user does `view t\2020-03-20` to view their events on 20th March 2020.
+
+2. The user executes `delete t\2020-03-20 i\2` command to delete the second event on 20th March 2020.
+
+3. `EventDeleteCommandParser` creates a new `EventDeleteCommand`.
+
+4. `LogicManager` executes the `EventDeleteCommand`.
+
+5. `Model#deleteEvent()` is called, and the `Schedule` object in `ModelManager` is updated.
+
+The following sequence diagram shows how the delete operation works:
+
+image::EventDeleteSeqDiagram.png[]
+
+The following activity diagram shows what happens when a user inputs a delete command:
+
+image::EventDeleteActDiagram.png[]
+
+==== Design Considerations
+Aspect: Syntax of Deleting an Event
+
+* **Alternative 1 (current choice):** choosing the event by its date and its index in the list of events on that date
+** Pros: relatively short to type, greater ease of implementation
+** Cons: users have to view the list of events on that date before determining which event to mark as done
+
+* **Alternative 2:** choosing the event by description
+** Pros: more recognisable for users
+** Cons: difficulty in implementing as certain events may have the exact same descriptions
+
+// end::events[]
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Address Book (Loh Sze Ying)
+The address book feature handles the contact list of the users. To enter address book mode, users need to enter `nav ab` command. Users are able to:
+
+* add contacts
+* edit contacts
+* delete contacts
+* find contacts
+* list all contacts
+* list category specific contacts
+* add category specific remark for contacts
+* edit category specific remark for contacts
+* delete category specific remark for contacts
+* undo or redo command
+* add profile picture to contacts
+* delete profile picture to contacts
+
+==== Implementation - Undo or redo command
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -173,13 +247,13 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete i\5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete i\5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width=446]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n\David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width=446]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
@@ -195,18 +269,16 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, `list c\classmate`, `list c\teammate` or `find`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n\David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -214,7 +286,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
-==== Design Considerations
+==== Design Considerations - Undo or redo command
 
 ===== Aspect: How undo & redo executes
 
@@ -235,12 +307,204 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+==== Implementation - Delete a contact
 
-_{Explain here how the data encryption feature will be implemented}_
+The edit feature allows users to edit a contact from Address Book. This feature is facilitated by `AddressBookParser`, `AbDeleteCommandParser` and `AbDeleteCommand`.
+The operation is exposed in the `Model` interface as `Model#deletePerson()`.
 
-// end::dataencryption[]
+Given below is an example usage scenario and how the delete mechanism behaves at each step.
+
+. The user does `list`, `list c\classmate`, `list c\teammate`, or `find n\[name]` to view their contacts.
+. The user executes `delete i\1` command to delete the first contact.
+. `AbDeleteCommandParser` creates a new `AbDeleteCommand`.
+. `LogicManager` executes the `AbDeleteCommand`.
+. `Model#deletePerson()` is called, and the `AddressBook` object in `ModelManager` is updated.
+
+The following sequence diagram shows how the delete operation works:
+
+image::AbDeleteSequenceDiagram.png[]
+
+The following activity diagram shows how the delete mechanism works:
+
+image::AbDeleteActivityDiagram.png[width=470]
+
+==== Design Considerations - Delete a contact
+===== Aspect: Deleting a contact by index or name
+
+* **Alternative 1 (current choice):** Use index tag to delete contact
+** Pros: Shorter command to type by using index
+** Cons: Users need to use `list`, `list c\classmate`, `list c\teammate` or `find n\[name]` command before deleting contact
+* **Alternative 2:** Use name to delete contact
+** Pros: No need to use `list`, `list c\classmate`, `list c\teammate` or `find n\[name]` prior to deleting contact
+** Cons: Need to handle deletion of contacts with the same name
+
+//tag::listPt[]
+
+=== List tasks under IP project (Yap Wen Jun Bryan)
+The list tasks feature for the IP project allows the user to view a list of tasks that were added.
+
+==== Implementation
+Given below is an example usage scenario and how the list tasks mechanism behaves at each step.
+
+1. The user keys in `list p\ip w\2` into the command box.
+2. The user executes `list p\ip w\2` to view the list of tasks in week 2 of the IP project.
+3. `PtListCommandParser` creates a new `PtListCommand`.
+4. `LogicManager` executes the `PtListCommand`.
+5. `Model#listTasks()` is called and the list of tasks is retrieved.
+
+The following sequence diagram shows how the list tasks operation works:
+
+image::PtSeqDiagram.png[]
+
+The following activity diagram shows what happens when a user inputs a list command:
+
+image::ListPtActivityDiagram.png[]
+
+==== Design Considerations
+Aspect: Adding choice of week to view tasks
+
+* **Alternative 1 (current choice):** adding in choice of week to view tasks
+** Pros: more freedom to choose what to see as a user
+** Cons: longer command to type
+
+* **Alternative 2:** listing out the whole project tasks rather than letting user choose based on week
+** Pros: shorter command to type and user can see all their tasks at once
+** Cons: if user wants to see tasks only for a specific week will be harder to scroll and find
+
+//end::listPt[]
+// tag::view[]
+
+=== View schedule (Terence)
+The view schedule feature allows users to view the events they have added into the schedule. Users are able to view the
+schedule by two time frames:
+
+* By date
+* By week
+
+The following activity diagram shows what happens when a user inputs a view command:
+
+image::ViewCommandActivityDiagram.png[]
+
+==== Implementation - View schedule by date
+The view feature allows users to see the events happening on the specified date.
+This feature is facilitated by `ScheduleParser`, `ScViewCommandParser` and `ScViewDayCommand`.
+The operation is exposed in the `Model` interface as `Model#view(LocalDate)`.
+
+Given below is an example usage scenario and how the view by date mechanism behaves at each step.
+
+1. The user keys in 'view t\2020-03-10' into the command box.
+2. The user executes 'view t\2020-03-10' to view their schedule on the 10 Mar 2020.
+3. `LogicManager` calls LogicParser to parse the command.
+4. `LogicParser` gets the mode from Model and passes the command word and the argument to ScheduleParser.
+5. `ScheduleParser` checks the command word and calls ScViewDayCommandParser.
+6. 'ScViewDayCommandParser' creates a new 'ScViewDayCommand'.
+7. 'LogicManager' executes the 'ScViewDayCommand'.
+8. 'ModelManger#viewSechdule(LocalDate)' is called and the schedule for the day is retrieved.
+
+The following sequence diagram shows how the view tasks operation works:
+
+image::viewDaySequenceDiagram.png[]
+
+View week: Given below is an example usage scenario and how the view week mechanism behaves at each step.
+
+1. The user keys in 'view week i\6' into the command box.
+2. The user executes 'view week i\6' to view their schedule on the 6th week.
+3. `LogicManager` calls LogicParser to parse the command.
+4. `LogicParser` gets the mode from Model and passes the command word and the argument to ScheduleParser.
+5. `ScheduleParser` checks the command word and the preamble and calls ScViewWeekCommandParser.
+6. 'ScViewWeekCommandParser' creates a new 'ScViewWeekCommand'.
+7. 'LogicManager' executes the 'ScViewWeekCommand'.
+8. 'ModelManger#viewSechdule(int)' is called and the schedule for the week is retrieved.
+
+==== Implementation - View schedule by week
+The view feature allows users to see the events happening throughout the specified week.
+This feature is facilitated by `ScheduleParser`, `ScViewCommandParser` and `ScViewWeekCommand`.
+The operation is exposed in the `Model` interface as `Model#view(int)`.
+
+The following sequence diagram shows what happens when a user inputs a view week command:
+
+image::viewWeekSequenceDiagram.png[]
+
+==== Design Considerations
+Aspect: View schedule by at most week and not month.
+
+* **Alternative 1 (current choice):** View schedule up to week
+** Pros: Easier to fit the events into the display.
+** Cons: Less ways for user to view schedule.
+
+* **Alternative 2:** View schedule up to month
+** Pros: User can see their whole month's schedule at once.
+** Cons: Might be too long and cannot fit into the display box. Time to gather all the events may be too long.
+// end::view[]
+
+//tag::studyplannerfeature[]
+
+=== View available free slot of a specific day (Tan Wah Ken)
+The view free slots feature allows the user to view their available free slots on their schedule.
+
+==== Implementation
+Given below is an example usage scenario and how the view free slot mechanism behaves at each step.
+
+1. The user keys in 'freeslot t\2020-03-10' into the command box.
+2. The user executes 'freeslot t\2020-03-10' to view the free slots on their schedule on the 10th of March 2020.
+3. 'ScViewFreeSlotCommandParser' creates a new 'ScViewFreeSlotCommand'.
+4. 'LogicManager' executes the 'ScViewFreeSlotCommand'.
+5. 'ModelManger#viewFreeSlot()' is called and the free slots for the day is retrieved.
+
+The following sequence diagram shows how the view tasks operation works:
+
+image::ScViewFreeSlotDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Calculating free slots given a schedule
+
+* **Alternative 1 (current choice):** Embeds a free slot data structure to keep track of the free slots whenever
+events are added
+** Pros: no need to calculate free slots whenever user execute freeslot.
+** Cons: overhead to add event commands, making its execution slower.
+
+* **Alternative 2:** Calculates free slot based on the events whenever user executes freeslot
+** Pros: easier to implement.
+** Cons: slower freeslot execution.
+
+
+=== Schedule events based on a task in plan (Tan Wah Ken)
+The plan feature allows the user to create an event based on the task user created in the plan.
+
+==== Implementation
+Given below is an example usage scenario and how the plan task mechanism behaves at each step.
+
+1. The user keys in 'schedule p\task name t\2020-03-10' into the command box.
+2. The user executes 'schedule p\task name t\2020-03-10' to create an event "task name" on their schedule on the 10th of
+March 2020.
+3. 'PlannerScheduleTaskCommandParser' creates a new 'PlannerScheduleTaskCommand'.
+4. 'LogicManager' executes the 'PlannerScheduleTaskCommand'.
+5. 'ModelManger#searchTask()' is called to search for the task user specified.
+6. 'ModelManger#generateTaskEvent()' is called and one event with time determined by algorithm is created on the day
+in schedule.
+
+The following sequence diagram shows how the schedule task operation works:
+
+image::PlannerScheduleTaskSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user schedules a task:
+
+image::PlannerScheduleTaskActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Calculating best fit time frame for a task
+
+* **Alternative 1 (current choice):** Plan gets free slot from schedule and generate event based on it.
+** Pros: Isolation of modules.
+** Cons: Redundant code.
+
+* **Alternative 2:** Schedule decides whether to schedule or discard an event generated from task.
+** Pros: more robust schedule.
+** Cons: more difficult to implement.
+
+//end::studyplannerfeature[]
 
 === Logging
 
@@ -264,48 +528,126 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+Refer to the guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/Documentation.adoc[here].
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+Refer to the guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/Testing.adoc[here].
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+Refer to the guide https://github.com/AY1920S2-CS2103T-F10-3/main/blob/master/docs/DevOps.adoc[here].
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* is a CS2103T student
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: a one-stop study aid platform for CS2103T students
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="^15%,<15%,<35%,<35%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+<|Priority |As a ... |I can ... |So that I ...
+// tag::addressbookuserstory[]
+|`* * *` |student |add classmate or teammate’s name and contact information |contact them easily
 
-|`* * *` |user |add a new person |
+|`* * *` |student |edit classmate or teammate’s name and contact information |Edit them if the information are changed
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |delete classmate or teammate’s contact |delete if not necessary anymore
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |categorise contacts into teammate or classmate |sort contacts according to category
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |add category specific remark |filter out a contact’s remark according to type of contact
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |student |edit category specific remark |edit remark if necessary
+
+|`* * *` |student |delete category specific remark |delete remark if it is not needed
+
+|`*` |student |add profile picture to added contact |know at a glance who is the person in my contact
+
+|`*` |student |edit profile picture to added contact |edit the picture if changes are necessary
+
+|`*` |student |delete profile picture to added contact|don't need the contact picture within NOVA anymore
+// end::addressbookuserstory[]
+
+// tag::eventuserstory[]
+|`* * *` |student |create meeting events | can keep track of my schedule
+
+|`* * *` |student |create study session events | can keep track of my schedule
+
+|`* * *` |student |create consultation events | can keep track of my schedule
+
+|`* * *` |student |create lesson events | can keep track of my schedule
+
+|`* * *` |student |note down the location of the meeting | know where to go
+
+|`* * *` |student |delete events | can get rid of events that I do not need anymore
+
+|`* * *` |student |add notes to events | can jot down additional details about the events
+
+|`* *` |student |mark events as done | know which events I have completed
+
+|`* *` |student |find events | can check if I have any specific events according to keyword(s)
+
+|`* *` |student |repeat events | can add multiple similar events at one go
+// end::eventuserstory[]
+
+|`* * *` |forgetful student |keep track of my project tasks |make sure all my project tasks are completed on time
+
+|`* * *` |student |mark tasks as done |track how many tasks I have finished
+
+|`* * *` |student |view tasks added |see the tasks I have to finish
+
+|`* * *` |student |add notes to project tasks |keep track of details regarding the tasks
+
+|`* * *` |student |delete project tasks |remove unwanted project tasks from the tracker
+
+|`* * *` |student |add project tasks |keep track of those project tasks
+
+|`* * *` |student |delete notes |remove unwanted notes from tasks
+
+|`* *` |lazy student |edit project tasks |can correct mistakes made to task descriptions with little effort
+
+|`* *` |lazy student |edit notes to project tasks |can correct mistakes made to notes with little effort
+
+// tag::viewScheduleUserStories[]
+
+|`* * *` |Student | View my schedule for a day| Know the flow of events on that day
+
+|`* * *` |Student | View my schedule for a week | Know what will happen for that week
+
+|`*` |Student | View my timetable | Can check when my classes are
+
+// end::viewScheduleUserStories[]
+
+|`* *`   |Student | Easily find my free slots without looking at my schedule | Do not need to strain my eyes
+
+|`* *`   |Forgetful student | Set reminders for upcoming events | Will remember to attend them
+
+//tag::studyplannerusecase[]
+
+|`* * *` |Student | Add tasks to study plan | Can add study tasks to my study plan
+
+|`* * *` |Student | Delete tasks on study plan | Can delete study tasks if I don't need it anymore
+
+|`* * *` |Student | Generate event from a task | If I feel like I want to do a study task today, I can generate an
+event on today's schedule so that I can keep up with my study plan.
+
+|`* *`   |Student | View statistics of my task progress | Can see how much I've done for each task on my study plan.
+
+//end::studyplannerusecase[]
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,42 +655,577 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `nova` and the *Actor* is the `student`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case 1: Add a contact (Loh Sze Ying)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Student enters add command with the contact’s name, phone number, email and category
+2.  NOVA saves the contact
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Student did not include compulsory field
++
+[none]
+** 1a1. NOVA informs student to include compulsory field
++
+Use case resumes at step 1
+* 1b. Student did not adhere to format required for adding contact
++
+[none]
+** 1b1. NOVA informs student that the format is invalid, and provides an example of a correct format
++
+Use case resumes at step 1
+
+[discrete]
+=== Use case 2: List all contacts (Loh Sze Ying)
+
+*MSS*
+
+1.  Student enters list command
+2.  NOVA list all the contacts
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. There is no contacts saved
++
+[none]
+** 1a1. NOVA informs student that the list is empty
++
+Use case end
+
+[discrete]
+=== Use case 3: List category specific contacts (Loh Sze Ying)
+
+*MSS*
+
+1.  Student enters list category command
+2.  NOVA list all the contacts under that category
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. There is no contacts saved under that category
++
+[none]
+** 1a1. NOVA informs student that the list of that category is empty
++
+Use case end
+
+[discrete]
+=== Use case 4: Find saved contacts (Loh Sze Ying)
+
+*MSS*
+
+1.  Student enters find command
+2.  NOVA finds the name of contact that the student typed and list all the matching names
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. There is no contact that matches what the student type
++
+[none]
+** 1a1. NOVA prints an empty list
++
+Use case end
+
+[discrete]
+=== Use case 5: Edit a contact (Loh Sze Ying)
+
+*MSS*
+
+1.  Student used `list`, `list c\classmate`, `list c\teammate` or `find` command
+2.  Student enters edit command with index, and at least 1 field to edit
+3.  NOVA saves the edited contact
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Student did not use `list`, `list c\classmate`, `list c\teammate` or `find` command before using `edit` command
++
+[none]
+** 1a1. Student edits information of the wrong contact, and NOVA informs the student to use `undo` command if wrong contact is edited
++
+Use case resumes at step 1
+[none]
+* 2a. Student did not adhere to format required for editing contact
++
+[none]
+** 2a1. NOVA informs student that the format is invalid, and provides an example of a correct format
++
+Use case resumes at step 2
+[none]
+* 2b. Student did not include at least 1 compulsory field
++
+[none]
+** 2b1. NOVA informs student to include at least 1 compulsory field
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case 6: Delete a contact (Loh Sze Ying)
+
+*MSS*
+
+1.  Student used `list`, `list c\classmate`, `list c\teammate` or `find` command
+2.  Student enters delete command
+3.  NOVA deletes the contact
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Student did not use `list`, `list c\classmate`, `list c\teammate` or `find` command before using `delete` command
++
+[none]
+** 1a1. Student deletes the wrong contact, and NOVA informs the student to use `undo` command if wrong contact is deleted
++
+Use case resumes at step 1
+[none]
+* 2a. NOVA cannot find the contact in the contact list
++
+[none]
+** 2a1. NOVA informs student that the contact to delete does not exist
++
+Use case resumes at step 2
+[none]
+* 2b. Student provides a wrong format to delete
++
+[none]
+** 2b1. NOVA informs student that the format is invalid, and provides an example of a correct format
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case 7: Add, edit or delete remark to a contact (Loh Sze Ying)
+
+*MSS*
+
+1.  Student used `list`, `list c\classmate`, `list c\teammate` or `find` command
+2.  Student enters remark command
+3.  NOVA adds, edits or deletes remark to a contact
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Student did not use `list`, `list c\classmate`, `list c\teammate` or `find` command before using `remark` command
++
+[none]
+** 1a1. Student adds, edits or deletes remark of the wrong contact, and NOVA informs the student to use `undo` command if student add, edit or delete remark on the wrong contact
++
+Use case resumes at step 1
+[none]
+* 2a. NOVA cannot find the contact in the contact list
++
+[none]
+** 2a1. NOVA informs student that the contact to add, edit or delete mark does not exist
++
+Use case resumes at step 2
+[none]
+* 2b. Student provides a wrong format to add, edit or delete
++
+[none]
+** 2b1. NOVA informs student that the format is invalid, and provides an example of a correct format
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case 8: Undoing in address book (Loh Sze Ying)
+
+*MSS*
+
+1.  Student used `add`, `edit`, `delete` or `remark` prior
+2.  Student enters undo command
+3.  NOVA undone the changes that the student made
++
+Use case ends
+
+[none]
+* 1a. Student did not use `add`, `edit`, `delete` or `remark` prior to using `undo`
++
+[none]
+** 1a1. NOVA informs the student that there are no more commands to undo
++
+
+resumes at step 1
+
+[discrete]
+=== Use case 9: Redoing in address book (Loh Sze Ying)
+
+*MSS*
+
+1.  Student used `undo` successfully prior to using `redo`
+2.  Student enters redo command
+3.  NOVA redo the changes that the student made
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Student did not use `undo` prior to using `redo`
++
+[none]
+** 1a1. NOVA informs the student that there are no more commands to redo
++
+Use case resumes at step 1
+
+// tag::eventusecase[]
+[discrete]
+=== Use case 10: Adding a consultation event (Chua Huixian)
+
+*MSS*
+
+1. Student enters consultation command with details of the consultation
+2. NOVA adds consultation event to the schedule
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. NOVA detects error in data inputted
+** 1a1. NOVA informs student of the error
 +
-Use case resumes at step 2.
+Use case ends.
+
+[discrete]
+=== Use case 11: Delete an event (Chua Huixian)
+
+*MSS*
+
+1. Student enters delete command with details of the event
+2. NOVA deletes the event
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. NOVA cannot find the event given
+** 1a1. NOVA informs student that the event does not exist
++
+Use case ends.
+
+[discrete]
+=== Use case 12: Adding a note to an event (Chua Huixian)
+
+*MSS*
+
+1. Student enters note command with details of the event
+2. NOVA adds note to the event
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 1a. NOVA cannot find the event given
+** 1a1. NOVA informs student that the event does not exist
+// end::eventusecase[]
+
+
+//tag::UseCasesPt[]
+[discrete]
+=== Use case 13: Add task to a project of progress tracker (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to add task to a project.
+2.  Progress tracker adds task to the project.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such project exist.
+*   1a1. NOVA shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 14: Edit a task  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to edit task.
+2.  Progress tracker replaces old task description with new description.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such task exist.
+*   1a1. NOVA shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 15: Delete a task  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to delete task.
+2.  Progress tracker deletes task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 1a. Task to be deleted does not exist.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 16: List tasks in a week of a project  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to list tasks.
+2.  Progress tracker lists task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such tasks exists in the week specified.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 17: Set an added task as done  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to set task as done.
+2.  Progress tracker sets task as done.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such tasks exists.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 18: Add notes to a task in progress tracker  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to add notes to the project task.
+2.  Progress tracker adds notes to the project task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such project task exist.
+*   1a1. NOVA shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 19: Edit a note  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to edit note.
+2.  Progress tracker replace old note with new note.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No prior note was added.
+*   1a1. NOVA shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 20: Delete a note  (Yap Wen Jun Bryan)
+
+*MSS*
+
+1.  User enter command to delete note.
+2.  Progress tracker deletes note.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Note to be deleted does not exist.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+//end::UseCasesPt[]
+
+// tag::viewScheduleUseCases[]
+
+[discrete]
+=== Use case 21: View the schedule for a day
+
+*MSS*
+
+1. User requests for the schedule of a day.
+2. NOVA shows the schedule for the day.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters the wrong format.
+*   1a1. NOVA displays the correct format for the command.
+* 2a. The schedule for the day is empty.
+*   2a1. NOVA displays that day does not have any events.
++
+Use case ends.
+
+[discrete]
+=== Use case 22: View the schedule for a week
+
+*MSS*
+
+1. User requests for the schedule of a week.
+2. NOVA shows the schedule for the week.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 1a. User enters the wrong format.
+*   1a1. NOVA displays the correct format for the command.
+* 2a. The schedule for the week is empty.
+*   2a1. NOVA displays that week does not have any events.
++
+Use case ends.
+
+// end::viewScheduleUseCases[]
+//tag::studyplannermss[]
+
+[discrete]
+=== Use case 23: User add a task into study plan.
+
+*MSS*
+
+1.  User enter command to create a task with name specified by user.
+2.  Study Planner of NOVA adds the task into study plan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is already a task with the same name.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 24: User add a task into study plan
+
+*MSS*
+
+1.  User enter command to delete a task with name specified by user.
+2.  Study Planner of NOVA deletes the task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No task with the name specified exists in study plan.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 25: User view statistics of every tasks in study plan
+
+*MSS*
+
+1.  User enter command to view statistics of every tasks in study plan.
+2.  NOVA calculates and shows all the statistics of every task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No task in study plan.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case 26: User schedules a task into a particular day.
+
+*MSS*
+
+1.  User enter command to schedules a task into a particular day.
+2.  NOVA generates and adds the event into schedule.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Unable to generate event.
+*   1a1. NOVA shows error message.
++
+Use case ends.
+//end::studyplannermss[]
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The application should work on any <<mainstream-os,mainstream OS>> provided that Java `11` or above is installed.
+. The application should work on both 32-bit and 64-bit environments.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+// tag::SzeYingNFR[]
+. The application should work without internet connection.
+// end::SzeYingNFR[]
+// tag::TerenceNFR[]
+. The application should respond to every command within one second.
+. The application should be easily modifiable to meet changing curriculum of CS2103T.
+// end::TerenceNFR[]
 
 _{More to be added}_
 
@@ -356,27 +1233,7 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+Windows, Linux, OS-X
 
 [appendix]
 == Instructions for Manual Testing
@@ -386,7 +1243,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch
 
 . Initial launch
 
@@ -400,26 +1257,81 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+//tag::shutdown[]
+=== Shutdown  (Yap Wen Jun Bryan)
+. Exiting the application
 
-=== Deleting a person
+.. Enter `exit` in the command line.
 
+//end::shutdown[]
+
+//tag::deletepersoninab[]
+=== Deleting a person in Address Book (Loh Sze Ying)
+
+. Enter address book mode via `nav ab`
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Prerequisites: List contacts using the `list`, `list c\classmate`, `list c\teammate` or `find` command. There are multiple contacts in the list.
+.. Test case: `delete i\1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+.. Test case: `delete i\0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete i\x` (where x is larger than the list size), `delete x` (where x is number or letter)
    Expected: Similar to previous.
+//end::deletepersoninab[]
 
-_{ more test cases ... }_
+//tag::Pt[]
+=== Adding a project task in Progress Tracker  (Yap Wen Jun Bryan)
 
-=== Saving data
+. Enter progress tracker mode via `nav progresstracker`
+. Adding a project task
 
-. Dealing with missing/corrupted data files
+.. Test case: `add p\ip w\1 d\new task` +
+Expected: New project task with description "new task" is added to IP project week 1. Message showing successful execution is shown.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `add p\ip w\14 d\new task` +
+Expected: No new project task is added. Error details shown in the status message.
 
-_{ more test cases ... }_
+.. Other incorrect add commands to try: `add`, `add p\ppp w\1 d\new task`. +
+Expected: Similar to previous.
+
+
+=== Saving data  (Yap Wen Jun Bryan)
+
+. Dealing with corrupted data file
+
+.. Edit the Nova data file to contain invalid data. +
+Example: Adding a @ to a week in a ptTask.
+
+.. Run the application. The application should start with an empty Nova data file.
+
+. Dealing with missing data file
+
+.. Delete the current Nova data file.
+
+.. Run the application. The application should start with a sample Nova data file with pre-included data.
+//end::Pt[]
+
+//tag::testView[]
+=== View schedule (Terence)
+. Enter schedule mode via `nav schedule`
+. View the schedule
+.. Prerequisite: An event has been added to 13 Jan 2020.
+.. Test case: `view t\2020-01-13` +
+Expected: The event that was pre-added will be displayed.
+.. Test case: `view t\2020-01-12` +
+Expected: Error message is shown to tell user that the date is out of the range of schedule.
+//end::testView[]
+
+//tag::eventTest[]
+=== Adding an event (Chua Huixian)
+. Enter schedule mode via `nav schedule`
+. Adding an event
+.. Test case: `meeting d\DG Meeting v\COM1 t\2020-03-13 13:00 14:00` +
+Expected: A meeting event will be added to the schedule. The details of the meeting will be displayed.
+.. Test case: `meeting d\DG Meeting v\COM1 t\2020-03-13 14:00 12:00` +
+Expected: Error message is shown. The end time must be later than start time.
+.. Other incorrect commands to try: `meeting`, `meeting d\DG Meeting v\COM1 t\2020-03-13 14:00`. +
+Expected: Error messages will be shown as well.
+//end::eventTest[]
+

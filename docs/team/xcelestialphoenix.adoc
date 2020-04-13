@@ -1,0 +1,116 @@
+= Terence Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NOVA
+
+Since: `Apr 2020`
+
+== Overview
+
+My team of 4 software engineering students and I were tasked to enhance a simple command line interface (CLI) desktop
+address book application for our project to cater to users who are accustomed to typing. We expanded on the address
+book into an organizer, hoping to aid future software engineering students taking this module in managing their activities.
+
+This portfolio documents the contributions I made to Project NOVA. It contains a section on the summary of contributions
+towards the project as well as the user guide and developer guide.
+
+== Summary of contributions
+
+This section documents a summary of contributions towards the code base, documentation as well as other helpful
+contributions.
+
+==== Major enhancement: `view` command
+
+I added the ability to view the activities in the schedule.
+
+* What it does: There are two levels of viewing (by date or by week). The `view` command allows the user to specify the
+date which he/she wants to view. Alternatively, the user can use the `view week` command to view the activities
+happening on that date.
+* Justification: A schedule that cannot be viewed is useless. Users can choose whether to view the schedule at the
+daily level or the weekly level.
+
+Pull requests: https://github.com/AY1920S2-CS2103T-F10-3/main/pull/143/files[#143]
+
+==== Minor enhancement: Schedule's framework
+
+I created the framework of the schedule in NOVA.
+
+* What it does: The framework offers a common platform for the other developers working on the schedule.
+* Justification: Having a common framework reduces the conflict between different implementation of the schedule. It
+also helps us integrate our features easily.
+* Highlight: The implementation was challenging as a affects the implementation of events, view and study planner. A
+common agreement needed to be reached to ensure the schedule will not hinder the implementation of those features.
+
+==== Code contributed:
+
+Here is the link to the code I have contributed:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f10-3&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=xCelestialPhoenix&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D[Code Dashboard]
+
+==== Other contributions:
+
+These are some additional contributions I made to the project.
+
+===== Project management:
+
+* Maintained the documentation of the project on GitHub.
+** Ensured the team's documentation is appropriate and free of error
+** Standardized the format for all to follow so the final document is cohesive.
+
+===== Documentation:
+* Added the view commands under features (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/31/files[#31])
+* Improved the introduction and about sections of the user guide (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/287/files[#287])
+* Added a notations section to the user guide (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/287/files[#287])
+* Added command summary (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/287/files[#287])
+* Added a back to top link to improve navigability of the document (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/287/files[#287])
+
+===== Community:
+* Shared problems faced with others on the forum so people encountering similar problems as me can discuss our
+solutions (E.g. https://github.com/nus-cs2103-AY1920S2/forum/issues/20[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/67[2]).
+
+== Contributions to the User Guide
+Theses are my contributions towards the user guide.
+
+|===
+| _Theses are my contributions towards the front sections._
+|===
+include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=about]
+include::../UserGuide.adoc[tag=notation]
+
+{nbsp} +
+
+|===
+| _Theses are my contributions towards the features section._
+|===
+include::../UserGuide.adoc[tag=view]
+
+== Contributions to the Developer Guide
+Theses are my contributions towards the developer guide.
+
+|===
+| _Theses are my contributions towards the model section._
+|===
+include::../DeveloperGuide.adoc[tag=model]
+
+{nbsp} +
+
+|===
+| _Theses are my contributions towards the user stories section._
+|===
+include::../DeveloperGuide.adoc[tag=viewScheduleUserStories]
+
+{nbsp} +
+
+|===
+| _Theses are my contributions towards the use cases section._
+|===
+include::../DeveloperGuide.adoc[tag=viewScheduleUseCases]
+
+{nbsp} +
+
+|===
+| _Theses are my contributions towards the manual testing section._
+|===
+include::../DeveloperGuide.adoc[tag=testView]

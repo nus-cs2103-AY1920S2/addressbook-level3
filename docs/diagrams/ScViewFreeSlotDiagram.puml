@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":LogicParser" as LogicParser LOGIC_COLOR
+participant ":ScheduleParser" as ScheduleParser LOGIC_COLOR
+participant ":ScViewFreeSlotCommandParser" as ScViewFreeSlotCommandParser LOGIC_COLOR
+participant ":ScViewFreeSlotCommand" as ScViewFreeSlotCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Mode" as Mode MODEL_COLOR
+end box
+[-> LogicManager : execute("freeslot t\2020-02-20")
+activate LogicManager
+
+LogicManager -> LogicParser : parseCommand("freeslot t\2020-02-20")
+activate LogicParser
+
+LogicParser -> Model :getMode()
+activate Model
+
+Model --> LogicParser
+
+LogicParser -> Model :getModeEnum(mode)
+
+Model -> Mode: getModeEnum()
+activate Mode
+
+Mode --> Model
+deactivate Mode
+
+Model --> LogicParser
+deactivate Model
+
+LogicParser -> ScheduleParser : parseCommand("freeslot t\2020-02-20")
+activate ScheduleParser
+
+create ScViewFreeSlotCommandParser
+ScheduleParser -> ScViewFreeSlotCommandParser
+activate ScViewFreeSlotCommandParser
+
+ScViewFreeSlotCommandParser --> ScheduleParser
+deactivate ScViewFreeSlotCommandParser
+
+ScheduleParser -> ScViewFreeSlotCommandParser: parse("t\2020-02-20")
+activate ScViewFreeSlotCommandParser
+
+create ScViewFreeSlotCommand
+ScViewFreeSlotCommandParser -> ScViewFreeSlotCommand
+activate ScViewFreeSlotCommand
+
+ScViewFreeSlotCommand --> ScViewFreeSlotCommandParser: command
+deactivate ScViewFreeSlotCommand
+
+ScViewFreeSlotCommandParser --> ScheduleParser: command
+deactivate ScViewFreeSlotCommandParser
+ScViewFreeSlotCommandParser -[hidden]-> ScheduleParser: command
+destroy ScViewFreeSlotCommandParser
+
+ScheduleParser --> LogicParser: command
+deactivate ScheduleParser
+
+LogicParser --> LogicManager: command
+deactivate LogicParser
+
+LogicManager -> ScViewFreeSlotCommand : execute()
+activate ScViewFreeSlotCommand
+
+ScViewFreeSlotCommand -> Model : viewFreeSlot(2020-02-20)
+activate Model
+
+Model --> ScViewFreeSlotCommand
+deactivate Model
+
+create CommandResult
+ScViewFreeSlotCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ScViewFreeSlotCommand
+deactivate CommandResult
+
+ScViewFreeSlotCommand --> LogicManager: result
+deactivate ScViewFreeSlotCommand
+
+[<--LogicManager: result
+deactivate LogicManager
+@enduml

@@ -1,0 +1,129 @@
+= Chua Huixian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NOVA
+
+== Overview
+This portfolio is a summary of my contributions to Project NOVA.
+
+NOVA is a desktop application that acts as a one stop study aid platform, intended to help CS2103T students with event planning, managing schedules and tracking of their projects.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 17 kLoC.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation and other contributions to the project.
+
+* *Major enhancement*:
+I added the ability to add events, namely consultations, meetings, study sessions and lessons.
+
+** What it does: Allows user to add events to their schedule.
+** Justification: This enables the user to keep track of the various events they have to attend.
+** Highlights: It was necessary to ensure that the user did not add an event with the same date and time slot
+as an already existing event. Hence, implementation of the adding of events had to be done carefully.
+The events also had to be sorted in chronological order.
+** Credits: The parsing of the commands made use of the Address Book 3 code with some modifications.
+
+* *Minor enhancement*:
+I added the ability to delete events.
+
+** What it does: Allows user to delete events from their schedule.
+** Justification: This enables the user to remove any events that they no longer wish to have.
+** Credits: The parsing of the command made use of the Address Book 3 code with some modifications.
+
+* *Minor enhancement*:
+I added the ability to add notes to events.
+
+** What it does: Allows user to add notes to specific events in their schedule.
+
+** Justification: This enables the user to take down any important details e.g. significant points made in meetings
+so that they do not forget them.
+
+** Credits: The parsing of the command made use of the Address Book 3 code with some modifications.
+
+* *Code contributed*:
+Please click these links to see samples of my code:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f10-3&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=huixianc&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D[Code Dashboard]
+
+If the link does not work:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f10-3&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=huixianc&tabRepo=AY1920S2-CS2103T-F10-3%2Fmain%5Bmaster%5D
+
+* *Other contributions*:
+
+** Project management:
+*** Acted as the secondary maintainer - helped to maintain the team repository and facilitated merging of Pull Requests from Week 11 to 13.
+
+** Enhancements to existing features:
+*** Updated the GUI layout to make the panels aligned (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/344[#344])
+
+** Documentation:
+*** Helped to enable auto-publishing of documentation on GitHub Pages via Travis.
+*** Updated Contact Us page. (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/8[#8])
+*** Updated Logic Component of Developer Guide, as mentioned below.
+
+** Community:
+*** Pull Request reviewed with non-trivial comments (https://github.com/AY1920S2-CS2103T-F10-3/main/pull/298[#298])
+*** Reported bugs and gave suggestions for other teams
+(https://github.com/AY1920S2-CS2103T-T10-3/main/issues/131[1],
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-370050890[2],
+https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-382543444[3],
+https://github.com/huixianc/ped/issues[4])
+
+If Link 2 does not work: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-370050890
+
+If Link 3 does not work: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/14#pullrequestreview-382543444
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=events]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+|===
+|_1. The Logic component section under Design._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+|===
+|_2. The Manage Events section under Implementation._
+|===
+
+include::../DeveloperGuide.adoc[tag=events]
+
+|===
+|_3. The User Stories for events under Appendix B._
+|===
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I can ... |So that I ...
+
+include::../DeveloperGuide.adoc[tag=eventuserstory]
+|=======================================================================
+
+
+|===
+|_4. The Use Cases for events under Appendix C._
+|===
+
+include::../DeveloperGuide.adoc[tag=eventusecase]
+
+|===
+|_4. The Manual Testing for events under Appendix F._
+|===
+
+include::../DeveloperGuide.adoc[tag=eventTest]

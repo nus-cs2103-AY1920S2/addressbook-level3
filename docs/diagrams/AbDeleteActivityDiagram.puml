@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command format is valid])
+    :NOVA parses the index;
+    if () then ([index is valid])
+        :NOVA executes delete command;
+        :The person on the given index is deleted;
+    else ([else])
+        :NOVA shows error;
+        endif
+else ([else])
+    :NOVA shows error;
+endif
+stop
+@enduml

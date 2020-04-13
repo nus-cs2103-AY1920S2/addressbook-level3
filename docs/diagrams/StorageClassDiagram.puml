@@ -6,19 +6,29 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface NovaStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonNovaStorage
+Class JsonUtil
+Class JsonSerializableNova
 
-StorageManager .left.|> Storage
+StorageManager .up.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o-left-> NovaStorage
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonUserPrefsStorage .up.|>UserPrefsStorage
+JsonUserPrefsStorage -left- JsonUtil: uses >
+JsonNovaStorage .up.|> NovaStorage
+JsonNovaStorage -right- JsonUtil: uses >
+JsonNovaStorage .down.> JsonSerializableNova
+
+
+JsonSerializableNova o-right-> JsonAdaptedPerson
+JsonSerializableNova o-right-> JsonAdaptedPtTask
+JsonSerializableNova o-down-> JsonAdaptedPlannerTask
+JsonAdaptedPlannerTask o-right-> JsonAdaptedEvent
+JsonSerializableNova o-down-> JsonAdaptedEvent
+JsonAdaptedPerson o-right-> JsonAdaptedTag
 @enduml
