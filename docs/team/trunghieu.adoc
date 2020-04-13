@@ -49,6 +49,8 @@ Abstract out EdgeManager (which is in charge of consistency of linking relations
 student, but if we want to see details of this student progress under a course then need
 `select sid/ student_id cid/ course_id`
 
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lth08091998&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[Functional and Test Code]]
+
 * *Other contributions*:
 ** Project Structure communication:
 *** Discuss details of implementation with different team members before implemented
