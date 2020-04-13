@@ -84,7 +84,7 @@ https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240])
 ** *Storage Part*: Create Json-adaptive Weight and Json-adaptive WeightRecords main storage.
 Modify Storage and Storage Manager to establish a separate new database for weight-related data.
 (https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240])
-** *UI Part*: Build Weight Page, which shows a notification indicating the gap to user target data and two Trend Graphs for weight and data.
+** *UI Part*: Build Weight Page, which shows a notification indicating the gap to user target data and two Trend Graphs for weight and BMI data.
 (https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
 https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
 ** *Logic Part*:  Enable Weight Page switch
