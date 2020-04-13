@@ -318,7 +318,7 @@ Given below is an example usage scenario and how the get mechanism behaves at ea
 
 Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial state, which is an empty list.
 
-Step 2. The user executes the `(ab)add n/David ...`  command to add a new person.
+Step 2. The user executes the `(ab)add n/David p/12345 ...`  command to add a new person.
 
 Step 3. The user executes the `(ab)get 1` command to get the detailed contact of the first person in the AddressBook list.
 
