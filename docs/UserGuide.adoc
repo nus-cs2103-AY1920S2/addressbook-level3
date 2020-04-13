@@ -578,7 +578,7 @@ command only.
 command. The backup feature will be released soon in the near future.
 
 *Q: CookBuddy is not working on my computer. How do I fix it?* +
-*A*:Ensure that your computer is running on Java 11 and not other versions. CookBuddy does not support other versions of Java.
+*A*: Ensure that your computer is running on Java 11 and not other versions. CookBuddy does not support other versions of Java.
 
 == Command Summary [Done by Zain Alam]
 
