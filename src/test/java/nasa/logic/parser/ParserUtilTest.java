@@ -40,17 +40,6 @@ public class ParserUtilTest {
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
-    /*
-    @Test
-    public void parseIndex_validInput_success() throws Exception {
-        // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
-
-        // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
-    }
-     */
-
     @Test
     public void parseName_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseModuleName((String) null));

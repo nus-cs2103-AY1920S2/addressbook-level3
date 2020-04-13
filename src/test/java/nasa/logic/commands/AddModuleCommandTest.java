@@ -50,6 +50,7 @@ public class AddModuleCommandTest {
 
     @Test
     public void execute_duplicateModule_fail() throws Exception {
+        // fails
         Module module = new Module(new ModuleCode(MODULE_CODE), new ModuleName(MODULE_NAME));
         AddModuleCommand command = new AddModuleCommand(module);
         command.execute(model); //add one time
@@ -59,6 +60,7 @@ public class AddModuleCommandTest {
 
     @Test
     public void execute_duplicateModule_throwsCommandException() {
+        // check if it passes
         Module moduleInList = model.getNasaBook().getModuleList().get(0);
         assertCommandFailure(new AddModuleCommand(moduleInList), model, AddModuleCommand.MESSAGE_DUPLICATED_MODULE);
     }

@@ -28,6 +28,7 @@ public class DeleteModuleCommandTest {
 
     @Test
     public void execute_validModuleUnfilteredList_success() {
+        // need to add in filtered next
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
         DeleteModuleCommand deleteCommand = new DeleteModuleCommand(moduleToDelete.getModuleCode());
 
