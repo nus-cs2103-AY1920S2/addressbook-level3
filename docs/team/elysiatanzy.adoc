@@ -59,7 +59,7 @@
 *** Over 30 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+author%3AElysiaTanZY+[Pull Requests] on Github
 *** Over 20 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+commenter%3AElysiaTanZY+[Reviews] on Github
 *** Helped team-members debug code and gave suggestions on how to enhance features
-*** Reported bugs and suggestions for other teams in the module (https://github.com/ElysiaTanZY/ped/issues?q=is%3Aissue+is%3Aall[1])
+*** Over 15 https://github.com/ElysiaTanZY/ped/issues?q=is%3Aissue+is%3Aall[Reported bugs and suggestions] for other teams in the module
 
 == Contributions to the User Guide
 
