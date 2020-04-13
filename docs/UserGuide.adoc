@@ -144,10 +144,13 @@ experience while using EYLAH.
 | <<clearreceipt, clearreceipt>>
 
 | <<deletefooditem, delete>>
-| <<expensesplitterhelp, help>>
+| <<help, help>>
 
 | <<editfooditem, edit>>
 | <<dietback, back>>
+
+| <<help, help>>
+|
 
 | <<splitback, back>>
 |
@@ -167,6 +170,7 @@ e.g: `additem -i pizza -p 19.90 -n charlotte`.
 (i.e. 0 times), `-n Charlotte`, `-n Alice -n Bob` etc.
 ====
 
+//tag::help[]
 [[help]]
 === Display the available commands : `help`
 
@@ -207,6 +211,8 @@ image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
 ====
 Help in main menu and different mode will give different help information.
 ====
+
+//end::help[]
 
 '''
 
@@ -639,6 +645,7 @@ You can list based on time period or tags to find the item that you want to edit
 
 '''
 
+
 //tag::diettrackerback[]
 [[dietback]]
 ==== Exiting Diet Tracker to go back to main menu `back`
@@ -828,6 +835,7 @@ such as `paid`.
 
 '''
 
+//tag::donereceipt[]
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
@@ -858,7 +866,7 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
 ====
-
+//end::donereceipt[]
 '''
 //tag::paid[]
 [[paid]]
@@ -913,7 +921,9 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 [TIP]
 Use `listamount` command to find the index of the person who paid you.
 //end::paid[]
+
 '''
+
 //tag::clearreceipt[]
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
@@ -937,16 +947,24 @@ Valid Example: +
 
 image::placeholder.png[]
 
+[WARNING]
+====
+* If you use this command before marking the receipt as done via the `donereceipt` command, you will be removing all the
+previously inputting items, as well as the amount owed by each person.
+* However, if you use this command after marking the receipt as done via the `donereceipt` command, the amount owed by
+each person will still be present and will be accessible via the `listamount` command.
+====
+
 [NOTE]
 ====
 * After you use this command, you will be able to add new items using the `additem` command and delete items using the
 `deleteitem` command.
 * However, you will be unable to use the `paid` command.
-* The existing list of people who owe you money will still be accessible by using the `listamount` command.
 ====
 //end::clearreceipt[]
 '''
 
+//tag::splitback[]
 [[splitback]]
 ==== Exiting Expense Splitter to go back to main menu `back`
 In this section, you will learn more about the `back` command, <<howtousesplitbackcommand,how to use it>>
@@ -968,10 +986,11 @@ Valid Example: +
 *Expected outcome:*
 
 image::placeholder.png[]
-
+//end::splitback[]
 
 '''
 
+//tag::exit[]
 [[exit]]
 === Exiting the Application : `exit`
 
@@ -994,7 +1013,7 @@ Valid Example: +
 *Expected outcome:*
 
 image::dietTrackerWeightCommandSuccessPhoto.png[width="890", height="200"]
-
+//end::exit[]
 
 '''
 

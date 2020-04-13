@@ -1,0 +1,35 @@
+:imagesDir: images
+:stylesDir: stylesheets
+
+== Tng Liang Yi Ailanthus UML Diagrams
+
+
+* *Add Item Command UML Diagrams*
+
+image::ExpenseSplitterAddItemCommandActivityDiagram.png[]
+
+image::ExpenseSplitterAddItemCommandClassDiagram.png[]
+
+image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
+
+image::ExpenseSplitterAddItemCommandSequenceDiagram2.png[]
+
+* *Delete Item Command UML Diagrams*
+
+image::ExpenseSplitterDeleteItemCommandActivityDiagram.png[]
+
+image::ExpenseSplitterDeleteItemCommandClassDiagram.png[]
+
+image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
+
+image::ExpenseSplitterDeleteItemCommandSequenceDiagram2.png[]
+
+* *Clear Receipt Command UML Diagrams*
+
+image::ExpenseSplitterClearReceiptCommandActivityDiagram.png[]
+
+image::ExpenseSplitterClearReceiptCommandClassDiagram.png[]
+
+image::ExpenseSplitterClearReceiptCommandSequenceDiagram.png[]
+
+image::ExpenseSplitterClearReceiptCommandSequenceDiagram2.png[]

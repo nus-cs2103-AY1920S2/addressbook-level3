@@ -6,7 +6,6 @@ box Logic LOGIC_COLOR_T1
 participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
 participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
 participant "command:ClearReceiptCommand" as ClearReceiptCommand LOGIC_COLOR
-participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -34,33 +33,8 @@ deactivate ClearReceiptCommand
 ExpenseSplitterParser --> SplitterLogicManager : command
 deactivate ExpenseSplitterParser
 
-SplitterLogicManager -> ClearReceiptCommand : execute(model)
-activate ClearReceiptCommand
+ref over SplitterLogicManager, SplitterModelManager: Execution of ClearReceiptCommand
 
-ClearReceiptCommand -> SplitterModelManager : clearReceipt()
-activate SplitterModelManager
-
-SplitterModelManager -> Receipt : clearReceipt()
-activate Receipt
-Receipt --> SplitterModelManager
-
-SplitterModelManager -> Receipt : makeUndone()
-Receipt --> SplitterModelManager
-
-deactivate Receipt
-
-SplitterModelManager --> ClearReceiptCommand
-deactivate SplitterModelManager
-
-create CommandResult
-ClearReceiptCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> ClearReceiptCommand : result
-deactivate CommandResult
-
-ClearReceiptCommand --> SplitterLogicManager : result
-deactivate ClearReceiptCommand
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 ClearReceiptCommand -[hidden]-> SplitterLogicManager
 destroy ClearReceiptCommand
@@ -68,9 +42,12 @@ destroy ClearReceiptCommand
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
 SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
 
 SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+activate SplitterStorageManager
 SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
 
 deactivate SplitterStorageManager
 

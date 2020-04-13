@@ -17,8 +17,8 @@ interface Parser<T extends Command> {
     parse(userInput : String) : EditCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:Model) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class EditCommand extends Command {
@@ -28,6 +28,8 @@ class EditCommand extends Command {
     + MESSAGE_SUCCESS : String
     + MESSAGE_DUPLICATE_FOOD : String
     + MESSAGE_NOT_EDITED : String
+    - editFoodDescriptor : EditFoodDescriptor
+    - index : Index
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult
@@ -61,6 +63,6 @@ EditCommandParser ..> EditCommand
 EditCommandParser ..> ParserUtil
 EditCommand ..> DietModel
 EditCommandParser ..> Index
-EditCommand --> Index
+EditCommand *--> "1" Index
 
 @enduml

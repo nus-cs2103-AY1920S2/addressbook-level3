@@ -27,6 +27,7 @@ interface SplitterModel <<Interface>> {
     + getReceipt() : Receipt
     + clearReceipt() : void
     + isReceiptDone() : boolean
+    + deleteAllEntries() : void
     + hasPerson(person : Person) : boolean
     + addPerson(person : Person) : void
     + getPerson(person : Person) : Person
@@ -39,26 +40,44 @@ interface SplitterModel <<Interface>> {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + clearReceipt() : void
     + getReceipt() : Receipt
+    + deleteAllEntries() : void
 }
 
 class Receipt {
     /' Fields '/
-    - ArrayList<Entry> : receipt
-    - boolean : isDone
+    - receipt : ArrayList<Entry>
+    - isDone : boolean
 
     /' Methods '/
     + clearReceipt() : void
     + makeUndone() : void
 }
 
+class PersonAmountBook {
+    /' Fields '/
+    - persons : UniquePersonList
+
+    /' Methods '/
+    + deleteAllEntries(receipt : Receipt) : void
+    + removeAmount(person : Person, amount : Amount) : void
+}
+
+class Entry {
+    /' Fields '/
+    - item : Item
+    - persons : ArrayList<Person>
+}
 
 ClearReceiptCommand ..> SplitterModel
-SplitterModelManager *-right->"1" Receipt
+SplitterModelManager *-left->"1" Receipt
+SplitterModelManager *-right->"1" PersonAmountBook
+PersonAmountBook ..> Receipt
+Receipt .up.> Entry
 
 
 @enduml

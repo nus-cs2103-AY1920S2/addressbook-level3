@@ -12,18 +12,19 @@ class PaidCommandParser implements Parser {
     + parse(args : String) : PaidCommand
 }
 
-interface Parser<T extends Command> {
+interface Parser<T extends Command> <<Interface>> {
     parse(userInput : String) : PaidCommand
+
 }
 
-abstract class Command {
-    {abstract} execute(splitterModel:SplitterModel) : CommandResult
+abstract class Command <E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class PaidCommand extends Command {
     /' Fields '/
-    - Index : indexOfPersonPaid
-    - String : amountPaid
+    - indexOfPersonPaid : Index
+    - amountPaid : String
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult
@@ -47,18 +48,60 @@ interface SplitterModel <<Interface>> {
     + updateFilteredPersonList(predicate : Predicate<Person>) : void
     + getFilteredPersonList() : ObservableList<Person>
 
-
 }
 
 class Index {
-    + getZeroBased()
-    + getOneBased()
+    + getZeroBased() : int
+    + getOneBased() : int
 }
+
+
+
+class SplitterModelManager implements SplitterModel {
+    /' Fields '/
+    - PersonAmountBook : personAmountBook
+
+    /' Methods '/
+    + listAmount() : String
+    + paidPerson(person : Person, amountPaid : String) : void
+}
+
+interface ReadOnlyPersonAmountBook <<Interface>> {
+
+        + getPersonList() : ObservableList<Person>
+        + getPersonByIndex(indexOfPerson : int) : Person
+
+}
+
+class Person {
+     /' Fields '/
+     - name : Name
+     - amount : Amount
+
+     /' Methods '/
+     + removeAmount(amount : Amount) : void
+     + getAmount() :Amount
+}
+
+class Amount{
+    /' Fields '/
+    + amount : BigDecimal
+
+    /' Methods '/
+    + isValidAmount(test : BigDecimal) : boolean
+    + getBigDecimal() : BigDecimal
+}
+
+
 
 
 PaidCommandParser ..> PaidCommand
 PaidCommand ..> SplitterModel
 PaidCommandParser ..> Index
 PaidCommand --> Index
+PaidCommand --> ReadOnlyPersonAmountBook
+PaidCommand --> Person
+Person *-right->"1" Amount
+
 
 @enduml

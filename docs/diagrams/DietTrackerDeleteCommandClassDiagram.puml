@@ -17,8 +17,8 @@ interface Parser<T extends Command> {
     parse(userInput : String) : DeleteCommand
 }
 
-abstract class Command {
-    {abstract} execute(dietModel:Model) : CommandResult
+abstract class Command<E> {
+    {abstract} execute(model : E) : CommandResult
 }
 
 class DeleteCommand extends Command {
@@ -27,6 +27,7 @@ class DeleteCommand extends Command {
     + MESSAGE_USAGE : String
     + MESSAGE_DELETE_FOOD_SUCCESS : String
     + MESSAGE_DUPLICATE_FOOD : String
+
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult
