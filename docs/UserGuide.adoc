@@ -168,6 +168,7 @@ image::demo/New2.png[]
 .Step 3 - Demo for the `new` command (after creating both notes)
 image::demo/New3.png[]
 
+//tag::open[]
 === Open an existing note: `open`
 
 You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
@@ -192,6 +193,7 @@ You can open an existing note by specifying its title (and optionally with its a
 .Step 1 - Demo for the `open` command (with suggestions)
 image::demo/Open.png[]
 
+//end::open[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.

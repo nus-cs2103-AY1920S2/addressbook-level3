@@ -57,6 +57,8 @@ that we are familiar with. It required an in-depth analysis of the existing desi
 
 include::../UserGuide.adoc[tag=paths]
 
+include::../UserGuide.adoc[tag=open]
+
 == Contributions to the Developer Guide
 
 |===
