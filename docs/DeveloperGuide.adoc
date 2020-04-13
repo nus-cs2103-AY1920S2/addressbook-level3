@@ -514,17 +514,18 @@ result in temporary files being left behind and cluttering space.
 
 
 === Supplier Feature (By Liu Chao)
-InventoryManager allows users (store managers) to record the suppliers whom they buy goods from. Users could add and
-store the information of suppliers such as company name, company address, registered phone number, official email
+InventoryManager allows users (store managers) to record the `suppliers` whom they buy goods from. Users could add and
+store the information of `suppliers` such as company name, company address, registered phone number, official email
 address and goods that company is selling.
 
-A supplier can be stored as a supplier object in the InventoryManager. The main components are 1) company name,
+A `supplier` can be stored as a `supplier` object in the InventoryManager. The main components are 1) company name,
 2) company address, 3) registered phone number, 4) official email address and 5) good-price pairs of goods that company
 is selling. Company name is used to identify the company since every company needs to have an unique name which is
 registered legally with Accounting and Corporate Regulatory Authority. A Good-price pair of good is a combination of records
-of a good’s name and a selling price. Good-price pairs are stored as an offer object in the InventoryManager.
+of a good’s name and a selling price. Good-price pairs are stored as an offer object in the InventoryManager. The following is a class diagram of Supplier feature.
 
-image::SupplierModelClassDiagram.png[]
+.Class diagram of `Supplier` Feature, displaying only directly related classes
+image::SupplierModelClassDiagram.jpg[]
 
 ==== Edit Supplier Feature
 Users could edit and update the information of registered supplier should there be any changes in InventoryManager by
