@@ -217,7 +217,7 @@ The `CouponStash` will be initialized with the initial coupon stash state, and
 the `currStateIndex` pointing to that single coupon stash state.
 
 .`CouponStash` will be initialized with the initial coupon stash state.
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width=400]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the
 coupon stash.
@@ -228,7 +228,7 @@ text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to
 the newly inserted coupon stash state.
 
 .`currStateIndex` is shifted to the newly inserted coupon stash state.
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width=400]
 
 Step 3. The user executes `add n/OMO STORE ...` to add a new coupon.
 The `add` command also calls `Model#commitCouponStash(String commandText)`,
@@ -236,7 +236,7 @@ causing another modified coupon stash state and command text to be saved into
 the `couponStashStateList` and `commandTextHistory` respectively.
 
 .Modified coupon stash state and command text are saved into the `couponStashStateList` and `commandTextHistory` respectively.
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width=400]
 
 [NOTE]
 If a command fails its execution, it will not call
@@ -252,7 +252,7 @@ returned, thus allowing for the display of the command that was undone. In this
 case, the command undone is `add n/OMO STORE...`.
 
 .`currStateIndex` shifted once to the left.
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width=400]
 
 [NOTE]
 If the `currStateIndex` is at index 0, pointing to the initial coupon stash
@@ -287,7 +287,7 @@ Commands that do not modify the coupon stash, such as `list`, will  not call
 Thus, the `couponStashStateList` remains unchanged.
 
 .`couponStashStateList` remains unchanged.
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width=400]
 
 Step 6. The user executes `clear`, which calls `Model#commitCouponStash()`.
 Since the `currStateIndex` is not pointing at the end of the
@@ -298,12 +298,12 @@ We designed it this way because it no longer makes sense to redo the `add n/OMO
 This is the behavior that most modern desktop applications follow.
 
 .Command text history after the `currStateIndex` is purged.
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width=400]
 
 The following activity diagram summarizes what happens when a user executes a
 new command text:
 
-.
+.Activity diagram representation of how command texts are saved when they are executed.
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -779,6 +779,8 @@ In our usage during testing, we have never had the urge to have a default
 sorting order when the program is launched. Plus, we feel that the simplicity
 of excluding a sort by default order function will be well favored by users,
 and thus we chose alternative 1.
+
+// end::couponsorting[]
 
 === Coupon Reminder
 To ensure users are aware of expiring coupons and maximise their saving,
