@@ -1,3 +1,11 @@
 {
-  "records" : [ ]
+  "records" : [ {
+    "name" : "Asian BBQ Chicken",
+    "date" : "2020-04-13",
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Sweet and Sour Chicken",
+    "date" : "2020-04-13",
+    "goals" : [ "Bulk like the Hulk", "Herbivore", "Fruity Fiesta" ]
+  } ]
 }

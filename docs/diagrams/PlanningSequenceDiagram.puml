@@ -3,91 +3,124 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
-participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":PlanCommandParser" as PlanCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "planCom:PlanCommand" as PlanCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "d:Date" as Date MODEL_COLOR
-participant "i:Index" as Index MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
+participant "plan:Plan" as Plan MODEL_COLOR
+participant ":PlannedBook" as PlannedBook MODEL_COLOR
+participant ":UniquePlannedList" as UniquePlannedList MODEL_COLOR
 participant ":PlannedRecipeMap" as PlannedRecipeMap MODEL_COLOR
 end box
 
-[-> LogicManager : execute("schedule 3 2020-02-02")
+[-> LogicManager : execute("plan 2 3 d/2020-05-27")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("schedule 3 2020-02-02")
-activate AddressBookParser
+LogicManager -> RecipeBookParser : parseCommand("plan 2 3 d/2020-05-27")
+activate RecipeBookParser
 
-create ScheduleCommandParser
-AddressBookParser -> ScheduleCommandParser
-activate ScheduleCommandParser
+create PlanCommandParser
+RecipeBookParser -> PlanCommandParser
+activate PlanCommandParser
 
-ScheduleCommandParser --> AddressBookParser
-deactivate ScheduleCommandParser
+PlanCommandParser --> RecipeBookParser
+deactivate PlanCommandParser
 
-AddressBookParser -> ScheduleCommandParser : parse("3 2020-02-02")
-activate ScheduleCommandParser
+RecipeBookParser -> PlanCommandParser : parse("2 3 d/2020-05-27")
+activate PlanCommandParser
 
-'Date and Index necessary?
+PlanCommandParser -> ParserUtil : parseDate("2020-05-27")
+activate ParserUtil
 
-create Date
-ScheduleCommandParser -> Date
-activate Date
+ParserUtil --> PlanCommandParser : date
+deactivate ParserUtil
 
-Date --> ScheduleCommandParser : d
-deactivate Date
+PlanCommandParser -> ParserUtil : parseMultipleIndex("2 3")
+activate ParserUtil
 
-create Index
-ScheduleCommandParser -> Index
-activate Index
+ParserUtil --> PlanCommandParser : indexes
+deactivate ParserUtil
 
-Index --> ScheduleCommandParser : i
-deactivate Index
+create PlanCommand
+PlanCommandParser -> PlanCommand
+activate PlanCommand
 
-create ScheduleCommand
-ScheduleCommandParser -> ScheduleCommand
-activate ScheduleCommand
+PlanCommand --> PlanCommandParser : planCom
+deactivate PlanCommand
 
-ScheduleCommand --> ScheduleCommandParser : s
-deactivate ScheduleCommand
-
-ScheduleCommandParser --> AddressBookParser : s
-deactivate ScheduleCommandParser
+PlanCommandParser --> RecipeBookParser : planCom
+deactivate PlanCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ScheduleCommandParser -[hidden]-> AddressBookParser
-destroy ScheduleCommandParser
+PlanCommandParser -[hidden]-> RecipeBookParser
+destroy PlanCommandParser
 
-AddressBookParser --> LogicManager : s
-deactivate AddressBookParser
+RecipeBookParser --> LogicManager : planCom
+deactivate RecipeBookParser
 
-LogicManager -> ScheduleCommand : execute()
-activate ScheduleCommand
+LogicManager -> PlanCommand : execute()
+activate PlanCommand
 
-ScheduleCommand -> Model : getFilteredRecipeList()
+PlanCommand -> Model : getFilteredRecipeList()
 activate Model
-Model --> ScheduleCommand : recipeList
 
-'Must we show how we obtain Recipe?
+Model --> PlanCommand : recipeList
+deactivate Model
 
-Model -> PlannedRecipeMap : planRecipe(recipe, date)
-activate PlannedRecipeMap
-PlannedRecipeMap --> Model
-deactivate PlannedRecipeMap
+loop for all indexes
+    create Plan
+    PlanCommand -> Plan
+    activate Plan
 
+    Plan --> PlanCommand : plan
+    deactivate Plan
+
+    PlanCommand -> Model : addPlan(recipe, plan)
+    activate Model
+
+    Model -> PlannedBook : addPlan(recipe, plan)
+    activate PlannedBook
+
+    PlannedBook -> UniquePlannedList : addPlan(plan)
+    activate UniquePlannedList
+
+    UniquePlannedList --> PlannedBook
+    deactivate UniquePlannedList
+
+    PlannedBook -> PlannedRecipeMap : addPlan(recipe, plan)
+    activate PlannedRecipeMap
+
+    PlannedRecipeMap --> PlannedBook
+    deactivate PlannedRecipeMap
+
+    PlannedBook --> Model
+    deactivate PlannedBook
+
+    Model --> PlanCommand
+    deactivate Model
+
+end loop
+
+PlanCommand -> Model : commitBook()
+activate Model
+
+Model --> PlanCommand
 deactivate Model
 
 create CommandResult
-ScheduleCommand -> CommandResult
+PlanCommand -> CommandResult
 activate CommandResult
-CommandResult --> ScheduleCommand
+CommandResult --> PlanCommand : cr
 deactivate CommandResult
 
-ScheduleCommand --> LogicManager : result
-deactivate ScheduleCommand
+PlanCommand --> LogicManager : cr
+deactivate PlanCommand
+
+
 
 [<--LogicManager
 deactivate LogicManager

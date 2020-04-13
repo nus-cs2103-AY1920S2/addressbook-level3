@@ -31,7 +31,7 @@ public class CookedCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_RECORD = "This recipe has already been added!";
     public static final String MESSAGE_SUCCESS_COOK = "Cooked %1$s!";
-    public static final String MESSAGE_SUCCESS_PLAN = "The plans for %1$s have been removed as well.";
+    public static final String MESSAGE_SUCCESS_PLAN = "The plans for %1$s have been removed.";
 
     private final Index[] targetIndex;
     private final Tab goalsTab = Tab.GOALS;

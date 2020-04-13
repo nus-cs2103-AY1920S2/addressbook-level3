@@ -84,14 +84,19 @@ activate EditCommand
 create Recipe
 EditCommand -> Recipe
 activate Recipe
-Recipe -> EditCommand : editedR
+Recipe --> EditCommand : editedR
 deactivate Recipe
 EditCommand --> EditCommand : editedR
 deactivate EditCommand
 
 EditCommand -> Model : setRecipe(target, editedR)
 activate Model
-Model -> EditCommand
+Model --> EditCommand
+deactivate Model
+
+EditCommand -> Model : commitBook()
+activate Model
+Model --> EditCommand
 deactivate Model
 
 create CommandResult
