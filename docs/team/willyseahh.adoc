@@ -9,10 +9,19 @@
 
 == Overview
 
-EYLAH is a desktop application specifically programmed for students staying in Temasek Hall at the National University
+This project portfolio details my key contributions to the team software engineering project, EYLAH. The team consists
+of five Year 2 Computer Science undergraduates in the National University of Singapore (NUS), including myself.
+
+We were given six weeks to either morph or enhance an existing Java project, Address Book.
+We chose to morph the project into EYLAH, a desktop application specifically
+programmed for students staying in Temasek Hall at the National University
 of Singapore. It aims to ease their lives
-at halls by providing them with an application that split bills easily and help
-them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+at halls by providing them with an application that *split bills easily* and *help
+them track their diet*.
+The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+My role was to build the Expense Splitter portion of EYLAH and ensure that our project
+is on schedule for completion.
 
 == Summary of contributions
 
@@ -44,7 +53,6 @@ Online links where I researched on: "https://stackoverflow.com/questions/1359817
 *** *What it does:* +
 Allows the user to reduce the amount owed by a Person.
 
-
 *** *Justification:* +
 This feature allows a Person to clear his/her debt. In EYLAH after a Person has cleared his/her debt, their
 name will be deleted to prevent cluttering of names which may confuse the user. Thus it is important to have a feature which reduces the
@@ -52,11 +60,10 @@ amount of money owed by a Person.
 
 
 *** *Highlights:* +
-This enhancement helped our team discover a rather major bug with Expense Splitter workflow. Fortunately, we
+This enhancement helped our team discover a rather major bug with Expense Splitter workflow. In the event where
+the user accidentally delete an item in the receipt after his/her peers has paid the user, EYLAH will not work as intended.
+Fortunately, we
 resolved it by not allowing users to use the `paid` command until after a receipt has been finalised.
-*** *Credits:* +
-N.A
-
 
 
 . Added *the expense splitter
@@ -73,10 +80,6 @@ This is important so the user do not have to manually input every entry again in
 
 *** *Highlights:* +
 Ability to save a Person name and their amount owed automatically.
-
-*** *Credits:* +
-N.A
-
 
 * *Minor enhancement*:
 
