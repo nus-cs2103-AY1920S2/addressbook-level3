@@ -305,6 +305,8 @@ Example:
 * `(rt)delete 1` +
 Deletes the 1st restaurant in the restaurant book.
 
+tag::rtnotetaker[]
+
 ==== Add notes to a restaurant : `(rt)addnote`
 
 Adds a new note to a restaurant +
@@ -359,6 +361,8 @@ Examples:
 Delete notes to the restaurant at index 1, at line number 2 of recommended food notes, at line number 1 of good food notes, at line number 3 of bad food notes.
 * `(rt)deletenote 2 gl/1 gl/2` +
 Deletes a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
+
+end::rtnotetaker[]
 
 ==== List all restaurants : `(rt)list`
 
