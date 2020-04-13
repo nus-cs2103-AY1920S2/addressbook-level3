@@ -23,7 +23,7 @@ This feature is curated for our target users (NUS tech-savvy students) who often
 may find difficulty traversing all of their notes to get to a particular note. This is where `SuggestionEngine` comes in
 by giving a list of suggestions of the notes that the users want to open or delete, just by typing the first few characters of their intended note.
 ** Highlights:
-*** The `SuggestionEngine` also provides a command input line auto-fill feature. When the user presses the `↓` button to select a suggestion, followed by
+*** The `SuggestionEngine` also provides a command input line auto-fill feature. When the user presses the `↓` (down arrow) button to select a suggestion, followed by
 `Enter`, the command input line will be auto-filled with the suggestion.
 *** It displays response text and suggestions (if any) for all available valid commands in Notably. The implementation was
 quite challenging as different commands require different implementation.
@@ -41,7 +41,7 @@ If the number of occurrences is the same, the suggestions listing will based on 
 hence giving the relevant suggestions to the user even before the user has finished typing. For instance,
 if the user types `search lect` while actually intending to find the word "lecture", Notably will still display the list of notes which
 contain the word "lecture".
-*** When the user presses the `↓` button to select the suggestion followed by `Enter`, the note chosen will immediately be opened.
+*** When the user presses the `↓` (down arrow) button to select the suggestion followed by `Enter`, the note chosen will immediately be opened.
 The command line input is also cleared after the user pressed `Enter` in order to not clutter the UI.
 
 
