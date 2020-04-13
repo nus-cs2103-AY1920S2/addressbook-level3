@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes Nom command;
+
+:Extract relevant prefixes using ArgumentMultimap;
+:Check if the exist DailyFoodLog with same date;
+:Ensure arguments have valid format;
+
+if() then ([exist])
+:update existing log;
+
+else ([does not exist])
+:create new food log;
+endif
+
+:Command created;
+:Execute command;
+:Update FilteredList with relevant DisplayFood;
+
+stop
+@enduml

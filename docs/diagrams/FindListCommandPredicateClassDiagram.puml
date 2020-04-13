@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Interface Predicate OTHER_COLOR
+
+Package Model <<Rectangle>> {
+
+Package Predicates {
+Class TagContainsKeywordsPredicate
+Class FatContainsKeywordsPredicate
+Class CarbohydrateContainsKeywordsPredicate
+Class ProteinContainsKeywordsPredicate
+Class CalorieContainsKeywordsPredicate
+Class NameContainsKeywordsPredicate
+}
+
+NameContainsKeywordsPredicate .up.|> Predicate
+CalorieContainsKeywordsPredicate .up.|> Predicate
+ProteinContainsKeywordsPredicate .up.|> Predicate
+CarbohydrateContainsKeywordsPredicate .up.|> Predicate
+FatContainsKeywordsPredicate .up.|> Predicate
+TagContainsKeywordsPredicate .up.|> Predicate
+
+}
+
+@enduml

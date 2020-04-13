@@ -5,23 +5,35 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyFoodRecord <<Interface>>
+Interface ReadOnlyConsumptionRecord <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface Comparable <<Interface>>
+Class FoodRecord
+Class ConsumptionRecord
+Class ReadOnlyFoodRecord
+Class ReadOnlyConsumptionRecord
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Food {
+Class Carbohydrate
+Class Calorie
+Class DisplayFood
+Class Food
+Class Fat
 Class Name
-Class Phone
-Class UniquePersonList
+Class Protein
+Class UniqueFoodList
+}
+
+Package Day {
+Class DailyFoodLog
+Class DailyGoal
+Class UniqueDateToLogMap
 }
 
 Package Tag {
@@ -32,25 +44,32 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+FoodRecord .up.|> ReadOnlyFoodRecord
+ConsumptionRecord .up.|> ReadOnlyConsumptionRecord
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" FoodRecord
+ModelManager o--> "1" ConsumptionRecord
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+Food .up.|> Comparable
+DisplayFood .down.|> Food
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+FoodRecord *--> "1" UniqueFoodList
+UniqueFoodList o--> "*" Food
+Food *--> "1" Name
+Food *--> "1" Calorie
+Food *--> "1" Carbohydrate
+Food *--> "1" Protein
+Food *--> "1" Fat
+Food *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ConsumptionRecord *--> "1" UniqueDateToLogMap
+UniqueDateToLogMap o--> "*" DailyFoodLog
+DailyFoodLog o--> "*" Food : contains >
+ModelManager --> "0..1" DailyGoal
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Food : has FilteredList of >
+ModelManager -->"1" DisplayFood : has FilteredList of >
 @enduml

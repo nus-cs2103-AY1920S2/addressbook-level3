@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CalgoParser" as CalgoParser LOGIC_COLOR
+participant ":UpdateCommandParser" as UpdateCommandParser LOGIC_COLOR
+participant "u:UpdateCommand" as UpdateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("update n/apple cal/52 p/2 c/14 f/1")
+activate LogicManager
+
+LogicManager -> CalgoParser : parseCommand("update n/apple cal/52 p/2 c/14 f/1")
+activate CalgoParser
+
+create UpdateCommandParser
+CalgoParser -> UpdateCommandParser : UpdateCommandParser()
+activate UpdateCommandParser
+
+UpdateCommandParser --> CalgoParser
+deactivate UpdateCommandParser
+
+CalgoParser -> UpdateCommandParser : parse("n/apple cal/52 p/2 c/14 f/1")
+activate UpdateCommandParser
+UpdateCommandParser -> UpdateCommandParser : convertToTitleCase("apple")
+activate UpdateCommandParser
+deactivate UpdateCommandParser
+
+create UpdateCommand
+UpdateCommandParser -> UpdateCommand
+activate UpdateCommand
+
+UpdateCommand --> UpdateCommandParser : u
+deactivate UpdateCommand
+
+UpdateCommandParser --> CalgoParser : u
+deactivate UpdateCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UpdateCommandParser -[hidden]-> CalgoParser
+destroy UpdateCommandParser
+
+CalgoParser --> LogicManager : u
+deactivate CalgoParser
+
+LogicManager -> UpdateCommand : execute()
+activate UpdateCommand
+
+alt Food already exists in FoodRecord
+    UpdateCommand -> Model : getExistingFood(toAdd)
+    activate Model
+    Model --> UpdateCommand : existingFood
+    deactivate Model
+    UpdateCommand -> Model : setFood(toAdd, existingFood)
+    activate Model
+    Model --> UpdateCommand
+    deactivate Model
+else else
+    ref over UpdateCommand, Model : ordering
+
+end
+
+
+
+create CommandResult
+UpdateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UpdateCommand
+deactivate CommandResult
+
+UpdateCommand --> LogicManager : result
+deactivate UpdateCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UpdateCommand -[hidden]-> CalgoParser
+destroy UpdateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

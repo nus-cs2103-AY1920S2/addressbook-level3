@@ -1,0 +1,88 @@
+= Low Zhang Xian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CALGO
+
+---
+
+=== Overview
+
+This Project Portfolio page aims to showcase my contributions to Calgo - a Software Engineering project developed during my second
+year of undergraduate studies at the National University of Singapore.
+
+==== About the Team
+
+We are 5 Year 2 Computer Science undergraduates reading CS2103T: Software Engineering.
+
+
+==== About the Project
+
+Calgo was created to help foodies achieve their fitness goals. Our story first began when the team was given the source code of https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book Level 3 (AB3) project].
+We were challenged to collaborate as a team to morph this into a new product incrementally using Brownfield software development.
+
+As all of us were food lovers, we decided to embark on this journey to create Calgo, a personal meal tracking assistant. Today,
+Calgo is well-equipped to help users keep track of their meal consumption and store all their favourite food, along with its nutritional information.
+On top of this, Calgo has the ability to offer our users insightful reports based on their data. Calgo was created with a strong emphasis
+on providing the best user experience to our users.
+
+
+=== Summary of contributions
+
+* *Major enhancement*: I implemented the `update` command.
+** What it does: This command allows the user to add new `Food` entries or edit existing `Food` entries in the `Food Record`.
+** Justification: Instead of having two separate commands: add and edit to perform the function of updating the Food Record, this smart
+command decides whether to add or edit depending on whether the Food entered by the user exists in the Food Record. This improves user experience
+and reduces the necessity of another command.
+** Highlights: Implementing this requires comprehensive understanding of the entire application architecture. Additional thought and effort
+was required to ensure that the process is seamless for the user.
+
+* *Major enhancement*: I implemented the Real-time Suggestion feature
+** What it does: This feature shows the user existing similar Food items in real time when using any of these three commands: `update`, `delete`, `nom`.
+** Justification: Instead of the need to use additional commands or having to manually scroll through the `Food Record`, this feature allows user
+to know whether a particular Food item already exists. This is especially helpful for these three core commands that generally require this knowledge.
+** Highlights: This enhancement shows our emphasis on providing a good user experience to the user. It also requires a good understanding of the all
+core components used by the application to achieve this.
+
+* *Minor enhancement*: I designed the GUI for the `DailyFoodList`
+** What it does: This enhancement helps the DailyFoodList be displayed in a more minimalistic and inituitive manner.
+** Justification: This helps the user quickly see important aspects of their meal consumption, such as the `Name`, `Index`, `Portion` and `Rating`
+of each Food consumed. This improves the design and also user experience for the user.
+** Highlights: This enhancement is well-designed with good color scheme. A good mix of understanding of JavaFX components and research into new JavaFX APIs
+were required to achieve this.
+
+* *Code contributed*: You can view my contributions to Calgo https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jeremylow97&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jeremylow97&tabRepo=AY1920S2-CS2103T-F11-1%2Fmain%5Bmaster%5D[here].
+* *Other contributions*:
+** Documentation:
+*** Contributed sections for delete and update commands in User Guide: https://github.com/AY1920S2-CS2103T-F11-1/main/pull/69[#69], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/269[#269], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/286[#286]
+*** Contributed sections for Logic Component, Modifying the Food Record and Real-time Suggestion for existing Food in Food Record for the Developer Guide: https://github.com/AY1920S2-CS2103T-F11-1/main/pull/69[#69], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/279[#279], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/286[#286], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/295[#295]
+** Project and team management:
+*** Morphed test cases for AB3 to new features in Calgo: https://github.com/AY1920S2-CS2103T-F11-1/main/pull/136[#136], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/139[#139]
+*** Update team pages/documentation: https://github.com/AY1920S2-CS2103T-F11-1/main/pull/69[#69], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/128[#128], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/130[#130], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/205[#205], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/251[#251], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/269[#269], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/279[#279], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/286[#286], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/295[#295], https://github.com/AY1920S2-CS2103T-F11-1/main/pull/296[#296]
+*** Software Developer: Handled object modelling, designing overall architecture and maintaining good code quality.
+*** Product ideation and brainstorming, contributions to GUI design and user testing.
+** Beyond the team:
+*** Peer testing and bug reporting: https://github.com/jeremylow97/ped/issues/1[#1], https://github.com/jeremylow97/ped/issues/2[#2], https://github.com/jeremylow97/ped/issues/3[#3], https://github.com/jeremylow97/ped/issues/4[#4], https://github.com/jeremylow97/ped/issues/5[#5], https://github.com/jeremylow97/ped/issues/6[#6], https://github.com/jeremylow97/ped/issues/7[#7], https://github.com/jeremylow97/ped/issues/8[#8], https://github.com/jeremylow97/ped/issues/9[#9], https://github.com/jeremylow97/ped/issues/10[#10], https://github.com/jeremylow97/ped/issues/11[#11], https://github.com/jeremylow97/ped/issues/12[#12], https://github.com/jeremylow97/ped/issues/13[#13], https://github.com/jeremylow97/ped/issues/14[#14]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Please note that some hyperlinks may not work as the guide is not part of this portfolio._
+|===
+
+include::../UserGuide.adoc[tag=updatecommand]
+
+include::../UserGuide.adoc[tag=deletecommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Please note that some hyperlinks may not work as the guide is not part of this portfolio._
+|===
+
+include::../DeveloperGuide.adoc[tag=realtimesuggestions]
+
+include::../DeveloperGuide.adoc[tag=modifyingfoodrecord]
