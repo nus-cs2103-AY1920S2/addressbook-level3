@@ -212,14 +212,14 @@ The specific workings of the schedule command will be explained in the paragraph
 [.text-justify]
 As seen from *Fig 5* below, arguments from the input command is first parsed using the `ScheduleCommandParser` which converts
 the string variable into an integer and then passes it to `ScheduleCommand` for use later on and represents the `NUM_DAYS` queried. If the input argument is invalid, a `ParseException`
-is thrown and the user will be notified of the proper command usage.
+is thrown instead and the user will be notified of the proper command usage. If the command is valid, the `ScheduleCommand` object will be created and returned to the `LogicManager` who will then call the `execute()` method in `ScheduleCommand`.
 
 image::scheduleCommandGeneration.png[align="center"]
 [.text-center]
 _Fig 5. Sequence Diagram depicting generation of ScheduleCommand object_
 
 [.text-justify]
-If the command is valid, `LogicManager` will call the `execute()` method in `ScheduleCommand`.
+
 
 [.text-justify]
 As seen from *Fig 6* below, the necessary preparations will be made before the schedule is being generated:
