@@ -23,6 +23,8 @@ import tatracker.model.student.Student;
  * Represents the in-memory model of the ta-tracker data.
  */
 public class ModelManager implements Model {
+    //@@author aakanksha-rai
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static final int FIRST_GROUP_INDEX = 0;
     private static final int FIRST_MODULE_INDEX = 0;
@@ -30,15 +32,23 @@ public class ModelManager implements Model {
     private final TaTracker taTracker;
     private final UserPrefs userPrefs;
 
-    private final FilteredList<Session> filteredSessions;
-    private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
+
+    //@@author Chuayijing
+
+    private final FilteredList<Session> filteredSessions;
+
+    //@@author fatin99
+
+    private final FilteredList<Session> filteredDoneSessions;
+
+    //@@author
 
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
      */
     public ModelManager(ReadOnlyTaTracker taTracker, ReadOnlyUserPrefs userPrefs) {
-        super(); // TODO: Super gets interface constants.
+        super();
         requireAllNonNull(taTracker, userPrefs);
 
         logger.fine("Initializing with ta-tracker: " + taTracker + " and user prefs " + userPrefs);
@@ -124,6 +134,8 @@ public class ModelManager implements Model {
     }
 
     // ======== Filter Methods ==============================================
+
+    //@@author Chuayijing
     @Override
     public void setCurrClaimFilter(String module) {
         requireAllNonNull(module);
@@ -131,11 +143,13 @@ public class ModelManager implements Model {
         taTracker.setCurrClaimFilter(module);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrClaimFilter() {
         return taTracker.getCurrClaimFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionFilter(String params) {
         requireAllNonNull(params);
@@ -143,6 +157,7 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionDateFilter(String params) {
         requireAllNonNull(params);
@@ -150,6 +165,7 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionDateFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionModuleFilter(String params) {
         requireAllNonNull(params);
@@ -157,38 +173,45 @@ public class ModelManager implements Model {
         taTracker.setCurrSessionModuleFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrSessionTypeFilter(String params) {
         requireAllNonNull(params);
         taTracker.setCurrSessionTypeFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionFilter() {
         return taTracker.getCurrSessionFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionDateFilter() {
         return taTracker.getCurrSessionDateFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionModuleFilter() {
         return taTracker.getCurrSessionModuleFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrSessionTypeFilter() {
         return taTracker.getCurrSessionTypeFilter();
     }
 
+    //@@author Chuayijing
     @Override
     public void setCurrStudentFilter(String params) {
         requireAllNonNull(params);
         taTracker.setCurrStudentFilter(params);
     }
 
+    //@@author Chuayijing
     @Override
     public String getCurrStudentFilter() {
         return taTracker.getCurrStudentFilter();
@@ -196,12 +219,14 @@ public class ModelManager implements Model {
 
     // ======== Session Methods ================================================
 
+    //@@author Chuayijing
     @Override
     public boolean hasSession(Session session) {
         requireNonNull(session);
         return taTracker.hasSession(session);
     }
 
+    //@@author Chuayijing
     @Override
     public void addSession(Session session) {
         taTracker.addSession(session);
@@ -209,12 +234,14 @@ public class ModelManager implements Model {
         updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
     }
 
+    //@@author Chuayijing
     @Override
     public void deleteSession(Session target) {
         logger.info(String.format("Session deleted is %s", target));
         taTracker.removeSession(target);
     }
 
+    //@@author Chuayijing
     @Override
     public void setSession(Session target, Session editedSession) {
         requireAllNonNull(target, editedSession);
@@ -222,11 +249,13 @@ public class ModelManager implements Model {
         taTracker.setSession(target, editedSession);
     }
 
+    //@@author Chuayijing
     @Override
     public ObservableList<Session> getFilteredSessionList() {
         return filteredSessions;
     }
 
+    //@@author Chuayijing
     @Override
     public void updateFilteredSessionList(Predicate<Session> predicate) {
         requireNonNull(predicate);
@@ -235,12 +264,15 @@ public class ModelManager implements Model {
 
     // ======== Done Session Methods =================================================
 
+    //@@author fatin99
     @Override
     public void addDoneSession(Session session) {
         logger.info(String.format("Session marked as done is %s", session));
         taTracker.addDoneSession(session);
         updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
     }
+
+    //@@author fatin99
 
     /**
      * Returns an unmodifiable view of the list of {@code Session} backed by the internal list of
@@ -251,6 +283,8 @@ public class ModelManager implements Model {
         return filteredDoneSessions;
     }
 
+    //@@author fatin99
+
     @Override
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
@@ -258,6 +292,8 @@ public class ModelManager implements Model {
         logger.info("Done sessions are filtered by " + moduleCode);
         filteredDoneSessions.setPredicate(predicate);
     }
+
+    //@@author fatin99
 
     @Override
     public void setRate (int rate) {
@@ -306,28 +342,28 @@ public class ModelManager implements Model {
     //@@author aakanksha-rai
     @Override
     public void sortModulesAlphabetically() {
-        logger.info(String.format("Modules are sorted alphabetically"));
+        logger.info("Modules are sorted alphabetically");
         taTracker.sortModulesAlphabetically();
     }
 
     //@@author aakanksha-rai
     @Override
     public void sortModulesByRatingAscending() {
-        logger.info(String.format("Modules are sorted by rating in ascending order"));
+        logger.info("Modules are sorted by rating in ascending order");
         taTracker.sortModulesByRatingAscending();
     }
 
     //@@author aakanksha-rai
     @Override
     public void sortModulesByRatingDescending() {
-        logger.info(String.format("Modules are sorted by rating in descending order"));
+        logger.info("Modules are sorted by rating in descending order");
         taTracker.sortModulesByRatingDescending();
     }
 
     //@@author aakanksha-rai
     @Override
     public void sortModulesByMatricNumber() {
-        logger.info(String.format("Modules are sorted by matric number in ascending order"));
+        logger.info("Modules are sorted by matric number in ascending order");
         taTracker.sortModulesByMatricNumber();
     }
 
@@ -347,7 +383,7 @@ public class ModelManager implements Model {
     //@@author aakanksha-rai
     @Override
     public void showAllModules() {
-        logger.info(String.format("All modules are shown"));
+        logger.info("All modules are shown");
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -401,7 +437,7 @@ public class ModelManager implements Model {
     //@@author aakanksha-rai
     @Override
     public void setFilteredGroupList() {
-        logger.info(String.format("Empty grouplist is shown"));
+        logger.info("Empty grouplist is shown");
         taTracker.setCurrentlyShownGroups(new ArrayList<>());
     }
 
@@ -415,11 +451,14 @@ public class ModelManager implements Model {
     // ======== Student Methods ================================================
 
     //@@author
+
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return taTracker.hasStudent(student);
     }
+
+    //@@author aakanksha-rai
 
     @Override
     public boolean hasStudent(Matric matric, String targetGroup, String targetModule) {
@@ -427,16 +466,22 @@ public class ModelManager implements Model {
         return taTracker.hasStudent(matric, targetGroup, targetModule);
     }
 
+    //@@author aakanksha-rai
+
     @Override
     public Student getStudent(Matric matric, String groupCode, String moduleCode) {
         return taTracker.getStudent(matric, groupCode, moduleCode);
     }
+
+    //@@author
 
     @Override
     public void addStudent(Student student) {
         logger.info(String.format("Student added is %s", student));
         taTracker.addStudent(student);
     }
+
+    //@@author fatin99
 
     @Override
     public void addStudent(Student student, String targetGroup, String targetModule) {
@@ -446,10 +491,14 @@ public class ModelManager implements Model {
         taTracker.addStudent(student, targetGroup, targetModule);
     }
 
+    //@@author
+
     @Override
     public void deleteStudent(Student target) {
         taTracker.removeStudent(target);
     }
+
+    //@@author fatin99
 
     @Override
     public void deleteStudent(Student target, String targetGroup, String targetModule) {
@@ -459,11 +508,15 @@ public class ModelManager implements Model {
         taTracker.deleteStudent(target, targetGroup, targetModule);
     }
 
+    //@@author
+
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
         taTracker.setStudent(target, editedStudent);
     }
+
+    //@@author potatocombat
 
     @Override
     public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
@@ -490,7 +543,7 @@ public class ModelManager implements Model {
     //@@author aakanksha-rai
     @Override
     public void setFilteredStudentList() {
-        logger.info(String.format("Empty student list is shown."));
+        logger.info("Empty student list is shown.");
         taTracker.setCurrentlyShownStudents(new ArrayList<>());
     }
 

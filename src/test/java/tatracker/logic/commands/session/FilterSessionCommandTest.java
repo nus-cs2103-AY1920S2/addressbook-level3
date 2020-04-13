@@ -1,4 +1,4 @@
-//@@ chuayijing
+//@@author chuayijing
 package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

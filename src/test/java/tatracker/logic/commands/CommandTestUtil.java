@@ -146,16 +146,7 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
 
-    /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
-     */
-    public static void assertDeleteSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                                         Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_SESSION);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
-    }
-
+    //@@author Chuayijing
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.

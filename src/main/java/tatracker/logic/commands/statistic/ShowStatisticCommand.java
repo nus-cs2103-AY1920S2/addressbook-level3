@@ -1,3 +1,5 @@
+// @@author Eclmist
+
 package tatracker.logic.commands.statistic;
 
 import static java.util.Objects.requireNonNull;
@@ -18,6 +20,8 @@ import tatracker.model.Model;
  */
 public class ShowStatisticCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.REPORT,
             "Shows the statistics report of a particular module",
@@ -25,6 +29,8 @@ public class ShowStatisticCommand extends Command {
             List.of(),
             MODULE_ID
     );
+
+    // @@author Eclmist
 
     public static final String MESSAGE_OPENED_STATS = "Opened statistic window";
 

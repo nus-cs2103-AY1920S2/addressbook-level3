@@ -1,3 +1,4 @@
+//@@author Chuayijing
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
@@ -23,6 +24,7 @@ import tatracker.model.Model;
  */
 public class FilterStudentCommand extends Command {
 
+    //@@author PotatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
@@ -31,6 +33,8 @@ public class FilterStudentCommand extends Command {
             List.of(GROUP, MODULE),
             GROUP, MODULE
     );
+
+    // @@author Chuayijing
 
     public static final String MESSAGE_FILTERED_MODULES_SUCCESS = "Filtered all students in module: %s";
     public static final String MESSAGE_FILTERED_GROUPS_SUCCESS = "Filtered all students in module group: %s [%s]";
@@ -121,11 +125,10 @@ public class FilterStudentCommand extends Command {
      *Creates a string consisting of all the params inputted by users.
      */
     public String buildParams(String group, String module) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Module Code: ").append(module).append("\n");
-        builder.append("Group Code: ").append(group).append("\n");
-        String result = builder.toString();
-        return result;
+        return new StringBuilder()
+                .append("Module Code: ").append(module).append("\n")
+                .append("Group Code: ").append(group).append("\n")
+                .toString();
     }
 
     @Override

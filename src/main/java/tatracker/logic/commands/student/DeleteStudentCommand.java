@@ -1,3 +1,5 @@
+// @@author potatocombat
+
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
@@ -26,6 +28,8 @@ import tatracker.model.student.Student;
  * Deletes a student identified using it's displayed index from the TA-Tracker.
  */
 public class DeleteStudentCommand extends Command {
+
+    // @@author potatocombat
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,

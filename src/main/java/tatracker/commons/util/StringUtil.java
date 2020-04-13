@@ -66,6 +66,7 @@ public class StringUtil {
         }
     }
 
+    // @@author potatocombat
     /**
      * Returns true if {@code s} represents an unsigned integer.
      */

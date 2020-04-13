@@ -64,9 +64,6 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of students. */
     ObservableList<Student> getFilteredStudentList();
 
-    /** Returns an the currently used session filters. */
-    String getCurrSessionFilter();
-
     /** Returns an the currently used session date filters. */
     String getCurrSessionDateFilter();
 

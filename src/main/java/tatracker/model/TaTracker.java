@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
-import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
+import tatracker.model.group.exceptions.GroupNotFoundException;
 import tatracker.model.module.Module;
-import tatracker.model.module.ModuleNotFoundException;
 import tatracker.model.module.UniqueModuleList;
+import tatracker.model.module.exception.ModuleNotFoundException;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
@@ -31,30 +31,49 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    //@@author potatocombat
+
     public static final String CONSTRAINTS_RATE = "Rate must be an integer representing an amount that is more than $0";
 
     private static final int DEFAULT_RATE = 40;
 
-    private static String currClaimFilter = "";
-    private static String currSessionFilter = "";
+    //@@author fatin99
+
     private static String currSessionDateFilter = "";
     private static String currSessionModuleFilter = "";
     private static String currSessionTypeFilter = "";
+
+    //@@author Chuayijing
+
+    private static String currClaimFilter = "";
+    private static String currSessionFilter = "";
     private static String currStudentFilter = "";
+
+    //@@author aakanksha-rai
 
     private static Group currentlyShownGroup = null;
     private static Module currentlyShownModule = null;
     private static Module currentlyShownModuleClaim = null;
 
+    //@@author fatin99
+
     private int rate;
 
-    private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
+
+    //@@author Chuayijing
+
+    private final UniqueSessionList sessions;
+
+    //@@author aakanksha-rai
+
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    //@@author
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -89,8 +108,10 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.rate = newData.getRate();
     }
 
+
     // ======== Filter Methods ================================================
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Claim View.
      */
@@ -99,6 +120,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currClaimFilter = module;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Claim View.
      */
@@ -106,6 +128,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currClaimFilter;
     }
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -114,6 +137,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionFilter = params;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -121,6 +145,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionFilter;
     }
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -129,6 +154,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionDateFilter = params;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -136,6 +162,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionDateFilter;
     }
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -144,6 +171,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionModuleFilter = params;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -151,6 +179,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionModuleFilter;
     }
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Session View.
      */
@@ -159,6 +188,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currSessionTypeFilter = params;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Session View.
      */
@@ -166,6 +196,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currSessionTypeFilter;
     }
 
+    //@@author Chuayijing
     /**
      *Sets the currently used filter under Student View.
      */
@@ -174,6 +205,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currStudentFilter = params;
     }
 
+    //@@author Chuayijing
     /**
      * Get the currently used filter under Student View.
      */
@@ -183,6 +215,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Session Methods ================================================
 
+    //@@author Chuayijing
     /**
      * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      */
@@ -191,6 +224,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return sessions.contains(session);
     }
 
+    //@@author Chuayijing
     /**
      * Adds a session to the ta-tracker.
      * The session must not already exist in the ta-tracker.
@@ -199,6 +233,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.add(s);
     }
 
+    //@@author Chuayijing
     /**
      * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      * Removes {@code session} from this {@code TaTracker}.
@@ -208,6 +243,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.remove(session);
     }
 
+    //@@author Chuayijing
     /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the ta-tracker.
@@ -220,6 +256,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.setSession(target, editedSession);
     }
 
+    //@@author Chuayijing
     /**
      * Replaces the contents of the session list with {@code sessions}.
      * {@code sessions} must not contain duplicate sessions.
@@ -228,6 +265,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.sessions.setSessions(sessions);
     }
 
+    //@@author Chuayijing
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
@@ -235,14 +273,14 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Done Session Methods =================================================
 
+    //@@author fatin99
+
     /**
      * Adds a completed session to the list of done sessions.
      */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
     }
-
-    //@@author fatin99
 
     @Override
     public long getTotalHours() {
@@ -293,6 +331,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return doneSessions.asUnmodifiableObservableList();
     }
 
+    //@@author Eclmist
+
     @Override
     public ObservableList<Student> getCompleteStudentList() {
         UniqueStudentList completeStudentList = new UniqueStudentList();
@@ -309,6 +349,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         completeStudentList.setStudents(new ArrayList<>(allStudents));
         return completeStudentList.asUnmodifiableObservableList();
     }
+
+    //@@author Chuayijing
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
         if ("".equals(moduleCode)) {
@@ -525,9 +567,9 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
         if (groups.isEmpty()) {
-            this.currentlyShownGroup = null;
+            currentlyShownGroup = null;
         }
-        this.currentlyShownGroups.setGroups(groups);
+        currentlyShownGroups.setGroups(groups);
     }
 
     //@@author aakanksha-rai
@@ -568,24 +610,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Student Methods ================================================
 
-    //@@author
-    /**
-     * Returns true if a given student with the same identity as {@code student}
-     * exists in a module group that is in TaTracker.
-     * @param targetGroup group to check if {@code student} is enrolled in.
-     * @param targetModule module that contains {@code group}.
-     */
-    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
-        requireNonNull(student);
-
-        if (!hasGroup(targetGroup, targetModule)) {
-            return false;
-        }
-
-        Module module = getModule(targetModule);
-        Group group = module.getGroup(targetGroup);
-        return group.hasStudent(student);
-    }
+    //@@author aakanksha-rai
 
     /**
      * Returns true if a given student with the same identity as {@code student}
@@ -602,6 +627,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.getModule(targetModule).hasStudent(matric, targetGroup);
     }
 
+    //@@author
+
     /**
      * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
@@ -610,10 +637,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currentlyShownStudents.contains(student);
     }
 
+    //@@author aakanksha-rai
+
     public Student getStudent(Matric matric, String groupCode, String moduleCode) {
         requireNonNull(matric);
         return modules.getModule(moduleCode).getStudent(matric, groupCode);
     }
+
+    //@@author fatin99
 
     /**
      * Adds the given student into a module group that is in TaTracker.
@@ -635,6 +666,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         group.addStudent(student);
     }
 
+    //@@author
+
     /**
      * Adds a student to the ta-tracker.
      * The student must not already exist in the ta-tracker.
@@ -642,6 +675,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     public void addStudent(Student p) {
         currentlyShownStudents.add(p);
     }
+
+    //@@author fatin99
 
     /**
      * Deletes the given student {@code target} from a module group that is in TaTracker.
@@ -663,6 +698,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         group.deleteStudent(target);
     }
 
+    //@@author
+
     /**
      * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the ta-tracker.
@@ -670,6 +707,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     public void removeStudent(Student key) {
         currentlyShownStudents.remove(key);
     }
+
+    //@@author potatocombat
 
     /**
      * Replaces the given student {@code target} in a TaTracker module group with {@code editedStudent}.
@@ -690,6 +729,8 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         modules.getModule(targetModule).setStudent(target, editedStudent, targetGroup);
     }
+
+    //@@author
 
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.

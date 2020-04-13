@@ -14,12 +14,16 @@ import tatracker.model.Model;
  */
 public class ExitCommand extends Command {
 
+    // @@author potatocombat
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.EXIT,
             "Exits TA-Tracker",
             List.of(),
             List.of()
     );
+
+    // @@author
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting TA-Tracker as requested ...";
 

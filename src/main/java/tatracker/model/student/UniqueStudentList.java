@@ -1,3 +1,5 @@
+//@@author fatin99
+
 package tatracker.model.student;
 
 import static java.util.Objects.requireNonNull;
@@ -30,12 +32,16 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    //@@author aakanksha-rai
+
     private Comparator<Student> alphabetically = Comparator.comparing(Student::getName);
 
     private Comparator<Student> ratingAscending = Comparator.comparing(Student::getRating);
     private Comparator<Student> ratingDescending = ratingAscending.reversed();
 
     private Comparator<Student> matric = Comparator.comparing(Student::getMatric);
+
+    //@@author fatin99
 
     public int size() {
         return internalList.size();
@@ -136,6 +142,7 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(students);
     }
 
+    //@@author Eclmist
 
     /**
      * Returns all students of a particular rating
@@ -145,6 +152,8 @@ public class UniqueStudentList implements Iterable<Student> {
     public List<Student> getStudentsOfRating(Rating rating) {
         return internalList.filtered(s -> s.getRating().equals(rating));
     }
+
+    //@@author aakanksha-rai
 
     /**
      * Sorts the students alphabetically.
@@ -174,6 +183,7 @@ public class UniqueStudentList implements Iterable<Student> {
         FXCollections.sort(internalList, ratingDescending);
     }
 
+    //@@author fatin99
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

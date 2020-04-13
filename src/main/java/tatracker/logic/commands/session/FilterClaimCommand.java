@@ -1,3 +1,5 @@
+//@@author Chuayijing
+
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
@@ -20,6 +22,7 @@ import tatracker.model.Model;
  */
 public class FilterClaimCommand extends Command {
 
+    //@@author potatoCombat
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLAIM,
             CommandWords.FILTER_MODEL,
@@ -29,6 +32,7 @@ public class FilterClaimCommand extends Command {
             MODULE
     );
 
+    //@@author Chuayijing
     public static final String MESSAGE_FILTERED_CLAIMS_SUCCESS = "Filtered claims for module: %s";
 
     private final DoneSessionPredicate predicate;

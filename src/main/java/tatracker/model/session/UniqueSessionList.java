@@ -1,3 +1,5 @@
+//@@author Chuayijing
+
 package tatracker.model.session;
 
 import static java.util.Objects.requireNonNull;

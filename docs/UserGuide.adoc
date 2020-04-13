@@ -89,7 +89,7 @@ the TA-Tracker to make your life as a Teaching Assistant easier.
 
 === Common Symbols
 
-(Contributed by Fatin)
+(Contributed by Aakanksha and Fatin)
 
 This section shows you the symbols commonly used in this guide.
 
@@ -390,6 +390,7 @@ The domain name must also:
 //tag::duplicateparameters[]
 
 ==== Duplicate Parameters
+(Contributed by Gabriel)
 
 You can specify the same parameter *more than once* in a command.
 Depending on the command, you will see *different outcomes*.
@@ -433,6 +434,7 @@ The name `SE` will be ignored.
 //tag::rearrangingparameters[]
 
 ==== Rearranging Parameters
+(Contributed by Gabriel)
 
 Parameters can be in *any order* if they have *prefixes*.
 
@@ -542,6 +544,8 @@ This is an example of what the Student View looks like.
 //tag::sessionview[]
 
 === Session View
+(Contributed by Chua Yi Jing)
+
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
 
@@ -586,10 +590,13 @@ This is an example of what the Claims View looks like.
 
 [[Usage]]
 == Usage
+(Contributed by Gabriel)
+
 This section describes how you can interact with *TA-Tracker*.
 
 //tag::keyboard[]
 === Keyboard Shortcuts
+
 You can navigate everything in *TA-Tracker* with just a *keyboard*!
 
 Here are some keyboard shortcuts that you can use:
@@ -633,26 +640,43 @@ When you type a command into the `command box`, your input will be *highlighted*
 
 Here is a table explaining the meaning of each colour:
 
-[width="%",cols="<10%a,<90a",options="header"]
+[width="%",cols="<10%a,<25%a,<65%a",options="header"]
 |=======================================================================
 |
 Colour
 |
 Meaning
+|
+Examples
 
 |
-*green*
+green
 |
-*Valid* input.
+A *valid* user input
+|
+* The full name of a valid command +
+eg. `help`, `student add`, `module delete`
+
+* A valid value for the command parameters +
+eg. `id/A1234567J`, `d/2020-03-20`, `n/This is a valid description`
 
 |
-*red*
+red
 |
-*Invalid* input.
+An *invalid* user input
 |
-*white*
+* An unknown command +
+eg. `unknown`, `student`, `student done`
+
+* A invalid value for the command parameters +
+eg. `id/B1234X`, `d/4 March 2020`, `s/4pm`
+
 |
-The *default* font colour.
+white
+|
+The *default* font colour
+|
+
 
 |=======================================================================
 
@@ -704,7 +728,6 @@ This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 These commands are used to control the different *windows* in *TA-Tracker*,
 as well as switching between the different *Views*.
-//end::syntax[]
 //tag::help[]
 
 ==== Viewing help : `help`
@@ -749,6 +772,7 @@ This command takes you to the `student tab`.
 //tag::exit[]
 
 ==== Exiting the program : `exit`
+(Contributed by Fatin)
 
 You can *exit the program* with this command.
 
@@ -1029,6 +1053,7 @@ module code `CS3243`, to be a `lab`.
 
 [[AddStudent]]
 ==== Adding a Student : `student add`
+(Contributed by Fatin and Gabriel)
 
 You can use this command to add a new student to the TA-Tracker.
 
@@ -1079,6 +1104,7 @@ in 5.2.9.)
 
 [[DeleteStudent]]
 ==== Deleting a Student : `student delete`
+(Contributed by Fatin and Gabriel)
 
 You can use this command to delete a student from the TA-Tracker.
 
@@ -1112,6 +1138,7 @@ the module `CS3243`.
 
 [[EditStudent]]
 ==== Editing a Student : `student edit`
+(Contributed by Fatin and Gabriel)
 
 You can use this command to edit a student in the TA-Tracker.
 
@@ -1365,6 +1392,7 @@ This section explains the different commands that can be used in the *Session Vi
 //tag::addsession[]
 [[AddSession]]
 ==== Adding a Session : `session add`
+(Contributed by Chua Yi Jing)
 
 You can use this command to add a new session.
 
@@ -1414,6 +1442,7 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 //tag::deletesession[]
 
 ==== Deleting a Session : `session delete`
+(Contributed by Chua Yi Jing)
 
 You can use this command to delete a session at a specific `index`.
 
@@ -1439,6 +1468,8 @@ This command deletes the first session in the *Session View*.
 //tag::editsession[]
 
 ==== Editing a Session : `session edit`
+(Contributed by Chua Yi Jing)
+
 You can use this command to edit a session in the TA-Tracker.
 
 If you were on a different `tab`, you will automatically be switched to the `session tab`.
@@ -1471,7 +1502,7 @@ Edits the session at index 1 to have:
 
 ==== Marking a Session as Done : `session done`
 
-(Contributed by Fatin, Chua Yi Jing)
+(Contributed by Fatin and Chua Yi Jing)
 
 You can use this command to mark a session as done.
 
@@ -1602,6 +1633,7 @@ Sets the current hourly rate to $25.
 === Statistics Window
 
 ==== Generate Statistic Report : `report`
+(Contributed by Haoyi)
 
 You can use this command to generate a report to display information such as:
 

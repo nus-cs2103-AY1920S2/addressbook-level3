@@ -1,3 +1,5 @@
+// @@author potatocombat
+
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
@@ -11,6 +13,8 @@ import java.util.Map;
  * Represents the different types of sorting.
  */
 public enum SortType {
+    // @@author aakanksha-rai
+
     ALPHABETIC("alphabetically", "alpha", "alphabetical"),
     MATRIC("matric"),
     RATING_ASC("rating asc", "asc"),
@@ -18,6 +22,8 @@ public enum SortType {
 
     public static final String MESSAGE_CONSTRAINTS =
             "These are the only sort types: alphabetically, matric, rating asc, rating desc";
+
+    // @@author potatocombat
 
     private static final Map<String, SortType> SORT_TYPES = createSortDictionary();
 

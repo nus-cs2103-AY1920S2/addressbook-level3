@@ -1,3 +1,5 @@
+//@@author Chuayijing
+
 package tatracker.logic.parser.session;
 
 import static tatracker.logic.parser.Prefixes.DATE;
@@ -21,14 +23,6 @@ import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
-
-/*
- * === BUGS ===
- * TODO: No error when end time is after start time.
- *
- * TODO: Sessions cannot have dates that are earlier than the current date.
- *        Earlier dates are replaced by the current date.
- */
 
 /**
  * Parses input arguments and creates a new AddSessionCommand object
@@ -58,6 +52,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
             date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
         }
 
+        //@@author potatocombat
         LocalTime startTime = LocalTime.now().withSecond(0).withNano(0);
         if (argMultimap.getValue(START_TIME).isPresent()) {
             startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
@@ -67,6 +62,8 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         if (argMultimap.getValue(END_TIME).isPresent()) {
             endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
         }
+
+        //@@author chuayijing
 
         // Adjusting the start and end time to be on the specified date (today if not specified)
         LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
