@@ -51,22 +51,27 @@ public class PersonCardDetail extends UiPart<Region> {
         super(FXML);
         this.person = person;
         name.setText(person.getName().fullName);
+        name.setWrapText(true);
         phone.setText("Phone: " + person.getPhone().value);
         address.setText("Address: " + person.getAddress().value);
+        address.setWrapText(true);
         email.setText("Email: " + person.getEmail().value);
+        email.setWrapText(true);
         birthday.setText("Birthday: " + person.getBirthday().toString());
         organization.setText("Organization: " + person.getOrganization().toString());
+        organization.setWrapText(true);
         String remarkValue = "\nRemarks:\n";
         int i = 0;
         while (i < person.getRemark().size()) {
             int index = i + 1;
-            remarkValue += "\t" + index + ". " + person.getRemark().get(i).value;
+            remarkValue += index + ". " + person.getRemark().get(i).value;
             if (i != person.getRemark().size() - 1) {
                 remarkValue += "\n";
             }
             i++;
         }
         remark.setText(remarkValue);
+        remark.setWrapText(true);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
