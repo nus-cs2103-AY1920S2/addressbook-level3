@@ -1,4 +1,4 @@
-# **CookBuddy Recipe Manager**
+# CookBuddy Recipe Manager
 :site-section: UserGuide
 :toc:
 :toc-title: Table Of Contents
@@ -513,7 +513,7 @@ Example: You can type `count` and *CookBuddy* will display the total number of r
 // Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
 
-=== Deleting all recipes - `reset`
+=== Deleting all recipes — `reset`
 You can remove all the recipes stored in *CookBuddy* using the `reset`command.
 
 Format: `reset`
@@ -531,7 +531,7 @@ Example: You can type `reset` and *CookBuddy* will clear all the recipes stored 
 //image::user-guide/modifytag-after.png[width="600"]
 
 
-=== Exiting *CookBuddy* - `exit`
+=== Exiting *CookBuddy* — `exit`
 You can exit from *CookBuddy* using the `exit` command.
 
 Format: `exit`
