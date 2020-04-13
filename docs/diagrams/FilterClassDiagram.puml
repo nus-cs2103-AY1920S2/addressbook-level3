@@ -11,10 +11,10 @@ Class Sport MODEL_COLOR
 
 
 FilterCommand "1" *--> "1" TagAndSportContainsKeywordsPredicate
-FilterCommand ..> "1" Model
+FilterCommand ..>  Model
 TagAndSportContainsKeywordsPredicate ..|> Predicate
-Model ..> "1" TagAndSportContainsKeywordsPredicate
-TagAndSportContainsKeywordsPredicate ..> "1" Client
+Model ..>  TagAndSportContainsKeywordsPredicate
+TagAndSportContainsKeywordsPredicate ..> Client
 Client "1" *--> "*" Tag
 Client "1" *--> "*" Sport
 
