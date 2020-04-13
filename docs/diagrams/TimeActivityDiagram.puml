@@ -2,12 +2,12 @@
 !include style.puml
 
 start
-:User inputs unfav command;
+:User inputs time command;
 
 If () then ([Command is valid format])
 
 If () then ([Recipe index exists])
-    :Marks the recipe at specified index as not favourited
+    :Marks the recipe at specified index as attempted
     :Returns success message;
 else ([else])
     :Returns failure message
@@ -16,10 +16,12 @@ endif
 :LogicManager prints message to user;
 
 else ([else])
+
     :Returns failure message
     (invalid command format);
 
 endif
+
 
 stop
 @enduml

@@ -2,10 +2,10 @@
 !include style.puml
 
 start
-:User inputs View command;
+:User inputs view command;
 
 If () then ([Recipe index exists])
-    :Displays the recipe at specified index
+    :Updates the GUI to display the recipe at specified index
     :Returns success message;
 else ([Recipe index does not exist])
     :Returns failure message
