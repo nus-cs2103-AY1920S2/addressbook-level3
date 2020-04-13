@@ -604,13 +604,14 @@ If this is successful, the following message will be displayed in the feedback d
 Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
 ```
 
+// tag::schedule[]
 === Managing Your Scheduled Sessions
 
-You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout completedExercises? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
+You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout sessions? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
 
-==== Scheduling a new workout completedExercise
+==== Scheduling a new workout session
 
-To schedule a new workout completedExercise, simply type in this command:
+To schedule a new workout session, simply type in this command:
 
 ```
 schedule create WORKOUT_ID d/<datetime>
@@ -618,34 +619,34 @@ schedule create WORKOUT_ID d/<datetime>
 
 ```
 Example use:
-schedule create 1 d/2020-02-06 18:00
+schedule create 1 d/2020-05-06 18:00
 ```
 
-.Scheduling a workout completedExercise
-image::UgScheduleSession.png[]
+.Scheduling a workout session
+image::schedule/UgScheduleSession.png[]
 
 ```
 NOTE:
-WORKOUT_ID refers to the index of the workout in `workout list`
-<datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+* WORKOUT_ID refers to the index of the workout in `workout list`
+* <datetime> must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 ```
 
-==== Listing all future scheduled completedExercises
+==== Listing all scheduled sessions
 
-To view all of your future schedule completedExercises, type the following command:
+To view all of your schedule sessions, type the following command:
 
 ```
 schedule list
 ```
 
-.Calendar display of schedule
-image::UgCalendarSchedule.png[]
+.Display of schedule in chronological order
+image::schedule/UgListSchedule.png[]
 
-ZeroToOne displays an intuitive calendar view, showing your upcoming schedule! From this graphical view, you can see what workout completedExercises are coming up, as well as their corresponding schedule IDs.
+ZeroToOne displays an intuitive chronological view, showing your upcoming schedule! From this view, you can see what workout sessions are coming up, which workout sessions are outdated, as well as their corresponding schedule IDs.
 
-==== Changing a scheduled completedExercise to another date
+==== Changing a scheduled session to another date
 
-If you need to shift your scheduled completedExercise to another date, try the following command:
+If you need to shift your scheduled session to another date, try the following command:
 
 ```
 schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
@@ -653,24 +654,24 @@ schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
 
 ```
 Example use:
-schedule edit 1 d/2020-02-08 18:00
+schedule edit 1 d/2020-05-08 18:00
 ```
 
 If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Edited schedule: Strength Workout on 2020-02-08 18:00
+Edited schedule: Strength Workout on 2020-05-08 18:00
 ```
 
 ```
 NOTE:
 * SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
-* <datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+* <datetime> must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 ```
 
-==== Deleting a scheduled completedExercise
+==== Deleting a scheduled session
 
-Want to delete a scheduled completedExercise? You can do so by typing the following command:
+Want to delete a scheduled session? You can do so by typing the following command:
 
 ```
 schedule delete SCHEDULED_WORKOUT_ID
@@ -681,7 +682,7 @@ Example use:
 schedule delete 1
 ```
 
-This deletes an existing scheduled workout completedExercise with the corresponding scheduled workout ID. If this is successful, the following message will be displayed in the feedback display:
+This deletes an existing scheduled workout session with the corresponding scheduled workout ID. If this is successful, the following message will be displayed in the feedback display:
 
 ```
 Deleted scheduled workout: Strength Training
@@ -692,9 +693,9 @@ NOTE:
 * SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
 ```
 
-==== Scheduling a recurring workout completedExercise (Proposed)
+==== Scheduling a recurring workout session (Proposed)
 
-Sometimes you will want to schedule a workout completedExercise that repeats over time, with a certain frequency. No problem! Simply type the following command:
+Sometimes you will want to schedule a workout session that repeats over time, with a certain frequency. No problem! Simply type the following command:
 
 ```
 schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
@@ -702,21 +703,22 @@ schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
 
 ```
 Example use:
-schedule recurring create WORKOUT_ID d/2020-03-26 10:00 f/MONTHLY
+schedule recurring create WORKOUT_ID d/2020-05-26 10:00 f/MONTHLY
 ```
 
-For example, if you want to have the workout Arms Workout on a monthly basis, starting from the 26th of March 2020 at 10am, you can type `schedule recurring create WORKOUT_ID d/2020-03-26 10:00 f/MONTHLY`.  If this is successful, the following message will be displayed in the feedback display:
+For example, if you want to have the workout Arms Workout on a monthly basis, starting from the 26th of May 2020 at 10am, you can type `schedule recurring create WORKOUT_ID d/2020-05-26 10:00 f/MONTHLY`.  If this is successful, the following message will be displayed in the feedback display:
 
 ```
-New recurring schedule added: Strength Workout on 2020-02-06 18:00 Monthly
+New recurring schedule added: Strength Workout on 2020-05-06 18:00 Monthly
 ```
 
 ```
 NOTE:
 * WORKOUT_ID refers to the index of the workout in `workout list`
-* <datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+* <datetime> must not be outdated and follow the format {yyyy}-{mm}-{dd} {HH:mm}
 * <frequency> must be one of the following: DAILY, WEEKLY, MONTHLY
 ```
+// end::schedule[]
 
 === Managing Your Session Logs
 Well done, you have successfully gone through the whole process of setting up your workouts, scheduling them and even logging the workout. In addition to all these cool features, ZeroToOne also allows you to manage your workout log history and even provides you with meaningful statistics to help you track your current progress to help you hit all those fitness goals.

@@ -10,6 +10,7 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":Scheduler" as Scheduler MODEL_COLOR
 participant ":ScheduleList" as ScheduleList MODEL_COLOR
+participant ":DateTime" as DateTime MODEL_COLOR
 participant ":Schedule" as Schedule MODEL_COLOR
 participant ":ScheduledWorkoutList" as ScheduledWorkoutList MODEL_COLOR
 end box
@@ -30,19 +31,26 @@ activate Scheduler
     deactivate ScheduleList
 
 
-'    get schedules
     Scheduler -> Scheduler : populateSortedScheduledWorkoutList()
     activate Scheduler
 
+'    get schedules
     Scheduler -> ScheduleList : getScheduleList()
     activate ScheduleList
     Scheduler <-- ScheduleList : schedules
     deactivate ScheduleList
 
 
+'    get datetime now
+    Scheduler -> DateTime : now()
+    activate DateTime
+    Scheduler <-- DateTime : now
+    deactivate DateTime
+
+
 '    getScheduledWorkouts from schedules
     loop schedule : schedules
-        Scheduler -> Schedule : getScheduledWorkouts()
+        Scheduler -> Schedule : getScheduledWorkouts(now)
         activate Schedule
         Scheduler <-- Schedule : scheduledWorkouts
         deactivate Schedule
