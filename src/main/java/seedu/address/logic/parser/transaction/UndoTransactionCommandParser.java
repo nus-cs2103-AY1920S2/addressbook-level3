@@ -19,13 +19,16 @@ public class UndoTransactionCommandParser implements Parser<UndoTransactionComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public UndoTransactionCommand parse(String args) throws ParseException {
+        Index index;
+
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new UndoTransactionCommand(index);
+            index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoTransactionCommand.MESSAGE_USAGE), pe);
         }
+
+        return new UndoTransactionCommand(index);
     }
 
 }

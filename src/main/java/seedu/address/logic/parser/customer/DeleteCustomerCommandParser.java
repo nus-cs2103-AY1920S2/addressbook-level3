@@ -19,13 +19,16 @@ public class DeleteCustomerCommandParser implements Parser<DeleteCustomerCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCustomerCommand parse(String args) throws ParseException {
+        Index index;
+
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCustomerCommand(index);
+            index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCustomerCommand.MESSAGE_USAGE), pe);
         }
+
+        return new DeleteCustomerCommand(index);
     }
 
 }

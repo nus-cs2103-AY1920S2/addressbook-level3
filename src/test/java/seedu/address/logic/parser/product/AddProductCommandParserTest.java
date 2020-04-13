@@ -51,19 +51,23 @@ public class AddProductCommandParserTest {
         // multiple descriptions - shows error message
         assertParseFailure(parser, DESCRIPTION_DESC_BAG + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
                 + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
-                + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + SALES_DESC_WATCH,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddProductCommand.MESSAGE_USAGE));
 
         // multiple prices - shows error message
         assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_BAG
-                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddProductCommand.MESSAGE_USAGE));
 
         // multiple quantities - shows error message
         assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
-                + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH + SALES_DESC_WATCH,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddProductCommand.MESSAGE_USAGE));
 
         // multiple sales - shows error message
         assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
-                + QUANTITY_DESC_WATCH + SALES_DESC_BAG + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
+                + QUANTITY_DESC_WATCH + SALES_DESC_BAG + SALES_DESC_WATCH,
+                String.format(MESSAGE_MULTIPLE_SAME_PREFIX, AddProductCommand.MESSAGE_USAGE));
     }
 
     @Test

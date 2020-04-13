@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_THRESHOLD;
 
@@ -35,6 +36,11 @@ public class LowLimitCommandParser implements Parser<LowLimitCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LowLimitCommand.MESSAGE_USAGE));
         }
 
+        if (anyPrefixesDuplicate(argMultimap, PREFIX_PRODUCT, PREFIX_THRESHOLD)) {
+            throw new ParseException(String.format(MESSAGE_MULTIPLE_SAME_PREFIX,
+                    LowLimitCommand.MESSAGE_USAGE));
+        }
+
         Index productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT).get());
         QuantityThreshold threshold = ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
 
@@ -46,13 +52,14 @@ public class LowLimitCommandParser implements Parser<LowLimitCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> {
-            try {
-                return argumentMultimap.getValue(prefix).isPresent();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesDuplicate(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.hasDuplicateValues(prefix));
     }
 }

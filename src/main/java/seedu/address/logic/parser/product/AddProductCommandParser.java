@@ -2,6 +2,7 @@ package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INITIAL_QUANTITY;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -46,6 +47,12 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProductCommand.MESSAGE_USAGE));
         }
 
+        if (anyPrefixesDuplicate(argMultimap, PREFIX_DESCRIPTION, PREFIX_COSTPRICE,
+                PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SALES)) {
+            throw new ParseException(String.format(MESSAGE_MULTIPLE_SAME_PREFIX,
+                    AddProductCommand.MESSAGE_USAGE));
+        }
+
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         CostPrice costPrice = ParserUtil.parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
@@ -86,15 +93,15 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> {
-            try {
-                return argumentMultimap.getValue(prefix).isPresent();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return true;
-        });
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesDuplicate(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.hasDuplicateValues(prefix));
+    }
 }
 

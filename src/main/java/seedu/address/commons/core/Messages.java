@@ -26,5 +26,5 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_THRESHOLD_AMOUNT = "Threshold amount must be more than 0!";
 
-    public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Please only use each prefix once!";
+    public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Please only use each prefix once! \n%1$s";
 }
