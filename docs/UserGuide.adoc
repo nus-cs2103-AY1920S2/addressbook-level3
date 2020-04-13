@@ -1670,10 +1670,9 @@ Generate and display a report of sessions and students from the module CS3243.
 === Timed Sessions - Coming in V2.0
 (Contributed by Haoyi)
 
-In V2.0, you will be able to add timed sessions. Timed sessions include sessions that will notify
-and remind you as the sessions start time approaches. Timed sessions also include sessions that can
-be started and stopped as they happen, such that their start/end time will no longer need to be
-explicitly specific.
+In V2.0, you will be able to add timed sessions. Timed sessions will allow you to set sessions that will notify
+and remind you as the sessions' start time approaches. Timed sessions will allow you to start and stop sessions
+as they happen, such that you will no longer need to specify their start/end times explicitly.
 
 
 //tag::reminders[]
