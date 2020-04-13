@@ -22,8 +22,8 @@ abstract class Command <E> {
 
 class PaidCommand extends Command {
     /' Fields '/
-    - Index : indexOfPersonPaid
-    - String : amountPaid
+    - indexOfPersonPaid : Index
+    - amountPaid : String
 
     /' Methods '/
     + execute(splitterModel : SplitterModel) : CommandResult

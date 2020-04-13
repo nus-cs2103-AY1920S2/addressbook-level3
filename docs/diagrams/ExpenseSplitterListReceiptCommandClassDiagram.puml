@@ -21,7 +21,7 @@ class ListReceiptCommand extends Command {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - Receipt : receipt
+    - receipt : Receipt
 
     /' Methods '/
     + listReceipt() : void
@@ -50,7 +50,7 @@ interface SplitterModel <<Interface>> {
 
 class Receipt {
     /' Fields '/
-    - boolean : isDone
+    - isDone : boolean
 
     /' Methods '/
     + markDone() : void

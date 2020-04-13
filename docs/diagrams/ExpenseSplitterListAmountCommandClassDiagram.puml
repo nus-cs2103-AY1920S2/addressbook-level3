@@ -41,7 +41,7 @@ interface SplitterModel <<Interface>> {
 
 class SplitterModelManager implements SplitterModel {
     /' Fields '/
-    - PersonAmountBook : personAmountBook
+    - personAmountBook : PersonAmountBook
 
     /' Methods '/
     + listAmount() : String
@@ -49,7 +49,7 @@ class SplitterModelManager implements SplitterModel {
 
 class PersonAmountBook {
     /' Fields '/
-    - UniquePersonList : persons
+    - persons : UniquePersonList
 
     /' Methods '/
     + toString() : String
