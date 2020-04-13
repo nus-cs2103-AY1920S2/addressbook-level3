@@ -230,12 +230,15 @@ Mainly, the `Compiler` component consists of the following classes:
 
 The concrete implementations of the link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/Block.java[`Block`] class consist of:
 
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`], which represents
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/HeaderBlock.java[`HeaderBlock`]
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListBlock.java[`ListBlock`]
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListItemBlock.java[`ListItemBlock`]
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ParagraphBlock.java[`ParagraphBlock`]
-* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/TextBlock.java[`TextBlock`]
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`], which represents the root of the Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/HeaderBlock.java[`HeaderBlock`], which represents a Markdown https://github.github.com/gfm/#atx-headings[ATX heading] component.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListBlock.java[`ListBlock`], which represents a Markdown unordered list.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ListItemBlock.java[`ListItemBlock`], which represents a Markdown list item.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/ParagraphBlock.java[`ParagraphBlock`], which represents a Markdown paragraph.
+* link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/TextBlock.java[`TextBlock`], which represents plain text in Markdown.
+
+In a step-by-step manner, our link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] class will first call the link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/Parser.java[`Parser`] class to generate a Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree].
+After that, the link:{repoURL}/src/main/java/com/notably/commons/compiler/Compiler.java[`Compiler`] class will transform the returned Markdown https://en.wikipedia.org/wiki/Abstract_syntax_tree[Abstract Syntax Tree] into HTML by calling the root link:{repoURL}/src/main/java/com/notably/commons/compiler/parser/block/DocumentBlock.java[`DocumentBlock`]'s `toHtml` method (which will in turn invoke each of its children's `toHtml` method).
 
 Given below is the _Sequence Diagram_ for interactions within the `Compiler` component for the `compile(markdown)` API call.
 
