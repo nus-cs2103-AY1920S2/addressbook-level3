@@ -100,22 +100,22 @@ public class SampleDataUtil {
         return new Transaction[] {
             new Transaction(ALEX_YEOH, IPAD_PRO, ALEX_YEOH.getId(), IPAD_PRO.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("2"), new Money("2598"),
-                new Description("Null")),
+                new Description("N/A")),
             new Transaction(BERNICE_YU, IPHONE_8PLUS, BERNICE_YU.getId(), IPHONE_8PLUS.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("2"), new Money("1900"),
-                new Description("Null")),
+                new Description("N/A")),
             new Transaction(DAVID_LI, IPAD_PRO, DAVID_LI.getId(), IPAD_PRO.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("4"), new Money("5196"),
-                new Description("Null")),
+                new Description("N/A")),
             new Transaction(VIVIAN_TAN, MACBOOK_AIR, VIVIAN_TAN.getId(), MACBOOK_AIR.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("1"), new Money("1449"),
-                new Description("Null")),
+                new Description("N/A")),
             new Transaction(IRFAN, AIRPODS_PRO, IRFAN.getId(), AIRPODS_PRO.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("4"), new Money("1516"),
-                new Description("Null")),
+                new Description("N/A")),
             new Transaction(CHARLOTTE, IPAD_PRO, CHARLOTTE.getId(), IPAD_PRO.getId(),
                 new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("5"), new Money("6495"),
-                new Description("Null"))
+                new Description("N/A"))
         };
     }
 
