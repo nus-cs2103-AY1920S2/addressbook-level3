@@ -80,8 +80,8 @@ a|
 a|
 *Keyboard Shortcuts*
 
-. Restore previously entered command texts: kbd:[↑] and kbd:[↓]
-. Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
+   . Restore previously entered command texts: kbd:[↑] and kbd:[↓]
+   . Close expanded coupon window: kbd:[Ctrl]+kbd:[q]
    . Cycle through tabs: kbd:[Ctrl]+kbd:[Tab]
 |6
 
