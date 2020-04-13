@@ -106,7 +106,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("buy g/Apple q/50")` API call.
 
 .Interactions Inside the Logic Component for the `buy g/Apple q/50` Command
+//tag::buysequencediagram[]
 image::BuySequenceDiagram.png[]
+//end::buysequencediagram[]
 
 NOTE: The lifeline for `BuyCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -537,8 +539,9 @@ will be added to store all distinct expiry dates, from closest to furthest, and
 the number of units expiring on that date. Java's built-in `Date` class
 will suffice.
 
+//tag::goodclassenhancement[]
 image:GoodWithExpiryDate.png[]
-
+//end::goodclassenhancement[]
 
 ===== Proposed Changes to `buy` Command
 
