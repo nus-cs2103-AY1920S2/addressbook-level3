@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.commands.util.Commands;
 import seedu.zerotoone.model.Model;
@@ -18,6 +20,7 @@ public class StopCommand extends Command {
     public static final String MESSAGE_USAGE = "Usage: " + Commands.STOP;
     public static final String MESSAGE_SUCCESS = "Stopped workout session: %1$s at ";
     public static final FormatStyle FORMAT_STYLE = FormatStyle.MEDIUM;
+    private static final Logger logger = LogsCenter.getLogger(StopCommand.class);
 
     public StopCommand() {
     }
@@ -25,6 +28,7 @@ public class StopCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing stop command.");
         if (!model.isInSession()) {
             throw new CommandException((MESSAGE_SESSION_NOT_STARTED));
         }

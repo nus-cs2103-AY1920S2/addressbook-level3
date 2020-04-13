@@ -12,6 +12,8 @@ import seedu.zerotoone.ui.util.UiPart;
 public class CompletedSetCard extends UiPart<Region> {
 
     private static final String FXML = "log/CompletedSetCard.fxml";
+    private static final String COMPLETED_FA_NAME = "CHECK";
+    private static final String SKIPPED_FA_NAME = "TIMES";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,18 +26,19 @@ public class CompletedSetCard extends UiPart<Region> {
     @FXML
     private Label setTitle;
     @FXML
+
     private FontAwesomeIcon isSetFinished;
 
-    public CompletedSetCard(int setId, String numReps, String weight, Boolean isSetFinished) {
+    public CompletedSetCard(String numReps, String weight, Boolean isSetFinished) {
         super(FXML);
-        this.setTitle.setText(formatTitle(setId, numReps, weight));
-        this.isSetFinished.setGlyphName(isSetFinished ? "CHECK" : "TIMES");
+        this.setTitle.setText(formatTitle(numReps, weight));
+        this.isSetFinished.setGlyphName(isSetFinished ? COMPLETED_FA_NAME : SKIPPED_FA_NAME);
         this.isSetFinished.getStyleClass().add(isSetFinished ? "isCompleted" : "isSkipped");
 
     }
 
-    private String formatTitle(int setId, String numReps, String weight) {
-        return String.format(" - %s reps of %s kg", numReps, weight);
+    private String formatTitle(String numReps, String weight) {
+        return String.format(" - %s x %skg", numReps, weight);
     }
 
     @Override
