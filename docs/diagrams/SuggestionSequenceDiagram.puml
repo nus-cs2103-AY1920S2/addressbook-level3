@@ -2,10 +2,7 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SuggestionEngine" as SuggestionEngine LOGIC_COLOR
-participant ":StringCorrectionEngine" as StringCorrectionEngine LOGIC_COLOR
-participant ":AbsolutePathCorrectionEngine" as AbsolutePathCorrectionEngine LOGIC_COLOR
 participant ":OpenSuggestionArgHandler" as OpenSuggestionArgHandler LOGIC_COLOR
 participant "o:OpenSuggestionGenerator" as OpenSuggestionGenerator LOGIC_COLOR
 participant ":SuggestionItemImpl" as SuggestionItemImpl LOGIC_COLOR
@@ -15,26 +12,12 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager
-activate LogicManager
+box CorrectionEngine MODEL_COLOR_T1
+participant ":CorrectionEngine" as CorrectionEngine MODEL_COLOR
+end box
 
-create SuggestionEngine
-LogicManager -> SuggestionEngine
+[-> SuggestionEngine
 activate SuggestionEngine
-
-create StringCorrectionEngine
-SuggestionEngine -> StringCorrectionEngine
-activate StringCorrectionEngine
-
-StringCorrectionEngine --> SuggestionEngine
-deactivate StringCorrectionEngine
-
-create AbsolutePathCorrectionEngine
-SuggestionEngine -> AbsolutePathCorrectionEngine
-activate AbsolutePathCorrectionEngine
-
-AbsolutePathCorrectionEngine --> SuggestionEngine
-deactivate AbsolutePathCorrectionEngine
 
 SuggestionEngine -> SuggestionEngine : autoUpdateInput("opne /a")
 activate SuggestionEngine
@@ -51,17 +34,11 @@ activate Model
 Model --> SuggestionEngine
 deactivate Model
 
-SuggestionEngine -> SuggestionEngine : suggest("opne /a")
-activate SuggestionEngine
+SuggestionEngine -> CorrectionEngine : correct("opne")
+activate CorrectionEngine
 
-SuggestionEngine -> SuggestionEngine : parseCommand("opne /a");
-activate SuggestionEngine
-
-SuggestionEngine -> StringCorrectionEngine : correct("opne")
-activate StringCorrectionEngine
-
-StringCorrectionEngine --> SuggestionEngine : correctionResult
-deactivate StringCorrectionEngine
+CorrectionEngine --> SuggestionEngine : "open"
+deactivate CorrectionEngine
 
 create OpenSuggestionArgHandler
 SuggestionEngine -> OpenSuggestionArgHandler
@@ -70,7 +47,7 @@ activate OpenSuggestionArgHandler
 OpenSuggestionArgHandler --> SuggestionEngine
 deactivate OpenSuggestionArgHandler
 
-SuggestionEngine -> OpenSuggestionArgHandler : handleArg(" /a")
+SuggestionEngine -> OpenSuggestionArgHandler : handleArg("/a")
 activate OpenSuggestionArgHandler
 
 OpenSuggestionArgHandler -> Model : setResponseText("Open a note titled "a"")
@@ -79,11 +56,11 @@ activate Model
 Model --> OpenSuggestionArgHandler
 deactivate Model
 
-OpenSuggestionArgHandler -> AbsolutePathCorrectionEngine : correct(" /a")
-activate AbsolutePathCorrectionEngine
+OpenSuggestionArgHandler -> CorrectionEngine : correct("/a")
+activate CorrectionEngine
 
-AbsolutePathCorrectionEngine --> OpenSuggestionArgHandler : correctionResult
-deactivate AbsolutePathCorrectionEngine
+CorrectionEngine --> OpenSuggestionArgHandler : "/a"
+deactivate CorrectionEngine
 
 create OpenSuggestionGenerator
 OpenSuggestionArgHandler -> OpenSuggestionGenerator
@@ -98,27 +75,20 @@ deactivate OpenSuggestionArgHandler
 OpenSuggestionArgHandler -[hidden]-> SuggestionEngine
 destroy OpenSuggestionArgHandler
 
-SuggestionEngine --> SuggestionEngine
-deactivate SuggestionEngine
-
 SuggestionEngine -> OpenSuggestionGenerator : execute(model)
 activate OpenSuggestionGenerator
-
-OpenSuggestionGenerator -> OpenSuggestionGenerator : getPossiblePaths\n(correctionResult.getCorrectedItems(), model)
-activate OpenSuggestionGenerator
-
-OpenSuggestionGenerator --> OpenSuggestionGenerator : possiblePaths
-deactivate OpenSuggestionGenerator
 
 OpenSuggestionGenerator -> OpenSuggestionGenerator : getSuggestions(possiblePaths, model)
 activate OpenSuggestionGenerator
 
+loop possiblePaths
 create SuggestionItemImpl
 OpenSuggestionGenerator -> SuggestionItemImpl
 activate SuggestionItemImpl
 
 SuggestionItemImpl --> OpenSuggestionGenerator : item
 deactivate SuggestionItemImpl
+end
 
 OpenSuggestionGenerator --> OpenSuggestionGenerator : suggestions
 deactivate OpenSuggestionGenerator
@@ -135,12 +105,6 @@ deactivate OpenSuggestionGenerator
 SuggestionEngine --> SuggestionEngine
 deactivate SuggestionEngine
 
-SuggestionEngine --> SuggestionEngine
+[<--SuggestionEngine
 deactivate SuggestionEngine
-
-SuggestionEngine --> LogicManager
-deactivate SuggestionEngine
-
-[<--LogicManager
-deactivate LogicManager
 @enduml

@@ -123,6 +123,8 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 // end::parser[]
+
+//tag::sugengine[]
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
@@ -157,7 +159,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` and `Sug
 image::SuggestionSequenceDiagram.png[]
 
 NOTE: The lifeline for `OpenSuggestionArgHandler` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+//end::sugengine[]
 
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine component
@@ -267,6 +269,8 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
 2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
+
+//tag::sugengineimpl[]
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
 
@@ -322,6 +326,7 @@ in the `Model` can be done in each `SuggestionCommandParser`, the `SuggestionCom
 parsing and those without. It does not force the `Handler` to parse the user input when there is no need to. The naming `Handler` also
 does not restrict the functionality of the interface and classes to just parse an input, but allows for a flexibility in executing other functionality
 such as updating the `responseText` in the `Model`.
+//end::sugengineimpl[]
 
 // tag::paths[]
 [[Implementation-Path]]
