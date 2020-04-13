@@ -24,7 +24,7 @@ Note that the entries in the reminder list will also be sorted in the same manne
 It also helps the user to view entry that he/she may deem more important first
 (for example entry with a higher calorie value, as it has a larger impact on the user's fitness),
 which facilitates editing.
-** Highlights: 
+** Highlights:
 
 * *Major enhancement 2*: added *the ability to search for calorie data of common food/sports*
 ** What it does: allows the user to search for calorie intake/consumption of food/sports by keywords.
