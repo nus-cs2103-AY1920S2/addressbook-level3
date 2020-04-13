@@ -9,7 +9,8 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 /**
- * STEPH_TODO_JAVADOC
+ * Represents a DateTime.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class DateTime implements Comparable<DateTime> {
 
@@ -33,9 +34,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     * STEPH_TODO_JAVADOC
-     * @param dateTime STEPH_TODO_JAVADOC
-     * @return STEPH_TODO_JAVADOC
+     * Returns true if a given string is a valid date time that confronts to the specified format.
      */
     public static Boolean isValidDateTime(String dateTime) {
         try {
@@ -51,9 +50,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     *
-     * @param dateTime
-     * @return
+     * Returns true if the date of a {@Code DateTime} is later than today's date.
      */
     public static Boolean isDateEqualOrLaterThanToday(DateTime dateTime) {
         DateTime now = now();
@@ -61,9 +58,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     *
-     * @param other
-     * @return
+     * Returns true if the date of a {@Code DateTime} is later than this {@Code DateTime}.
      */
     public Boolean isDateEqualOrLaterThan(DateTime other) {
         return this.localDateTime.toLocalDate().compareTo(other.localDateTime.toLocalDate()) >= 0;
