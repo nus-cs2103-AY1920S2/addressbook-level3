@@ -55,7 +55,7 @@ public class SampleLogDataUtil {
 
             for (int j = 0; j < curr.getExerciseSets().size(); j++) {
                 ExerciseSet set = curr.getExerciseSets().get(j);
-                CompletedSet completedSet = new CompletedSet(set.weight, set.numReps, (j % 3) != 0);
+                CompletedSet completedSet = new CompletedSet(set.weight, set.numReps, (j % 3) != 2);
                 completedSets.add(completedSet);
             }
 
