@@ -1613,14 +1613,10 @@ testers are expected to do more _exploratory_ testing.
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample coupons.
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different
-location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Head over to your local Command Line Interface (CLI), and change to the
+directory where the jar file was saved.
+.. Type `java - jar CouponStash.jar` in the CLI. +
+Expected: Shows the GUI with a set of sample coupons.
 
 === Adding a coupon
 
@@ -1631,12 +1627,21 @@ Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
 today's date, while the Remind Date is set to 3 days before the specified
 `Expiry Date`. In this case, it would be 28-12-2020.
 
+=== Listing coupons
+. List different type of coupons
+.. Test case: `list` +
+Expected: All active coupons are displayed on the list.
+.. Test case: `list a/` +
+Expected: All archived coupons are displayed on the list.
+.. Test case: `list u/` +
+Expected: All previously used coupons are displayed on the list.
+
 === Deleting a coupon
 
 . Deleting a coupon while all coupons are listed
 
-.. Prerequisites: List all coupons using the `list` command. Multiple coupons
-in the list.
+.. Prerequisites: List all coupons using the `list` command. Have at least one
+coupon in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
@@ -1644,7 +1649,24 @@ Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No coupon is deleted.
 Error details shown in the status message.
-Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is
-larger than the list size) _{give more}_ +
+larger than the list size) +
    Expected: Similar to previous.
+
+=== Editing a Coupon
+
+. Editing a coupon while all coupons are listed
+
+.. Prerequisites: List all coupons using the `list` command. Have at least one
+coupon in the list.
+.. Test case: `edit 1 p/ILOVESTASH` +
+Expected: The first coupon will have its Promo Code changed to `ILOVESTASH`.
+.. Test case: `edit 1 e/31-12-2021` +
+Expected: The first coupon with have its Expiry Date changed to `31-12-2021`.
+.. Test case: `edit 1 l/0` +
+Expected: The first coupon will now have unlimited usage.
+.. Test case: `edit 1 u/10` +
+Expected: An error message will be thrown, explaining that usage cannot be edited.
+.. Test case: `edit 1 s/$10 s/Water Bottle` +
+Expected: The first coupon will have its savings changed to $10, and include
+a Water Bottle item.
