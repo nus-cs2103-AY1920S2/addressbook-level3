@@ -46,6 +46,7 @@ import seedu.address.model.profile.course.module.PrereqTreeNode;
 import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
+import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author chanckben
 public class ShowCommandTest {
@@ -339,7 +340,11 @@ public class ShowCommandTest {
             Profile profile = new Profile(new Name("John"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
                     new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
-            profile.addModule(1, module);
+            try {
+                profile.addModule(1, module);
+            } catch (MaxModsException e) {
+                fail();
+            }
             profileList.add(profile);
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);

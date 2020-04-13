@@ -275,12 +275,10 @@ public class ProfileManager implements Model {
         if (editedProfile.getDeadlines() != null) {
             this.deadlineList.addAll(editedProfile.getDeadlines());
         }
-        System.out.println(this.deadlineList);
     }
 
     @Override
     public void deleteModuleFromDeadlineList(ModuleCode moduleCode) {
-        System.out.println("TEST!!!!");
         for (Deadline deadline : this.deadlineList) {
             if (deadline.getModuleCode().equals(moduleCode)) {
                 this.deadlineList.remove(deadline);

@@ -3,7 +3,7 @@ package seedu.address.model.profile;
 import static java.util.Objects.requireNonNull;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.module.ModularCredits;
@@ -31,7 +31,7 @@ public class Cap {
      * CAP = Sum (module grade point x modular credits for the module) / Sum (modular credits)
      * @param semModHashMap
      */
-    public void updateCap(HashMap<Integer, ModuleList> semModHashMap) {
+    public void updateCap(TreeMap<Integer, ModuleList> semModHashMap) {
         requireNonNull(semModHashMap);
 
         totalWeightage = 0.0;

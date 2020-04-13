@@ -109,7 +109,6 @@ public class LogicManager implements Logic {
                 profileManager.loadDeadlines();
             }
         }
-        System.out.println(profileManager.getSortedDeadlineList());
         return profileManager.getSortedDeadlineList();
     }
 
