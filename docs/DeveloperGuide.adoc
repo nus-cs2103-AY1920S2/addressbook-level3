@@ -100,8 +100,8 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 the command `back` when in a `TRIP` view. View switching is executed by the `Ui` component.
 
 [[view-switch-sequence]]
-.Component interactions for `back` command in the `TRIP` view.
-image::ArchitectureSequenceDiagram.png[align="center"]
+.Component interactions for `home` command in the `JOURNAL` page.
+image::home-command-sequence.png[align="center"]
 
 
 The _Sequence Diagram_ below illustrates how the components interact with each other for the scenario where the user
@@ -174,6 +174,9 @@ image::DeleteItinerary.png[align="center"]
 [[Design-Model]]
 === Model component
 
+.Class Diagram for the Model component on the `HOME` page
+image::HomeClassDiagram.png[align="center"]
+
 .Structure of the Model Component in Journal
 image::JournalModelDiagram.png[align="center"]
 
@@ -236,12 +239,60 @@ The entire process of view switching is executed in the `MainWindow.java` class.
 
 ==== Implementation
 Each `CommandResult` from an execution in the `MainWindow` class stores data on
-*if a command is a navigation command or not.* If the command is a navigation command, the `MainWindow` will execute the
+*if a command is a navigation command or not, and which navigation command it is.* If the command is a navigation command, the `MainWindow` will execute the
 appropriate functions to facilitate view switching.
 
+In the view switching process, the `MainWindow` will do the following: +
+
+. Switch the logic component of the program to the logic component of the next page
+. Switch the model component of the program to the model component of the next page
+. Switch the current storage of the program to the storage component of the next page
+. Load the GUI components for the next page
+
+For example, for the `back` command, the `MainWindow`:
+
+.Activity diagram for view switching process in `MainWindow` for `back` command
+image::back-activity-diagram.png[]
+
+==== Design Considerations
+Pros: +
+
+* As each page has its own components, the back end of the program is neater and better abstracted.
+* Specialised logic components for each page allow for the same keywords to be used (e.g `add`, `delete`) on certain
+pages.
+
+Cons: +
+
+* There are many steps to switching views
+* If there are more pages, there will be many logic and model components to keep track of.
+
 ==== Special Cases
-When `back` command is used in the <<root-page>>, this would not have any effect on the current GUI being
+* When `back` command is used in the <<root-page>>, this would not have any effect on the current GUI being
 displayed.
+* When the `home` command is used in the <<root-page>>, this would not have any effect on the current GUI being
+displayed as the user is already on the HOME page.
+
+
+=== Specific Help Windows for different pages
+==== Implementation
+Each page in Volant has its own `{Page}HelpWindow` class.
+<<implementation-view-switching, Upon switching views>>, the `MainWindow` will create a new `{Page}HelpWindow` containing
+details of the commands that can be used on that page.
+
+==== Design Considerations
+===== Aspect: Syntax of the find command
+* **Alternative 1 (current choice):**
+Help Window specifically details the commands that can be used on the page that the user is currently on.
+** Pros: Very specific and allows added convenience for users when they want to use commands with many fields that they
+cannot remember without having to refer to the User Guide.
+** Cons: Every single page has to have its own class file for the Help Window, if there are many pages, there will be many files to keep track of.
+* **Alternative 2:** Use a general Help Window that lists every single command for every page in Volant
+** Pros: Only one Help Window class file needed and it is easy to implement.
+** Cons: If all the commands are detailed on a single long Help Window, the user will have to inconveniently scroll through
+the window to reach the section that details commands for the page that they are on.
+
+
+
 
 === Adding a trip in Home Page
 ==== Implementation
@@ -275,7 +326,7 @@ image::AddTripActivityDiagram.png[align="center"]
 ** Cons: Less organised as all trip details are stored in one location. Any error in the way one trip is stored will cause all trips not to be loaded.
 * **Alternative 2:** Create a individual json file for each trip details.
 ** Pros: An error in the file of one trip will not affect the loading of other trips.
-** Cons: Harder to implement retrieval
+** Cons: Harder to implement retrieval.
 
 === Sorting entries in Journal Page
 ==== Implementation
@@ -299,6 +350,36 @@ The following activity diagram summarises what happens when a user executes a so
 
 .Activity Diagram for `sort` Command
 image::SortActivityDiagram.png[align="center"]]
+
+=== Deleting Trip in Home Page
+
+==== Implementation
+
+The delete trip feature allows user to delete a trip in Volant. This feature is faciliated by `HomeInputParser`, `DeleteCommandParser`, and `DeleteCommand`.
+
+Given below is an example usage scenario and how the delete mechanism behaves at each step:
+
+1. The user executes the delete command in `HOME` page and provides the desired index for deletion.
+2. `HomeInputParser` parses the input by the user to check if the input provided contains a valid command keyword.
+3. `DeleteCommandParser` parses the remaining input by the user for the index.
+4. `DeleteCommandParser` checks if the index provided is valid; at most the number of trips in the list.
+5. `DeleteCommandParser` creates a new `DeleteCommand` with the index provided.
+6. `HomeLogicManager` executes the `DeleteCommand`.
+7. `The trip folder in the file path along with its contents are deleted during execution.
+8. `HomeModelManager` updates the `UniqueTripList`.
+9. `HomeLogicManager` updates storage with updated `UniqueTripList`.
+10. `MainWindow` receives `CommandResult` from `HomeLogicManager` containing success message to be displayed to user.
+11. Trips displayed in `MainWindow` are updated and `MainWindow` displays success message.
+
+The following activity diagram summarises what happens when a user executes an add activity command:
+
+.Activity Diagram for `delete` Command
+image::deleteTripActivityDiagram.png[align="center"]]
+
+==== Design Considerations
+
+===== Aspect: How to delete the trip
+Since each trip is a folder containing the data of the trip's itinerary and journal. If the trip is deleted, the corresponding itinerary and journal json files should also be deleted. This prevents unnecessary files from being stored in the program.
 
 === Adding an activity in Itinerary Page
 
@@ -365,6 +446,30 @@ image::FindItinerary.png[align="center"]]
 ** Pros: The commands would be a lot shorter and easy to use. This allows for cross-field search which is not possible with the current implementation. This implementation is also easier to implement.
 ** Cons: This makes it difficult to narrow down the search if the users want to be specific about which field the keyword is in. The current implementation allows for greater freedom in choosing the fields to search for, something this implementation would not be able to accomplish. Furthermore, as `date` and `time` have different format from `location` and `title`, the specified field would make it easier for users to search for activities with the same `date` or `time`.
 
+=== Refreshing trips in Home Page
+
+==== Implementation
+The refresh feature allows user to repopulate the current page with the same data in the storage. This feature is faciliated by `HomeInputParser`, `RefreshCommandParser`, and `RefreshCommand`.
+
+Given below is an example usage scenario and how the refresh mechanism behaves at each step:
+
+1. The user executes the rf command in `HOME` page.
+2. `HomeInputParser` parses the input by the user to check if the input provided contains a valid command keyword.
+3. `FindCommandParser` creates a new `RefreshCommand`.
+4. `HomeLogicManager` executes the `RefreshCommand`.
+5. `MainWindow` receives `CommandResult` and success message from `HomeLogicManager`.
+6. `MainWindow` checks the current page user is on and repopulates display with list from `HomeModelManager`.
+7. `MainWindow` displays success message.
+
+The following activity diagram summarises what happens when a user executes a find activity command:
+
+.Activity Diagram for `rf` Command
+image::rfActivityDiagram.png[align="center"]]
+
+==== Design Considerations
+
+===== Aspect: How to get the list to repopulate the data with
+After sorting or finding a list, the user needed a way to view the original data. The construction of each model includes a list that contains the relevant data in storage. Using that list, the view can be repopulated with the original data.
 
 === Data Storage
 All data (trip details, journal entry details and itinerary details) is saved in the `main.data` directory.
@@ -574,7 +679,7 @@ _{All user stories can be viewed in our issue tracker.}_
 *<<mss, MSS>>*
 
 1. User enters details of trip to be added
-2. V adds trip to trip list
+2. V adds new trip to trip list
 +
 Use case ends
 
@@ -582,7 +687,7 @@ Use case ends
 
 [none]
 * 1a. V detects invalid characters in trip details
-* 1a1. V outputs error informing user of invalid characters
+* 1a1. V outputs error informing user of invalid command
 +
 Use case ends
 
@@ -593,8 +698,20 @@ Use case ends
 Use case ends
 
 [none]
-* 1c. V is unable to detect a valid keyword
-* 1c1. V outputs error informing user of invalid keyword
+* 1c. V detects that trip has a clashing date range with another trip on the trip list
+* 1c1. V outputs error informing user of clashing date range between trip and another trip on the list
++
+Use case ends
+
+[none]
+* 1d. V detects that trip has the same name as another trip on the trip list
+* 1d1. V outputs error informing user that the trip already exists on the trip list
++
+Use case ends
+
+[none]
+* 1e. V is unable to detect a valid keyword
+* 1e1. V outputs error informing user of invalid command
 +
 Use case ends
 
@@ -617,25 +734,31 @@ Use case ends
 *Extensions*
 
 [none]
+* 3c. V is unable to detect any specified fields to edit
+* 3c1. V outputs error informing user that a field to edit must be specified
++
+Use case ends
+
+[none]
 * 3a. V detects an invalid index i.e. index out of range or negative index
 * 3a1. V outputs error informing user of invalid index specified
 +
 Use case ends
 
 [none]
-* 3b. V detects invalid characters for the details
-* 3b1. V outputs error informing user of invalid characters
+* 3b. V detects invalid characters for the fields
+* 3b1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [none]
-* 3b. V is unable to detect a valid keyword
-* 3b1. V outputs error informing user of invalid keyword
+* 3c. V is unable to detect a valid keyword
+* 3c1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [discrete]
-=== UC03 - Navigating to Trip Folder
+=== UC03 - Navigating to Trip Page
 
 *Precondition:* User has added a trip
 
@@ -658,12 +781,12 @@ Use case ends
 
 [none]
 * 1b. V is unable to detect a valid keyword
-* 1b1. V outputs error informing user of invalid keyword
+* 1b1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [discrete]
-=== UC04 - Accessing Pages (Contact List/ Itinerary / Journal)
+=== UC04 - Accessing Trip Feature Pages (Itinerary / Journal)
 
 *Precondition:* User is in the home page
 
@@ -680,53 +803,19 @@ Use case ends
 *Extensions*
 
 [none]
-* 2a. V detects incorrect command to navigate to the page
-* 2a1. V outputs error informing user of incorrect command
+* 2a. V detects invalid field to navigate to the page
+* 2a1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [none]
 * 2b. V is unable to detect a valid keyword
-* 2b1. V outputs error informing user of invalid keyword
+* 2b1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [discrete]
-=== UC05 - Adding Contact to Contact List in a Trip
-
-**Precondition: **User is in the Contact List page of a trip
-
-**Guarantee: **A new contact will be added to the Contact List
-
-*MSS*
-
-1. User enters details of the contact
-2. V confirms the addition of the contact to the contact list and displays new contact in the contact list
-+
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. V detects invalid characters in contact entry
-* 1a1. V outputs error informing user of invalid characters
-+
-Use case ends
-
-[none]
-* 1b. V detects missing fields in contact entry
-* 1b1. V outputs error informing user of missing contact entry
-+
-Use case ends
-
-[none]
-* 1c. V is unable to detect a valid keyword
-* 1c1. V outputs error informing user of invalid keyword
-+
-Use case ends
-
-[discrete]
-=== UC06 - Adding Travel Entry into Journal in a Trip
+=== UC05 - Adding a travel Entry into Journal of a Trip
 
 **Precondition: **User is already in the Journal page of Trip
 
@@ -743,7 +832,7 @@ Use case ends
 
 [none]
 * 1a. V detects invalid characters in travel entry
-* 1a1. V outputs error informing user of invalid characters
+* 1a1. V outputs error informing user of invalid command
 +
 Use case ends
 
@@ -755,12 +844,12 @@ Use case ends
 
 [none]
 * 1c. V is unable to detect a valid keyword
-* 1c1. V outputs error informing user of invalid keyword
+* 1c1. V outputs error informing user of invalid command
 +
 Use case ends
 
 [discrete]
-=== UC07 - Adding Activities into Itinerary
+=== UC06 - Adding Activities into Itinerary
 
 **Precondition: **User is already in the Itinerary page of the Trip
 **Guarantee: **A new activity will be added to the Itinerary
@@ -776,7 +865,7 @@ Use case ends
 
 [none]
 * 1a. V detects invalid characters into activity entry
-* 1a1. V outputs error informing user of invalid characters
+* 1a1. V outputs error informing user of invalid command
 +
 Use case ends
 
@@ -788,40 +877,10 @@ Use case ends
 
 [none]
 * 1c. V is unable to detect a valid keyword
-* 1c1. V outputs error informing user of invalid keyword
+* 1c1. V outputs error informing user of invalid command
 +
 Use case ends
 
-[discrete]
-=== UC08 - Deleting a Contact in the Contact List of a Trip
-
-*Precondition:* User is in Contact List page of the Trip
-
-*Guarantee:* The contact in the Contact List will be deleted
-
-*MSS*
-
-[none]
-1. User requests to delete a contact in the contact list at the specified index
-2. V deletes the contact at the specified index and updates the displayed list
-3. Use case ends
-
-*Extensions*
-
-[none]
-* 1a. V detects an invalid index i.e. index out of range or negative index
-* 1a1. V outputs error informing user of invalid index specified
-+
-Use case ends
-
-[none]
-* 1b. V is unable to detect a valid keyword
-* 1b1. V outputs error informing user of invalid keyword
-+
-Use case ends
-
-
-_{More use cases will be added and current use cases may be edited in the future.}_
 
 [appendix]
 == Non Functional Requirements
