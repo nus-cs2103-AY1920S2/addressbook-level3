@@ -145,8 +145,7 @@ the kbd:[Ctrl] key, which is used for most shortcuts.
 
 
 == Quick Start
-
-TODO: Preface
+Follow the steps below to get started with Coupon Stash!
 
 .  Ensure you have Java (version 11 or above) installed in your
 Computer. Java is an application development platform
@@ -946,8 +945,7 @@ list is edited.
 * `delete 1` +
   `undo` +
   `redo` +
-//TODO LINK
-Un-undo the `delete` command. First coupon that was in the resulting coupon list is deleted.
+Un-undo the <<Deleting a coupon: `delete`, `delete`>> command. First coupon that was in the resulting coupon list is deleted.
 // end::redo[]
 
 // tag::goto[]
