@@ -14,7 +14,7 @@ class DeleteCommandParser implements Parser {
 }
 
 interface Parser<T extends Command> {
-    parse(userInput : String) : DeleteCommand
+    + parse(userInput : String) : DeleteCommand
 }
 
 abstract class Command<E> {
@@ -23,10 +23,10 @@ abstract class Command<E> {
 
 class DeleteCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "delete"
-    + MESSAGE_USAGE : String
-    + MESSAGE_DELETE_FOOD_SUCCESS : String
-    + MESSAGE_DUPLICATE_FOOD : String
+    - COMMAND_WORD : String = "delete"
+    - MESSAGE_USAGE : String
+    - MESSAGE_DELETE_FOOD_SUCCESS : String
+    - MESSAGE_DUPLICATE_FOOD : String
 
 
     /' Methods '/
@@ -35,7 +35,7 @@ class DeleteCommand extends Command {
 }
 
 interface DietModel <<Interface>> {
-    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+    - PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
 
     + deleteFood(food : Food) : void
     + getFilteredFoodList() : ObservableList<Food>
@@ -61,7 +61,11 @@ class DietModelManager implements DietModel {
 }
 
 class FoodBook {
-    + UniqueFoodList : foods
+    /' Fields '/
+    - UniqueFoodList : foods
+
+    /' Methods '/
+    + removeFood(key : Food) : void
 }
 
 DeleteCommandParser ..> DeleteCommand

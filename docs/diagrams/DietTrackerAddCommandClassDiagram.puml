@@ -23,11 +23,11 @@ abstract class Command<E> {
 
 class AddCommand extends Command {
     /' Fields '/
-    + COMMAND_WORD : String = "add"
-    + MESSAGE_USAGE : String
-    + MESSAGE_SUCCESS : String
-    + MESSAGE_DUPLICATE_FOOD : String
-    + toAdd : Food
+    - COMMAND_WORD : String = "add"
+    - MESSAGE_USAGE : String
+    - MESSAGE_SUCCESS : String
+    - MESSAGE_DUPLICATE_FOOD : String
+    - toAdd : Food
 
     /' Methods '/
     + execute(dietModel : DietModel) : CommandResult
@@ -35,7 +35,7 @@ class AddCommand extends Command {
 }
 
 interface DietModel <<Interface>> {
-    + PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
+    - PREDICATE_SHOW_ALL_FOODS : Predicate<Food>
 
     + hasFood(food : Food) : boolean
     + addFood(food : Food) : void
@@ -48,11 +48,37 @@ class ParserUtil {
     <u> + parseTags(tags : Collection<Tag>) : Set<Tag>
 }
 
+class DietModelManager implements DietModel {
+    /' Fields '/
+    - FoodBook : foodBook
+
+    /' Methods '/
+    + addFood(food : Food) : void
+    + isReceiptDone() : boolean
+}
+
+class Food {
+    - name : Name
+}
+
+class FoodBook {
+    /' Fields '/
+    - UniqueFoodList : foods
+
+    /' Methods '/
+    + addFood(food : Food) : void
+}
+
+class Name {
+    - name : String
+}
 
 
 AddCommandParser ..> AddCommand
 AddCommandParser ..> ParserUtil
 AddCommand ..> DietModel
-
+AddCommand --> Food
+Food --> Name
+DietModelManager *-right->"1" FoodBook
 
 @enduml
