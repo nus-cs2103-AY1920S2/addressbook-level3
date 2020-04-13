@@ -99,15 +99,8 @@ Listed below are sections I contributed to the User Guide, which includes the cr
 for attributes, questions, and metrics, as well as finding the best N interviewees from a certain parameter.
 
 
-include::../UserGuide.adoc[tag=attributes]
-
-include::../UserGuide.adoc[tag=questions]
 
 include::../UserGuide.adoc[tag=load]
-
-include::../UserGuide.adoc[tag=metrics]
-
-include::../UserGuide.adoc[tag=best]
 
 include::../UserGuide.adoc[tag=summary]
 
