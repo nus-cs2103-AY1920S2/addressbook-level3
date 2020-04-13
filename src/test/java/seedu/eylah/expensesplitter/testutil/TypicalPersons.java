@@ -32,7 +32,7 @@ public class TypicalPersons {
     public static final Person FIONA = new PersonBuilder().withName("fiona kwok")
         .withAmount(new BigDecimal("8.50")).build();
 
-    public static final Person GEORGE = new PersonBuilder().withName("geroge peet")
+    public static final Person GEORGE = new PersonBuilder().withName("george peet")
         .withAmount(new BigDecimal("9.50")).build();
 
 
