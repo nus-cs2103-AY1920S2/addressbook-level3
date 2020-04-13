@@ -60,7 +60,7 @@ public class RemindWindow extends UiPart<Stage> {
     /**
      * Filters the coupons that have reminders today.
      */
-    private List<Coupon> filterRemindCoupons(List<Coupon> coupons) {
+    private static List<Coupon> filterRemindCoupons(List<Coupon> coupons) {
 
         return coupons.stream()
                 .filter(coupon -> coupon.getRemindDate().isToday())
