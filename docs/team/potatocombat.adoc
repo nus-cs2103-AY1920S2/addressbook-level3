@@ -1,0 +1,143 @@
+=== Gabriel Benedict Teo Jian Cheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+==== PROJECT: TA-Tracker
+
+---
+
+==== Overview
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage all of their claimable hours and the students
+they are teaching in one place.
+
+==== Summary of contributions
+
+===== Major Enhancement: Syntax Highlighting
+
+This feature highlights the user input whenever it changes in the `CommandBox`. In addition, usage hints will appear in the `ResultDisplay` as the user is typing out a command
+
+*Justification:* Since our *target users* are fast typers, this feature helps them to quickly identify and correct their input as they are typing. Furthermore, they will not need to remember how to use the commands, especially those with many parameters.
+
+*Highlights:* Implementing this feature was very time-consuming. It required the creation of many utility classes and a decent understanding of _regex patterns_.
+
+===== Major Enhancement: The Student Commands
+
+I created the following three commands: `AddStudentCommand`, `DeleteStudentCommand`, and `EditStudentCommand`
+
+*Justification:* Since our *target users* are Teaching Assistants (TAs), these commands allow them to store and update the details of the students that they are teaching.
+
+*Highlights:* These commands were challenging to implement because `Student` objects are stored inside `Group` objects, which are in turn stored inside `Module` objects. There were a lot of changes made to our `Model` in order to implement these commands.
+
+===== Minor Enhancement: Student Ratings
+
+I created the `Rating` model to represent a student's rating from scratch.
+
+*Justification:* Since our *target users* are Teaching Assistants (TAs), they may need to rate students as part of their teaching duties.
+
+==== Code contributed
+* [https://github.com[Functional code]] [https://github.com[Test code]]
+
+==== Other Contributions
+
+===== Project management
+
+* Managed release `v1.3` (1 release), and coordinated all other releases on GitHub
+
+* Managed the issue tracker and milestones `v1.1` - `v1.4` (4 milestones) on GitHub, ensuring that high priority tasks are completed on time
+
+* Created the https://github.com/AY1920S2-CS2103T-W17-4/main/projects[Project Kanban Boards] on GitHub to manage user stories, issues, and pull requests
+
+//* Created the different issue labels on GitHub.
+
+* Performed large-scale refactoring in order to integrate the features of all team members +
+(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #178],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #179],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #180],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/178[PR #183])
+
+* Coordinated face-to-face meetings with team members to keep track of the team's progress
+
+//* Coordinated face-to-face meetings with team members to keep track of all work in progress (WIPs)
+
+* Enforced code quality in the pull requests of other team members +
+(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/189[PR #189],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[PR #195],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/220[PR #220],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/222[PR #222],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[PR #345])
+
+===== Enhancements to Existing Features
+
+//* Created the `CommandDetails` class to encapsulate _class-level members_ in every command. This significantly reduced the number of imports in the `Logic` component and the test files.
+//
+* Updated the `Storage` component to save TA-Tracker data in Json format
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/194[PR #194],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/226[PR #226])
+
+//* Added constraint messages for all the parameters used in the TA-Tracker commands.
+
+//* Updated `Messages` to contain messages that were used frequently in our code.
+//This helped to ensure that all the messages were consistent.
+
+//* Implemented the `Comparable` interface in certain models so that they can be sorted.
+
+* Enabled arrow keys to navigate between lists in each of the *Views*
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/229[PR #229],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/246[PR #246])
+
+* Updated the existing `HelpWindow` to show a summary of all the available commands
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/240[PR #240])
+//
+//* Added the alternating colour scheme for the `student filter` command in the *Student View*.
+//This helped to visually separate the items in all the filtered lists.
+
+* Wrote additional test cases for the utility classes in the `Logic` component
+(eg. https://github.com/AY1920S2-CS2103T-W17-4/main/pull/352[PR #352],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/361[PR #361])
+
+* Wrote additional test cases for the `Storage` component, achieving close to 100% coverage for the entire *Storage* package
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/359[PR #359])
+
+//=== Documentation
+
+===== Community
+
+* Reported the bug about RepoSense not updating team member contributions, which affected a number of teams. (https://github.com/nus-cs2103-AY1920S2/forum/issues/76[Forum #76])
+
+* Contributed to forum discussions. (https://github.com/nus-cs2103-AY1920S2/forum/issues/112[Forum #112], https://github.com/nus-cs2103-AY1920S2/forum/issues/113[Forum #113])
+
+===== Tools
+
+* Integrated and managed the following GitHub plugins:
+** _Travis CI_ - to ensure our product builds on Unix platforms.
+** _AppVeyor_ - to ensure our product builds on Windows platforms (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/56[PR #56]).
+** _Coveralls_ - to track the coverage of our team's repository.
+** _Netlify_ - to update the team's website whenever a documentation is changed.
+
+* Provided team members with technical support for `git` and `IntelliJ IDE`.
+
+==== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=usage]
+//include::../UserGuide.adoc[tag=delete]
+//include::../UserGuide.adoc[tag=syntax]
+
+==== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+//include::../DeveloperGuide.adoc[tag=logic]
+//include::../DeveloperGuide.adoc[tag=storage]
+//include::../DeveloperGuide.adoc[tag=studentaddeditdelete]
+//include::../DeveloperGuide.adoc[tag=logicDesign]
+//include::../DeveloperGuide.adoc[tag=syntaxhighlighting]
