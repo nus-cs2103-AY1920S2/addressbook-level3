@@ -4,6 +4,7 @@ import static hirelah.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -50,10 +51,6 @@ public class ModelManager implements Model {
 
         this.appPhase = AppPhase.PRE_SESSION;
 
-        this.intervieweeList = new IntervieweeList();
-        this.attributeList = new AttributeList();
-        this.questionList = new QuestionList();
-        this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
         this.bestNIntervieweeList = FXCollections.observableArrayList();
     }
@@ -62,20 +59,6 @@ public class ModelManager implements Model {
         this(new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyUserPrefs userPrefs, IntervieweeList initialInterviewees,
-                        AttributeList initialAttributes, QuestionList initialQuestions,
-                        MetricList initialMetrics, Boolean finalised) {
-        logger.fine("Initializing with user prefs " + userPrefs);
-
-        this.appPhase = AppPhase.PRE_SESSION;
-        this.finalisedInterviewProperties = finalised;
-        this.userPrefs = new UserPrefs(userPrefs);
-        this.intervieweeList = initialInterviewees;
-        this.attributeList = initialAttributes;
-        this.questionList = initialQuestions;
-        this.metricList = initialMetrics;
-        this.bestNIntervieweeList = FXCollections.observableArrayList();
-    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -276,6 +259,7 @@ public class ModelManager implements Model {
     /**
      * Finalizes the questions and attributes so they do not change between interviews.
      */
+    @Override
     public void finaliseInterviewProperties() {
         this.finalisedInterviewProperties = true;
     }
@@ -300,8 +284,15 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return userPrefs.equals(other.userPrefs);
+        return userPrefs.equals(other.userPrefs)
+                && Objects.equals(session, other.session)
+                && Objects.equals(appPhase, other.appPhase)
+                && finalisedInterviewProperties == other.finalisedInterviewProperties
+                && Objects.equals(currentInterviewee, other.currentInterviewee)
+                && Objects.equals(intervieweeList, other.intervieweeList)
+                && Objects.equals(attributeList, other.attributeList)
+                && Objects.equals(questionList, other.questionList)
+                && Objects.equals(metricList, other.metricList)
+                && bestNIntervieweeList.equals(other.bestNIntervieweeList);
     }
-
-
 }

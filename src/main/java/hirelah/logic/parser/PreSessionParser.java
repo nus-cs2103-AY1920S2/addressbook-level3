@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import hirelah.logic.commands.Command;
+import hirelah.logic.commands.ExitCommand;
 import hirelah.logic.commands.HelpCommand;
 import hirelah.logic.commands.presession.DeleteSessionCommand;
 import hirelah.logic.commands.presession.NewSessionCommand;
@@ -25,6 +26,7 @@ public class PreSessionParser {
             put("new", args -> new NewSessionCommand(args.trim()));
             put("delete", args -> new DeleteSessionCommand(args.trim()));
             put("help", args -> new HelpCommand());
+            put("exit", args -> new ExitCommand());
         }
     };
 
@@ -43,6 +45,7 @@ public class PreSessionParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         if (suppliers.containsKey(commandWord)) {
             return suppliers.get(commandWord).getCommand(arguments);
         } else {
