@@ -2550,7 +2550,7 @@ Stands for Main Success Scenario that describes the interaction for a given use 
 [appendix]
 == Instructions for Manual Testing
 
-(Contributed by Aakanksha)
+(Contributed by Aakanksha and Fatin)
 
 Given below are instructions to test the app manually. These instructions will help you
 navigate through the app and get an idea of what to test. We suggest you use this in
@@ -2628,7 +2628,7 @@ CS1101S.
 Expected: A group with group code `G06` of type `lab` will be added to the module
 `CS1101S`. If you were on a different tab, you are
 automatically switched to *Student View*.
-.. Test Case: `group add g/G06 m/CS1101S t/lab`` +
+.. Test Case: `group add g/G06 m/CS1101S t/lab` +
 Expected: You will see an error message that this group already exists in the module. (Assuming you
 added a group with group code G06 to the module CS1101S)
 .. Test Case: `group add g/G06 m/CS3243 t/lab` +
@@ -2688,13 +2688,22 @@ Expected: Changes the rating of the student with matric number `A123456X` to `4`
 
 . Deleting a module.
 
-.. Test Case: `module delete m/CS1101S` +
-Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
-this would delete the module with module code m/CS1101S. This would also delete all
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
+this would delete the module with module code m/CS3243. This would also delete all
 groups, students and sessions related to this module.
-.. Test Case: `module delete m/CS1101S` +
-Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
 this would show you an error message.
+
+[discrete]
+=== Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
+Expected: Deletes the student with matric number `A123456X` from the group `G06`
+of the module `m/CS1101S`.
 
 [discrete]
 === Deleting a group
@@ -2707,20 +2716,11 @@ Expected: The group with group code `G06`` will be deleted from the module
 tab, you are automatically switched to *Student View*.
 
 [discrete]
-=== Deleting a student
-
-. Deleting a student from a group
-
-.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
-Expected: Deletes the student with matric number `A123456X` from the group `G06`
-of the module `m/CS1101S`.
-
-[discrete]
 === Viewing a specific module
 
 . Allows you to view groups in a particular module.
 
-.. Test Case: `student filter m/CS1101S`
+.. Test Case: `student filter m/CS2103T`
 Expected: You can now view the groups of the module `CS1101S`. You will see the students
 of the group at index 1 of the module's group list.
 
@@ -2729,7 +2729,7 @@ of the group at index 1 of the module's group list.
 
 . Allows you to view students in a particular group of a particular module.
 
-.. Test Case: `student filter g/G06 m/CS1101S`
+.. Test Case: `student filter g/G03 m/CS2103T`
 Expected: You can now view the groups of the module `CS1101S`. You will see the students
 of the group `G06`.
 
@@ -2738,7 +2738,7 @@ of the group `G06`.
 
 . Sorting students in a group.
 
-.. Test Case: `sort group g/G06 m/CS1101S t/alpha` +
+.. Test Case: `sort group g/G03 m/CS2103T t/alpha` +
 Expected: Sorts all the students in the group `G06` of the module `CS1101S` alphabetically.
 
 [discrete]
@@ -2746,7 +2746,7 @@ Expected: Sorts all the students in the group `G06` of the module `CS1101S` alph
 
 . Sorting students in a module.
 
-.. Test Case: `sort module g/G06 m/CS1101S t/alpha` +
+.. Test Case: `sort module m/CS2103T t/alpha` +
 Expected: Sorts all the students in all the groups of the module `CS1101S` alphabetically.
 You will see the students in the group at index 1 of the group list of  the module `CS1101S`.
 
@@ -2766,7 +2766,7 @@ at index 1 of the module list.
 . Adding a session to the session list.
 
 .. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
-t/consultation n/with Alice and Bob` +
+ t/consultation n/with Alice and Bob` +
 Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
 recurring every two weeks will be added to the sessions list. It will be associated
 with the module `CS1101S` and be a `consultation` with Alice and Bob.
@@ -2806,18 +2806,18 @@ Expected: Edits the session at index `1` of the session list to be of type `lab`
 Expected: Shows all sessions associated with the *module* `CS1101S`.
 .. Test Case: `session filter t/tutorial` +
 Expected: Shows all sessions that are of *type* `tutorial`.
-.. Test Case: `session filter d/2020-03-20` +
+.. Test Case: `session filter d/2020-06-26` +
 Expected: Shows all sessions on the *date* `2020-03-20`.
 .. Test Case: `session filter d/2020-03-20 t/tutorial m/CS1101S` +
 Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `tutorial`
-and *module code* `CS1101S`.
+_or_ *module code* `CS1101S`.
 
 [discrete]
 === Filtering claims
 
 . Filtering claims by module code.
 
-.. Test Case: `claims filter m/CS1101S` +
+.. Test Case: `claims filter m/CS3243` +
 Expected: Shows all sessions that have been marked as done
 (aka claims) associated with the module `CS1101S`.
 
