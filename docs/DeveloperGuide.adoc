@@ -1662,8 +1662,7 @@ Notifications are implemented with Java's `SystemTray`. A `SystemTray` object wi
 `Notification.sendNotification` is invoked for the first time. In order to guarantee that only one
 instance of `SystemTray` is ever created, Notifications are implemented using the defensive _Singleton_ pattern.
 
-The following activity diagram shows an example of how a `SessionDoneCommand` can
-trigger a notification.
+The following _Activity Diagram_ shows an example of how a notification can be triggered.
 
 .Activity Diagram for Notification Singleton
 image::NotificationSingletonActivityDiagram.png[,400]
