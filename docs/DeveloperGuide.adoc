@@ -844,42 +844,164 @@ bypassing the updating of the `Requirement(s)`.
 
 '''
 
+
+//end::requirement-yijie[]
+=== Requirement Feature
+Section by: https://github.com/yjskrs[Yijie]
+
 anchor:anchor-tag-c[]
 
 === Requirements Feature
-Within a course, there are multiple requirements to be tracked.
 
+The `Requirement` feature bridges the connection between a `Module` and a `Course`. A `Requirement` represents
+a category with a set amount of modular credits needed to be fulfilled in order to graduate. By
+adding modules to a `Requirement`, these modules are tracked under the modular credits needed to fulfill
+the `Requirement`, as well as the total modular credits needed to fulfill the `Course`.
+
+Multiple requirements can exist in a `Course`. When all requirements have been fulfilled,
+we indicate that the `Course` has been completed.
+
+//tag::RequirementImplementation[]
 ==== Implementation
-.The Requirement class
+Section by: https://github.com/yjskrs[Yijie]
 
+The `Requirement` component contains 4 sub-components: `RequirementCode`, `Title`, `Credits` and `UniqueModuleList`.
+All four sub-components are compulsory and must always be specified in a `Requirement`. The properties of these four
+sub-components are specified in the table below:
+
+[#tableRequirementComponentProperties]
+.Requirement Component Properties.
+|===
+|Class Name |Properties |Example
+
+|`RequirementCode` |The *unique* identifier of a requirement.
+
+Implemented to allow users to easily specify the requirement they want to modify or remove. See xref:requirementCodeDesignConsiderations[Requirement Code Design Considerations].
+
+|CSF0
+
+|`Title` |The title of a requirement.
+
+Does not have to be unique.
+
+|Computer Science Foundation
+
+|`Credits` |The credits of a requirement, |40
+|`UniqueModuleList` |The list of modules assigned to a requirement. |List containing modules CS1101S, CS2101, CS2103T
+|===
+
+When a `Module` is added to a `Requirement`, the `UniqueModuleList` is updated with the new `Module`.
+At the same time, the `creditsAssigned` property of the `Credits` class also updates accordingly. If
+the `Module` is completed, the `creditsFulfilled` property of `Credits` also updates to add the
+credits of the `Module`. For example, if a module with 4 modular credits was marked as done and assigned
+to a `Requirement`, `creditsAssigned` and `creditsFulfilled` would both increase by 4.
+
+The class diagram below illustrates the relationship between `Requirement` components.
+
+[#requirementClassDiagram]
 .Structure of the Requirement class.
 image::developer-guide/RequirementClassDiagram.png[]
-A requirement consists of three components: title, credits and unique module list.
-The unique module list implies that each requirement stores modules assigned to that requirement.
-Multiple requirements can exist in the course book at any one time.
 
-The requirement-related commands that can be called are:
+`Requirement` commands that are available are:
 
 * `requirement add` - adds a new requirement to the course book
 * `requirement edit` - edits an existing requirement in the course book
 * `requirement delete` - deletes an existing requirement from the course book
 * `requirement assign` - assigns module(s) to the requirement
 
-Here is how the requirement class updates when a requirement is added:
+//tag::RequirementAdd[]
+==== Requirement Add
+Section by: https://github.com/yjskrs[Yijie]
 
+===== Overview
+The `requirement add` command adds a `Requirement` to the `Course`. The `Credits` information held by the `Course`
+is updated to reflect the total modular credits required to complete the course.
+
+===== Implementation
+When a user enters a `requirement add` command, the parameters specified by the user, i.e. the requirement title
+and the requirement credits required to fulfill the `Requirement`, are passed to the `LogicManager`,
+`CourseBookParser` and subsequently into the `RequirementAddCommandParser` where the parameters are extracted
+and parsed into `Title` and `Credits` objects.
+
+The `RequirementCode` is generated at this stage by using the first letter of every word in the
+title parameter passed in, upper-cased. For example, if the title provided is "Computer Science Foundation",
+the `RequirementCode` generated would be `CSF`. Similarly, if the title provided is "3Computer Science 4Foundation",
+the `RequirementCode` generated would still be `CSF` because non-alphabets in the title are ignored.
+
+The parsed `Title`, `Credits` and the generated `RequirementCode` are used to create a `RequirementAddCommand` object,
+which is later executed by the `LogicManager`, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram] below.
+
+When the command is executed by the `LogicManager`, the new `Requirement` is created and
+stored in the `CourseBook` through the `Model`.
+
+[#requirementAddSequenceDiagram]
 .Sequence Diagram when adding a requirement.
 image::developer-guide/RequirementAddSequenceDiagram.png[]
 
-When the user adds a requirement, the user has to specify two prefixes: `n/` for title and `u/` for credits value (number of credits needed to fulfill for the requirement).
-Then, the application proceeds to do the following steps
+===== Design Considerations
 
-Step 1: The RequirementAddCommandParser is called to parse the RequirementAddCommand with the `n/` and the `u/` prefixes into a new requirement.
+[#requirementCodeDesignConsiderations]
+====== Requirement Code
 
-Step 2: The RequirementAddCommand is executed to add the new requirement to the model. In this step, the following check is performed:
+Originally, we chose to use the requirement `Title` as the *unique* identifier for requirements, which means that
+specifying a `Requirement` to be modified or deleted would be handled by entering the `Title`. However, we realised
+that that was a big deterrent in users staying on our application in the long run. The reason is because requirement
+titles are generally long, and often require more than one word to be expressed. For example, typing "Computer
+Science Foundation" or "Computer Science Breadth and Depth" every time a module was to be assigned to a requirement
+would require a relatively long time, and would violate our xref:nonFunctionalRequirements[Non-Functional Requirement]
+of providing users with an application which can be navigated quickly through typing.
 
-* Check if a requirement with the same title already exists in the course book.
+Hence, we chose the design of providing users with a `RequirementCode`, the *unique* identifier which allows
+users to quickly access the `Requirement` they want to modify or delete.
 
-Step 3: The new requirement is added to the course book.
+In order to make the `RequirementCode` strictly *unique*, further parsing is performed on the `RequirementCode`
+generated by the `RequirementAddCommandParser`. When the `RequirementAddCommand` is executed by the `LogicManager`,
+a new `RequirementCode` is generated, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram], by appending an integer to the back of
+the original `RequirementCode`. This is necessary as multiple requirements with the same starting alphabets
+may exist, so we need to allow users to differentiate amongst such requirements. Furthermore, users are also
+allowed to add requirements with the same `Title` to enhance the flexibility of adding requirements, so the
+`RequirementCode` also allows users to differentiate amongst these requirements.
+
+The use case for adding a requirement is as follows:
+
+System: iGrad
+
+Use case: UCR1 - Add requirement
+
+Actor: User
+
+MSS:
+
+1. User requests to add a requirement.
+
+2. iGrad requires user to enter a requirement title and credits.
+
+3. User enters the title and credits.
+
+4. iGrad creates the requirement.
+
+5. Use case ends.
+
+Extensions:
+
+3a. The requirement title is not provided.
+
+3a1. iGrad prompts user for requirement title.
+
+3a2. User enters a requirement title.
+
+Steps 3a1-3a2 are repeated until a valid requirement title is provided.
+
+Use case resumes at step 4.
+
+Below displays the activity diagram for adding a requirement.
+
+.Activity Diagram when adding a requirement.
+image::developer-guide/RequirementAddActivityDiagram.png[]
+
+//end::requirement-yijie[]
 
 //tag::requirement-assign-dg[]
 
@@ -1131,8 +1253,9 @@ _{All user stories can be viewed from our wiki page and from our issues tracker.
 
 [appendix]
 == Use Cases
+Section by: https://github.com/yjskrs[Yijie]
 
-(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise.)
 
 [discrete]
 === Use case: U01 - Create Course
@@ -1233,9 +1356,8 @@ Module has already been assigned to the requirement.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
+[#nonFunctionalRequirements]
 == Non Functional Requirements
 
 . Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
@@ -1255,23 +1377,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]]
 Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1311,11 +1416,8 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-_{ more test cases ... }_

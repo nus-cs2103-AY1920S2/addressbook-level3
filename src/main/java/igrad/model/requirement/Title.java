@@ -12,13 +12,13 @@ import static java.util.Objects.requireNonNull;
 public class Title {
 
     public static final String MESSAGE_CONSTRAINTS = "The Title provided for requirement is invalid!\n"
-        + "Title should not start with a space and should not be blank.";
+        + "Title should not start with a space, should not be blank and must contain at least one alphabet.";
 
     // The first character of the requirement title must not be a whitespace (" ").
     // The title must not contain only numbers or be blank.
     public static final String VALIDATION_REGEX = "^[^\\s].*";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Title}.
