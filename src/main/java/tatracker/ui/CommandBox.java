@@ -215,7 +215,6 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     private void handleNoInput() {
         resetCommandDetails();
         setStyleToDefault();
-        resultDisplay.setFeedbackToUser("");
     }
 
     private void handleInvalidInput() {

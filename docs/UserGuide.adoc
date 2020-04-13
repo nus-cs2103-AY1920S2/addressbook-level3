@@ -23,13 +23,13 @@ By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 //tag::introduction[]
 == Introduction
 
-Are you a *Teaching Assistant* in *NUS School of Computing (NUS SOC)* who is tired of having to
-fill out the *Teaching Support Student (TSS) Claims Form* accurately at the end of the semester?
+Are you a *Teaching Assistant* at *NUS School of Computing (NUS SOC)* who is tired of having to
+fill out the *Teaching Support Student (TSS) Claims Form* in great detail at the end of the semester?
 
 Do you wish there was a *desktop application* that can help you *keep track of your teaching duties*,
 such as your *claimable hours* and *student ratings*, all in *one place*?
 
-Look no further, because *TA-Tracker* is the tool just for *you*!
+Look no further, because *TA-Tracker* is just the tool for *you*!
 
 *No more* saving your claimable hours in an *unappealing spreadsheet*.
 
@@ -49,7 +49,8 @@ can type fast and prefer to use a keyboard, and
 * A *Graphical User Interface (GUI)* so that
 you can easily view all your *teaching duties*.
 
-If you are interested, jump to <<Quick Start>> to discover how easy it is to fill out forms using *TA-Tracker*.
+If you are interested, jump to <<Quick Start>> and discover how easy it is to fill
+out the TSS form using the *TA-Tracker*.
 //end::introduction[]
 //tag::quickstart[]
 
@@ -65,7 +66,7 @@ the application.
 
 +
 image::Ui.png[width="790"]
-This is how the GUI may look like when the TA-Tracker is opened.
+This is what the GUI may look like when the TA-Tracker is opened.
 +
 .  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -197,6 +198,7 @@ This means that it can be:
 //tag::commonparameters[]
 
 === Common Parameters
+(Contributed by Aakanksha)
 
 This section lists and explains what the parameters commonly used in the commands mean.
 
@@ -488,14 +490,19 @@ the same size*. +
 This is to *prevent* the highlights from *overlapping* each other,
 allowing you to see them better.
 
+
 image::Tabs.png[width="790"]
 This shows what happens when you last made a change in the `student tab`
 and then clicked on the `claims tab`.
+
+
 ====
 //end::layout[]
 //tag::studentview[]
 
 === Student View
+(Contributed by Aakanksha)
+
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
@@ -528,7 +535,9 @@ The `RATING` value must be a positive integer.
 ====
 
 image::StudentView.png[,1000]
-This is an example of what the Student View might look like.
+This is an example of what the Student View looks like.
+
+
 //end::studentview[]
 //tag::sessionview[]
 
@@ -549,7 +558,7 @@ duties. It will show you information such as:
 * `WEEK`: the recurring period of the session
 
 image::SessionView.png[,1000]
-This is an example of what the Session View might look like.
+This is an example of what the Session View looks like.
 //end::sessionview[]
 //tag::claimsview[]
 
@@ -572,7 +581,7 @@ assistant for.
 . The second column shows you a *list of all the sessions* that you have *marked as done*.
 
 image::ClaimsView.png[,1000]
-This is an example of what the Claims View might look like.
+This is an example of what the Claims View looks like.
 //end::claimsview[]
 
 [[Usage]]
@@ -682,7 +691,9 @@ Showing the *parameter usage*
 |=======================================================================
 
 image::Default.png[,1000]
-This is an example of what a hint may look like.
+This is an example of what a hint may look like. You may also note that the default text colour, white
+is being used here.
+
 //end::syntax[]
 
 [[Commands]]
@@ -739,7 +750,7 @@ This command takes you to the `student tab`.
 
 ==== Exiting the program : `exit`
 
-You can exit the program with this command.
+You can *exit the program* with this command.
 
 Format: `exit`
 //end::exit[]
@@ -765,11 +776,16 @@ This section explains all the commands you can use in the *Student View*.
 [[AddModule]]
 ==== Adding a Module : `module add`
 
-You can use this command to add a new module to the TA-Tracker.
+(Contributed by Aakanksha)
+
+You can use this command to *add a new module* to the TA-Tracker.
 
 When a new module is created, the *Student View* will show the groups
-and students of the new module. (Initially, a new module doesn't have any students or
-groups till you add some).
+and students of the new module.
+
+You may notice that the *group list and the student list are empty*. This is because
+you haven't added any groups or students to the module yet.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module add m/MOD_CODE n/NAME`
@@ -778,7 +794,7 @@ Format: `module add m/MOD_CODE n/NAME`
 ====
 * You *can't* have two modules with the *same module code* in the TA-Tracker.
 
-* `MOD_CODE` and `MOD_NAME` can't be an empty string or a sequence of spaces.
+* `MOD_CODE` and `MOD_NAME` can't be a *empty or a sequence of spaces*.
 
 * You can give a module your own *custom* `MOD_CODE` or `NAME` if you find it easier
 to remember. However,  we recommend you use the *official
@@ -814,21 +830,24 @@ to the TA-Tracker.
 [[DeleteModule]]
 ==== Deleting a Module : `module delete`
 
-You can use this command to delete a module from the TA-Tracker.
+(Contributed by Aakanksha)
 
-When you delete a module, all groups, students and sessions associated with
-the module will also be deleted.
+You can use this command to *delete a module* from the TA-Tracker.
+
+When you delete a module, *all groups, students and sessions associated with
+the module will also be deleted*.
 
 When a module is deleted, the *Student View* will go back to its default
-setting. That is, you will see the details of the first group in the first module of
+setting. That is, you will see the details of the *first group in the first module* of
 the TA-Tracker.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module delete m/MOD_CODE`
 
 [NOTE]
 ====
-* You cannot delete a module that doesn't exist.
+* You *can't* delete a module that doesn't exist.
 ====
 
 ====
@@ -845,25 +864,27 @@ This will delete the module with the module code `CS2103T` from the TA-Tracker.
 [[EditModule]]
 ==== Editing a Module : `module edit`
 
-You can use this command to edit a module's name in the TA-Tracker.
+(Contributed by Aakanksha)
 
-When a module is edited, the *Student View* will show the groups of the edited module and
-the students of the first group of the edited module. If you were on a different `tab`,
+You can use this command to *edit a module's name* in the TA-Tracker.
+
+When a module is edited, the *Student View* will show the *groups of the edited module* and
+the students of the *first group* of the edited module. If you were on a different `tab`,
 you will automatically be switched to the `student tab`.
 
 Format: `module edit m/MOD_CODE n/NEW NAME`
 
 [NOTE]
 ====
-* You can only use this command to change the name of the module. The module
-code can't be changed.
+* You can only use this command to change the *name* of the module. The module
+code *can't* be changed.
 
-* Editing a module doesn't affect the students and
-groups inside the module.
+* Editing a module *doesn't affect the students and
+groups* inside the module.
 
-* MOD_NAME can't be an empty string or a sequence of spaces.
+* MOD_NAME can't be a *empty or a sequence of spaces*.
 
-* You cannot edit a module that doesn't exist.
+* You *can't* edit a module that doesn't exist.
 ====
 
 ====
@@ -880,10 +901,16 @@ This will change the name of the module with module code `CS3243` to `Intro to A
 [[AddGroup]]
 ==== Adding a Group : `group add`
 
-You can use this command to add a group to the TA-Tracker.
+(Contributed by Aakanksha)
+
+You can use this command to *add a group* to a module in the TA-Tracker.
 
 When a new group is created, the *Student View* will show the groups of the module
 this new group belongs to and students of the new group.
+
+You may notice that the list of students is empty. This is because you haven't added any
+students to the group yet.
+
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
@@ -894,11 +921,11 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * `MOD_CODE` here refers to the module code of the module you want to add the group to.
 
-* You cannot add a group to a module that doesn't exist.
+* You *can't* add a group to a module that doesn't exist.
 
-* The GROUP_CODE can't be an empty string or a sequences of spaces.
+* The `GROUP_CODE` can't be a *empty or a sequences of spaces*.
 
-* You cannot add multiple groups with the same group code into the same module.
+* You *can't* add multiple groups with the same group code into the same module.
 
 * You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
 to remember. However,  we recommend you use the official
@@ -920,9 +947,11 @@ has module code `CS2100`.
 [[DeleteGroup]]
 ==== Deleting a Group : `group delete`
 
-You can use this command to delete a group from the TA-Tracker.
+(Contributed by Aakanksha)
 
-When a group is deleted from the TA-Tracker, all students in the group are also deleted.
+You can use this command to *delete a group* from the TA-Tracker.
+
+When a group is deleted from the TA-Tracker, *all students in the group are also deleted*.
 
 When a group is deleted, the *Student View* will show the details of the first group
 of the module the group was deleted from.
@@ -937,9 +966,9 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to delete.
 
-* You can't delete a group from a module that doesn't exist.
+* You *can't* delete a group from a module that doesn't exist.
 
-* A group with the given group code must exist inside the module before you can delete it.
+* A group with the given group code *must* exist inside the module before you delete it.
 ====
 
 ====
@@ -957,9 +986,11 @@ has module code `CS3243`.
 [[EditGroup]]
 ==== Editing a Group : `group edit`
 
-You can use this command to edit a group in the TA-Tracker.
+(Contributed by Aakanksha)
 
-This command can be used to change the group code and the group type of the group.
+You can use this command to *edit a group* in the TA-Tracker.
+
+This command can be used to change the *group code and the group type* of the group.
 The students inside the group will remain intact.
 
 When a group is edited, the *Student View* will show the groups in the module that
@@ -974,9 +1005,9 @@ Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TY
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to edit.
 
-* You can't edit a group inside a module that doesn't exist.
+* You *can't* edit a group inside a module that doesn't exist.
 
-* You can't edit a group that doesn't exist.
+* You *can't* edit a group that doesn't exist.
 
 * If you are changing the group code, the module shouldn't contain a group that has the
 same group code as the new group code.
@@ -993,7 +1024,7 @@ image::GroupEdit.png[,900]
 This will change the group type of the group with group code `G01`, inside the module with
 module code `CS3243`, to be a `lab`.
 ====
-//edit::editgroup[]
+//end::editgroup[]
 //tag::addstudent[]
 
 [[AddStudent]]
@@ -1138,8 +1169,10 @@ Edits student with the matriculation number `A0186153P` to have:
 [[Sort]]
 ==== Sorting a Group : `sort group`
 
-You can use this command to chose how you want to sort your students in a specific group.
-The students will be sorted according to your specified `SORT_TYPE`.
+(Contributed by Aakanksha)
+
+You can use this command to *sort your students in a specific group*.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the group that you have sorted.
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
@@ -1149,42 +1182,43 @@ Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 [NOTE]
 ====
 [horizontal]
-* You cannot sort a group inside a module that doesn't exist.
+* You *can't* sort a group inside a module that doesn't exist.
 
-* You cannot sort a group that doesn't exist.
+* You *can't* sort a group that doesn't exist.
 
 * To sort alphabetically you can use the following to indicate sort type:
 ** `alphabetically`
 ** `alphabetical`
 ** `alpha`
 
-* To sort by matriculation number, sort type must be `matric`.
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
 
-* To sort by rating in ascending order, sort type must be `rating asc`.
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
 
-* To sort by rating in descending order, sort type must be `rating desc`.
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
 ====
 
 ====
 Examples:
 
-* `sort group g/G01 m/CS3243 t/rating asc`
+* `sort group m/CS2100 g/G06 t/rating asc`
 +
 image::SortGroup.png[width="790"]
-Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
-ascending order).
+Sorts the student inside `G06` of module `CS2100` by rating in ascending order.
 ====
 //end::sortgroup[]
 //tag::sortmodule[]
 
 ==== Sorting a Module : `sort module`
 
-You can use this command to chose how you want to sort your students in a specific module.
-The students will be sorted according to your specified `SORT_TYPE`.
+(Contributed by Aakanksha)
+
+You can use this command to *sort your students in a specific module*.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the first group of the module
 that you have sorted. If you want to see the other groups, you can use the `student filter`
-command (details given below in 5.2.13.)
+command (details are given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
@@ -1199,31 +1233,35 @@ Format: `sort module m/MOD_CODE t/SORT_TYPE`
 ** `alphabetical`
 ** `alpha`
 
-* To sort by matriculation number, sort type must be `matric`.
+* To sort by matriculation number, `SORT_TYPE` must be `matric`.
 
-* To sort by rating in ascending order, sort type must be `rating asc`.
+* To sort by rating in ascending order, `SORT_TYPE` must be `rating asc`.
 
-* To sort by rating in descending order, sort type must be `rating desc`.
+* To sort by rating in descending order, `SORT_TYPE` must be `rating desc`.
 ====
 
 ====
 Examples:
 
-* `sort module m/CS2103 t/alpha`
+* `sort module m/CS2103T t/alpha`
 +
-Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
+
+image::SortModule.png[width="790"]
+Sorts all students inside all groups inside the module `CS2103T` `alphabetically`.
 ====
 //end::sortmodule[]
 //tag::sortall[]
 
 ==== Sorting Everything : `sort all`
 
-You can use this command to chose how you want to sort all of your students.
-The students will be sorted according to your specified `SORT_TYPE`.
+(Contributed by Aakanksha)
+
+You can use this command to *sort all your students*.
+The students will be sorted according to the `SORT_TYPE` you specify.
 
 The *Student View* will show you the students inside the first group of the  first module
 in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
-command (details given below in 5.2.13.)
+command (details are given later in this guide).
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort all t/SORT_TYPE`
@@ -1246,9 +1284,10 @@ Format: `sort all t/SORT_TYPE`
 ====
 Examples:
 
-* `sort all t/alpha`
+* `sort all t/rating desc`
 +
-Sorts all students in all groups inside all modules `alphabetically`.
+image::SortAll.png[width="790"]
+Sorts all students in all groups inside all modules by rating, in descending order.
 ====
 //end::sortall[]
 //tag::filterstudent[]
@@ -1604,7 +1643,7 @@ Generate and display a report of sessions and students from the module CS3243.
 
 | TSS | This is the short form for `Teaching Support Student`.
 
-| TSS Claims Form | This refers the claims form that Teaching Assistants
+| TSS Claims Form | This refers to the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
 for the tasks they have completed.
 
@@ -1641,7 +1680,7 @@ students, for discussion of a subject that is being studied.
 
 == FAQ
 
-(Contributed by Fatin)
+(Contributed by Fatin and Aakanksha)
 
 *Q*: How can I transfer my data to another Computer? +
 *A*: You can do so by first installing TA-Tracker on another computer. You can then replace
@@ -1666,6 +1705,12 @@ that there is no way for you to restore your data once it has been deleted.
 *Q*: Can I create multiple instances of the app that store different data simultaneously? +
 *A*: Yes, you can. Simply copy the `.jar` file into a different folder and run the app there. You will then be able
 to use multiple different TA-Trackers at the same time
+
+*Q*: Can I mark my students' attendance and give them grades? +
+*A*: You can use the `rating` feature to give your students participation marks.
+We are currently working on a way for you to give mark your students' attendance and
+mark their assignments. You will see this feature in our next release.
+
 //end::faq[]
 //tag::summary[]
 
@@ -1701,8 +1746,6 @@ to use multiple different TA-Trackers at the same time
 
 === Session View
 
-(Contributed by Chua Yi Jing)
-
 ==== Session commands
 * *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
 * *Delete Session:* `session delete INDEX`
@@ -1710,8 +1753,6 @@ to use multiple different TA-Trackers at the same time
 * *Done Session:* `session done INDEX`
 
 ==== Others
-
-(Contributed by Chua Yi Jing)
 
 * *Filter Sessions:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 

@@ -57,7 +57,7 @@ public class SortCommandParser implements Parser<SortGroupCommand> {
             case CommandWords.SORT_MODULE:
                 throw new ParseException(Messages.getInvalidCommandMessage(SortModuleCommand.DETAILS.getUsage()));
             default:
-                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+                throw new ParseException(Messages.getUnknownCommandWithHelpMessage());
             }
         }
 
@@ -92,7 +92,7 @@ public class SortCommandParser implements Parser<SortGroupCommand> {
             return new SortGroupCommand(type, groupCode, moduleCode);
 
         default:
-            throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getUnknownCommandWithHelpMessage());
         }
     }
 }

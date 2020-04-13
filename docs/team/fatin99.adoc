@@ -103,7 +103,8 @@ the goal of making TA-Tracker a _keyboard-only application_ (https://github.com/
 
 === Added extensive automated tests
 
-I made thorough *JUnit* tests for the `StudentCommand`, `StudentCommandParser`, and `Student` as well as its relevant `fields`.
+I made thorough *JUnit* tests for the `StudentCommand`, `StudentCommandParser`,
+and `Student` as well as its relevant `fields`.
 (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/340[#340]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/341[#341]
 , https://github.com/AY1920S2-CS2103T-W17-4/main/pull/347[#347]
