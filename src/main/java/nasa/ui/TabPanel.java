@@ -44,7 +44,6 @@ public class TabPanel extends UiPart<Region> {
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
-
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
         statisticsPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
 

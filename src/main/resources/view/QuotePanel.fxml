@@ -2,8 +2,9 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="67.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane fx:id="pane" prefHeight="50.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-       <Label fx:id="label" styleClass="highlight_label" layoutX="26.0" layoutY="23.0" text="Label"/>
+       <Label fx:id="label" styleClass="highlight_label" text="Label" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="23.0" />
     </children>
  </AnchorPane>
