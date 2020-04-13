@@ -218,13 +218,13 @@ You can perform a search for tasks by name or tag to find the tasks most importa
 
 * You can choose to search by both name and tag, just name or just tag.
 * For phrase searching, it is slightly typo tolerant and will show tasks that differ from the `PHRASE` by a little.
-* However, tag names provided must be an exact match.
+* However, tag names provided must be an exact match (ignoring case).
 
 .Find success
 image::find_success.png[width=790]
 
 ==== Tag Command
-===== Command :`tags`
+===== Command :`tag`
 
 You can view all existing tags in BB Productive by entering the Tag command!
 
@@ -387,11 +387,11 @@ _The following table summarizes all the commands that you can use. Input contain
 |Command |Format |Example
 
 |Add
-|add n/<item index> [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG t/TAG...]
+|add n/NAME [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG...]
 |add n/Finish Quiz des/Pages 3-5 p/1 r/20/03/20@19:30 rec/d t/cs2100 t/school
 
 |Edit
-|edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG t/TAG...]
+|edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [rec/FREQUENCY] [t/TAG...]
 |edit 2 r/10/03/21@13:00
 
 |Done
@@ -402,17 +402,17 @@ _The following table summarizes all the commands that you can use. Input contain
 |delete INDEX
 |delete 1 2 3 7
 
-|Clear
-|clear
-|clear
-
 |Pom
 |pom INDEX [tm/TIME IN MINUTES]
 |pom 4 tm/45
 
 |find
-|find PHRASE
-|find mum tells me to
+|find PHRASE [t/TAG...]
+|find mum tells me to t/MA1521
+
+|Tag
+|tag
+|tag
 
 |Sort
 |sort FIELD1 FIELD2 FIELD3 ...
@@ -429,6 +429,10 @@ _The following table summarizes all the commands that you can use. Input contain
 |Settings
 |settings
 |settings
+
+|Clear
+|clear
+|clear
 
 |===
 
