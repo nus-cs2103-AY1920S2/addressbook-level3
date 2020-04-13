@@ -1,0 +1,35 @@
+@startuml
+start
+:SortCommandParser's parse
+        method is called;
+
+:ArgumentMultimap is created;
+
+:The sub-command word is extracted from
+                      the multimap;
+
+if() then ([The sub-command word is 'all'])
+    :The sort type is extracted;
+    :A SortCommand object with
+    the given sort type as a
+     parameter is returned;
+
+else if() then ([The sub-command word is 'module'])
+    :The sort type and module code are extracted;
+    : A SortModuleCommand object
+     with the given module code
+     and sort type is returned;
+
+else (\t\t\t\t\t\t\t[The sub-command word is 'group'])
+    :The sort type, module code
+     and group code are extracted;
+    : A SortGroupCommand object
+     with the given group code,
+     module code and sort type
+                 is returned;
+
+
+endif
+
+stop
+@enduml

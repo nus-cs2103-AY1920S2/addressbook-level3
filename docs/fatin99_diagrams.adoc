@@ -1,0 +1,27 @@
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+
+.Structure of the Student Tab Component. The _Class Diagram_ shows how the components in the `Student Tab` interact with each other.
+image::StudentTabClassDiagram.png[][]
+
+.Structure of the Model Component. The _Class Diagram_ shows how the different `Model` components interact with each other.
+image::ModelClassDiagram.png[]
+
+.Model Components - Class Diagram. The _Class Diagram_ shows the relationship between the different classes in the `Model` component.
+image::ModelComponentsClassDiagram.png[][,500]
+
+.Model Components - Object Diagram. The _Object Diagram_ shows an example of the relationship between the different `Model` objects. This example is based on the state of TA-Tracker when it is first run (without any user data).
+image::ModelObjectDiagram.png[][,700]
+
+.Sequence Diagram for Goto Claims Command. The _Sequence Diagram_ shows the interactions between the `Logic` and `UI` components of the TA-Tracker when the user enters the command `goto claims`.
+image::GotoSequenceDiagram.png[]
+
+.Session Done- Activity Diagram. The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+image::DoneSessionActivityDiagram.png[][,300]

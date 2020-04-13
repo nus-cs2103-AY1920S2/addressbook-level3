@@ -1,246 +1,1698 @@
-= AddressBook Level 3 - Developer Guide
+= TA-Tracker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-ifdef::env-github[]
+:experimental:
+:icons: font
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:caution-caption: :fire:
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
+:fbl: pass:[ +]
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
+
+//tag::introduction[]
+== Introduction
+(Contributed by Aakanksha)
+
+TA-Tracker
+is a productivity tool made for *NUS School of Computing (SoC) Teaching Assistants (TAs)*
+who want to be able to track and manage their *students* and *claimable
+hours* in one place.
+
+Teaching Assistants at SoC have to keep a track of:
+
+* claimable hours so that they can fill up the TSS Claims form at the end of each semester.
+* teaching-related sessions with claimable hours
+* students and their contact information
+* students' participation marks
+* notes for certain students (such as recommendations)
+
+Rather than managing this through several excel
+spreadsheets and notes, TA-Tracker
+allows TAs to track everything in a single, convenient-to-use
+platform.
+
+In particular, TA-Tracker
+is a *Command Line Interface (CLI)* application packaged
+with a *Graphical User Interface (GUI)*. This means that users are expected to interact
+with the TA-Tracker
+mainly through the command line, and each command executed will
+evoke a visual response in the TA-Tracker.
+
+Any help on the development of the TA-Tracker
+would be greatly appreciated, and there
+are a couple of ways that you can do so:
+
+* contribute to TA-Tracker's code base by expanding its features
+* help us improve test coverage
+* propose and implement improvements on current features
+
+This guide aims to kick-start your journey as a contributor to the TA-Tracker
+by getting
+you up to speed with how TA-Tracker's codebase and inner workings function. It also
+hopes to serve as a useful reference to current contributors in times of confusion or
+when faced with difficulties.
+//end::introduction[]
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+You can refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+TA-Tracker
+has been designed with `Object-Oriented Programming`
+principles in mind. We also attempted to use `Defensive Programming` wherever
+possible. This section serves to give a description of the
+major components in the architecture of TA-Tracker. Subsequent sections
+provide more information on the inner workings of individual components.
+
+//tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the TA-Tracker. Given below is a quick
+overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the diagrams folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called `Main` and `MainApp`. It is responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+* At shut down: Shutting down the components and invoking clean-up methods where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by the other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter`: Used by many classes to write log messages to the TA-Tracker
+'s log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Ui,*`UI`*>>: The UI of the TA-Tracker.
+* <<Design-Logic,*`Logic`*>>: Handles execution of TA-Tracker
+commands.
+* <<Design-Model,*`Model`*>>: Organises the data of the TA-Tracker
+into different sections.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its *API* in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name} Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the _Class Diagram_ given below) defines its API in the `Logic` interface
+and exposes its functionality using the `LogicManager` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+.Simplified Class Diagram of the Logic Component
+image::LogicClassDiagram1.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other
+for the scenario where the user enters the command `session delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `session delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+//end::architecture[]
+//tag::ui[]
 
 [[Design-Ui]]
 === UI component
 
+(Contributed by Fatin)
+
+The _Class Diagram_ below shows how the `UI` components interact with each other.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API*: `Ui.java`
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`,
+`StudentTab`, `StatusBarFooter` etc. The UI also contains 2 more windows, namely:
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+. the `HelpWindow` and
+. the `StatisticsWindow`
+
+The `UI` component uses *JavaFx* UI framework. The layout of these UI parts is defined in
+matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the
+layout of the `MainWindow` is
+specified in `MainWindow.fxml`
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+==== Tabs
+
+The _Class Diagram_ below shows how the components in the `Student Tab` interact with each other.
+
+.Structure of the Student Tab Component
+image::StudentTabClassDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+All the `ListPanels` and `Cards` inherit from the abstract `UiPart` class.
+====
+
+The UI contains 3 `tabs`:
+
+. The `Student Tab`
+. The `Session Tab`
+. The `Claims Tab`
+
+Each of these tabs consist of one or more List Panels (e.g. `StudentListPanel`) and its
+respective Card (e.g. `StudentCard`). In each List Panel, the `Graphics` component of
+each of the List Cells is defined by the respective Card.
+
+The other 2 `Tabs` follow the same structure as the _Class Diagram_ above.
+//end::ui[]
+
+//tag::logic[]
 [[Design-Logic]]
 === Logic component
 
+(Contributed by Gabriel)
+
+The `Logic` component of `TA-Tracker`:
+
+* Processes user inputs into different `Command` objects.
+* Executes `Command` objects to interact with the `Model` component.
+* Saves data by interacting with the `Storage` component.
+
+//tag::logicStructure[]
+==== Logic Structure
+The following _Class Diagram_ shows a simplified view of the structure of the `Logic` component.
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram1.png[,550]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+*API*:
+`Logic.java`
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+In the `Logic` component,
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+* `Logic` behaves as a façade class between the different TA-Tracker components
+* `LogicManager` is the main driver class behind the logic of TA-Tracker
+* `LogicManager` interacts with classes in the `Model` and `Storage` components
+* The logic of TA-Tracker is organised into *commands* and *parsers*
+* `TaTrackerParser` is the *main parser*
+* A `Command` can interact with classes in the `Model` component
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+//end::logicStructure[]
+//tag::logicOrganization[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+==== Logic Organization
 
+The following diagram shows how the *commands* and *parsers* are organized.
+
+.Logic Component - Organization of commands and parsers
+image::LogicClassDiagram2.png[,1000]
+
+[NOTE]
+====
+[horizontal]
+* The letter `X` represents the category name for a group of commands +
+(e.g. `Student`, `Session`, `Module`)
+* The letters `XY` represent the names of actions specific to a command category +
+(e.g. `AddStudent`, `EditSession`, `DeleteModule`)
+* *CommandPackageX* and *ParserPackageX* are _placeholders_ for the actual package names
+====
+
+In the *Logic* package,
+
+* There is a *hierarchy of parsers*, starting from `TaTrackerParser`
+
+* Within the *Parser* package, all parsers have been grouped into *smaller packages*
+* Every `Command` is created by a `Parser` object with a matching name
+
+* Within the *Commands* package, all commands have been grouped into *smaller packages*
+* Every `Command` produces a `CommandResult` when executed by `LogicManager`.
+This will modify the `Model` internally (e.g. _adding a student_).
+* The produced `CommandResult` sends feedback to the `UI` component. This feedback includes:
+** Showing messages in the `UI`
+** Instructing the `UI` to perform certain actions (e.g. displaying the help window).
+
+====
+[horizontal]
+In most cases, there are *two levels* of parsing before a `Command` is created +
+(e.g. `SessionCommandParser` passes the remaining user input to the `AddSessionCommandParser`
+for further parsing).
+
+However, there are some cases where only *one level* of parsing is needed +
+(e.g. for the `HelpCommand`, `ListCommand`, and `ExitCommand`).
+
+.Skipping the second layer of parsers
+image::LogicClassDiagram3.png[,500]
+
+These command parsers will immediately create the respective `Command`,
+*skipping the second layer* of parsers.
+====
+
+//end::logicOrganization[]
+//tag::logicCommands[]
+
+==== Overview of Commands
+
+Within the *Commands* package, all commands have been grouped into *smaller packages*.
+
+The following _Class Diagram_ shows the names of the *smaller packages*:
+
+.Structure of smaller packages within the *Commands* package
+image::CommandsPackageDiagram1.png[]
+
+These smaller packages group the commands into different categories.
+Furthermore, these packages *depend* on the `Command` class
+since they contain classes that inherit from it.
+
+For example, the *Module* package contains the following classes that inherit from the `Command` class:
+
+* `AddModuleCommand`
+* `DeleteModuleCommand`
+* `EditModuleCommand`
+
+//end::logicCommands[]
+//tag::logicParsers[]
+
+==== Overview of Parsers
+
+Within the *Parser* package, all parsers have been grouped into *smaller packages*.
+
+These packages have been organised in the same way as the *Commands* package.
+
+.Structure of smaller packages within the *Parser* package
+image::ParserPackageDiagram1.png[]
+
+These smaller packages group the parsers into different categories.
+Furthermore, these packages *depend* on the `Parser` interface
+since they contain classes that implement it.
+
+For example, the *Module* package contains the following classes that implement the `Parser` interface:
+
+* `AddModuleCommandParser`
+* `DeleteModuleCommandParser`
+* `EditModuleCommandParser`
+
+//end::logicParsers[]
+//tag::logicSequence[]
+
+==== Example Logic Sequence
+
+(Contributed by Aakanksha)
+
+The following _Sequence Diagram_ shows all the interactions inside the `Logic` component
+when executing the `group add m/CS2103 g/G03 t/lab` command.
+
+.Interactions inside the Logic Component during the `group add m/CS2103 g/G03 t/lab` command
+image::AddGroupSequenceDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+* The lifeline for `GroupCommandParser` and `AddGroupCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+
+* Since the purpose of this diagram is to show the interactions within the `Logic` component,
+irrelevant interactions with the `Model` component have been omitted.
+====
+//end::logicSequence[]
+//end::logic[]
+
+//tag::model[]
 [[Design-Model]]
 === Model component
+
+(Contributed by Fatin)
+
+The following _Class Diagram_ shows how the different `Model` components interact with each other.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API*: `Model.java`
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences
+* Stores the TA-Tracker
+data
+* Exposes 5 unmodifiable `ObservableList<>` objects:
+. `filteredStudentList`, which contains all the `Students` in the TA-Tracker
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+. `filteredSessionList`, which contains all the `Sessions` in the TA-Tracker
+that have *not* been marked as done
+. `filteredDoneSessionList`, which contains all the `Sessions` in the TA-Tracker
+that *have been marked as done*
+. `filteredModuleList`, which contains all the `Modules` in the TA-Tracker
 
+. `filteredGroupList`, which contains all the `Groups` in the TA-Tracker
+
+* These lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change
+* Does not depend on any of the other three components
+
+The following _Class Diagram_ shows the relationship between the different classes
+in the `Model` component.
+
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[,670]
+
+==== Example of Model Usage
+
+The following _Object Diagram_ shows an example of the relationship between the different `Model` objects.
+This example is based on the state of TA-Tracker
+when it is first run (without any user data).
+
+.Model Components - Object Diagram
+image::ModelObjectDiagram.png[]
+//end::model[]
+
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
+(Contributed by Gabriel)
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+The following _Class Diagram_ shows a simplified view of the `Storage` component.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+.Simplified structure of the Storage Component
+image::StorageClassDiagram1.png[]
+
+*API*: `Storage.java`
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Can save `UserPref` objects in Json format, and read it back
+* Can save all TA-Tracker data in Json format, and read it back.
+
+==== Saved Data
+The following _Class Diagram_ shows a breakdown of the data managed by the `Storage` component.
+
+.Structure of the data stored by TA-Tracker
+image::StorageClassDiagram2.png[]
+
+TA-Tracker saves the following data in _Json format_:
+
+* A list of `Module` objects representing the *modules* that the user is teaching
+* A list of `Session` objects representing the *sessions* that the user has not completed (*not marked as done*)
+
+Within each `Module`, there is:
+
+* A list of `Session` objects, representing the *sessions* that the user has completed (*marked as done*) for that module
+* A list of `Group` objects, representing the *groups* for that module that the user is in charge of, such as a tutorial or lab
+
+Within each `Group`, there is:
+
+* A list of `Student` objects, representing the students enrolled in the group
+//end::storage[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `tatracker.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//tag::logicDesign[]
+[[Logic]]
+=== Logic
+(Contributed by Gabriel)
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The *Logic* of TA-Tracker ensures that all the user's commands are parsed and executed correctly.
+In order to ensure that all the commands contain the correct information,
+two utility classes have been created:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* A `CommandDetails` class to encapsulate details, such as the usage message,
+inside each `Command` in TA-Tracker.
++
+This is used to:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+** Fetch messages for `CommandResult` objects
+** List commands in the `HelpWindow`
+** Simplify the number of imports used in test cases
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* A `PrefixDetails` class to encapsulate details, such as the usage message,
+of each `Prefix` used in TA-Tracker.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Both utility classes support the <<Syntax, Syntax Highlighting feature>>.
 
-image::UndoRedoState0.png[]
+The `CommandDetails` of every `Command` are stored in a `CommandDictionary`,
+The `PrefixDetails` of every `Prefix` are stored in a `PrefixDictionary`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+The following sections will describe the implementation of these two dictionaries.
 
-image::UndoRedoState1.png[]
+//tag::commandDictionary[]
+==== Implementation of the CommandDictionary
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The following _Class Diagram_ shows how a `CommandDictionary` stores all the
+details of every `Command` in TA-Tracker.
 
-image::UndoRedoState2.png[]
+.Structure of the CommandDictionary
+image::CommandsPackageDiagram2.png[,400]
+
+. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands in TA-Tracker.
+. All commands should have their own `CommandDetails`.
+. A `CommandDetails` object stores all the information that a command should have +
+(e.g. their `commandWord` and `usage` message).
+. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. "add", "delete", "edit").
+
+//end::commandDictionary[]
+//tag::prefixDictionary[]
+
+==== Implementation of the PrefixDictionary
+
+The following _Class Diagram_ shows how a `PrefixDictionary` stores all the
+details of every `Prefix` in TA-Tracker.
+
+.Structure of the PrefixDictionary
+image::ParserPackageDiagram2.png[,400]
+
+. A `PrefixDictionary` stores two lists of `Prefix` objects:
+** `parameters` - a list of compulsory parameters for a command
+** `optionals` - a list of optional parameters for a command
+
+. A `PrefixDictionary` contains a list of `PrefixDetails`.
+These `PrefixDetails` are the details of all the `Prefix` objects stored in `parameters` and `optionals`
+
+. A `PrefixDetails` object adds more information to a `Prefix` +
+(e.g. their `constraint` message and a list of `examples`).
+. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
+
+. All parsers use some `Prefix` constants defined in `Prefixes`.
+These constants are kept in `PrefixDictionary` in a lookup table.
+
+====
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`.
+
+This is because the *parsers* do not need the extra information stored in `PrefixDetails`.
+They only need to use different `Prefix` objects in order to parse user inputs.
+
+`PrefixDetails` adds more information to a `Prefix` object instead of extending it.
+Therefore, it can be detached from the *parsers* without changing the `Prefix` constants in `Prefixes`.
+====
+//end::prefixDictionary[]
+//end::logicDesign[]
+
+//tag::goto[]
+[[Implementation-Goto]]
+=== Goto Command
+
+(Contributed by Fatin)
+
+==== Description
+
+The `goto` command has been implemented to allow users to programmatically switch through the `tabs` using
+the command line, rather than clicking on the tab headers.
+
+The command can be utilised by entering `goto TAB_NAME`.
+`TAB_NAME` is a compulsory parameter for the user.
+
+==== Implementation
+This section describes the implementation of the `goto` command.
+
+The following _Sequence Diagram_ shows the interactions between the `Logic` and `UI` components of
+the TA-Tracker
+when the user enters the command `goto claims`.
+
+.Sequence Diagram for Goto Claims Command
+image::GotoSequenceDiagram.png[]
+
+Given below is an example scenario where the user enters a command to switch to the `Claims Tab`.
+
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+. The `TaTrackerParser` sees that the command is a `GotoCommand` and passes the command
+to the `GotoCommandParser`.
+
+. The `GotoCommandParser` creates a `GotoCommand` object
+with the relevant keywords.
+
+. `LogicManager` calls `GotoCommand#execute()`.
+
+. The `GotoCommand` object checks whether any of the keywords given by the user
+matches the existing tab headers.
+
+.. If it does, the `GotoCommand` returns a `CommandResult` with a success message and an enum specifying
+how MainWindow should handle the next action.
+
+.. If it doesn't, an exception is thrown.
+
+. `MainWindow` calls the handleGoto() method to select the `ClaimsTab` in the `TabPane`, completing the tab-switching
+process.
+//end::goto[]
+
+[[StudentView]]
+=== Student View
+*Student View* is used to display all modules, groups and students in the TA-Tracker.
+
+Students are a part of *groups* and groups are a part of *modules*.
+
+//tag::studentviewmodel[]
+==== Implementation of the Model Framework
+
+(Contributed by Aakanksha)
+
+The following _Class Diagram_ shows how different classes are related in the
+functioning of the *Student View*.
+
+.Student View - Class Diagram
+image::ModuleModelClassDiagram.png[,670]
+
+In the diagram above, you can see that:
+
+* The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
+of the different *modules* the user is teaching.
+
+* Each `Module` contains a `UniqueGroupList`.
+
+* Each `UniqueGroupList` contains a list of all the *groups of a module* that the user
+is teaching.
+
+* Each `Group` contains a `UniqueStudentsList` that contains the *students in that group*.
+
+====
+*Design Considerations*
+
+The initial idea for the *Student View* UI was to show the Student View as a *list of modules*
+where each module contained a *list of groups* and each group contained a *list of students*.
+Keeping this in mind, we created the current model framework.
+
+The idea for the UI was scrapped as once we realised it would look messy and won't
+be user-friendly. We changed the UI to what it is now, but decided to keep the model framework
+the way it is.
+
+*Alternative Implementation*
+
+* An alternative implementation would be to have a single `UniqueModuleList` to store
+all modules, a `List` to store all groups and a `List` to store all students.
+
+* We would then have to *filter by module code and/or group code* to show the appropriate
+groups and students.
+
+* This would require *students to keep track of which group and which module they're
+a part of*. Similarly, *groups would have to keep a track of the students they contain*.
+This would create a **cyclic dependency** (which could be solved using an association class).
+
+* The `List` of groups could contain multiple groups with the same group code as group code
+is only unique within a module. Group codes can be shared across modules.
+
+* While this implementation would make it easier to generate a report at the end of
+the semester (explained later in the guide), it would require more commands
+and the *creation of many association classes* which would unnecessarily
+*complicate the model*.
+That is why we decided to stick to our current implementation.
+
+====
+
+// end::studentviewmodel[]
+
+(Contributed by Fatin)
+
+// tag::studentmodel[]
+
+The following _Class Diagram_ shows how different classes are related in the functioning of a `Student` Object.
+
+.Structure of the Student Component
+image::StudentClassDiagram.png[,670]
+
+*API*: `Student.java`
+
+The other models (`Module`, `Group` and `Session`) have been implemented in a similar manner.
+The main difference is that the other models do not
+have any `Tags`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[,670]
+//end::studentmodel[]
+//tag::moduleaddeditdelete[]
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Implementation of the Module Add, Delete and Edit Commands
 
-image::UndoRedoState3.png[]
+(Contributed by Aakanksha)
+
+The following _Sequence Diagram_ shows the interactions
+between the `Logic` and `Model` components of the TA-Tracker
+when the user enters the
+command `module add m/CS2103 n/Software Engineering`.
+
+.Module Add - Sequence Diagram
+image::AddModuleSequenceDiagram.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+====
+* This diagram assumes that a module with the module code `CS2103`
+doesn't exist in the TA-Tracker.
 
-The following sequence diagram shows how the undo operation works:
+* The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+====
 
-image::UndoSequenceDiagram.png[]
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+2. The `TaTrackerParser` sees that this command is a *module command* and passes the
+command to the `ModuleCommandParser`.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+3. The `ModuleCommandParser` sees that this command is an *add command* and passes the
+arguments to the `AddModuleCommandParser`.
+
+4. The `AddModuleCommandParser` creates a `Module` with the given module code and
+name.
+
+5. The `AddModuleCommandParser` then creates an `AddModuleCommand` object with a newly
+created module. The parser then returns the `AddModuleCommand` object.
+
+6. `LogicManager` calls `AddModuleCommand#execute()`.
+
+7. The `AddModuleCommand` object
+checks whether a module with the given module code already exists in *TA-Tracker*
+
+.. If it does, a *command exception is thrown* saying that a module with the given module
+code already exists in the *TA-Tracker*.
+
+.. If no such module exists, the *module is added to the TA-Tracker*.
+
+8. The `AddModuleCommand` returns a `CommandResult`.
+
+The command used to delete a module has been implemented in a similar way. The main
+difference is that when the `DeleteModuleCommand` checks whether an object with the given
+module code exists in the TA-Tracker
+
+.. If no such module exists, a *command exception
+is thrown* saying that a module with the given module code doesn't exist.
+
+.. If it does
+exist, *first all the sessions linked to that module are removed* , then the module
+is removed from the TA-Tracker
+
+
+The `module edit` command has been implemented in a similar manner.
+//end::moduleaddeditdelete[]
+//tag::groupaddeditdelete[]
+
+==== Implementation of the Group Add, Delete and Edit Commands
+
+(Contributed by Aakanksha)
+
+A *group* is added to the TA-Tracker
+in a similar manner to  how a *module* is added to
+the TA-Tracker.
+
+The following steps are taken once the _execute_ method of an `AddGroupCommand` object
+is called:
+
+. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker
+.
+.. If it exists, the *module is retrieved*.
+.. If it doesn't exist, an *exception is thrown* explaining that the module doesn't
+exist.
+. The `AddGroupCommand` object checks whether a *group* with the same group code as
+the new group exists in the module retrieved beforehand.
+.. If it doesn't exist, the *group is added to the module* and a `CommandResult` object
+with the success message is returned.
+.. If it does exist, an *exception is thrown* explaining that you can't have two groups
+with the same group code in a module.
+
+The interactions between the `Logic` and `Model` components when adding a group are similar
+to the interactions when deleting a group as shown below.
+
+The following _Sequence Diagram_ shows the interactions between the `Logic` and `Model`
+components when the user inputs the command `group delete m/CS2103 g/G03`.
+
+.Group Delete - Sequence Diagram
+image::DeleteGroupSequenceDiagram.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+====
+* This diagram is under the case where a group with the group code G03 does exist
+in the module with module code CS2103 inside the TA-Tracker.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+* The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
 
-image::UndoRedoState4.png[]
+* The main difference between the `Module` and `Group` commands is that the `Group`
+commands require extra checks to check whether a group with the given group code
+exists inside the module with the given module code.
+====
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-image::UndoRedoState5.png[]
+2. The `TaTrackerParser` sees that the command is a *group command* and passes the
+command to the `GroupCommandParser`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+3. The `GroupCommandParser` sees that the command is a *delete command* and passes the
+arguments to the `DeleteGroupCommandParser`.
 
-image::CommitActivityDiagram.png[]
+4. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
+it the module code, group code and group type. The parser then returns the `DeleteGroupCommand` object.
+
+5. `LogicManager` calls `DeleteGroupCommand#execute()`. The `DeleteGroupCommand` object
+checks whether a *module* with the given module code already exists in TA-Tracker
+If it doesn't, a *command exception is thrown* saying that a module with the given module
+code doesn't exist in the TA-Tracker
+
+6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
+given group code exists within that module.
+.. If the group doesn't exist, a *command exception is thrown* saying that no such group exists.
+.. If the group does exist, it is *removed from the module*.
+
+7. The `DeleteGroupCommand` returns a `CommandResult`.
+
+The `group edit` command has been implemented in a similar manner.
+//end::groupaddeditdelete[]
+//tag::studentaddeditdelete[]
+
+==== Implementation of the Student Add, Delete and Edit Commands
+(Contributed by Gabriel)
+
+A *student* can be added to the TA-Tracker after a *module* and *group* is added.
+
+The commands for *students* are similar to the commands for *modules* and *groups*.
+The main difference is that there are a few additional conditions in order to
+ensure that a *student* is inside the TA-Tracker.
+
+The following _Sequence Diagram_ shows the interactions that take place
+between the `Logic` and `Model` components of the TA-Tracker
+when the user enters the command `student delete m/CS2103 g/G03 id/A0181234G`.
+
+.Student Delete - Sequence Diagram
+image::DeleteStudentSequenceDiagram.png[,1000]
+
+[NOTE]
+====
+
+* This diagram assumes that the following data are inside the TA-Tracker:
+** A student with the matric number `A0181234G` +
+(shown as `id` in the diagram)
+** The same student inside the group `G03` +
+(shown as `g` in the diagram)
+** The same group inside the module `CS2103` +
+(shown as `m` in the diagram) +
+{fbl}
+
+* The lifeline for `StudentCommandParser` and `DeleteStudentCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+====
+
+. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+. The `TaTrackerParser` sees that the command is a *student command* and passes the
+command to the `StudentCommandParser`.
+
+. The `StudentCommandParser` sees that the command is a *delete command* and passes the
+arguments to the `DeleteStudentCommandParser`.
+
+. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object
+with the *matric number*, *module code* and *group code* from the arguments.
+The parser then returns the `DeleteStudentCommand`.
+
+. `LogicManager` calls `DeleteStudentCommand#execute()` to begin removing a student from the TA-Tracker.
+
+. The `DeleteStudentCommand` checks the following three conditions:
+.. A module with the given *module code* is inside the TA-Tracker.
+.. A group with the given *group code* is inside the same module.
+.. A student with the given *matric number* is inside the same group.
+
+. For each condition, there are two outcomes:
+.. If the condition is false, then a *command exception is thrown* saying that the object does not exist.
+.. If it is true, then the student with the given *matric number* is removed from
+the *expected group* inside the *expected module*.
+
+. Finally, the `DeleteStudentCommand` returns a `CommandResult`.
+.. If the command successfully removed a student, the `CommandResult` will contain a success message.
+.. If not, the `CommandResult` will have a message explaining why the student could not be removed.
+
+The `student add` and `student edit` command has been implemented in a similar manner.
+However, the `student add` command has a slight difference.
+
+When the `student add` command is executed,
+there is an extra condition that must be true: there cannot be a student with the given *matric number* already inside
+the *expected group* inside the *expected module*.
+//end::studentaddeditdelete[]
+//tag::sortgroupmoduleall[]
+
+==== Implementation of the Sort Group, Module and All Command
+
+(Contributed by Aakanksha)
+
+The sort command allows the user to sort the students in the *Student View*.
+
+The sort command can be used in three ways:
+
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : This sorts all the students of the *given
+group in the given module* by type `TYPE`.
+
+2. `sort module g/MODULE_CODE t/TYPE` : This sorts all the students of *all the groups in the
+given module* by type `TYPE`.
+
+3. `sort all t/TYPE` : This sorts all students of *all groups in all modules* in the
+TA-Tracker
+by the type `TYPE`
+
+[NOTE]
+====
+* `TYPE` here could mean any of the following:
+** `alpha`, `alphabetical` or `alphabetically` to sort alphabetically.
+** `rating asc` to sort by rating in ascending order.
+** `rating desc` to sort by rating in descending order.
+** `matric` to sort by matriculation number.
+====
+
+Since the `Sort` commands function differently but use a single parser,
+the structure shown in the following
+_Class Diagram_ is used.
+
+.Sort Commands - Class Diagram
+image::SortCommandsClassDiagram.png[,400]
+
+[NOTE]
+====
+* `SortGroupCommand` sorts the students in a particular group of a
+particular module.
+* `SortModuleCommand` sorts the students in all groups of all modules.
+* `SortCommand` sorts the students in all groups of all modules.
+====
+Since the different commands use the same parser,
+the `SortCommandParser` needs to check the sub-command word and return
+the appropriate sort command.
+
+The following _Activity Diagram_ shows the steps the `SortCommandParser` takes once
+its _parse_ method is called (assuming that no exception is thrown).
+
+.SortCommandParser - Activity Diagram
+image::SortParserActivityDiagram.png[]
+
+[NOTE]
+====
+* The sub-command word here refers to `all`, `module` or `group`. If none of the above
+sub-command words is used, a *command exception* will be thrown, explaining that it is an
+invalid command.
+
+* If the user enters the `sort` command with a command word but *doesn't include the
+appropriate parameters with the correct prefixes, a command exception is thrown*.
+====
+
+The following _Sequence Diagram_ illustrates the interactions between the `Logic` and
+`Model` components when the user enters the command `sort all t/matric`.
+
+.Sort - Sequence Diagram
+image::SortAllSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `SortCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+
+* The `SortCommandParser`, which creates `Sort` commands, is different from the other
+command parsers. While the other commands have another level of parsing (such as the
+`ModuleCommandParser` for `Module` commands), the `SortCommandParser`
+creates all the different Sort commands within itself.
+====
+
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is a *sort command* and passes the
+command to the `SortCommandParser`.
+
+3. The `SortCommandParser` performs the steps shown in the previous activity diagram
+and determines that since the sub-command word is `all` , it must create and return a
+`SortCommand`.
+
+4. `LogicManager` calls `SortCommand#execute()`.
+
+5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
+is `matric` , it calls `Model#sortModulesByMatricNumber()` command.
+
+6. The `SortCommand` returns a `CommandResult` with a success message.
+//end::sortgroupmoduleall[]
+//tag::sessionmodel[]
+
+[[SessionView]]
+=== Session View
+(Contributed by Chua Yi Jing)
+
+*Session View* is the term used to refer to the view that contains a list of all sessions
+that haven't been completed yet.
+
+==== Model Framework
+
+(Contributed by Haoyi)
+
+The following _Class Diagram_ shows how different classes are related in the functioning
+of the *Session View*.
+
+._Class Diagram_ of Session View
+image::SessionModelClassDiagram.png[]
+
+The TA-Tracker model class contains a `UniqueSessionList` which helps keep track of
+all the *sessions* in TA-Tracker
+that have *not* been marked as done.
+//end::sessionmodel[]
+//tag::sessiondone[]
+
+==== Implementation of the Session Done Command
+
+(Contributed by Chua Yi Jing)
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the TA-Tracker
+when the user enters the command
+`session done 1`.
+
+._Sequence Diagram_ for Done Session
+image::DoneSessionSequenceDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+* The lifeline for `SessionCommandParser` and `DoneSessionCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+====
+
+1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is a `Session` command and passes the command
+to the `SessionCommandParser`.
+
+3. The `SessionCommandParser` sees that the command is a `DoneSessionCommand` and passes the
+arguments to the `DoneSessionCommandParser`.
+
+4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
+
+5. `LogicManager` calls `DoneSessionCommand#execute()` method.
+
+6. The `DoneSessionCommand`
+checks whether the current session called by the user has a recurring period.
+
+    a. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
+    b. If it does not have a recurring period, it will move on to *Step 6*.
+
+7. The current session is marked as done and will be removed from `Model#UniqueSessionList`.
+
+8. The updated session list will be displayed to the user.
+
+(Contributed by Fatin)
+
+The following _Activity Diagram_ describes how TaTracker is updated when a `SessionDone` command is entered.
+//end::sessiondone[]
+//tag::sessiondoneactivity[]
+
+.Session Done _Activity Diagram_
+image::DoneSessionActivityDiagram.png[]
+
+[NOTE]
+====
+The above diagram assumes that a valid index has been input into the TA-Tracker
+during the done session command.
+====
+//end::sessiondoneactivity[]
+//tag::sessioncommands[]
+
+==== Implementation of Session Add, Edit and Delete
+
+(Contributed by Chua Yi Jing)
+
+The `session edit` and `session delete` commands have been implemented in a similar manner
+to `DoneSessionCommand`.
+
+
+The `session add` command has been implemented in a similar way. The main difference is that the
+`SessionAddCommand` checks whether an object with the given module code exists in the TA-Tracker.
+
+* If no such module code exists, the session is created successfully.
+
+* If it doesn’t exist, an exception is thrown saying that the given module code doesn’t exist.
+//end::sessioncommands[]
+//tag::claimsview[]
+
+=== Claims View
+
+(Contributed by Fatin)
+
+*Claims View* refers to the view that contains a list of all the sessions that have
+been done.
+
+==== Model Framework
+The following _Class Diagram_ shows how different classes are related in the
+functioning of the *Claims View*.
+
+.Claims View - Class Diagram
+image::TssModelClassDiagram.png[]
+
+The TaTracker model class contains a UniqueDoneSessionList which keeps track of
+all the *sessions that have been marked as done*. Each of the sessions must belong to a Module in the UniqueModuleList.
+
+==== Set Rate Command
+
+Given below is an example scenario where the user enters the command `setrate 50`.
+
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
+
+. `TaTrackerParser` checks the input arguments and identify the String keywords.
+
+. The `TaTrackerParser` sees that the command is a type of SetRate and passes the command
+to the `SetRateCommandParser`.
+
+. The `SetRateCommandParser` object checks that the given `RATE` input
+by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
+`SetRateCommand` object with the relevant integer.
+
+. `LogicManager` calls `SetRateCommand` 's execute method.
+
+. `MainWindow` updates the `TotalEarnings` label in the `ClaimsTab` and the `StatisticsWindow`
+//end::claimsview[]
+//tag::syntaxhighlighting[]
+
+//tag::filter[]
+
+[[Implementation-Filter]]
+=== Filter Command
+(Contributed by Chua Yi Jing)
+
+==== Description
+
+Different view has its own designated filter command.
+
+====
+* *Student View*, has the `student filter`
+* *Session View*, has the `session filter`
+* *Claims View*, has the `claims filter`
+====
+
+==== Implementation
+This section describes the implementation of the `filter` command.
+
+The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
+
+._Activity Diagram_ of the Filter Command
+image::FilterCommandActivityDiagram.png[,1100]
+
+The filter feature consists of three main steps:
+
+1. *Validating and parsing* user input
+
+2. Creating a *filtering predicate* from user's input
+
+3. *Updating the filtered* list with the *filtering predicate*
+
+===== Filter under Student View
+
+Students are filtered based on the module code and/or
+group code given by the user.
+
+Module code is a compulsory parameter for the user.
+
+The following _Sequence Diagram_ shows the sequence of commands that take place between
+the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
+`student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
+
+._Sequence Diagram_ for Filter Student Command
+image::FilterStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+[horizontal]
+* The lifeline for `StudentCommandParser` and `FilterStudentCommandParser` should end at the
+destroy marker (X), but due to a limitation of *PlantUML*, the lifeline reaches the end of diagram.
+====
+
+Given below is an example scenario where the user enters a command to filter students.
+
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+. The `TaTrackerParser` sees that the command is a type of Student and passes the command
+to the `StudentCommandParser`.
+
+. The `StudentCommandParser` sees that the command is a type of filter and passes the
+arguments to the `FilterStudentCommandParser`.
+
+. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
+with the relevant keywords.
+
+. `LogicManager` calls `FilterStudentCommand#execute()`.
+
+. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
+module and/or group.
+.. If it doesn't, a `CommandException` is thrown saying that no such students exists.
+.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
+
+===== Filter under Session View
+
+Sessions can be filtered with the following parameters:
+
+* `d/DATE`
+* `m/MODULE CODE`
+* `t/SESSION_TYPE`
+
+These parameters can be used alone or together.
+
+The command used to filter sessions has been implemented in a similar way. The main
+difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
+The `SessionPredicate` object updates the filtered session list by keywords in Model.
+The filtered list will then be displayed.
+
+When the user specifies a keyword, sessions that contain the keywords will be filtered and shown to the user.
+If none of the keywords supplied by the user appears in any sessions, a `CommandException`
+will be shown.
+
+The following _Class Diagram_ shows how different classes are related in the functioning of
+the `SessionFilter` Command.
+
+.Class Diagram for Filter Session Command
+image::FindCommandClassDiagram.png[]
+
+===== Filter under Claims View
+
+The user can only filter the *Claims View* by module code.
+When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
+will be filtered.
+
+The command used to filter claims is implemented the same way as `SessionFilterCommand`.
+//end::filter[]
+
+[[Syntax]]
+=== Syntax Highlighting
+(Contributed by Gabriel)
+
+When a user types a command, their inputs will be highlighted in different colours
+as a form of input validation.
+
+In addition, different messages will be displayed based on the result of the syntax highlighting.
+
+The following _screenshot_ shows how the `CommandBox` and `ResultDisplay` appear in the TA-Tracker.
+
+.The CommandBox and the ResultDisplay in TA-Tracker
+image::syntax-highlighting/ui.png[,600]
+
+In the _screenshot_ above:
+
+* There is a user input highlighted in `green` in the `CommandBox`
+* There is a message in `white` showing in the `ResultDisplay`
+* The command being entered is `session edit`
+* The user has entered three arguments: `date`, `start time`, and `end time`.
+
+==== Overview
+The following _Class Diagram_ shows how the `Logic` and `UI` components interact with each other to produce the highlighting.
+
+.Syntax Highlighting - Class Diagram
+image::SyntaxHighlightingClassDiagram.png[]
+
+The `CommandBox`:
+
+* Uses a `CommandDictionary` to search for valid commands
+* Stores a `CommandDetail` for processing the current command in the user input
+* Stores a `PrefixDictionary` containing the `PrefixDetails` for the current command.
+* Uses `PrefixDetails` to process each argument in the current command
+* Uses a `CommandBoxUtil` to validate user inputs
+* Returns feedback to the `ResultDisplay`
+
+The `ResultDisplay` displays the given feedback as a message in the TA-Tracker.
+
+==== Identifying the parts of a User Input
+
+Here is an example of a user input in the `CommandBox`:
+
+.An example of a user input in the `CommandBox`
+image::syntax-highlighting/commandbox.png[,500]
+
+User inputs can be divided into the following parts:
+
+[width="%",cols="<20%a,<20%a,<60%a",options="header"]
+|====
+|
+Keyword
+|
+Meaning
+|
+Example
+
+|
+`full command word`
+|
+The part of the user input that *identifies a command*.
+|
+.A `full command word` (coloured in blue in this screenshot)
+image::syntax-highlighting/full-command-word.png[]
+{fbl}
+
+|
+`argument`
+|
+The part of the user input that *identifies a command parameter*.
+
+It contains a `prefix` and a `value`.
+|
+image::syntax-highlighting/argument-1.png[]
+image::syntax-highlighting/argument-2.png[]
+.The `arguments` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/argument-3.png[]
+{fbl}
+
+|
+`prefix`
+|
+The part of an `argument` up to and including the `/` forward slash delimiter.
+|
+image::syntax-highlighting/prefix-1.png[]
+image::syntax-highlighting/prefix-2.png[]
+.The `prefixes` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/prefix-3.png[]
+{fbl}
+
+|
+`value`
+|
+Everything after the `prefix` of an `argument`.
+|
+image::syntax-highlighting/value-1.png[]
+image::syntax-highlighting/value-2.png[]
+.The `values` of each `argument` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/value-3.png[]
+{fbl}
+
+|
+`preamble`
+|
+The part of the user input (including whitespaces) between the end of the
+`full command word`, and the beginning of the first `argument`.
+|
+.The `preamble` in the user input (coloured in blue in these screenshots)
+image::syntax-highlighting/preamble.png[]
+{fbl}
+
+|====
+
+[[Impl-Syntax]]
+==== Implementation of the Syntax Highlighting
+The following diagrams show the steps that take place when applying syntax highlighting
+to the user's input.
+
+[NOTE]
+====
+Due to the limitations of *PlantUML*, the following _Activity Diagrams_
+may not follow UML notation.
+
+In particular, there are issues with representing alternate branches.
+
+For example, alternate branches:
+
+* *Split into multiple branch nodes*, instead of all originating from the same node
+* *Do not converge* at a single merge node before the end node
+
+
+There is a way for the diagrams to be arranged vertically.
+However, this dilates the diagrams, making them difficult to fit in this guide.
+
+====
+
+[[SH-1]]
+===== Step 1 - Highlighting a new input
+Syntax highlighting is applied when the user changes their input in the `CommandBox`.
+
+The following _Activity Diagram_ shows how the `full command word` is highlighted,
+up until the beginning of the `preamble`.
+
+.Step 1 - Highlighting a new input
+image::SyntaxHighlightingActivityDiagram1.png[,950]
+
+NOTE: There should be a _rake symbol_ next to the *bolded* activity - *Highlight arguments*.
+
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
+
+|
+`[empty input]`
+|
+When there is no input, no action occurs.
+|
+.An empty `CommandBox`
+image::syntax-highlighting/empty-input.png[]
+{fbl}
+
+|
+`[invalid command word]`
+|
+When there is no matching `full command word`,
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
+.Invalid `full command word`
+image::syntax-highlighting/invalid-command-word.png[]
+{fbl}
+
+|
+`[no arguments]`
+|
+When a `full command word` has just been entered,
+the `ResultDisplay` will show that a correct command has been entered.
+|
+.`CommandBox` has no `arguments`
+image::syntax-highlighting/no-arguments.png[]
+{fbl}
+
+|
+`[has arguments]`
+|
+After processing the `full command word`, proceed to <<SH-2, Step 2>>.
+|
+.`CommandBox` has `arguments`
+image::syntax-highlighting/has-arguments.png[]
+{fbl}
+
+|====
+
+[[SH-2]]
+===== Step 2 - Highlighting the preamble
+If the new input has a `full command word`,
+the next step is to apply syntax highlighting on the `preamble` and `arguments`.
+
+The following _Activity Diagram_ shows how the `preamble` is highlighted,
+up until the beginning of the first `argument`.
+
+.Step 2 - Highlighting the preamble
+image::SyntaxHighlightingActivityDiagram2.png[,820]
+
+NOTE: There should be a _rake symbol_ next to the *bolded* activities - *Highlight invalid arguments*.
+
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
+* `whitespaces` +
+
+|
+`[trailing whitespace]`
+|
+When there are trailing whitespaces, the syntax highlighting is removed.
+|
+.A trailing whitespace (coloured in blue in this screenshot)
+image::syntax-highlighting/trailing-whitespace.png[]
+{fbl}
+
+|
+`[many whitespaces]`
+|
+When there are two or more trailing whitespaces,
+the `ResultDisplay` will show how to use the command.
+|
+.Many trailing whitespaces (coloured in blue in this screenshot)
+image::syntax-highlighting/many-whitespaces.png[]
+{fbl}
+
+|
+`[invalid preamble]`
+|
+When the input has a `preamble` that the command does not need,
+the `ResultDisplay` will indicate that a wrong command is entered.
+|
+.An invalid `preamble`
+image::syntax-highlighting/invalid-preamble.png[]
+{fbl}
+
+|
+`[blank preamble]`, and +
+`[needs preamble]`
+|
+After processing the `preamble`, proceed to <<SH-3, Step 3>>.
+|
+
+.A command that requires a blank `preamble`
+image::syntax-highlighting/blank-preamble.png[]
+
+.A command that needs a valid `preamble`
+image::syntax-highlighting/needs-preamble.png[]
+{fbl}
+
+|====
+
+[[SH-3]]
+===== Step 3 - Highlighting the remaining arguments
+After the `preamble` has been verified,
+the syntax highlighting is applied on each `argument` in the remaining user input.
+An _invalid_ or _wrong_ `argument` will *stop* the highlighting.
+
+The following _Activity Diagram_ explains how each `argument` is highlighted,
+up until end of the user input.
+
+.Step 3 - Highlighting the remaining arguments
+image::SyntaxHighlightingActivityDiagram3.png[,800]
+
+Here is the purpose of each alternate path in the above diagram:
+
+[width="%",cols="<28%a,<32%a,<40%a",options="header"]
+|====
+|
+Path
+|
+Action
+|
+Example
+
+|
+`[wrong]`
+|
+When the command does not recognise the given `argument`,
+the `ResultDisplay` will show how to use the command.
+|
+.Wrong `argument` in input
+image::syntax-highlighting/wrong.png[]
+{fbl}
+
+|
+`[invalid]`
+|
+When the `argument` cannot have the given `value`,
+the `ResultDisplay` will show how to use the `argument`.
+|
+.Invalid `argument` in input
+image::syntax-highlighting/invalid.png[]
+{fbl}
+
+|
+`[valid]`
+|
+After processing the current `argument`,
+the `ResultDisplay` will still show how to use it in case the `argument` can have spaces.
+|
+.Valid `argument` in input
+image::syntax-highlighting/valid.png[]
+{fbl}
+
+|====
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+[[Syntax-Aspect1]]
+===== Showing the command usage after every two white spaces
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+When a user enters two white spaces, the usage for the current command wil reappear in
+the `ResultDisplay`. The purpose of this is to provide the user with a *quick example*
+of how to use the command, since a command may have *a lot of parameters*.
 
-===== Aspect: Data structure to support the undo/redo commands
+The following are reasons why the usage appears after every two spaces:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* The user will have to enter whitespaces frequently.
+This should allow our *target users* (whom are fast typers) to *quickly verify* how to use the different commands.
+* A user input will usually have words separated with a single white space
+* It gives a use for user inputs to have `arguments` separated with more than one whitespace
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+====
+*Alternative Implementation*
 
-_{Explain here how the data encryption feature will be implemented}_
+An alternative would be to *assign a keyboard shortcut*, such as the kbd:[Tab] key,
+to give the user the option to display the command usage only when they need it.
 
-// end::dataencryption[]
+Currently, the `ResultDisplay` shows the command usage
+whenever the user inputs something new. This could be annoying for the user
+when they are familiar with the commands.
+
+However, the user may have assigned actions to these keyboard shortcuts on their computer,
+Therefore, TA-Tracker would need to allow the user to *assign their own keyboard settings*.
+
+As TA-Tracker is meant to be used primarily on the *CLI*, assigning keyboard shortcuts
+does not seem like a suitable feature for our *target users*. However, implementing this
+is an option in future versions of TA-Tracker.
+====
+
+[[Syntax-Aspect2]]
+===== Always showing the syntax highlighting
+
+Similar to <<Syntax-Aspect1, the previous design consideration>>, the syntax highlighting
+could instead be toggled _on_ and _off_ using a keyboard shortcut.
+
+====
+*Alternative Implementation*
+
+Alternatively, there could be a command to toggle the syntax highlighting _on_ and _off_.
+
+Here is an example of how the command could be made:
+
+* `syntax on` - enables the syntax highlighting
+* `syntax off` - disables the syntax highlighting
+* `syntax cmd` - enables the syntax highlighting for `full command words` only
+* `syntax args` - enables the syntax highlighting for `arguments` only
+
+Then, the `CommandBox` will have _boolean flags_ to toggle the syntax highlighting
+before the each of the three steps explained in the <<Impl-Syntax, Implementation of the Syntax Highlighting>>.
+====
+//end::syntaxhighlighting[]
+
+//tag::statistic[]
+
+=== Statistic Report Generation
+(Contributed by Haoyi)
+
+==== Description
+
+The *Statistics Window* can be generated and displayed using the `report` command.
+The command is used to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student’s ratings
+
+A module code can be specified such that the generated report will only include data from a specific module.
+
+==== Implementation
+
+This section describes the implementation of the `report` command.
+
+The following _Sequence Diagram_ shows the interactions between the `UI` and the `Logic` components of TA-Tracker,
+when the user enters the command `report CS3247`.
+
+.Sequence Diagram for Statistic Report Generation
+image::ReportSequenceDiagram.png[]
+
+The following is an example scenario when the user requests for a report of a particular module,
+with the command `report CS3247`.
+
+. The user command is first read by `MainWindow`, through JavaFX.
+`MainWindow` passes the command as a `String` to the `LogicManager` to be processed.
+
+. `LogicManager` sends the command to `TaTrackerParser` for the command to be parsed.
+
+. The `TaTrackerParser` processes the first word in the command, and identifies it as a `ShowStatisticCommand`.
+
+. `TaTrackerParser` creates a `ShowStatisticCommandParser` object and passes the command argument `CS3247`
+to the `ShowStatisticCommandParser` object.
+
+. The `ShowStatisticCommandParser` stores the target module, `CS3247`, in a `ShowStatisticCommand` object and
+this command object is returned all the way back to the `LogicManager`.
+
+. `LogicManager` executes the `ShowStatisticCommand`, which creates and return a `StatiscCommandResult`. This command
+result is returned by `LogicManager` to `MainWindow`
+
+. `MainWindow` detects that the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
+by creating a `Statistic` object that retrieves data necessary for generating the report, from `ReadOnlyTaTracker`.
+
+. The data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
+
+. A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
+
+. Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
+//end::statistic[]
+//tag::logging[]
+
+=== System Notification - Ready for Use
+(Contributed by Haoyi)
+
+==== Overview
+
+TA-Tracker supports a cross-platform OS-level notification system. Notifications can be triggered from anywhere within TA-Tracker's code base. This feature can be used to implement time-based features in V2.0.
+
+==== Usage
+
+Notifications can be triggered via the `Notification` class. For example:
+
+```java
+Notification.sendNotification("TA Tracker", "You have a consultation scheduled in 15 minutes!", TrayIcon.MessageType.INFO);
+```
+On MacOS, the following notification will be triggered.
+
+.An Example TA-Tracker Notification on MacOS
+image::MacOSNotification.png[,500]
+
+==== Implementation
+
+Notifications are implemented with Java's `SystemTray`. A `SystemTray` object will be created when
+`Notification.sendNotification` is invoked for the first time. In order to guarantee that only one
+instance of `SystemTray` is ever created, Notifications are implemented using the defensive _Singleton_ pattern.
+
+The following _Activity Diagram_ shows an example of how a notification can be triggered.
+
+.Activity Diagram for Notification Singleton
+image::NotificationSingletonActivityDiagram.png[,400]
+
+The following is an example scenario when a seperate system requests for two seperate notifications from within TA-Tracker.
+
+.Sequence Diagram for Notification Singleton
+image::NotificationSingletonSequenceDiagram.png[,800]
+
+
+. The static `Notification.sendNotification(...)` method is invoked for the very first time.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since this is the first time a notification has been requested, `getInstance()` constructs the first notification
+singleton object.
+
+. A notification in then requested from the singleton.
+
+. The singleton creates and triggers an OS-level notification.
+
+. Some time later, `Notification.sendNotification(...)` is invoked again.
+
+. The `Notification` class calls its own `getInstance()` function to try to locate an existing instance
+of the notification singleton object.
+
+. Since the singleton already exists, a notification is requested directly from the existing singleton.
+
+. The singleton creates and triggers the second OS-level notification.
 
 === Logging
 
@@ -252,15 +1704,16 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE`: Critical problem detected which may possibly cause the termination of the application
+* `WARNING`: Can continue, but with caution
+* `INFO`: Information showing the noteworthy actions by the App
+* `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+//end::logging[]
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.. user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -274,152 +1727,1305 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::productscope[]
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Targets NUS Computing Teaching Assistants
+* Has a need to track and manage all their claimable hours of teaching
+* Has a need to track all their students in multiple groups and/or modules
+* Has a need to keep track of their tasks (TA-related)
+* Prefer apps on desktop over other platforms
+* Types quickly and prefers it over mouse
+* Experiences no discomfort with CLI navigation
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Collates all information regarding claimable teaching hours and student information
+in a single location
+* Displays forms (such as the TSS Claims Form) in a format that is convenient for users to view
+//end::productscope[]
+//tag::userstories[]
 
 [appendix]
 == User Stories
+
+(Contributed by Aakanksha)
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |new user | be able to use a help command |refer to instructions on what commands are available when
+I forget about them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |TA |store contact details of my students |I can contact them with ease whenever
+necessary
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |TA |see an overview of the upcoming tasks I have | plan my schedule accordingly
+
+|`* * *` |TA |see all my claimable hours in one place |type my claims easily at the end of the semester
+
+|`* * *` |user |switch between the different views using command line |view the
+information in the different views
+
+|`* * *` |TA |add students to a group in a particular module | So that I know which group which student belongs to
+
+|`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
+
+|`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
+
+|`* * *` |careless TA |edit student details | rectify mistakes I make
+
+|`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
+
+|`* * *` |TA |mark a session as done | keep a track of things I have completed in my claims
+
+|`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
+
+|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* *` |TA |get information on how much money I've earned so far |keep track of how
+much money I have earned and stay motivated
+
+|`* *` |TA |give students ratings |keep a track of student participation in class
+
+|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
+
+|`* *` |TA |be able to get tasks on a particular date | plan events accordingly
+
+|`* *` |TA |filter by a module |see events relating to a particular module clearly
+
+|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
+
+|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
+
+|`*` |TA |receive a warning message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
+
+|`*` |TA |be able to mark student's attendance | keep track of my students' attendance (coming in V2.0)
+
+|`*` |TA |enter my students' assignment grades  |keep track of my students' progress (coming in V2.0)
+
+|`*` |TA |add my students' to consultation sessions|keep track of how frequently each student has consulted me (coming in V2.0)
+
 |=======================================================================
-
-_{More to be added}_
+//end::userstories[]
+//tag::usecases[]
 
 [appendix]
 == Use Cases
+:sectnums!: // Disables section numbering to avoid typing [discrete] tag for headers
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Navigation
 
 [discrete]
-=== Use case: Delete person
 
-*MSS*
+[discrete]
+==== Use case: UC01 - Viewing the help menu
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+*MSS* (Contributed by Fatin)
+
+1.  User requests to view the `help window.`
+2. TA-Tracker opens a new window showing the list of commands.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC02 - Going to a different tab
+
+*MSS* (Contributed by Fatin)
+
+1.  User requests to go to a different `tab`.
+2. TA-Tracker switches to the requested `tab`.
+
 +
 Use case ends.
 
 *Extensions*
+
+* 1a.  The requested `tab` is invalid.
++
+[none]
+** 1a1.  TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: UC03 - Exiting the app
+
+*MSS* (Contributed by Fatin)
+
+1. User requests to exit the app.
+2. TA-Tracker closes the App window.
++
+Use case ends.
+
+=== Student View
+
+[discrete]
+==== Use case: UC04 - Adding a module
+
+*MSS* (Contributed by Fatin)
+
+1.  User requests to add a new module.
+2. TA-Tracker adds a new module.
+3. TA-Tracker switches to the `Student Tab`.
+
++
+Use case ends.
+
+*Extensions* (Contributed by Aakanksha)
+
+* 1a. The given module code already exists in the TA-Tracker.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The give module code is invalid.
++
+[none]
+** 1b1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The given module name is invalid.
++
+[none]
+** 1c1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: UC05 - Editing a module
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing modules in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to edit an existing module.
+. TA-Tracker edits the module.
+
++
+Use case ends.
+
+*Extensions* (Contributed by Aakanksha)
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module name is invalid.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC06 - Deleting module
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing modules in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to delete an existing module.
+. TA-Tracker deletes the module and all of the sessions, groups, and students in it.
++
+Use case ends.
+
+*Extensions* (Contributed by Aakanksha)
 
 [none]
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given module code doesn't exist in the TA-Tracker.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC07 - Adding a group
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing modules in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to add a group to a module
+. TA-Tracker adds the new group
+
++
+Use case ends.
+
+*Extensions* (Contributed by Aakanksha)
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group code is invalid.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC08 - Editing a group
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to edit a group
+. TA-Tracker edits the group
+
+*Extensions* (Contributed by Aakanksha)
+
+* 3a. The given module code doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The new group code already exists in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The new group code is invalid.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC09 - Deleting group
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to delete a group
+. TA-Tracker deletes the group and all of the students in it
++
+Use case ends.
+
+*Extensions* (Contributed by Aakanksha)
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given module doesn't exist in the TA-Tracker.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given group doesn't exist in the module.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC10 - Adding a student
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to add a new student to a group
+. TA-Tracker adds the new student
+
++
+Use case ends.
+
+*Extensions* (Contributed by Gabriel)
+
+* 3a. User provides invalid student details (for example, an invalid matric number).
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. A student with the same matric number already exists inside the group.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC11 - Editing a Student
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to edit a student
+. TA-Tracker edits the student
++
+Use case ends.
+
+*Extensions* (Contributed by Gabriel)
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. User provides an invalid matric number.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. User edits the student with invalid details (for example, an invalid phone number).
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given module doesn't exist.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given group doesn't exist in the module.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3e. The given student doesn't exist in the group.
++
+[none]
+** 3e1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC12 - Deleting a student
+
+*MSS* (Contributed by Fatin)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to delete a student
+. TA-Tracker deletes the student
++
+Use case ends.
+
+*Extensions* (Contributed by Gabriel)
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. User provides an invalid matric number.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. The given student doesn't exist in the group.
++
+[none]
+** 3d1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC13 - Sorting a group
+
+(Contributed by Aakanksha)
+
+*MSS*
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to sort all students in a group.
+. TA-Tracker sorts the students in the group.
+
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The given sort type is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC14 - Sorting a module
+
+(Contributed by Aakanksha)
+
+*MSS*
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing groups in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to sort all students in all groups of a module.
+. TA-Tracker sorts the students in the group.
+
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The given sort type is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given module doesn't exist.
++
+[none]
+** 3b1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. The given group doesn't exist in the module.
++
+[none]
+** 3c1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC15 - Sorting all modules
+
+(Contributed by Aakanksha)
+
+*MSS*
+
+. User requests to sort all students in all groups of a module.
+. TA-Tracker sorts the students in the group.
+. TA-Tracker switches to the `Student Tab`.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The given sort type is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
+
+
+[discrete]
+==== Use case: UC16 - Filtering the Student View
+
+*MSS* (Contributed by Chua Yi Jing)
+
+. User requests to go to the `Student Tab` (UC02) to view
+the list of existing students in the *Student View*.
+. TA-Tracker switches to the `Student Tab`.
+. User requests to filter students from a specific module and/or group.
+. TA-Tracker shows the filtered students.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The module and/or group does not exist.
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+=== Session View
+
+[discrete]
+==== Use case: UC17 - Adding a session
+
+*MSS* (Contributed by Chua Yi Jing and Fatin)
+
+. User requests to add a session.
+. TA-Tracker adds the session.
+. TA-Tracker switches to the `Session Tab`.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user requests to add a recurring session.
+[none]
+** 1a1. TA-Tracker creates a new session, and labels it as recurring.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[none]
+* 1a. The user adds a session with a module code that does not exists.
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
 
+[discrete]
+==== Use case: UC18 - Deleting a session
+
+*MSS* (Contributed by Chua Yi Jing and Fatin)
+
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to delete a session.
+. TA-Tracker deletes the session.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The index is invalid
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC19 - Editing a session
+
+*MSS* (Contributed by Chua Yi Jing and Fatin)
+
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to edit a session.
+. TA-Tracker edits the session.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The given session list index is invalid.
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC20 - Marking a session as done
+
+*MSS* (Contributed by Chua Yi Jing and Fatin)
+
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to mark a session as done.
+. TA-Tracker marks the session as done and removes the session from the *Session View*.
+. TA-Tracker adds the session to the *Claims View* and switches to the `Claims Tab`.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The given session list index is invalid.
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC21 - Filtering under Session View
+
+*MSS* (Contributed by Chua Yi Jing)
+
+. User requests to go to the `Session Tab` (UC02) to view
+the list of existing sessions in the *Session View*.
+. TA-Tracker switches to the `Session Tab`.
+. User requests to filter sessions specific to date/module code/session type.
+. TA-Tracker retrieves a list of sessions containing the keyword in any of their fields.
+. TA-Tracker shows the list of sessions.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The search did find any matches.
+[none]
+** 3a1. TA-Tracker shows an error.
++
+Use case resumes at step 3.
+
+=== Claims View
+
+[discrete]
+==== Use case: UC22 - Changing the hourly pay rate
+
+*MSS* (Contributed by Fatin)
+
+1. User requests to change the hourly pay rate to a specified amount.
+2. TA-Tracker changes the pay rate and adjusted the total earnings to reflect the new pay rate.
+3. TA-Tracker switches to the `Claims Tab`.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given rate is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: UC23 - Filtering under Claims View
+
+*MSS* (Contributed by Chua Yi Jing)
+
+. User requests to go to the `Claims Tab` (UC02) to view
+the list of existing claims in the *Claims View*.
+. TA-Tracker switches to the `Claims Tab`.
+. User requests to filter claims specific to module code.
+. TA-Tracker retrieves a list of claims containing the keyword.
+. TA-Tracker shows the list of claims.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The search did find any matches.
+[none]
+** 3a1. TA-Tracker shows an error.
++
+Use case resumes at step 3.
+
+=== Statistic Report Window
+
+[discrete]
+==== Use case: UC24 - Displaying a statistic report
+
+*MSS* (Contributed by Haoyi)
+
+1. User requests to generate and display a statistic report.
+2. TA-Tracker retrieves the list of sessions and students from all modules and processes the data.
+3. TA-Tracker opens a Statistic window and displays the processed data to the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User specifies a valid module code.
+[none]
+** 1a1. TA-Tracker retrieves the list of sessions and students from the specified module and processes the data.
+** Use case resumes at step 3.
+[none]
+* 1b. User specifies a module code that does not exist.
+[none]
+** 1b1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+//end::usecases[]
+
+:sectnums: // Enables section numbering again outside of the use cases
+
+//tag::nfr[]
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
+(Contributed by Haoyi)
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. `**TAT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
+. A user with *above average typing speed* should be able to accomplish most of the tasks using keyboard inputs faster than by using the mouse.
+. A user should be able to easily see the commands that they have wrongly typed.
+. `**TAT**` should be able to run with or without internet connection.
+. `**TAT**` should work for a single user only.
+. `**TAT**` should not require user to install.
+. Features implemented should be testable using manual testing and automated testing.
+. `**TAT**` should support screen resolution of 1920 x 1080 or higher.
+. `**TAT**` should be able to save data locally.
+. `**TAT**` should be able to save data in a human-editable file to allow advanced users to manipulate the dat by editing the file.
+//end::nfr[]
+//tag::glossary[]
 
 [appendix]
 == Glossary
+(Contributed by Haoyi)
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[width="%",cols="<20%,<40,options="header",]
+|=======================================================================
+|Term | Explanation
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+| TSS | This is the short form for `Teaching Support Student`.
 
-[appendix]
-== Product Survey
+| TSS Claims Form | This refers the claims form that Teaching Assistants
+at NUS School of Computing have to fill up at the end of each semester to claim money
+for the tasks they have completed.
 
-*Product Name*
+| TA | This is the short form for `Teaching Assistant.
 
-Author: ...
+| SOC or SoC | This is the short form for School of Computing.
 
-Pros:
+| Index | This refers to the position of an item on a list. For example:
+Index of 1 refers to the first item in a list.
 
-* ...
-* ...
+| Matric Number | This refers to a student's matriculation number. For example: A0123456X
 
-Cons:
+| Group | The is the general term given to a group of students a TA teaches. For example:
+lab, tutorial
 
-* ...
-* ...
+| TAT | This is the short form of TA-Tracker.
+
+| NUS | This is the short form of National University of Singapore.
+
+| Module | Refers to one of the academic courses in NUS.
+
+| Tutorial | A tutorial is a regular meeting between a tutor and one or several
+students, for discussion of a subject that is being studied.
+
+| API | Stands for "Application Programming Interface" which simplifies programming
+by abstracting the underlying implementation and only exposing objects or actions
+the developer needs.
+
+| PlantUML | Stands for a software tool that we use to render the diagrams used
+in this document.
+
+| NFR | Stands for "Non-functional Requirement"
+
+| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X.
+
+| MSS |
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+
+
+|=======================================================================
+//end::glossary[]
+//tag::testing[]
 
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+(Contributed by Aakanksha and Fatin)
+
+Given below are instructions to test the app manually. These instructions will help you
+navigate through the app and get an idea of what to test. We suggest you use this in
+conjunction with our User Guide to test the product thoroughly.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+====
+These instructions only provide a starting point for testers to work on; testers
+are expected to do more _exploratory_ testing.
 
+All of these test cases assume that you have launched TA-Tracker for the first time
+and have not changed the sample data provided for you. We also assume that you are doing
+the tests in this order. Therefore modules added in previous steps can be used, etc.
+====
+
+[discrete]
 === Launch and Shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open the folder containing the jar and enter the command `java -jar TaTracker.jar` in the terminal +
+   Expected: TA-Tracker should start in a few seconds.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by following the steps you did in the previous test +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Default view
 
-=== Deleting a person
+.. Switch to a tab different from the student tab. Close the window.
+.. Relaunch the app +
+Expected: The student view under the student app is shown.
 
-. Deleting a person while all persons are listed
+[discrete]
+=== Viewing help
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Opens the help window.
 
-_{ more test cases ... }_
+.. Test Case: `help` +
+Expected: Opens the help window.
 
-=== Saving data
+[discrete]
+=== Changing Tabs
 
-. Dealing with missing/corrupted data files
+. Changes the tab.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test Case: `goto session` +
+Expected: Opens the session tab.
+.. Test Case: `goto claims` +
+Expected: Opens the claims tab.
+.. Test Case: `goto student` +
+Expected: Opens the student tab.
 
-_{ more test cases ... }_
+[discrete]
+=== Adding a module
+
+. Adding a module from any view.
+
+.. Test Case: `module add m/CS1101S n/Programming Methodology I` +
+Expected: A module with the module code `CS1101S` and name `Programming Methodology I`
+is added to the module list in the *Student View*.
+If you were on a different tab, you are automatically switched to the *Student View*.
+
+.. Test Case: `module add m/CS1101S n/PE2` +
+Expected: You will see an error message that this module already exists.
+(Assuming you have added a module with module code `CS1101S`)
+
+[discrete]
+=== Adding a group to a module
+
+. Adding a group to a module.
+.. Test Case: `group add g/G07 m/CS1101S t/tutorial` +
+Expected: A group with group code `G07` of type `tutorial` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add g/G08 m/CS1101S t/lab` +
+Expected: A group with group code `G08` of type `lab` will be added to the module `CS1101S`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add g/G07 m/CS3243 t/lab` +
+Expected: A group with group code `G07` of type `lab` will be added to the module `CS3243`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add t/tutorial m/CS3243 g/G08` +
+Expected: A group with group code `G08` of type `lab` will be added to the module `CS3243`.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+.. Test Case: `group add g/G07 m/CS3243 t/tutorial` +
+Expected: You will see an error message saying that this group already exists in the module.
+(Assuming you added a group with group code `G07` to the module `CS3243`)
+
+.. Test Case: `group add g/G07 m/CS2030 t/lab` +
+Expected: You will see an error message saying that this module does not exists in the module.
+(Assuming that you have not added a module with module code `CS2030`)
+
+.. Test Case: `group add g/G07 m/CS3243 t/lunch` +
+Expected: You will see an error message saying that provided group type was not valid.
+
+[discrete]
+=== Adding students to a group
+
+. Adding a student to a group.
+
+.. Test Case: `student add id/A0184721X g/G06 m/CS3243 n/Jane Doe` +
+Expected: A student named `Jane Doe` with matriculation number `0184721X` is added
+to the group `G06` of the module `CS3243` with a default rating of `3`.
+
+.. Test Case: `student add id/A0184121E g/G06 m/CS3243 n/John Doe r/5` +
+Expected: A student named `John Doe` with matriculation number `A0184121E` is added
+to the group `G06` of the module `CS3243` with a rating of `5`.
+
+.. Test Case: `student add id/A0184121E g/G06 m/CS3243 n/Donald Trump r/5` +
+Expected: You will see an error message saying that this student already exists in the group.
+(Assuming you added a student with matriculation number `A0184121E`
+into the group `G06`, which in turn is inside the module `CS3243`)
+
+[discrete]
+=== Editing a module's name
+
+. Edits the name of a module.
+
+.. Test Case: `module edit m/CS3243 n/New Name`
+Expected: The name of the module with module code `CS3243` will change to `New Name`
+but the groups and students inside it will remain intact.
+
+[discrete]
+=== Editing a group
+
+. Editing a group in a module.
+
+.. Test Case: `group edit g/G06 m/CS3243 nt/tutorial` +
+Expected: The group with group code `G06` will be changed to type `tutorial` inside the module
+`CS3243`. The students inside the group will be unchanged.
+If you were on a different tab, you are automatically switched to *Student View*.
+
+[discrete]
+=== Editing a student
+
+. Editing a student in a group.
+
+.. Test Case: `student edit g/G06 m/CS3243 id/A0187613T r/5` +
+Expected: Changes the rating of the student with matric number `A123456X` to `5`.
+
+
+
+[discrete]
+=== Viewing a specific module
+
+. Allows you to view groups in a particular module.
+
+.. Test Case: `student filter m/CS2103T`
+Expected: You can now view the groups of the module `CS2103T`. You will see the students
+of the group at index 1 of the module's group list.
+
+[discrete]
+=== Viewing a specific group
+
+. Allows you to view students in a particular group of a particular module.
+
+.. Test Case: `student filter g/G03 m/CS2103T`
+Expected: You can now view the groups of the module `CS2103T`. You will see the students
+of the group `G03`.
+
+[discrete]
+=== Sorting a group
+
+. Sorting students in a group.
+
+.. Test Case: `sort group g/G03 m/CS2103T t/alpha` +
+Expected: Sorts all the students in the group `G03` of the module `CS2103T` alphabetically.
+
+[discrete]
+=== Sorting a module
+
+. Sorting students in a module.
+
+.. Test Case: `sort module m/CS2103T t/alpha` +
+Expected: Sorts all the students in all the groups of the module `CS2103T` alphabetically.
+You will see the students in the group at index 1 of the group list of the module `CS2103T`.
+
+[discrete]
+=== Sorting all modules
+
+. Sorting students in all modules.
+
+.. Test Case: `sort all t/alpha` +
+Expected: Sorts all the students in all the groups of all modules alphabetically.
+You will see the students in the group at index 1 of the group list of the module
+at index 1 of the module list.
+
+[discrete]
+=== Adding a session
+
+. Adding a session to the session list.
+
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+ t/consultation n/with Alice and Bob` +
+Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`, which has also been
+set to recur every two weeks, will be added to the sessions list. It will be associated
+with the module `CS2103T` and be a `consultation` with Alice and Bob.
+
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+ t/consultation n/with Alice and Bob` +
+Expected: A duplicate session will be added to the session list
+(Assuming you have entered the same command previously)
+
+[discrete]
+=== Marking a session as done
+
+. Marking a session as done.
+
+.. Test Case: `session done 1` +
+Expected: Marks the session at index `1` of the session list as done. If it is a
+recurring session, a new session will be added in its place, dated after the recurring
+period. The session marked as done will be added to the claims list.
+
+[discrete]
+=== Deleting a session
+
+. Deleting a session.
+
+.. Test Case: `session delete 1` +
+Expected: Deletes the session at index `1` of the session list.
+
+[discrete]
+=== Editing a session
+
+. Editing a session
+
+.. Test Case: `session edit 1 t/lab` +
+Expected: Edits the session at index `1` of the session list to be of type `lab`.
+
+[discrete]
+=== Filtering sessions
+
+. Filtering sessions based on keywords.
+
+.. Test Case: `session filter m/CS3243` +
+Expected: Shows all sessions associated with the *module* `CS3243`.
+.. Test Case: `session filter t/tutorial` +
+Expected: Shows all sessions that are of *type* `tutorial`.
+.. Test Case: `session filter d/2020-03-20` +
+Expected: Shows all sessions on the *date* `2020-03-20`.
+.. Test Case: `session filter d/2020-03-20 t/tutorial m/CS1101S` +
+Expected: Shows all sessions that contains *date* `2020-03-20`, *session type* `tutorial`
+_or_ *module code* `CS1101S`.
+
+[discrete]
+=== Filtering claims
+
+. Filtering claims by module code.
+
+.. Test Case: `claims filter m/CS3243` +
+Expected: Shows all sessions that have been marked as done
+(aka claims) associated with the module `CS3243`.
+
+[discrete]
+=== Listing sessions and claims
+
+. Lists all sessions and claims again (removes all filters that have been previously applied).
+
+.. Test Case: `list` +
+Expected: Shows all sessions and claims that have previously been filtered.
+
+[discrete]
+=== Changing rate
+
+. Setting the hourly rate.
+
+.. Test Case: `setrate 25` +
+Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
+changed accordingly.
+
+[discrete]
+=== Viewing statistics
+
+. Displays the statistics window.
+
+.. Test Case: `report` +
+Expected: Displays the statistics report showing statistics of all modules.
+.. Test Case: `report CS2103T` +
+Expected: Displays the statistics report of the module `CS2103T`.
+
+[discrete]
+=== Applying syntax highlighting on the user input
+(Contributed by Gabriel)
+
+. Highlighting the `full command word`.
+
+.. Test Case: `module delete` +
+Expected: The input is highlighted in green, and the _command usage_ is displayed.
+.. Test Case: `module d` +
+Expected: The input is highlighted in red, and an _unknown command message_ is displayed.
+
+. Showing the command usage after every two whitespaces.
+
+.. Test Case: `module delete m/CS3243  ` +
+Expected: The input is not highlighted, and the _command usage_ is displayed.
+
+. Showing the usage of each `argument`.
+
+.. Test Case: `student add id/A1234J` +
+Expected: The input is highlighted in red, and the _constraint for matric numbers_ is displayed.
+
+.. Test Case: `student add id/A1234567J` +
+Expected: The input is highlighted in green, and the _constraint for matric numbers_ is displayed.
+
+.. Test Case: `student add id/A123J m/CS3243 id/A1234567J` +
+Expected: The input is highlighted in red, and the _constraint for matric numbers_ is displayed.
+This is because the syntax highlighting detects invalid parameters in the user input, even though
+the command can be executed.
+
+.. Test Case: `student add w/5` +
+Expected: The input is highlighted in red, and the _command usage_ is displayed.
+
+. Showing the usage of `preambles`.
+
+.. Test Case: `session edit m/CS3243` +
+Expected: The input is highlighted in red, and the _constraint for index numbers_ is displayed.
+
+[discrete]
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already had a module with module code m/CS3243 in your TA-Tracker,
+this would delete the module with module code m/CS3243. This would also delete all
+groups, students and sessions related to this module.
+.. Test Case: `module delete m/CS3243` +
+Expected: Assuming you already deleted the module with module code m/CS3243 from your TA-Tracker,
+this would show you an error message.
+
+[discrete]
+=== Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G02 m/CS2103T id/A0181137L` +
+Expected: Deletes the student with matric number `A0181137L` from the group `G02`
+of the module `CS2103T`.
+
+[discrete]
+=== Deleting a group
+
+. Deleting a group from a module.
+
+.. Test Case: `group delete g/G02 m/CS2103T` +
+Expected: The group with group code `G02` will be deleted from the module
+`CS2103T`. The students inside the group will be deleted.
+
+[discrete]
+=== Exiting the program
+
+. Exiting the program.
+
+.. Test Case: `exit` +
+Expected: Exits the program.
+//end::testing[]
+//tag::effort[]
+
+[appendix]
+== Effort
+
+(Contributed by Fatin and Aakanksha)
+
+Creating this application was fairly difficult and required much blood, toil, tears and sweat. Cumulatively, the
+project amasses a great *20,000 lines of code* combined. This meant that it required a great deal of *communication and
+discussion amongst all parties*, which was _especially difficult_ due to the quarantine measures that resulted from the
+on-going COVID-19 situation. However, the 5 of us persevered and remedied the situation by holding regular video
+conferences to replace our weekly group meetings.
+
+While AB3 deals with only one entity, this application deals with *multiple entities*.
+
+* *AB3* contains only `Person`. While we were able to refactor some aspects of `Person` into `Student`, we had to create
+`Session`, `Group` and `Module` from scratch.
+* The `UI` of *AB3* only contains one `ListPanel`. On the other hand, TA-Tracker has *5 `ListPanels`* spread out in 3 views -
+the *StudentView*, *SessionView* and *ClaimsView*. This is a big change from *AB3’s* `UI`.
+*  We also have a `StatisticsWindow in addition to our `HelpWindow`, which is significantly more appealing than the
+*AB3* `HelpWindow`.
+
+Furthermore, *TA-Tracker’s* additional features such as `automated tab switching`, `filtering`, `sorting` and `syntax
+highlighting` meant that our app varies greatly from what *AB3* has to offer in terms of user experience. These carefully
+thought out features were _designed primarily with the user’s needs in mind_, to provide the user with a platform that
+would greatly improve the efficiency of tracking duties as a TA.
+
+Due to our inexperience with `UI` work, we had initially planned the *StudentView* to look very different. Therefore, the way
+it was initially implemented differed significantly from the current one. Once we became more familiar with *JavaFX*, we
+realised that our initial plan was no longer feasible within our given timeframe. As a result, we had to change the
+implementation of *StudentView*. Furthermore, a lot of supporting methods were required to allow the `UI` to work the
+way it does.
+
+Another challenge we faced was that we were unaware of restrictions regarding *temporal-based features*. Two of our
+features _relied heavily on timing_, and as a result, they had to be scrapped from the project. This also resulted in our
+group having to do a lot of last-minute brainstorming to come up with ideas for new features as replacements.
+Fortunately, we managed to pull through by designing a highly useful `StatisticsWindow` to improve upon our current
+application.
+
+During this whole process, we took great pains to ensure that the *code quality* of our code-base was upheld by verifying
+every pull request that we make with thorough peer reviews from at least one other party. Nonetheless, our actions
+paid off as we managed to maintain a *Codacy rating of A* throughout the project.
+//end::effort[]

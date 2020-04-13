@@ -4,59 +4,252 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
+package Model {}
+package Storage {}
 
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
+package Logic as LogicPkg {
 
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
+    Interface Logic <<Interface>>
+    Class LogicManager
 
-Interface Logic <<Interface>>
-Class LogicManager
-}
+    package Parser as ParserPkg {
+        Interface Parser <<Interface>>
+        Class TaTrackerParser
 
-package Model{
-Class HiddenModel #FFFFFF
+        Parser .up[hidden]..> TaTrackerParser
+    }
+
+    package Commands as CommandPkg {
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        CommandResult <.left. Command
+    }
+
+    Logic .down.> CommandResult
+
+    Logic <|.left. LogicManager
+
+    LogicManager -right-> "1" TaTrackerParser
+    LogicManager .down.> CommandResult
+    LogicManager .down.> Command
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+'HiddenOutside .[hidden]down.> LogicPkg
+HiddenOutside .down.> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -up-> Storage
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
+LogicManager -right-> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
+
+package Logic {
+    package Parser as ParserPkg {
+
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+        package ParserPackageX {
+            Class XCommandParser
+            note right of XCommandParser
+            <b>XCommandParser</b> =
+            StudentCommandParser,
+            SessionCommandParser, etc.
+            end note
+
+            Class XYCommandParser
+            note right of XYCommandParser
+            <b>XYCommandParser</b> =
+            AddStudentCommandParser,
+            EditSessionCommandParser, etc.
+            end note
+
+            TaTrackerParser .down.> XCommandParser
+            XCommandParser .down.> XYCommandParser
+        }
+
+        XYCommandParser .left.|> Parser
+        Parser .right[hidden].> TaTrackerParser
+
+        Class Prefix
+
+        Class Prefixes
+
+        Class ArgumentTokenizer
+        Class ArgumentMultimap
+
+        Class ParserUtil
+
+
+        Prefixes -right[hidden]- ParserUtil
+        ParserUtil -right[hidden]- ArgumentMultimap
+
+        XYCommandParser .down.> ArgumentMultimap
+        XYCommandParser .down.> ArgumentTokenizer
+        XYCommandParser .down.> Prefixes
+        XYCommandParser .down.> ParserUtil
+
+        ArgumentTokenizer .right.> ArgumentMultimap
+
+        ArgumentTokenizer .down.> Prefix
+        ParserUtil .down.> Prefix
+        Prefixes -down-> "*" Prefix
+    }
+
+    package Commands as CommandsPkg {
+
+        package CommandPackageX {
+            note left of XYCommand
+            <b>XYCommand</b> =
+            AddStudentCommand,
+            EditSessionCommand, etc.
+            end note
+            Class XYCommand
+        }
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        XYCommand -up-|> Command
+
+        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
+    }
+
+    XYCommandParser .right.> XYCommand
+}
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+    package Parser as ParserPkg {
+
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+
+        package ParserPackageX as ModelParser {
+            Class XCommandParser
+
+            TaTrackerParser ..down.> XCommandParser
+        }
+
+        XCommandParser .right.|> Parser
+    }
+
+    package Commands as ModelCommand {
+        package CommandPackageX {
+            Class XCommand
+        }
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        XCommand -up-|> Command
+    }
+
+    XCommandParser .right.> XCommand
+}
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
+
+package Logic {
+    package Parser as ParserPkg {
+
+'        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+
+        package ParserPackageX as ModelParser {
+'            Class XCommandParser
+'            note right of XCommandParser
+'            <b>XCommandParser</b> =
+'            StudentCommandParser,
+'            SessionCommandParser, etc.
+'            end note
+
+            Class XYCommandParser
+            note right of XYCommandParser
+            <b>XYCommandParser</b> =
+            AddStudentCommandParser,
+            EditSessionCommandParser, etc.
+            end note
+
+'            TaTrackerParser .down.> XCommandParser
+'            XCommandParser .down.> XYCommandParser
+        }
+
+        XYCommandParser .up.|> Parser
+'        Parser .right[hidden].> TaTrackerParser
+
+        Class Prefix
+
+        Class ArgumentTokenizer
+        Class ArgumentMultimap
+
+        Class ParserUtil
+
+
+        XYCommandParser .down.> ArgumentMultimap
+        XYCommandParser .down.> ArgumentTokenizer
+        XYCommandParser .down.> ParserUtil
+
+        ArgumentTokenizer .right.> ArgumentMultimap
+
+        ArgumentTokenizer .down.> Prefix
+        ParserUtil .down.> Prefix
+
+    }
+
+    package Commands as ModelCommand {
+        package CommandPackageX {
+            note left of XYCommand
+            <b>XYCommand</b> =
+            AddStudentCommand,
+            EditSessionCommand, etc.
+            end note
+            Class XYCommand
+        }
+
+        Class Prefixes
+
+'        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+'        Command .up.> CommandResult
+        XYCommand -up-|> Command
+
+        XYCommand .down.> Prefixes
+    }
+
+    Prefixes -right[hidden]- ParserUtil
+    Prefixes -down-> "*" Prefix
+
+    XYCommandParser .right.> XYCommand
+'    XYCommandParser .down.> Prefixes
+}
 @enduml

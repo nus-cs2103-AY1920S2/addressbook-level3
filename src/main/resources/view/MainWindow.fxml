@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--@@author fatin99-->
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
+         title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">  <icons>
+    <Image url="@/images/icon.png" />
   </icons>
   <scene>
     <Scene>
@@ -31,29 +33,73 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+               <Menu mnemonicParsing="false" text="Statistics">
+                  <items>
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleStatistic" text="Statistics" />
+                  </items>
+               </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+          <tabs>
+            <Tab fx:id="studentListTab" text="Student">
+              <content>
+                <SplitPane dividerPositions="0.2, 0.4">
+                  <items>
+                    <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </items>
+                </SplitPane>
+              </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/student_icon.png" />
+                </ImageView>
+              </graphic>
+            </Tab>
+            <Tab fx:id="sessionListTab" text="Session">
+              <content>
+                <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/session_icon.png" />
+                </ImageView>
+              </graphic>
+            </Tab>
+            <Tab fx:id="claimsListTab" text="Claims">
+               <content>
+                 <SplitPane dividerPositions="0.2">
+                   <items>
+                     <StackPane fx:id="moduleListPanelPlaceholderCopy" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   </items>
+                 </SplitPane>
+               </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/claims_icon.png" />
+                </ImageView>
+              </graphic>
+            </Tab>
+          </tabs>
+        </TabPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
       </VBox>
     </Scene>
   </scene>

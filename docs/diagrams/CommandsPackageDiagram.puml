@@ -1,0 +1,130 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam noteBackgroundColor LOGIC_COLOR_T1
+skinparam noteBorderColor LOGIC_COLOR_1
+
+Package Commands <<Rectangle>>{
+
+note as Sidenote
+These are <b>packages</b> with
+a number of classes inside them
+end note
+
+Class "{abstract}\nCommand" as Command
+
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
+
+Commons .down.> Command
+Module .down.> Command
+Group .down.> Command
+Student .down.> Command
+Sort .down.> Command
+Session .down.> Command
+Statistic .down.> Command
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor WHITE
+skinparam classHeaderBackgroundColor LOGIC_COLOR
+skinparam classBorderColor LOGIC_COLOR
+skinparam classAttributeIconSize 0
+
+Package Commands <<Rectangle>>{
+Class CommandDictionary
+
+Class CommandDetails {
+    - commandWord : String
+    - subWord : String
+    - info : String
+    - usage : String
+    - example : String
+}
+
+show CommandDetails members
+hide CommandDetails methods
+
+Package CommandPackageX {
+    Class XCommand
+}
+
+Class CommandWords
+
+
+CommandDictionary -right-> "*" CommandDetails : command details
+XCommand -up-> "1" CommandDetails
+
+Class "{abstract}\nCommand" as Command
+XCommand -left-|> Command
+XCommand .up.> CommandWords
+
+CommandDictionary -down[hidden]-> CommandWords
+Command -up[hidden]-> CommandWords
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Package Commands <<Rectangle>>{
+Class CommandDictionary
+Class CommandDetails {
+    String id
+}
+
+
+Class CommandWords
+
+Package Commons {
+    Class HI1 #FFFFFF
+}
+Package Module {
+    Class HI2 #FFFFFF
+}
+Package Group {
+    Class HI3 #FFFFFF
+}
+Package Student {
+    Class HI4 #FFFFFF
+}
+Package Sort {
+    Class HI5 #FFFFFF
+}
+Package Session {
+    Class HI6 #FFFFFF
+}
+Package Statistic {
+    Class HI7 #FFFFFF
+}
+
+CommandDictionary --> "*" CommandDetails : command details
+
+HI1 .up.> CommandDetails
+HI2 .up.> CommandDetails
+HI3 .up.> CommandDetails
+HI4 .up.> CommandDetails
+HI5 .up.> CommandDetails
+HI6 .up.> CommandDetails
+HI7 .up.> CommandDetails
+
+HI1 .down.> CommandWords
+HI2 .down.> CommandWords
+HI3 .down.> CommandWords
+HI4 .down.> CommandWords
+HI5 .down.> CommandWords
+HI6 .down.> CommandWords
+HI7 .down.> CommandWords
+@enduml

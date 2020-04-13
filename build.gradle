@@ -8,6 +8,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id 'pmd'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -15,7 +16,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'tatracker.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -39,6 +40,29 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+}
+
+apply plugin: 'findbugs'
+findbugs {
+    ignoreFailures = false
+    toolVersion = "3.0.1"
+    sourceSets=[sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/findbugs")
+    effort = "max"
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+
+pmd {
+    toolVersion = '6.22.0'
+    ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/pmd")
 }
 
 dependencies {
@@ -67,7 +91,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'TaTracker.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,9 +157,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'TA-Tracker',
+        'site-githuburl': 'https://github.com/AY1920S2-CS2103T-W17-4/main',
     ]
 
     options['template_dirs'].each {

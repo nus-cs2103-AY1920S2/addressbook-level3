@@ -1,0 +1,112 @@
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
+:fbl: pass:[ +]
+
+=== Gabriel Benedict Teo Jian Cheng - UML Diagrams
+
+Some sections from the explanations have been removed from this document in order
+to fit the page requirement. Please read the Developer Guide for more detailed
+explanations.
+
+'''
+
+==== Logic Component
+
+The following _Class Diagrams_ show a break down of the `Logic` component at different levels of abstraction.
+
+
+[width="%",cols="<40%a,<60%a"]
+|====
+|
+[[Fig-Left]]
+.Structure of the Logic Component
+image::LogicClassDiagram1.png[,300]
+|
+[[Fig-Right]]
+.Logic Component - Organization of commands and parsers
+image::LogicClassDiagram2.png[,400]
+|====
+
+<<Fig-Left, The _Class Diagram_ on the left>> shows the highest level of abstraction in the `Logic` component:
+
+* `LogicManager` is the main driver class of the `Logic` component.
+* The `Command` class and `Parser` interface are in their own packages.
+* The `Logic` component interacts with other components.
+
+<<Fig-Left, The _Class Diagram_ on the right>> shows a clear relationship between *parsers* and *commands*.
+
+==== Syntax Highlighting
+
+This feature applies syntax highlighting on the user input whenever it changes in the `CommandBox`.
+
+[width="%",cols="<50%a,<50%a"]
+|====
+|
+[[Fig-SH]]
+.Syntax Highlighting - Class Diagram
+image::SyntaxHighlightingClassDiagram.png[,280]
+|
+<<Fig-Left, The _Class Diagram_ on the left>> shows the important classes in the `UI` and `Logic` components
+that are used in the _Syntax Highlighting_ feature.
+|====
+
+The following _Activity Diagrams_ outline each step of the _Syntax Highlighting_ feature.
+
+[NOTE]
+====
+* The `full command word` is the first few words of the user input that identifies the command that the user wants to execute.
+* An `argument` contains a `prefix` and a `value`. Each command is made up of many arguments.
+* The `preamble` is everything (including whitespaces) between the `full command word` and the first `argument` in the user's input.
+====
+
+[width="%",cols="<50%a,<50%a"]
+|====
+|
+[[Fig-1]]
+.Step 1 - Highlighting a new input
+image::SyntaxHighlightingActivityDiagram1.png[,330]
+|
+<<Fig-1, The _Activity Diagram_ on the left>> shows how the `full command word` is highlighted,
+up until the beginning of the `preamble`.
+
+There should be a _rake symbol_ next to the *bolded* activity: *Highlight arguments*.
+|
+[[Fig-2]]
+.Step 2 - Highlighting the preamble
+image::SyntaxHighlightingActivityDiagram2.png[,330]
+|
+<<Fig-2, The _Activity Diagram_ on the left>> shows how the `preamble` is highlighted,
+up until the beginning of the first `argument`.
+
+There should be a _rake symbol_ next to the *bolded* activities: *Highlight invalid arguments*.
+|
+[[Fig-3]]
+.Step 3 - Highlighting the remaining arguments
+image::SyntaxHighlightingActivityDiagram3.png[,330]
+|
+<<Fig-3, The _Activity Diagram_ on the left>> explains how each `argument` is highlighted,
+up until end of the user input.
+|====
+
+==== Student Commands
+
+The following _Sequence Diagram_ shows how `Student` objects are removed from the TA-Tracker
+when the `DeleteStudentCommand` is executed.
+
+[[Fig-Student]]
+.Student Delete - Sequence Diagram
+image::DeleteStudentSequenceDiagram.png[,1000]
+
+<<Fig-Student, In the _Sequence Diagram_ above>>,
+
+* Each *parser* extracts the command's parameters from the user's input.
+* A `DeleteStudentCommand` is created at the end of a chain of *parsers*.
+* A `DeleteStudentCommand` then interacts with the `Model` to check that student with the matric number exists in the provided group and module,
+before finally removing the student.

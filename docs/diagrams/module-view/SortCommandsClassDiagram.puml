@@ -1,0 +1,16 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+abstract class Command
+class SortCommand
+class SortModuleCommand
+class SortGroupCommand
+
+SortGroupCommand -up-|> Command
+SortModuleCommand -up-|> SortGroupCommand
+SortCommand -up-|> SortGroupCommand
+
+@enduml

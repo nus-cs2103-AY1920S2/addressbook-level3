@@ -1,0 +1,131 @@
+= Aakanksha Rai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TA-Tracker
+
+=== Overview
+
+TA-Tracker is a productivity tool made for *NUS Computing Teaching Assistants (TAs)*
+who want to be able to track and manage all of their claimable hours and the students
+they are teaching in one place. The application is written in *Java* and spans *20k
+Lines of Code*.
+
+=== Summary of contributions
+
+*Student View* refers to the view that allows the user to manage their students.
+As the main developer that created *Student View*, my main contributions were in
+the *Student View*. They include *creating models, writing commands, creating tests
+and adding documentation for the Student View*. In total, I wrote almost *7kLoc*.
+
+==== Create the Models
+
+I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
+that were used in *Student View* from scratch.
+These models are necessary to ensure the
+proper functioning of the commands in the *Student View*.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/88[#88])
+
+I created a lot of supporting methods for the UI, especially the highlighting feature
+which highlights the currently shown module and group.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/202[#202])
+
+I also added the required support for the filter feature in the models which allows
+the user to filter the students they're viewing by module code and group code.
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/191[#191]).
+
+==== Sort Commands
+
+* *What it does:* Allows the user to sort the students by rating (in ascending or
+descending order), by matriculation number or alphabetically. There are three variations
+of the sort - `sort all` which is used to sort *all students in all groups of all modules*,
+`sort module` which is used to sort *all students in all groups of a particular module* and
+`sort group` which is used to sort *all students in a particular group of a particular module*.
+* *Justification:* This feature improves the product as TA's are often required to
+sort their students in different ways. For example, *alphabetically* when taking attendance,
+by *matriculation number* when grading assessments or by *rating* when keeping track of
+strong or weak students.
+* This feature was difficult to implement as it had several sub-parts.
+Furthermore, it had initially been implemented in a different way
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/195[#195],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/200[#200])
+but later had to be changed in order for it to be compatible with the *interactive parser*
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/205[#205]).
+
+==== Other Commands
+The other commands I implemented are:
+
+. `module add` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/102[#102])
+. `module delete` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/107[#107])
+. `module edit` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/206[#206])
+. `group add` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/121[#121])
+. `group delete` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/122[#122])
+. `group edit` (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/196[#196])
+
+* These commands are needed to manipulate data in the *Student View*.
+* Overall, these commands required a fair amount of work, especially due
+to the possible edge cases they have such as the user changing the group code to that
+of a pre-existing group.
+
+==== Testing
+
+I created all the classes required to test the *Student View* such as `GroupBuilder`,
+`ModuleBuilder`, `TypicalGroups`, `TypicalModules`, etc. I also wrote the tests
+for all my enhancements and have an average coverage over 85% for my sections in the
+codebase. (https://github.com/AY1920S2-CS2103T-W17-4/main/pull/232[#232],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/345[#345])
+
+**The code I contributed can be found
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=aakanksha-rai[here].**
+
+==== Other contributions:
+
+** Managed release `v1.4` on GitHub
+
+** Refactored the codebase to make it match TA-Tracker
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/142[#142])
+
+** Documentation:
+*** Created a User Guide skeleton for everyone to follow and made a few cosmetic
+tweaks to existing contents (such as adding a table for the common parameters and the glossary)
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/215[#215])
+*** Updated the User Guide and Developer Guide with details for the Student View
+and the commands used in the Student View.
+*** Added screenshots of the UI with annotations to the User Guide for all commands
+(https://github.com/AY1920S2-CS2103T-W17-4/main/pull/371[#371])
+
+** Community:
+*** I reviewed PRs to help maintain code and documentation quality. Some examples are:
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/187[#187], https://github.com/AY1920S2-CS2103T-W17-4/main/pull/208[#208],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[#179], https://github.com/AY1920S2-CS2103T-W17-4/main/pull/364[#364],
+
+*** I also contributed to forum discussions. Some examples are:
+https://github.com/nus-cs2103-AY1920S2/forum/issues/105[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/98[2]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are some of the sections I contributed to the User Guide. They showcase my
+ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addmodule]
+
+include::../UserGuide.adoc[tag=editgroup]
+
+include::../UserGuide.adoc[tag=sortgroup]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase
+my ability to write technical documentation and the technical depth of my
+contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=studentviewmodel]
+
+include::../DeveloperGuide.adoc[tag=sortgroupmoduleall]
+
+include::../DeveloperGuide.adoc[tag=moduleaddeditdelete]

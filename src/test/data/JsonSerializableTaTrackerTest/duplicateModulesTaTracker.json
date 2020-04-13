@@ -1,0 +1,38 @@
+{
+  "sessions" : [ ],
+  "doneSessions" : [ ],
+  "modules" : [ {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "sessions" : [ ],
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "name" : "Alice Pauline",
+        "phone" : "94351253",
+        "email" : "alice@example.com",
+        "matric" : "A0193235J",
+        "rating" : 1,
+        "tagged" : [ "friends" ]
+      } ]
+    } ]
+  }, {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "sessions" : [ ],
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "name" : "Alice Pauline",
+        "phone" : "94351253",
+        "email" : "alice@example.com",
+        "matric" : "A0193235J",
+        "rating" : 1,
+        "tagged" : [ "friends" ]
+      } ]
+    } ]
+  } ],
+  "rate" : 40
+}

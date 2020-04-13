@@ -1,0 +1,184 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
+participant ":DeleteStudentCommandParser" as DeleteStudentCommandParser LOGIC_COLOR
+participant "d:DeleteStudentCommand" as DeleteStudentCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("student \ndelete A0181234G")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("student \ndelete A0181234G")
+activate TaTrackerParser
+
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser: StudentCommandParser()
+activate StudentCommandParser
+
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parse("delete \nA0181234G")
+activate StudentCommandParser
+
+create DeleteStudentCommandParser
+StudentCommandParser -> DeleteStudentCommandParser
+activate DeleteStudentCommandParser
+
+DeleteStudentCommandParser --> StudentCommandParser
+deactivate DeleteStudentCommandParser
+
+StudentCommandParser -> DeleteStudentCommandParser : parse("A0181234G")
+activate DeleteStudentCommandParser
+
+create DeleteStudentCommand
+DeleteStudentCommandParser -> DeleteStudentCommand
+activate DeleteStudentCommand
+
+DeleteStudentCommand --> DeleteStudentCommandParser : d
+deactivate DeleteStudentCommand
+
+DeleteStudentCommandParser --> StudentCommandParser : d
+deactivate DeleteStudentCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteStudentCommandParser -[hidden]-> StudentCommandParser
+destroy DeleteStudentCommandParser
+
+StudentCommandParser --> TaTrackerParser : d
+deactivate StudentCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> DeleteStudentCommand : execute()
+activate DeleteStudentCommand
+
+DeleteStudentCommand -> Model : deleteStudent(A0181234G)
+activate Model
+
+Model --> DeleteStudentCommand
+deactivate Model
+
+create CommandResult
+DeleteStudentCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteStudentCommand
+deactivate CommandResult
+
+DeleteStudentCommand --> LogicManager : result
+deactivate DeleteStudentCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
+
+
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
+participant ":DeleteStudentCommandParser" as DeleteStudentCommandParser LOGIC_COLOR
+participant "d:DeleteStudentCommand" as DeleteStudentCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("student delete\n        m/CS2103\n   g/G03\n                id/A0181234G")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("student delete\n                    m/CS2103\n               g/G03\n                            id/A0181234G")
+activate TaTrackerParser
+
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser : StudentCommandParser()
+activate StudentCommandParser
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parseCommand("delete\n                                 m/CS2103\n                            g/G03\n                                          id/A0181234G")
+activate StudentCommandParser
+
+create DeleteStudentCommandParser
+StudentCommandParser -> DeleteStudentCommandParser : DeleteStudentCommandParser()
+activate DeleteStudentCommandParser
+DeleteStudentCommandParser --> StudentCommandParser
+deactivate DeleteStudentCommandParser
+
+StudentCommandParser -> DeleteStudentCommandParser : parseCommand(m/CS2103\n                    g/G03\n                                 id/A0181234G")
+activate DeleteStudentCommandParser
+
+create DeleteStudentCommand
+DeleteStudentCommandParser -> DeleteStudentCommand : DeleteStudentCommand(id, g, m)
+activate DeleteStudentCommand
+DeleteStudentCommand --> DeleteStudentCommandParser
+deactivate DeleteStudentCommand
+
+DeleteStudentCommandParser --> StudentCommandParser : d
+deactivate DeleteStudentCommandParser
+DeleteStudentCommandParser -[hidden]-> StudentCommandParser
+destroy DeleteStudentCommandParser
+
+StudentCommandParser --> TaTrackerParser : d
+deactivate StudentCommandParser
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> DeleteStudentCommand : execute()
+activate DeleteStudentCommand
+
+DeleteStudentCommand -> Model : hasModule("CS2103")
+activate Model
+Model --> DeleteStudentCommand : true
+'deactivate Model
+
+DeleteStudentCommand -> Model : hasGroup("G03", "CS2103")
+'activate Model
+Model --> DeleteStudentCommand : true
+'deactivate Model
+
+DeleteStudentCommand -> Model : hasStudent("A0181234G", "G03", "CS2103")
+'activate Model
+Model --> DeleteStudentCommand : true
+'deactivate Model
+
+DeleteStudentCommand -> Model : deleteStudent("A0181234G", "G03", "CS2103")
+'activate Model
+Model --> DeleteStudentCommand
+deactivate Model
+
+create CommandResult
+DeleteStudentCommand -> CommandResult : CommandResult()
+activate CommandResult
+CommandResult --> DeleteStudentCommand : result
+deactivate CommandResult
+
+DeleteStudentCommand --> LogicManager : result
+deactivate DeleteStudentCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

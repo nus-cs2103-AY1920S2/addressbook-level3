@@ -1,0 +1,115 @@
+= Chua Yi Jing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TA-Tracker
+
+== OverView
+
+This portfolio seeks to document my contributions to our team's project, TA-Tracker.
+Ta-Tracker is a productivity tool designed for NUS School of Computing
+Teaching Assistants (TAs).
+TAs can track and manage all their claimable hours and the students
+they are teaching in one place.
+
+== About this portfolio
+This project portfolio details my individual contributions to the TA-Tracker project.
+It includes a summary of the enhancements and other contributions I made throughout
+the duration of the project. Additionally, portions of my contribution to the User Guide
+and Developer Guide have also been included.
+
+== Summary of contributions
+
+The contributions I have made towards the team project are detailed in this section.
+
+=== Major Enhancement: I added the ability to filter under each view.
+
+* *What it does*: The `filter` command allows the user to search for relevant information
+under the different views.
+** Under the Student View, there is `FilterStudentCommand` to filter the students.
+** Under the Session View, there is `FilterSessionCommand` to filter the sessions.
+** Under the Claims View, there is `FilterClaimCommand` to filter the claims.
+
+* *Justification*: This is a necessary feature for a system that manages
+a lot of data. Sometimes, users only need to view specific information.
+That is when the `filter` command is handy.
+
+* *Highlights*: This enhancement affects existing commands and has to support future commands.
+Since the filtering works differently under the different views,
+the implementation of each filter command is different. The implementation was
+challenging as it required a lot of changes to the existing find command in AB3.
+Furthermore, there was a need to ensure that certain restrictions are met
+before doing the filtering to ensure that our codebase is consistent.
+
+==== Major Enhancement: Recurring Sessions.
+
+* *What it does*:
+Recurring sessions allows TAs to mark a session as recurring so they don't have to enter
+it again and again.
+When the TA marks a recurring session as done, a new session with the updated date
+will be added to the list of sessions.
+
+* *Justification*: Certain tasks that TAs have are weekly, such as weekly tutorials.
+ This feature makes TA-Tracker more user-friendly as the
+user does not have to key in the same details for a session every week manually.
+
+* *Highlights*: This feature was difficult to implement as there were several considerations to be
+taken care of. Furthermore, it had been implemented in a different way. We initially
+assumed that recurring lessons would be on a weekly basis. However, we realised that we
+should not make that assumption. Significant changes were made in order to allow TAs to indicate
+the number of recurring weeks that they want.
+
+==== Other Minor Enhancements : Session related commands.
+
+* *Justifications*: `AddSessionCommand`, `DeleteSessionCommand` and `list` commands
+are essential for TAs to manipulate data in Session View.
+
+* *Highlights*: While they are minor enhancements, implementation of these commands have
+to be thorough. This is because there are many small details to take note of.
+One example is the sorting of sessions when TA adds a new session.
+Sessions shown to TA have to be sorted based on date, start time and end time of sessions.
+
+== Code Contributed
+The code I contributed can be found https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=chuayijing[here].
+
+== Other Contributions:
+
+* Enhancements to existing features:
+
+**  I wrote additional tests for existing features to increase
+coverage from 58% to 61%
+(Pull request: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/343[#343])
+
+** I fixed bugs reported by test users of the application.
+(Pull requests: https://github.com/AY1920S2-CS2103T-W17-4/main/pull/339[#339],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/325[#325],
+https://github.com/AY1920S2-CS2103T-W17-4/main/pull/328[#328])
+
+== Contributions to the User Guide
+We wrote a User Guide targeted at the users of TA-Tracker.
+The User Guide contains instructions on how to use the various commands
+of the application. The following is an excerpt from our User Guide,
+showing additions that I have made for `filter` and `Session` features.
+
+include::../UserGuide.adoc[tag=sessionview]
+include::../UserGuide.adoc[tag=addsession]
+include::../UserGuide.adoc[tag=deletesession]
+include::../UserGuide.adoc[tag=donesession]
+include::../UserGuide.adoc[tag=filtersession]
+include::../UserGuide.adoc[tag=filterclaims]
+
+
+== Contributions to the Developer Guide
+
+In addition to a User Guide, we wrote a Developer Guide
+targeted at developers who are interested in contributing to the project.
+The Developer Guide showcases my ability to write technical documentation
+and the technical depth of my contributions to the project.
+Given below is my contribution to the Developer Guide:
+
+include::../DeveloperGuide.adoc[tag=sessionmodel]
+include::../DeveloperGuide.adoc[tag=sessiondone]
+include::../DeveloperGuide.adoc[tag=sessioncommands]
+include::../DeveloperGuide.adoc[tag=filter]
+

@@ -1,0 +1,38 @@
+@startuml
+start
+:User executes filter command;
+
+:User can call filter command on
+    claims, student or session;
+
+:Parse and validate the keywords;
+
+:Respective filter command will be called;
+
+if () then ([filterClaimCommand OR
+filterSessionCommand is called])
+    :User key in keywords;
+    :Create filtering predicate
+    using the keywords specified;
+    :Update the filtered list;
+    :Display the filtered list to the user;
+
+
+else ([filterStudentCommand is called])
+    :User filter via module code
+           and/or group code ;
+
+    if () then ([group code does not exists])
+       :Update the filtered list with students
+        from first group of the module code;
+    else ([group code exists])
+       :Update the filtered list with students
+        from group code and module code;
+
+endif
+:Display the filtered list to the user;
+
+endif
+
+stop
+@enduml

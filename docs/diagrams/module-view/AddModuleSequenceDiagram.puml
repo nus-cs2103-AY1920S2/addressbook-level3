@@ -1,0 +1,91 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":AddModuleCommandParser" as AddModuleCommandParser LOGIC_COLOR
+participant "a:AddModuleCommand" as AddModuleCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Module" as Module MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("module \nadd m/CS2103 \nn/Software Engineering")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("module \nadd m/CS2103 \nn/Software Engineering")
+activate TaTrackerParser
+
+create ModuleCommandParser
+TaTrackerParser -> ModuleCommandParser : ModuleCommandParser()
+activate ModuleCommandParser
+ModuleCommandParser --> TaTrackerParser
+deactivate ModuleCommandParser
+
+TaTrackerParser -> ModuleCommandParser : parseCommand("add m/CS2103 \nn/Software Engineering")
+activate ModuleCommandParser
+
+create AddModuleCommandParser
+ModuleCommandParser -> AddModuleCommandParser : AddModuleCommandParser()
+activate AddModuleCommandParser
+AddModuleCommandParser --> ModuleCommandParser
+deactivate AddModuleCommandParser
+
+ModuleCommandParser -> AddModuleCommandParser : parseCommand("m/CS2103 \nn/Software Engineering")
+activate AddModuleCommandParser
+
+create Module
+AddModuleCommandParser -> Module : Module("CS2103", "Software Engineering")
+activate Module
+Module --> AddModuleCommandParser
+deactivate Module
+
+create AddModuleCommand
+AddModuleCommandParser -> AddModuleCommand : AddModuleCommand(m)
+activate AddModuleCommand
+AddModuleCommand --> AddModuleCommandParser
+deactivate AddModuleCommand
+
+
+
+AddModuleCommandParser --> ModuleCommandParser : a
+deactivate AddModuleCommandParser
+AddModuleCommandParser -[hidden]-> ModuleCommandParser
+destroy AddModuleCommandParser
+
+ModuleCommandParser --> TaTrackerParser : a
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> TaTrackerParser
+destroy ModuleCommandParser
+
+TaTrackerParser --> LogicManager : a
+deactivate TaTrackerParser
+
+LogicManager -> AddModuleCommand : execute()
+activate AddModuleCommand
+
+AddModuleCommand -> Model : hasModule("CS2103")
+activate Model
+Model --> AddModuleCommand
+
+AddModuleCommand -> Model : addModule(m)
+Model --> AddModuleCommand
+deactivate Model
+
+create CommandResult
+AddModuleCommand -> CommandResult : CommandResult()
+activate CommandResult
+CommandResult --> AddModuleCommand
+deactivate CommandResult
+
+AddModuleCommand --> LogicManager : result
+deactivate AddModuleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

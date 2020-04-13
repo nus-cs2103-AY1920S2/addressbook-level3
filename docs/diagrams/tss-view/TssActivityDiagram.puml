@@ -1,0 +1,16 @@
+@startuml
+start
+:A DoneSessionCommand is called;
+  :Session is added to UniqueDoneSessionList;
+
+  if () then (session is recurring)
+    :A new session is created with startTime
+    and endTime incremented;
+    :New session is added to UniqueSessionList;
+
+    else (session is not recurring)
+endif
+    :Old session is deleted from UniqueSessionList;
+
+    stop
+@enduml

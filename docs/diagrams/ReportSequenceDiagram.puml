@@ -1,0 +1,117 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":StatisticWindow" as StatisticWindow UI_COLOR
+
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":ShowStatisticCommandParser" as ShowStatisticCommandParser LOGIC_COLOR
+participant "c:ShowStatisticCommand" as ShowStatisticCommand LOGIC_COLOR
+participant ":StatisticCommandResult" as CommandResult LOGIC_COLOR
+participant ":Statistic" as Statistic LOGIC_COLOR
+participant ":ReadOnlyTaTracker" as ReadOnlyTaTracker LOGIC_COLOR
+
+end box
+
+
+[-> MainWindow : User enters command 'report CS3247'
+activate LogicManager
+
+activate MainWindow
+MainWindow -> LogicManager : execute("report CS3247")
+
+LogicManager -> TaTrackerParser : parseCommand("report CS3247")
+activate TaTrackerParser
+
+create ShowStatisticCommandParser
+TaTrackerParser -> ShowStatisticCommandParser
+activate ShowStatisticCommandParser
+
+ShowStatisticCommandParser --> TaTrackerParser
+deactivate ShowStatisticCommandParser
+
+TaTrackerParser -> ShowStatisticCommandParser : parse("CS3247")
+activate ShowStatisticCommandParser
+
+create ShowStatisticCommand
+ShowStatisticCommandParser -> ShowStatisticCommand
+activate ShowStatisticCommand
+
+ShowStatisticCommand --> ShowStatisticCommandParser : c
+deactivate ShowStatisticCommand
+
+ShowStatisticCommandParser --> TaTrackerParser : c
+deactivate ShowStatisticCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShowStatisticCommandParser -[hidden]-> TaTrackerParser
+destroy ShowStatisticCommandParser
+
+TaTrackerParser --> LogicManager : c
+deactivate TaTrackerParser
+
+LogicManager -> ShowStatisticCommand : execute()
+activate ShowStatisticCommand
+
+create CommandResult
+ShowStatisticCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShowStatisticCommand
+deactivate CommandResult
+
+ShowStatisticCommand --> LogicManager
+deactivate ShowStatisticCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> MainWindow : handleStatistic("CS3247")
+activate MainWindow
+
+create Statistic
+MainWindow -> Statistic
+activate Statistic
+
+'Read data from Logic
+Statistic -> ReadOnlyTaTracker : Retrieve Sessions and Students
+activate ReadOnlyTaTracker
+ReadOnlyTaTracker --> Statistic
+deactivate ReadOnlyTaTracker
+
+Statistic --> MainWindow
+deactivate Statistic
+
+create StatisticWindow
+MainWindow -> StatisticWindow
+activate StatisticWindow
+
+'Read from Statistic to gather Data
+StatisticWindow -> Statistic : Retrieve Statistical Data
+activate Statistic
+
+Statistic --> StatisticWindow
+deactivate Statistic
+
+StatisticWindow --> MainWindow
+deactivate StatisticWindow
+
+MainWindow -> StatisticWindow : Show Window
+activate StatisticWindow
+StatisticWindow --> MainWindow
+deactivate StatisticWindow
+
+MainWindow -> StatisticWindow : Focus Window
+activate StatisticWindow
+StatisticWindow --> MainWindow
+deactivate StatisticWindow
+
+return
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

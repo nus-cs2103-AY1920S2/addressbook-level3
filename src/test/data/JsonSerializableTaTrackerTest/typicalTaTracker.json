@@ -1,0 +1,184 @@
+{
+  "sessions" : [ {
+    "type" : "LAB",
+    "description" : "prepare notes",
+    "moduleId" : "CS3243",
+    "isDone" : false,
+    "recurring" : 2,
+    "startDateTime" : "2020-04-10T10:00",
+    "endDateTime" : "2020-04-10T11:00"
+  }, {
+    "type" : "GRADING",
+    "description" : "grade group 1 first",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 0,
+    "startDateTime" : "2020-04-29T09:30",
+    "endDateTime" : "2020-04-29T11:00"
+  }, {
+    "type" : "CONSULTATION",
+    "description" : "with Alice and Bob",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 1,
+    "startDateTime" : "2020-04-30T13:00",
+    "endDateTime" : "2020-04-30T14:30"
+  }, {
+    "type" : "GRADING",
+    "description" : "clarifications for Bob's question",
+    "moduleId" : "CS3243",
+    "isDone" : false,
+    "recurring" : 0,
+    "startDateTime" : "2020-05-26T14:00",
+    "endDateTime" : "2020-05-26T17:00"
+  }, {
+    "type" : "TUTORIAL",
+    "description" : "check work",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 1,
+    "startDateTime" : "2020-06-26T14:00",
+    "endDateTime" : "2020-06-26T15:00"
+  } ],
+  "doneSessions" : [ {
+    "type" : "GRADING",
+    "description" : "grade group 1 first",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 0,
+    "startDateTime" : "2020-03-21T09:30",
+    "endDateTime" : "2020-03-21T11:00"
+  }, {
+    "type" : "CONSULTATION",
+    "description" : "clarifications for Alice's question",
+    "moduleId" : "CS3243",
+    "isDone" : false,
+    "recurring" : 0,
+    "startDateTime" : "2020-03-26T14:00",
+    "endDateTime" : "2020-03-26T17:00"
+  } ],
+  "modules" : [ {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "matric" : "A0187613T",
+        "name" : "Roy Balakrishnan",
+        "phone" : "92624417",
+        "email" : "royb@example.com",
+        "rating" : 4,
+        "tagged" : [ "colleagues" ]
+      }, {
+        "matric" : "A0195558H",
+        "name" : "Jeffry Lum",
+        "phone" : "65162727",
+        "email" : "Jeffry@u.nus.edu",
+        "rating" : 5,
+        "tagged" : [ "tutors" ]
+      } ]
+    }, {
+      "id" : "G01",
+      "type" : "TUTORIAL",
+      "students" : [ {
+        "matric" : "A0187945J",
+        "name" : "Alex Yeoh",
+        "phone" : "87438807",
+        "email" : "alexyeoh@example.com",
+        "rating" : 4,
+        "tagged" : [ "friends" ]
+      }, {
+        "matric" : "A0181137L",
+        "name" : "Bernice Yu",
+        "phone" : "99272758",
+        "email" : "berniceyu@example.com",
+        "rating" : 1,
+        "tagged" : [ "colleagues", "friends" ]
+      }, {
+        "matric" : "A0187565N",
+        "name" : "Charlotte Oliveiro",
+        "phone" : "93210283",
+        "email" : "charlotte@example.com",
+        "rating" : 5,
+        "tagged" : [ "neighbours" ]
+      }, {
+        "matric" : "A0186153P",
+        "name" : "David Li",
+        "phone" : "91031282",
+        "email" : "lidavid@example.com",
+        "rating" : 3,
+        "tagged" : [ "family" ]
+      }, {
+        "matric" : "A0180474R",
+        "name" : "Irfan Ibrahim",
+        "phone" : "92492021",
+        "email" : "irfan@example.com",
+        "rating" : 2,
+        "tagged" : [ "classmates" ]
+      } ]
+    } ]
+  }, {
+    "id" : "CS2103T",
+    "name" : "Software Engineering",
+    "groups" : [ {
+      "id" : "G03",
+      "type" : "OTHER",
+      "students" : [ {
+        "matric" : "A0186153P",
+        "name" : "David Li",
+        "phone" : "91031282",
+        "email" : "lidavid@example.com",
+        "rating" : 3,
+        "tagged" : [ "family" ]
+      }, {
+        "matric" : "A0180474R",
+        "name" : "Irfan Ibrahim",
+        "phone" : "92492021",
+        "email" : "irfan@example.com",
+        "rating" : 2,
+        "tagged" : [ "classmates" ]
+      }, {
+        "matric" : "A0187613T",
+        "name" : "Roy Balakrishnan",
+        "phone" : "92624417",
+        "email" : "royb@example.com",
+        "rating" : 4,
+        "tagged" : [ "colleagues" ]
+      }, {
+        "matric" : "A0195558H",
+        "name" : "Jeffry Lum",
+        "phone" : "65162727",
+        "email" : "Jeffry@u.nus.edu",
+        "rating" : 5,
+        "tagged" : [ "tutors" ]
+      } ]
+    }, {
+      "id" : "G02",
+      "type" : "LAB",
+      "students" : [ {
+        "matric" : "A0187945J",
+        "name" : "Alex Yeoh",
+        "phone" : "87438807",
+        "email" : "alexyeoh@example.com",
+        "rating" : 4,
+        "tagged" : [ "friends" ]
+      }, {
+        "matric" : "A0181137L",
+        "name" : "Bernice Yu",
+        "phone" : "99272758",
+        "email" : "berniceyu@example.com",
+        "rating" : 1,
+        "tagged" : [ "colleagues", "friends" ]
+      }, {
+        "matric" : "A0187565N",
+        "name" : "Charlotte Oliveiro",
+        "phone" : "93210283",
+        "email" : "charlotte@example.com",
+        "rating" : 5,
+        "tagged" : [ "neighbours" ]
+      } ]
+    } ]
+  } ],
+  "rate" : 40
+}

@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+    Class MainWindow
+    Class ResultDisplay
+    Class CommandBox
+    Class CommandBoxUtil
+    Class ArgumentMatch
+    Class CommandMatch
+}
+
+package Logic <<Rectangle>>{
+    Class CommandDictionary LOGIC_COLOR
+    Class CommandDetails LOGIC_COLOR
+    Class PrefixDictionary LOGIC_COLOR
+    Class PrefixDetails LOGIC_COLOR
+}
+
+CommandDictionary -right[LOGIC_COLOR_T4]-> "*" CommandDetails
+PrefixDictionary -right[LOGIC_COLOR_T4]-> "*" PrefixDetails
+
+MainWindow *-right-> "1" CommandBox
+MainWindow *-down-> "1" ResultDisplay
+
+CommandBox -left-> "1" ResultDisplay
+CommandBox .right.> CommandBoxUtil
+
+CommandBox -down-> "0..1" CommandDetails
+CommandBox .down.> CommandDictionary
+CommandBox .down.> PrefixDetails
+CommandBox -down-> "1" PrefixDictionary
+
+CommandBoxUtil .up.> CommandMatch
+CommandBoxUtil .up.> ArgumentMatch
+
+'CommandMatch .down.> CommandBoxUtil
+'ArgumentMatch .down.> CommandBoxUtil
+@enduml

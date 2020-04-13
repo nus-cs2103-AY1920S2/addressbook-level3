@@ -1,0 +1,88 @@
+@startuml
+!include ../style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":SessionCommandParser" as SessionCommandParser LOGIC_COLOR
+participant ":DoneSessionCommandParser" as DoneSessionCommandParser LOGIC_COLOR
+participant "a:DoneSessionCommand" as DoneSessionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("session done 1")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parse("session done 1")
+activate TaTrackerParser
+create SessionCommandParser
+TaTrackerParser -> SessionCommandParser : SessionCommandParser()
+activate SessionCommandParser
+SessionCommandParser --> TaTrackerParser
+deactivate SessionCommandParser
+
+TaTrackerParser -> SessionCommandParser : parse("done 1")
+activate SessionCommandParser
+
+create DoneSessionCommandParser
+SessionCommandParser -> DoneSessionCommandParser : DoneSessionCommandParser()
+activate DoneSessionCommandParser
+DoneSessionCommandParser --> SessionCommandParser
+deactivate DoneSessionCommandParser
+
+SessionCommandParser -> DoneSessionCommandParser : parse("1")
+activate DoneSessionCommandParser
+
+create DoneSessionCommand
+DoneSessionCommandParser -> DoneSessionCommand : DoneSessionCommand(1)
+activate DoneSessionCommand
+DoneSessionCommand --> DoneSessionCommandParser
+deactivate DoneSessionCommand
+
+DoneSessionCommandParser --> SessionCommandParser : a
+deactivate DoneSessionCommandParser
+DoneSessionCommandParser -[hidden]-> SessionCommandParser
+destroy DoneSessionCommandParser
+
+SessionCommandParser --> TaTrackerParser : a
+deactivate SessionCommandParser
+SessionCommandParser -[hidden]-> TaTrackerParser
+destroy SessionCommandParser
+
+TaTrackerParser --> LogicManager : a
+deactivate TaTrackerParser
+
+LogicManager -> DoneSessionCommand : execute()
+activate DoneSessionCommand
+
+alt #beige recurring > 0
+    DoneSessionCommand -> Model : addSession(reccuringSession)
+    activate Model
+    Model --> DoneSessionCommand
+    deactivate Model
+
+end
+
+DoneSessionCommand -> Model : doneSession(session)
+activate Model
+Model --> DoneSessionCommand
+
+DoneSessionCommand -> Model : deleteSession(session)
+Model --> DoneSessionCommand
+deactivate Model
+
+create CommandResult
+DoneSessionCommand -> CommandResult : CommandResult(SuccessMessage)
+activate CommandResult
+CommandResult --> DoneSessionCommand
+deactivate CommandResult
+
+DoneSessionCommand --> LogicManager : result
+deactivate DoneSessionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
