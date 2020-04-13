@@ -929,7 +929,7 @@ image::ug-graph-3.png[]
 image::ug-graph-4.png[]
 
 ==== Common errors/problems
-You might face some errors or difficulties when you `graph`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the Result Box when using `graph`.
+You might face some errors or difficulties when you use `graph`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the Result Box when using `graph`.
 
 ===== No exercise within stipulated timeframe
 If you have keyed in the `graph` command in the correct format but the graph is not appearing, you might want to check the start and end dates in your command. In the example below, the exercise clearly exists in the exercise list, but not within the stipuated timeframe. Therefore the graph will not be displayed.
@@ -958,7 +958,7 @@ To correct this, change the axis to one where there is at least one non-empty in
 
 ===== Invalid time frame
 
-If you have keyed in the `graph` command in the command box but the graph is not appearing, you might want to check the timeframe. In the example below, the command format looks correct but the start date is later than the end date, this is not allowed and therefore the graph will not be displayed.
+If you have keyed in the `graph` command in the command box but the graph is not appearing, you might want to check the start and end dates. In the example below, the command format looks correct but the start date is later than the end date. This is not allowed and therefore the graph will not be displayed.
 
 . The start date `01-04-2020` is chronologically later than the end date `01-02-2020`.
 +
