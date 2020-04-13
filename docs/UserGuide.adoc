@@ -272,16 +272,47 @@ Notably supports basic https://guides.github.com/features/mastering-markdown/[Gi
 
 Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
 
-* https://github.github.com/gfm/#atx-heading[ATX headings]
-* https://github.github.com/gfm/#paragraph[Paragraphs]
-* https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items]
+* https://github.github.com/gfm/#atx-heading[ATX headings] +
+Example: +
+----
+# Level 1 header
+## Level 2 header
+### Level 3 header
+#### Level 4 header
+##### Level 5 header
+###### Level 6 header
+----
+* https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items] +
+Example: +
+----
+- List item
+- Another list item
+  - A nested list item
+    - A deeper nested list item
+- Last list item
+----
+* https://github.github.com/gfm/#paragraph[Paragraphs] +
+Example: +
+----
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Proin dictum accumsan nunc sed feugiat.
+----
 
-==== (Coming in v2.0) Increased support for Markdown syntax
+==== (Coming in v2.0) More complete support for Markdown syntax
 
 In our v2.0 release, we'll be supporting the following additional Markdown syntax:
 
-* https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis]
-* https://github.github.com/gfm/#strikethrough-extension-[Strikethrough]
+* https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis] +
+Example: +
+----
+*This text will get italicised*
+**This text will get bold**
+----
+* https://github.github.com/gfm/#strikethrough-extension-[Strikethrough] +
+Example: +
+----
+~~This text will get a strikethrough treatment~~
+----
 
 == FAQ
 
