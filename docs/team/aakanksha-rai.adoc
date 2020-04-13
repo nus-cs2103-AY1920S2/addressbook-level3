@@ -99,7 +99,6 @@ https://github.com/AY1920S2-CS2103T-W17-4/main/pull/179[#179], https://github.co
 
 *** I also contributed to forum discussions. Some examples are:
 https://github.com/nus-cs2103-AY1920S2/forum/issues/105[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/98[2],
-https://github.com/nus-cs2103-AY1920S2/forum/issues/111[3]
 
 == Contributions to the User Guide
 
