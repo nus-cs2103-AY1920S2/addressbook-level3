@@ -1104,9 +1104,11 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Receipt Command Sequence Diagram
 image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistreceiptcommand[]
 
 //tag::expensesplitterlistamountcommand[]
+
 [[List-Amount-Command]]
 ==== List Amount Command
 
@@ -1166,6 +1168,7 @@ The following sequence diagram summarizes what happens during the execution of `
 
 .List Amount Command Sequence Diagram
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
 //end::expensesplitterlistamountcommand[]
 
 [[Done-Receipt-Command]]
@@ -1230,6 +1233,7 @@ image::ExpenseSplitterDoneReceiptCommandSequenceDiagram.png[]
 
 
 //tag::expensesplitterpaidcommand[]
+
 [[Paid-Command]]
 ==== Paid Command
 
@@ -1300,6 +1304,7 @@ image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
 
 .Execution of Paid Command Sequence Diagram
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+
 //end::expensesplitterpaidcommand[]
 
 //tag::expensesplitterclearreceipt[]
