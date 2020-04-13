@@ -163,6 +163,9 @@ public class EditCommand extends Command {
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
                 profileManager.setDisplayedView(profileToEdit);
+
+                profileManager.clearDeadlineList();
+                profileManager.setNewDeadlineList(profileToEdit);
                 showCommand = true;
             }
 
