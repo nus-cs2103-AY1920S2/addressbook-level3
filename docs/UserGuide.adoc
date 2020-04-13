@@ -223,8 +223,33 @@ it is styled to look like a coupon itself!
 
 image::ShopeeCoupon.png[]
 
+====
+****
+*Coupon Fields* +
+
+- Name: Shopee - Name of the coupon. +
+- Promo Code: NEWUSER - Promo code required to use the coupon at the merchant. +
+- Expiry Date: 31-10-2020 - Expiry date of the coupon. +
+- Start Date: 01-01-2020 - Start date of when the coupon can be used. +
+- Remind Date: 28-10-2020 - A reminder will pop up when Coupon Stash
+is opened on this date. +
+- Usage: 1/2 - Number of times the coupon was used (1), and the number of times
+the coupon can be used (2). +
+- T&C: New users only - Terms and Condition applied for the valid usage
+of the coupon. +
+- Savings (blue box): $7.00, USB-C cable, iPhone case - Savings ($7) generated
+from the use of this coupon. USB-C Cable and iPhone Case are saveables; free
+items that come along with the use of this coupon.
+- Tags (orange label): newuser - Tags to categorize coupons.
+- Index (beside Tags): 1 - Index of the coupon on the displayed list. Used
+accordingly with some commands of Coupon Stash.
+
+****
+====
+
 [NOTE]
-Coupon card duplicates cannot exist!
+Duplicate coupons cannot exist in the active coupon list! Coupons are duplicates
+when they have the same name, promo code, expiry date and savings.
 
 ==== Summary tab
 
