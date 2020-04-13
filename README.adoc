@@ -3,7 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S2-CS2103T-F11-4/main[image:https://travis-ci.org/AY1920S2-CS2103T-F11-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/teo-jun-xiong/main[image:https://ci.appveyor.com/api/projects/status/mkams6irqolkr5gp?svg=true[Build status]]
-https://coveralls.io/github/AY1920S2-CS2103T-F11-4/main?branch=master[image:https://img.shields.io/coveralls/github/AY1920S2-CS2103T-F11-4/main/master[Coverage Status]]
+https://coveralls.io/github/AY1920S2-CS2103T-F11-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-F11-4/main/badge.svg?branch=master[Coverage status]
 https://www.codacy.com/gh/AY1920S2-CS2103T-F11-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S2-CS2103T-F11-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/aab1eba3906e4891a63020b0756e89f8[Codacy Badge]]
 
 ifdef::env-github[]
