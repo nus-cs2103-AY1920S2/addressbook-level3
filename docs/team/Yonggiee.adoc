@@ -49,12 +49,15 @@ We decided it is best for the exercises to be viewed in a table form. To do so, 
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Wrote test code for exercise classes and commands to improve test coverage: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/121[121], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/135[135], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/210[210], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/214[214]
+*** Wrote test code for exercise classes and commands to improve test coverage: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/83[83], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/121[121], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/135[135], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/210[210], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/216/files[216], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/214[214]
+*** Fix bugs:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/232[232],
 ** Documentation:
 *** Added https://github.com/AY1920S2-CS2103T-F11-2/main/blob/master/docs/UserGuide.adoc#command-summary[command summary] in User Guide : https://github.com/AY1920S2-CS2103T-F11-2/main/pull/86[86], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/236[236]
 *** Wrote the implementation of exercise classes and commands in Developer Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/262[262]
 *** Wrote the command guide for `list-c`, `add-e` and `edit-e` in User Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/227[227]
 *** Changed `UI` and `Storage` diagrams of Developer Guide: https://github.com/AY1920S2-CS2103T-F11-2/main/pull/246[246], https://github.com/AY1920S2-CS2103T-F11-2/main/pull/264[264]
+*** Added manual
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F11-2/main/pull/137[137,] https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 *** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S2-CS2103T-F09-2/main/issues/249[249], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/250[250], https://github.com/AY1920S2-CS2103T-F09-2/main/issues/251[251]
