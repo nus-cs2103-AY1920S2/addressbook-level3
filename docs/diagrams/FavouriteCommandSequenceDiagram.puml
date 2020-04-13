@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":FavouriteCommandParser" as FavouriteCommandParser LOGIC_COLOR
+participant "ParserUtil" as ParserUtil LOGIC_COLOR
+participant "f:FavouriteCommand" as FavouriteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+-> LogicManager: execute("favourite 3")
+activate LogicManager
+
+LogicManager -> RecipeBookParser: parseCommand("favourite 3")
+activate RecipeBookParser
+
+create FavouriteCommandParser
+RecipeBookParser -> FavouriteCommandParser: parse("3")
+activate FavouriteCommandParser
+
+FavouriteCommandParser -> ParserUtil
+activate ParserUtil
+ParserUtil --> FavouriteCommandParser: Index[]
+deactivate ParserUtil
+
+create FavouriteCommand
+FavouriteCommandParser -> FavouriteCommand
+activate FavouriteCommand
+
+FavouriteCommand --> FavouriteCommandParser: f
+deactivate FavouriteCommand
+
+FavouriteCommandParser --> RecipeBookParser: f
+deactivate FavouriteCommandParser
+
+RecipeBookParser --> LogicManager: f
+deactivate RecipeBookParser
+destroy FavouriteCommandParser
+
+LogicManager -> FavouriteCommand: execute()
+activate FavouriteCommand
+
+FavouriteCommand -> Model: setRecipe()
+activate Model
+Model --> FavouriteCommand
+deactivate Model
+
+FavouriteCommand -> Model: updateFilteredPlannedList()
+activate Model
+Model --> FavouriteCommand
+deactivate Model
+
+FavouriteCommand -> Model: commitBook()
+activate Model
+Model --> FavouriteCommand
+deactivate Model
+
+create CommandResult
+FavouriteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FavouriteCommand: result
+deactivate CommandResult
+
+FavouriteCommand --> LogicManager: result
+deactivate FavouriteCommand
+
+<-- LogicManager: result
+deactivate LogicManager
+
+@enduml

@@ -18,8 +18,8 @@ public class FavouriteCommandParser implements Parser<FavouriteCommand> {
      */
     public FavouriteCommand parse(String args) throws ParseException {
         try {
-            Index[] index = ParserUtil.parseMultipleIndex(args);
-            return new FavouriteCommand(index);
+            Index[] indexes = ParserUtil.parseMultipleIndex(args);
+            return new FavouriteCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavouriteCommand.MESSAGE_USAGE), pe);

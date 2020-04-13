@@ -265,7 +265,7 @@ Deletes recipe 1, 3, and 4 from the recipe book.
 [TIP]
 You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
-[tip]
+[TIP]
 If you specify a recipe number that does not exist in the list of recipes _that you are currently viewing_, none of your
 selected recipes will be deleted, favourited, or unfavourited.
 
@@ -298,6 +298,10 @@ Undoes all previous actions.
 
 [TIP]
 For both undo and redo, the number of actions that you specify (if any) has to be a non-zero unsigned integer!
+
+[TIP]
+The undo and redo command is currently not compatible with the `quote` command. This means that adding a quote is an
+irreversible action!
 
 === Redo a previous undo: `redo` (Brian)
 Restores actions that have been previously undone using `undo`.
@@ -348,6 +352,9 @@ Adds 50g of Bread and 5g of Butter to recipe 2.
 [TIP]
 You can add multiple ingredients at a time (at least one ingredient must be added).
 
+[TIP]
+If you add an ingredient that already exists in the recipe, that existing ingredient will be replaced with the new one.
+
 === Edit Ingredient Quantity in a Recipe: `editIngredient` (Brian)
 Edits the quantity of an ingredient in an existing recipe. +
 Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
@@ -373,6 +380,10 @@ You can delete multiple ingredients at a time (at least one ingredient must be d
 
 [TIP]
 There is no need to specify quantity here. Just the ingredient name will do!
+
+[TIP]
+If you type an ingredient prefix (e.g. "ig/") but don't specify any ingredients, all ingredients of that type will be
+deleted.
 
 === Add Steps to a Recipe: `addStep` (Brian)
 Adds more steps to an existing recipe. +
@@ -568,19 +579,28 @@ Format: `chart [g/goal]`
 === Analyse images added: `analyse` [Coming in v2.0]
 Auto-generates goals and statistics through the use of Artificial Intelligence. +
 
-== Achievement (Yue Tong)
+== Achievement Command (Yue Tong)
 
-=== Display streak: `streak` [Coming in v1.4]
-Displays number of consecutive days user has cooked a meal from the app +
-Format: `streak`
+=== Add motivational quote : `quote`
 
-=== Display motivational quote : `quote` [Coming in v1.4]
-Displays randomized motivational quote of the day +
-Format: `quote`
+Adds a quote by the user to the quote database to store for future(randomised) display of quote in Achievement tab.
+Format: `quote` [quote]
 
-=== Upload an image to the gallery: `addImage` [Coming in v1.4]
-Adds an image uploaded by the user to the image gallery +
-Format: `addImage [i/image]`
+Example 1: `quote Today was yesterday's tomorrow` +
+Adds quote "Today was yesterday's tomorrow" to quote database.
+
+[WARNING]
+`undo` currently does not work for `quote` command
+
+.Achievement tab
+image::QuotesTab.png[width="790"]
+
+=== Display streak: `streak` [Coming in v2.0]
+Displays line chart of all logged streaks by user
+
+=== Remove quote: `remove quote` [Coming in v2.0]
+Removes quote indicated by user +
+Format: `remove quote` [quote]
 
 == FAQ (Harshita)
 
@@ -635,4 +655,5 @@ data of your previous HYBB folder.
 |`deleteGoal` |Deletes specified goal from a recipe
 |`listGoals` |Lists all available goals
 |`cooked` |Records a recipe as cooked
+|`quote` |Adds a new quote
 |===

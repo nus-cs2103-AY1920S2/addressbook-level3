@@ -205,11 +205,6 @@ public class Recipe {
         }
 
         Recipe otherRecipe = (Recipe) other;
-        // debug purposes todo delete string debugging later
-        /*System.out.print("my: " + grains + ", other: " + otherRecipe.getGrains()
-                + "my: " + vegetables + ", other: " + otherRecipe.getVegetables()
-                + "my: " + proteins + ", other: " + otherRecipe.getProteins()
-                + "my: " + others + ", other: " + otherRecipe.getOthers());*/
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getTime().equals(getTime())
                 && otherRecipe.getGrains().equals(getGrains())
