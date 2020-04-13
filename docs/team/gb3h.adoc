@@ -13,6 +13,10 @@ ZeroToOne is a desktop application that serves as an all-in-one exercise tracker
 
 == Summary of contributions
 
+
+.Workout Session Feature
+image::user-guide/UgDoneSet.png[]
+
 * *Major enhancement*: added the *Workout Session Functionality*
 ** What it does: Allows the user to start a workout session by providing a `WORKOUT_ID`.
 The session keeps track of the user's workout by providing a queue of upcoming sets and the progress of the previous set.
@@ -37,7 +41,7 @@ Major design consideration was required to ensure that the timer was not computa
 3. https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/model/session[github folder] <- Models (All the Ongoing- models and worked in collaboration with @Jiachen247 for some Completed- models)
 4. https://github.com/gb3h/main/tree/master/src/main/java/seedu/zerotoone/ui/views/home[github folder] <- UI work
 5. https://github.com/gb3h/main/tree/master/src/main/resources/view/home[github folder] <- FXML
-6. https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/model/ModelManager.java[github file]] <- Timer functionality (and major session-related functions)
+6. https://github.com/AY1920S2-CS2103T-W16-2/main/blob/master/src/main/java/seedu/zerotoone/model/ModelManager.java[github file] <- Timer functionality (and major session-related functions)
 
 ** *Tests*:
 
