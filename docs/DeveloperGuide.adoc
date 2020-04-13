@@ -464,7 +464,7 @@ The following sequence diagram shows how the update operation works to change ca
 image::CalendarSequenceDiagram.png[]
 
 .CalendarCommand Class Diagram
-image::CalendarClassDiagram.png[]
+image::CalendarClassDiagram.png[test, 60%]
 
 ==== Design consideration
 
@@ -597,6 +597,9 @@ The check function is achieved by calling the `FitHelper` inside the `ModelManag
 through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
 keywords specified by the user.
 
+.Class diagram showing the interaction between CheckCommand, a concrete subclass of Command, and ModelManager, a concrete class implementing Model interface.
+image::ClassDiagramForCheckCommand.png[test, 50%]
+
 Given below are example usage scenario:
 
 Initialization: when the application is launched, `ModelManager` will initialize a `FitHelper`, which
@@ -666,11 +669,11 @@ To allow the application to access these user-defined data in the future, we nee
 in the Storage component responsible for writing internally data into Json file
 and reading the Json file back to internally stored data when the user reopens the application.
 
-.Additional classes associated with FitHelper for storing user-defined data (existing classes associated with FitHelper omitted)
+.Additional classes associated with FitHelper for storing user-defined data (existing classes associated with FitHelper are omitted)
 image::AdditionalModel.png[test, 40%]
 
-.Additional Storage Class for writing and reading user-defined data (existing storage classes omitted)
-image::AdditionalStorage.png[test, 35%]
+.Additional Storage Class for writing and reading user-defined data (existing storage classes are omitted)
+image::AdditionalStorage.png[test, 30%]
 
 To allow the `check` command to search for user-defined data, the command will be modified to
 retrieve data from `UserFoodCalorieTable` or `UserSportsCalorieTable` as well, depending
