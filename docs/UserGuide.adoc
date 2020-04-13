@@ -208,6 +208,7 @@ image::demo/Open.png[]
 === Edit an existing note: `edit`
 
 If you want to change the `BODY` content of the currently opened note, use the `edit` command. This command *opens* an editing window where you can update the existing `BODY` of the note.
+
 *Format:* `edit`
 
 [WARNING]
