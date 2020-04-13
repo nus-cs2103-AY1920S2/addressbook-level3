@@ -738,11 +738,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |User who likes to schedule single workout sessions, but will occasionally do recurring ones |Keep track of the two types of workouts |Manage different types of workouts simultaneously
 
-|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout completedExercise I do
+|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout session I do
 
 |`* *` |User who enjoys social activities |Share my workout routines with my friends |Help each other out by sharing new exercise regimes
 
-|`* *` |User who has a regular workout schedule, but likes to schedule one-off completedExercises |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
+|`* *` |User who has a regular workout schedule, but likes to schedule one-off sessions |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
 
 |`* *` |User who loses motivation over a long period of time |Something to help me stay motivated |Keep going and not give up halfway
 

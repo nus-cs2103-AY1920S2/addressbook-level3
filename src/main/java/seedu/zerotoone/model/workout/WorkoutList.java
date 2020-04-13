@@ -3,8 +3,10 @@ package seedu.zerotoone.model.workout;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
@@ -14,6 +16,8 @@ import seedu.zerotoone.model.exercise.Exercise;
 public class WorkoutList implements ReadOnlyWorkoutList {
 
     private final UniqueWorkoutList workouts;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,6 +47,7 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * {@code workouts} must not contain duplicate workouts.
      */
     public void setWorkouts(List<Workout> workouts) {
+        logger.info("Setting workouts");
         this.workouts.setWorkouts(workouts);
     }
 
@@ -50,15 +55,16 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * Resets the existing data of this {@code WorkoutList} with {@code newData}.
      */
     public void resetData(ReadOnlyWorkoutList newData) {
+        logger.info("Resetting workout list data");
         requireNonNull(newData);
 
         setWorkouts(newData.getWorkoutList());
     }
 
-    //// exercise-level operations
+    //// workout-level operations
 
     /**
-     * Returns true if a exercise with the same identity as {@code exercise} exists in the exercise list.
+     * Returns true if a workout with the same identity as {@code workout} exists in the workout list.
      */
     public boolean hasWorkout(Workout exercise) {
         requireNonNull(exercise);
@@ -66,10 +72,11 @@ public class WorkoutList implements ReadOnlyWorkoutList {
     }
 
     /**
-     * Adds a exercise to the exercise list.
-     * The exercise must not already exist in the exercise list.
+     * Adds a workout to the workout list.
+     * The workout must not already exist in the workout list.
      */
     public void addWorkout(Workout p) {
+        logger.info("Adding workout");
         workouts.add(p);
     }
 
@@ -80,6 +87,7 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * workout in the workout list.
      */
     public void setWorkout(Workout target, Workout editedWorkout) {
+        logger.info("Setting workout");
         requireNonNull(editedWorkout);
 
         workouts.setWorkout(target, editedWorkout);
@@ -90,6 +98,8 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * with {@code editedExercise}.
      */
     public void setExerciseInWorkouts(Exercise target, Exercise editedExercise) {
+        logger.info("Setting exercise in workouts");
+
         requireNonNull(target);
         requireNonNull(editedExercise);
 
@@ -106,6 +116,7 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * {@code key} must exist in the exercise list.
      */
     public void removeWorkout(Workout key) {
+        logger.info("Removing workout");
         workouts.remove(key);
     }
 
@@ -113,6 +124,8 @@ public class WorkoutList implements ReadOnlyWorkoutList {
      * Removes {@code exercise} from all {@code Workout} in {@code WorkoutList}.
      */
     public void removeExerciseFromWorkouts(Exercise exercise) {
+        logger.info("Removing exercise from workouts");
+
         for (Workout workout : workouts.asUnmodifiableObservableList()) {
             if (workout.hasExercise(exercise)) {
                 workout.deleteExercise(exercise);
@@ -124,11 +137,12 @@ public class WorkoutList implements ReadOnlyWorkoutList {
     @Override
     public String toString() {
         return workouts.asUnmodifiableObservableList().size() + " workouts";
-        // TODO: refine later
     }
 
     @Override
     public ObservableList<Workout> getWorkoutList() {
+        logger.info("Getting observable list of workout");
+
         return workouts.asUnmodifiableObservableList();
     }
 
