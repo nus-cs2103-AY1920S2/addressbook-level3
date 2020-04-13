@@ -131,7 +131,9 @@ public class Task {
     public void triggerReminderIfPresent() {
         if (optionalReminder.isPresent()) {
             Reminder reminder = optionalReminder.get();
-            MainWindow.triggerReminder(reminder, name.toString(), description.toString());
+            if (!reminder.getHasFired()) {
+                MainWindow.triggerReminder(reminder, name.toString(), description.toString());
+            }
         }
     }
 

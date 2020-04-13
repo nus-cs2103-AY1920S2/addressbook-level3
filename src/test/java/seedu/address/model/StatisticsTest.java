@@ -80,8 +80,8 @@ public class StatisticsTest {
     }
 
     @Test
-    public void updatesDayData_nullDate_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> statistics.updatesDayData(null));
+    public void updateDayData_nullDate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> statistics.updateDayData(null));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class StatisticsTest {
                         .withPomDurationData(VALID_POM_DURATION_DATA)
                         .withTasksDoneData(VALID_TASKS_DONE_DATA)
                         .build();
-        statisticsTypical.updatesDayData(editedDayData);
+        statisticsTypical.updateDayData(editedDayData);
         assertEquals(DAY0, statisticsTypical.getDayDataFromDate(DAY0.getDate()));
     }
 

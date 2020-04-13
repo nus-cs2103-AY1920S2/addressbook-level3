@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -61,7 +62,17 @@ public class ModelManager implements Model {
         this.taskList = new TaskList(taskList);
         this.tagSet = new TagSet(taskList);
         this.setRecurringTimers();
-        this.pet = new Pet(pet); // initialize a pet as a model
+
+        Pet tempPet;
+
+        try {
+            tempPet = new Pet(pet);
+        } catch (InvalidPetException e) {
+            tempPet = new Pet();
+            logger.info(e.toString());
+        }
+        this.pet = tempPet;
+
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
@@ -207,12 +218,6 @@ public class ModelManager implements Model {
         this.tagSet.removeTask(target);
         taskList.removeTask(target);
     }
-
-    // @Override
-    // public Index getIndexOfNewTask() {
-    //     List<Task> lastShownTask = getFilteredTaskList();
-    //     return Index.fromZeroBased(lastShownTask.size());
-    // }
 
     @Override
     public void addTask(Task task) {
@@ -384,7 +389,7 @@ public class ModelManager implements Model {
     }
 
     public void updatesDayDataStatistics(DayData dayData) {
-        statistics.updatesDayData(dayData);
+        statistics.updateDayData(dayData);
     }
 
     public DayData getDayDataFromDateStatistics(Date date) {

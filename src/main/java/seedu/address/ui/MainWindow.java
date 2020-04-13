@@ -388,8 +388,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void setPomCommandExecutor() {
-        commandBox = new CommandBox(this::pomExecuteCommand, this::suggestCommand);
+        commandBox = new CommandBox(this::pomExecuteCommand, this::pomSuggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private String pomSuggestCommand(String commandText) {
+        return commandText;
     }
 
     public void setDefaultCommandExecutor() {
@@ -471,6 +475,23 @@ public class MainWindow extends UiPart<Stage> {
                 Date.from(petManager.getTimeForHangry().atZone(ZoneId.systemDefault()).toInstant());
         timer.schedule(timerTask, timeForMoodChange);
         petManager.updateDisplayElements();
+    }
+
+    /**
+     * Returns an appropriate tab index to switch to based on commands.
+     *
+     * @param commandResult the command called.
+     * @return index of tab to switch to.
+     */
+    private int getTabIndexFromCommand(CommandResult commandResult) {
+        int tabToSwitchIndex = TASKS_TAB_INDEX; // default: switch to tasks tab for tasks related commands
+        if (commandResult instanceof SwitchTabCommandResult) {
+                SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
+                tabToSwitchIndex = switchTabCommandResult.getTabToSwitchIndex(); // switch to tab in SwitchTabCommandResult
+        } else if (commandResult instanceof SetCommandResult) {
+            tabToSwitchIndex = SETTINGS_TAB_INDEX; // switch to settings tab for settings related commands.
+        }
+        return tabToSwitchIndex;
     }
 
     @FXML
