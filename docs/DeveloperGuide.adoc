@@ -120,7 +120,7 @@ image::DeleteSequenceDiagram.png[]
 [[Design-Model]]
 
 // tag::dban1[]
-=== Model component --Ng Ming Liang
+=== Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -469,21 +469,22 @@ In the following sequence diagram, we trace the execution for when the user deci
 
 image::ScheduleSequenceDiagram.png[]
 
+
+
 ==== Design Considerations
-In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `"monday-1100-1200"`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
+In designing this feature, we had to consider the alternative ways in which we can choose to store the information of a schedule. One option of storing the relevant information (day, start, end times) for a schedule was simply to concatenate these values into a single String, for example, `monday-1100-1200`. However, we found that this did not exploit the desirable principles of Object-Oriented Programming. As respective sanity checks had to be done for the day
 and timing, wrapping each of these properties into their wrapper classes allowed for better modularity and organisation of these attributes. For example, `Day#isValidDay` handles the validation of the input for day and `Time#isValidTimingFormat` handles the validation of time.
 
 Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
 [options='header']
 |====================
-| Data Structure | Pros | Cons
-|ArrayList
-|Elements can be sorted and retrieved in ascending order
+|  | ArrayList | HashSet
+|Ensuring no overlaps
 |Does not ensure that its elements are unique
-
-|HashSet
 |Ensures no duplicate values
 
+|Ensuring order of elements
+|Elements can be sorted and retrieved in ascending order
 |Does not return elements in order
 |====================
 
@@ -526,8 +527,9 @@ The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrap
 . `ExerciseWeight`
 . `ExerciseSets`
 
-All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will discuss in (...) section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will be discussed in the <<Personal Best --- Li Zi Ying,Personal Best Section>> due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
+.Simplified Class Diagram for Exercise
 image::ExerciseClassDiagram.png[]
 
 An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. We will consider two `Exercise` as the same if `isSameExercise()` returns true.
@@ -539,6 +541,7 @@ Two `Exercise` are equal only if *all* attributes are equal.
 
 Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
+.Object diagram of two instances of Exercise objects
 image::IsSameExerciseObjectDiagram.png[]
 
 The two `Exercise` only have different values in `ExerciseSets` but equal values in:
@@ -552,7 +555,7 @@ This implementation is chosen as we felt that the user should increment the valu
 
 We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. In the future, when adding a same `Exercise`, we can implement it such that the sets value of the exising `Exercise` gets incremented automatically instead of showing an error. For now, this implementation keeps the exercise table neat and compact for the user.
 
-===== Execution flow of Exercise Commands
+===== Execution flow of exercise commands
 
 The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands.
 
@@ -562,6 +565,7 @@ The exercise commands edits the client's `UniqueExerciseList`. Currently, there 
 
 The commands follow a similar execution flow as other commands.
 
+.Activity Diagram for exercise commands
 image::ExerciseCommandActivityDiagram.png[]
 
 . The `FitBizParser` will create the associated exercise command parser. e.g. `AddExerciseCommandParser`
@@ -579,14 +583,17 @@ To address this problem, a custom insertion sort has been written in UniqueExerc
 
 We will use an example of a `add-e` command to illustrate the execution of `addToSorted(Exercise)`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the `AddExerciseCommand` is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
+.Sequence Diagram for AddExerciseCommand
 image::AddExerciseCommandSequenceDiagram.png[]
 
 `AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of `addToSorted(Exercise)` to obtain details of the `Exercise` being added and exising `Exercise` in `UniqueExerciseList`.
 
+.Sequence Diagram for the addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart2.png[]
 
 `UniqueExerciseList` loops through the exercises in the list. and calls `getExerciseDate()` and `getExerciseName()`. The `LocalDate` and exercise name in `String` type are then used for comparision. The sequence diagram below illustrates the conditional checks during the comparision.
 
+.Sequence Diagram for conditional checks in addToSorted Method
 image::AddExerciseCommandSequenceDiagramPart3.png[]
 
 The conditional checks are such that `UniqueExerciseList` maintain sorted by descending chronological order, followed by alphabetical order for exercises with the same dates.
@@ -609,16 +616,16 @@ if (dateComparision > 0) {
 }
 ----
 
-`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is `O(nlogn)`. This custom insertion sort will guarantee an `O(n)` time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
+`Arrays.sort()` can be used to sort the exercises in `UniqueExerciseList` after every addition. However, the worse case time complexity of `Arrays.sort()` is O(nlogn). This custom insertion sort will guarantee an O(n) time complexity to insert the new `Exercise` correctly. This is as efficient as it gets as any insertion will already incur an O(n) time complexity to first check if the internal list contains the same exercise. It is important to keep the time complexity low as clients can have many exercises.
 
 ==== Design Considerations
 
 This section explains the our design considerations and analysis for the storage of exercises.
 
 [options='header']
-[cols="3,2,2,2"]
+[cols="2,2,2,2"]
 |====================
-| | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
+| Considerations | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
 
 | Ease of retrieving / storing
 | Easy to link the exercises to the client
@@ -644,7 +651,7 @@ Might have too many JSON files, one for each client
 
 |====================
 
-We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By code wise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
+We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. Codewise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
 
 image::ClientExerciseStorageClassDiagram.png[]
 
@@ -1317,6 +1324,30 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No client is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete-c`, `delete-c x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Adding an exercise
+
+. Adding an exercise to the client in view's exercise table
+
+.. Prerequisites: View a client using the `view-c` command. A list of exercises done by the client can be seen in the exercise table. It is possible to have no exercises recorded at the moment.
+.. Test case: Substitute DATE with the current date +
+`add-e n/bench press date/DATE reps/30 sets/4 ew/10` +
+Expected: The added exercise can be seen in the exercise table. A success message stating that there is a new exercise recorded will also be shown in the result box.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup date/DATE` +
+Expected: The added exercise can be seen in the exercise table. A success message stating that there is a new exercise recorded will also be shown in the result box.
+.. Test case: Substitute DATE with the day after the current date +
+`add-e n/bench press date/DATE reps/30 sets/4 ew/10` +
+Expected: No exercise added. An error message stating that the valid range for date will be shown.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup d/DATE reps/ten` +
+Expected: No exercise added. An error message stating that input for reps have to be a whole number from 1 to 9999 will be shown.
+.. `add-e n/pushup` +
+Expected: No exercise added. An error message stating "invalid command format!" and a description on how to use `add-e` command will be shown.
+.. Test case: Substitute DATE with the current date +
+`add-e n/pushup d/DATE sets/4` +
+`add-e n/pushup d/DATE sets/2` +
+Expected: No exercise added. An error message stating that the exercise already exists and ask user to increment the existing exercise will be shown.
 
 === Saving data
 

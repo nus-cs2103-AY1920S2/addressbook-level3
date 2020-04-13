@@ -13,9 +13,11 @@ Class AutocompleteResult LOGIC_COLOR
 CommandBox "1" *-down-> "1" TextField
 CommandBox -up-> "1" ResultDisplay
 CommandBox -right-> "1" Autocomplete
-(CommandBox, Autocomplete) .. AutocompleteResult
+Trie ..> SimilarWordsResult
+Autocomplete ..> SimilarWordsResult
+Autocomplete ..>  AutocompleteResult
+CommandBox ..> AutocompleteResult
 Autocomplete "1" *-right-> "1" Trie
-(Autocomplete, Trie) .. SimilarWordsResult
 Trie "1" *-up-> "1" Node
 Node "0..1" *-- "*" Node
 

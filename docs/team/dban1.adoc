@@ -42,7 +42,9 @@ https://github.com/AY1920S2-CS2103T-F11-2/main/pull/142[142], https://github.com
 *** Helped to add sanity check for ExerciseDate:
 https://github.com/AY1920S2-CS2103T-F11-2/main/pull/225[225]
 ** Documentation:
-*** Wrote the implementation of schedule command in Developer Guide:
+*** Wrote the implementation of schedule command in Developer Guide, as well as the GUI implementation for Schedule:
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/127[127],
+https://github.com/AY1920S2-CS2103T-F11-2/main/pull/142[142]
 *** Wrote the command guide for `list-c`, `edit-c` and `schedule` in User Guide:
 https://github.com/AY1920S2-CS2103T-F11-2/main/pull/259[259],
 *** Changed `Model` and `Storage` diagrams of Developer Guide:
