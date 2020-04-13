@@ -51,7 +51,7 @@
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/65[#65], https://github.com/AY1920S2-CS2103-W14-3/main/pull/179[#179])
 *** Added in the birthday field to Person, allowed tags for a Person to include spaces and updated the existing commands to accommodate these changes. (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/44[#44], https://github.com/AY1920S2-CS2103-W14-3/main/pull/145[#145])
 ** Documentation:
-*** Contributed to both the User Guide and Developer Guide for this project (shown below).
+*** Contributed to both the User Guide and Developer Guide for this project.
 ** Contribution to team-based tasks:
 *** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150])
 *** Maintained the issue tracker
