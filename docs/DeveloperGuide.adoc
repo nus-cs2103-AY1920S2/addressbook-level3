@@ -103,6 +103,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("buy g/Apple q/50")` API call.
 
 .Interactions Inside the Logic Component for the `buy g/Apple q/50` Command
@@ -177,7 +178,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -185,7 +186,6 @@ This section describes some noteworthy details on how certain features
 are implemented and pitfalls to avoid when making modifications.
 
 //tag::buyandsellcommand[]
-
 === Buy and Sell Commands
 
 The `buy` and `sell` commands are the main ways a user is expected to
@@ -463,7 +463,7 @@ will not call `Model#commit()`. Thus, the history and `currentState` in `LinearH
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `sell g/banana q/1 p/5` to sell 1 banana, which calls `Model#commit()`.
+Step 6. The user executes `sell 2 q/1 p/5` to sell 1 of the second goods in the list, banana. This calls `Model#commit()`.
 Since there is a branching in history, all states after the state pointed by `statePointer` will be purged.
 Many mainstream editing software exhibit this behaviour, which would condition the user to expect this
 behavior.
@@ -719,7 +719,7 @@ up to `999,999` quantity, and there will be 1 `Date` for each good stored.
 
 // tag::findtransaction[]
 
-=== Find transaction
+=== Find transaction (Fang Shao Hua)
 
 Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
 saves time for the user to look for specific transactions among the transaction history.
@@ -767,7 +767,7 @@ image::FindTransactionSequenceDiagram.png[]
 
 // tag::setthreshold[]
 
-=== Set threshold for good
+=== Set threshold for good (Fang Shao Hua)
 
 Inventory Manager has a set threshold feature which allows the user to set the threshold quantity for `goods` in `Inventory`,
 so that it can alert the user when a particular good fall below its threshold quantity.
