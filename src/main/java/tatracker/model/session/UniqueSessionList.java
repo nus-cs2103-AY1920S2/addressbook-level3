@@ -63,9 +63,9 @@ public class UniqueSessionList implements Iterable<Session> {
      */
     public void add(Session toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateSessionException();
-        }
+        // if (contains(toAdd)) {
+        //     throw new DuplicateSessionException();
+        // }
         internalList.add(toAdd);
     }
 
