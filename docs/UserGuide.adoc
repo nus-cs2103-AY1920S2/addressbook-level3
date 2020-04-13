@@ -588,7 +588,7 @@ Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved 
 
 * *Add* :
 ** `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [o/ORGANIZATION] [t/TAG]...`
-** `(rt)add n/NAME l/LOCATION o/OPERATING_HOURS p/PRICE_POINT v/VISITED`
+** `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 ** `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 ** `(ev)add t/EVENT_TITLE d/EVENT_DATE h/DURATION p/PLACE`
 * *Delete* :
