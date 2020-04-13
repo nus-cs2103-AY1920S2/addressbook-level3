@@ -9,7 +9,7 @@
 
 == Overview
 
-EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
+EYLAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
 at halls/residential colleges by providing them with an application to split bills easily and help
 them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
 
