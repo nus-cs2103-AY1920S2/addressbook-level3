@@ -1,19 +1,21 @@
 package seedu.zerotoone.model.util;
 
+import static seedu.zerotoone.model.util.SampleWorkoutDataUtil.getSampleWorkouts;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.exercise.NumReps;
-import seedu.zerotoone.model.exercise.Weight;
+import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
-import seedu.zerotoone.model.workout.WorkoutName;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * Contains utility methods for populating {@code CompletedSessionList} with sample data.
@@ -26,14 +28,17 @@ public class SampleLogDataUtil {
 
         int[] workoutTimeVariance = new int[] {5, 9, 22, 31, 33, 45, 59, 51, 62, 70};
 
-        String[] workoutNames = new String[] {"Legs Day", "Arms day", "Strength"};
+        Workout[] workouts = getSampleWorkouts();
         LocalDateTime start = LocalDateTime.now().minusDays(dayCount);
         LocalDateTime end = LocalDateTime.now().minusDays(dayCount);
 
         for (int i = 0; i < dayCount; i++) {
             completedWorkouts.add(
-                new CompletedWorkout(new WorkoutName(workoutNames[i % 3]), getCompletedExercises(start), start,
+                new CompletedWorkout(workouts[i % 3].getWorkoutName(),
+                    getCompletedExercises(start, workouts[i % 3].getWorkoutExercises()),
+                    start,
                     end.plusMinutes(workoutTimeVariance[i])));
+
             start = start.plusDays(1);
             end = end.plusDays(1);
         }
@@ -41,18 +46,20 @@ public class SampleLogDataUtil {
         return completedWorkouts;
     }
 
-    public static List<CompletedExercise> getCompletedExercises(LocalDateTime workoutStart) {
+    public static List<CompletedExercise> getCompletedExercises(LocalDateTime workoutStart, List<Exercise> exercises) {
         List<CompletedExercise> completedExercises = new ArrayList<>();
-        String[] exerciseNames = new String[] {"Bench Press", "Overhead Press", "Triceps Pushdown", "Push Up"};
         workoutStart = workoutStart.plusMinutes(5);
 
-        for (int i = 0; i < 5; i++) {
+        for (Exercise curr : exercises) {
             List<CompletedSet> completedSets = new LinkedList<>();
-            completedSets.add(new CompletedSet(new Weight("20"), new NumReps("5"), true));
-            completedSets.add(new CompletedSet(new Weight("30"), new NumReps("6"), false));
-            completedSets.add(new CompletedSet(new Weight("40"), new NumReps("8"), true));
 
-            ExerciseName name = new ExerciseName(exerciseNames[i % 4]);
+            for (int j = 0; j < curr.getExerciseSets().size(); j++) {
+                ExerciseSet set = curr.getExerciseSets().get(j);
+                CompletedSet completedSet = new CompletedSet(set.weight, set.numReps, (j % 3) != 2);
+                completedSets.add(completedSet);
+            }
+
+            ExerciseName name = curr.getExerciseName();
             LocalDateTime start = workoutStart.plusMinutes(2);
             LocalDateTime end = workoutStart.plusMinutes(10);
             completedExercises.add(new CompletedExercise(name, completedSets, start, end));
