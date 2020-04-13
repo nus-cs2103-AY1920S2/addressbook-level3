@@ -28,7 +28,7 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.info("Executing done command.");
+        logger.fine("Executing done command.");
         if (!model.isInSession()) {
             throw new CommandException(MESSAGE_SESSION_NOT_STARTED);
         }

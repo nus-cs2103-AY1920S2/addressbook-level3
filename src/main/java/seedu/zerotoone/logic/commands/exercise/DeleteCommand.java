@@ -1,10 +1,12 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
+import static seedu.zerotoone.model.workout.WorkoutModel.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
@@ -22,6 +24,7 @@ public class DeleteCommand extends ExerciseCommand {
     public static final String MESSAGE_USAGE = "Usage: " + Commands.EXERCISE_DELETE;
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
     private final Index exerciseId;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public DeleteCommand(Index targetIndex) {
         requireNonNull(targetIndex);
@@ -30,6 +33,9 @@ public class DeleteCommand extends ExerciseCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.fine(String.format("Executing %s with %s",
+                getClass().getSimpleName(), exerciseId));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

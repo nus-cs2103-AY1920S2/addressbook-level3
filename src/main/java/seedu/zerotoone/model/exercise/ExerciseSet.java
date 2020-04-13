@@ -3,6 +3,9 @@ package seedu.zerotoone.model.exercise;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
 
 /**
  * Represents a Exercise Set in the exercise list.
@@ -15,12 +18,15 @@ public class ExerciseSet {
      */
     public final Weight weight;
     public final NumReps numReps;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Every field must be present and not null.
      */
     public ExerciseSet(Weight weight, NumReps numReps) {
         requireAllNonNull(weight, numReps);
+        logger.fine("Creating Exercise Set with Weight: "
+                + weight + " and NumReps: " + numReps);
         this.weight = weight;
         this.numReps = numReps;
     }

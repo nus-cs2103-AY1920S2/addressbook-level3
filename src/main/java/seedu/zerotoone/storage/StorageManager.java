@@ -34,10 +34,20 @@ public class StorageManager implements Storage {
             WorkoutListStorage workoutListStorage, ScheduleListStorage scheduleListStorage,
             LogListStorage logListStorage) {
         super();
+
+        logger.fine("Initializing with user prefs storage " + userPrefsStorage);
         this.userPrefsStorage = userPrefsStorage;
+
+        logger.fine("Initializing with exercise list storage " + exerciseListStorage);
         this.exerciseListStorage = exerciseListStorage;
+
+        logger.fine("Initializing with workout list storage " + workoutListStorage);
         this.workoutListStorage = workoutListStorage;
+
+        logger.fine("Initializing with schedule list storage " + scheduleListStorage);
         this.scheduleListStorage = scheduleListStorage;
+
+        logger.fine("Initializing with log list storage " + logListStorage);
         this.logListStorage = logListStorage;
     }
 
@@ -62,6 +72,7 @@ public class StorageManager implements Storage {
     // Exercise List
     @Override
     public Path getExerciseListFilePath() {
+        logger.fine("Getting Exercise List File Path");
         return exerciseListStorage.getExerciseListFilePath();
     }
 

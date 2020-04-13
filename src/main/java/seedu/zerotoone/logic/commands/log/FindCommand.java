@@ -47,7 +47,7 @@ public class FindCommand extends LogCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        logger.info("Executing log find command");
+        logger.fine("Executing log find command");
 
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

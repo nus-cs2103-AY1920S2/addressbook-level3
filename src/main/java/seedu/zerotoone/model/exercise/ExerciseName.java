@@ -3,6 +3,10 @@ package seedu.zerotoone.model.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
+import seedu.zerotoone.commons.core.LogsCenter;
+
 /**
  * Represents a Exercise's Name in the exercise list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -20,6 +24,7 @@ public class ExerciseName {
 
     public final String fullName;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
     /**
      * Constructs a {@code Name}.
      *
@@ -28,6 +33,7 @@ public class ExerciseName {
     public ExerciseName(String name) {
         requireNonNull(name);
         checkArgument(isValidExerciseName(name), MESSAGE_CONSTRAINTS);
+        logger.fine("Creating Exercise Name with Name: " + name);
         fullName = name;
     }
 
