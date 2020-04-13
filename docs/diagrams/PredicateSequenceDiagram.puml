@@ -62,20 +62,20 @@ loop tags of search term
     end
 
 loop chunks of task name
-        Predicate -> StringUtil: limitedCompare(chunk,\n search, threshold)
-        activate StringUtil
-        StringUtil -> Predicate: editDistance
-        deactivate StringUtil
+    Predicate -> StringUtil: limitedCompare(chunk,\n search, threshold)
+    activate StringUtil
+    StringUtil -> Predicate: editDistance
+    deactivate StringUtil
 
-        alt search matches start of chunk
-            Predicate -> Predicate: temp = 1
-        else edit distance < 2
-            Predicate -> Predicate: temp = 1
-        else search equals chunk
-            Predicate -> Predicate: temp = 0
-        end
-
-        opt temp < score
-            Predicate -> Predicate: score = temp
-        end
+    alt search matches start of chunk
+        Predicate -> Predicate: temp = 1
+    else edit distance < 2
+        Predicate -> Predicate: temp = 1
+    else search equals chunk
+        Predicate -> Predicate: temp = 0
     end
+
+    opt temp < score
+        Predicate -> Predicate: score = temp
+    end
+end
