@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0">
+    <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
+             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+             AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.bottomAnchor="0.0">
+        <Tab text="Modules">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane-with-border">
+                <StackPane fx:id="moduleListPanelPlaceholder" styleClass="pane-with-border"
+                      AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+                      AnchorPane.bottomAnchor="0.0" />
+            </AnchorPane>
+        </Tab>
+        <Tab text="Calendar">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane-with-border">
+                <StackPane fx:id="calendarPlaceholder" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="25.0"
+                           AnchorPane.rightAnchor="25.0" AnchorPane.bottomAnchor="10.0" />
+            </AnchorPane>
+        </Tab>
+        <Tab text="Statistics">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <HBox fx:id="statisticsList" styleClass="pane-with-border" minWidth="340" prefWidth="500"
+                      prefHeight="1000"
+                      AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.bottomAnchor="0.0">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <StackPane fx:id="statisticsPanelPlaceholder" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+</AnchorPane>

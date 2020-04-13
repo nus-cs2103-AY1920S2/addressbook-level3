@@ -1,0 +1,58 @@
+package nasa.logic.parser;
+
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static nasa.logic.parser.CliSyntax.PREFIX_REPEAT;
+
+import java.util.stream.Stream;
+
+import nasa.commons.core.index.Index;
+import nasa.logic.commands.RepeatDeadlineCommand;
+import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.module.ModuleCode;
+
+/**
+ * Parser for repeat command.
+ */
+public class RepeatDeadlineCommandParser implements Parser<RepeatDeadlineCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the RepeatCommand
+     * and returns an RepeatCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public RepeatDeadlineCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE,
+                        PREFIX_REPEAT);
+
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RepeatDeadlineCommand.MESSAGE_USAGE), pe);
+        }
+
+        Prefix[] prefixes = {PREFIX_MODULE, PREFIX_REPEAT};
+
+        boolean arePrefixesPresent = Stream.of(prefixes).allMatch(prefix ->
+                argMultimap.getValue(prefix).isPresent());
+
+        if (!(arePrefixesPresent)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+
+        // compulsory fields
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+
+        Index type = ParserUtil.parseZeroIndex(argMultimap.getValue(PREFIX_REPEAT).get());
+
+        if (type.getZeroBased() > 3 || type.getZeroBased() < 0) {
+            throw new ParseException("Index out of bounds, please indicate [r/0 r/1 r/2 r/3]");
+        }
+
+        return new RepeatDeadlineCommand(moduleCode, index, type);
+    }
+}

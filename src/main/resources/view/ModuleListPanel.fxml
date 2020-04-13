@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane styleClass="pane-with-border" fx:id="scrollPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox styleClass="pane-with-border" fx:id="moduleListView" HBox.hgrow="ALWAYS">
+    <Label fx:id="noModules" styleClass="no-modules" maxWidth="Infinity" minHeight="200"
+           maxHeight="Infinity" wrapText="true" alignment="CENTER"
+           text="No modules added... Use add m/[MODULE_CODE] n/[MODULE_NAME] to add your first module!"
+           HBox.hgrow="ALWAYS">
+    </Label>
+    </HBox>
+</ScrollPane>
+

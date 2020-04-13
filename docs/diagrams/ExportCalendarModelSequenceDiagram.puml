@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExportCalendarCommand" as ExportCalendarCommand LOGIC_COLOR
+participant ":IcsWriter" as IcsWriter LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+end box
+
+activate LogicManager
+LogicManager -> ExportCalendarCommand : execute(model)
+
+activate ExportCalendarCommand
+ExportCalendarCommand -> Model : getFilteredModuleList()
+
+activate Model
+Model --> ExportCalendarCommand : ObservableList<Module> list
+deactivate Model
+
+loop until every module is processed in the list
+    ExportCalendarCommand -> Module : getFilteredDeadlineList
+    activate Module
+    Module --> ExportCalendarCommand : ObservableList<Deadline> deadlines
+    deactivate Module
+
+    ExportCalendarCommand -> Module : getFilteredEventList
+    activate Module
+    Module --> ExportCalendarCommand : ObservableList<Event> events
+    deactivate Module
+end
+
+ExportCalendarCommand -> IcsWriter : writeToIcsFile(Path, allDeadlines, allEvents)
+activate IcsWriter
+
+IcsWriter --> ExportCalendarCommand
+deactivate IcsWriter
+
+create CommandResult
+ExportCalendarCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ExportCalendarCommand : CommandResult
+deactivate CommandResult
+
+ExportCalendarCommand --> LogicManager : CommandResult
+deactivate ExportCalendarCommand
+@enduml

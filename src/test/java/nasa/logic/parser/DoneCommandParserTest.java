@@ -1,0 +1,43 @@
+package nasa.logic.parser;
+
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
+import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
+import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import nasa.commons.core.index.Index;
+import nasa.logic.commands.DoneCommand;
+import nasa.model.module.ModuleCode;
+
+//@@author kester-ng
+public class DoneCommandParserTest {
+
+    private DoneCommandParser parser = new DoneCommandParser();
+    private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1231);
+
+    @Test
+    public void parse_validArgs_returnsDoneCommand() {
+        assertParseSuccess(parser, "1" + MODULE_CODE_DESC_CS1231, new DoneCommand(Index.fromOneBased(1),
+            moduleCode));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        //no module stated in the user input
+        assertParseFailure(parser, "1", MESSAGE_INVALID_COMMAND_FORMAT);
+
+        // no index stated at all
+        assertParseFailure(parser, MODULE_CODE_DESC_CS1231, MESSAGE_INVALID_COMMAND_FORMAT);
+
+        // invalid module code
+        assertParseFailure(parser, "1" + INVALID_MODULE_DESC, MESSAGE_INVALID_COMMAND_FORMAT);
+
+        // invalid index
+        assertParseFailure(parser, "-4" + MODULE_NAME_DESC_CS1231, MESSAGE_INVALID_COMMAND_FORMAT);
+    }
+}

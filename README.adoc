@@ -1,29 +1,38 @@
-= Address Book (Level 3)
+= Nice & Amazing Student Assistant (NASA)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://travis-ci.com/AY1920S2-CS2103T-T10-4/main[image:https://travis-ci.com/AY1920S2-CS2103T-T10-4/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/kester-ng/main[image:https://ci.appveyor.com/api/projects/status/netvecrxd6gmixrb?svg=true[Build status]]
+https://coveralls.io/github/AY1920S2-CS2103T-T10-4/main[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-T10-4/main/badge.svg?branch=master[Coverage Status]]
+https://app.codacy.com/gh/AY1920S2-CS2103T-T10-4/main/dashboard[image:https://api.codacy.com/project/badge/Grade/b5475db234d847a9bafd56c96f8e8ada["Codacy code quality", link="https://www.codacy.com/gh/AY1920S2-CS2103T-T10-4/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S2-CS2103T-T10-4/main&utm_campaign=Badge_Grade"]]
 
+== Target Audience
+* Have university professors give you way too much homework?
+* Do you find it hard to keep track of all your assignments?
+* Do you want an easy and intuitive way to keep track?
+* Do you want recommendations on what to do next?
+
+`IF YOU ANSWERED YES TO ANY QUESTIONS, THEN FRET NOT! INTRODUCING THE NICE & AMAZING
+STUDENT ASSISTANT (NASA). AN APPLICATION THAT HELPS KEEP TRACK OF EACH MODULE'S TASKS AND
+PROVIDES MANY OTHER FEATURES THAT ARE SUITABLE FOR BUSY UNIVERSITY STUDENTS. THE APPLICATION
+IS DEVELOPED FOR UNIVERSITY STUDENTS BY UNIVERSITY STUDENTS!`
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* This is a Java application intended for University Students as a convenient mean to keep track of module tasks.
+* It is a CLI-primary application and is intended for University Students who are able to type fast (which is basically almost every student).
+* Refer to the User Guide to know how to start-up and use the NASA application. Take away on an exciting journey!
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -31,6 +40,6 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/zxing/zxing[ZXing]
+* Code was morphed and updated from AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org[AB3]
 
-== Licence : link:LICENSE[MIT]

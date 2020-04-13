@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":NasaBook" as NasaBook MODEL_COLOR
+participant ":UniqueModuleList" as UniqueModuleList MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+participant ":UniqueDeadlineList" as UniqueDeadlineList MODEL_COLOR
+end box
+
+activate LogicManager
+LogicManager -> AddDeadlineCommand : execute(model)
+
+activate AddDeadlineCommand
+AddDeadlineCommand -> Model : addDeadline(moduleCode, deadline)
+
+activate Model
+Model -> NasaBook : addDeadline(moduleCode, deadline)
+
+activate NasaBook
+NasaBook -> UniqueModuleList : getModule(moduleCode)
+
+activate UniqueModuleList
+UniqueModuleList --> NasaBook : module
+
+deactivate UniqueModuleList
+NasaBook -> Module : addDeadline(deadline)
+
+activate Module
+Module -> UniqueDeadlineList : add(deadline)
+
+activate UniqueDeadlineList
+
+UniqueDeadlineList --> Module
+deactivate UniqueDeadlineList
+
+Module --> NasaBook
+deactivate Module
+
+NasaBook --> Model
+deactivate NasaBook
+
+Model --> AddDeadlineCommand
+deactivate Model
+
+create CommandResult
+AddDeadlineCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddDeadlineCommand
+deactivate CommandResult
+
+AddDeadlineCommand --> LogicManager : CommandResult
+deactivate AddDeadlineCommand
+
+@enduml

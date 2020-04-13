@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
+participant ":AddDeadlineCommandParser" as AddDeadlineCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "d:Deadline" as Deadline LOGIC_COLOR
+participant "a:AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute(command)
+activate LogicManager
+
+LogicManager -> NasaBookParser : parseCommand("command")
+activate NasaBookParser
+
+create AddDeadlineCommandParser
+NasaBookParser -> AddDeadlineCommandParser
+activate AddDeadlineCommandParser
+
+AddDeadlineCommandParser --> NasaBookParser
+deactivate AddDeadlineCommandParser
+
+NasaBookParser -> AddDeadlineCommandParser : parse("parameters")
+activate AddDeadlineCommandParser
+
+AddDeadlineCommandParser -> ParserUtil : parseModuleCode("m/CS2030")
+activate ParserUtil
+
+ParserUtil --> AddDeadlineCommandParser : CS2030
+deactivate ParserUtil
+
+AddDeadlineCommandParser -> ParserUtil : parseName("a/Lab 2")
+activate ParserUtil
+
+ParserUtil --> AddDeadlineCommandParser : Lab 2
+deactivate ParserUtil
+
+AddDeadlineCommandParser -> ParserUtil : parseDate("d/12-12-2020 23:59")
+activate ParserUtil
+
+ParserUtil --> AddDeadlineCommandParser : Date
+deactivate ParserUtil
+
+create Deadline
+AddDeadlineCommandParser -> Deadline : new Deadline(....)
+
+activate Deadline
+Deadline --> AddDeadlineCommandParser : d
+deactivate Deadline
+
+create AddDeadlineCommand
+AddDeadlineCommandParser -> AddDeadlineCommand : new AddDeadlineCommand(CS2030, deadline)
+
+activate AddDeadlineCommand
+AddDeadlineCommand --> AddDeadlineCommandParser : a
+deactivate AddDeadlineCommand
+
+AddDeadlineCommandParser --> NasaBookParser : a
+deactivate AddDeadlineCommandParser
+
+AddDeadlineCommandParser -[hidden]-> NasaBookParser
+destroy AddDeadlineCommandParser
+
+NasaBookParser --> LogicManager : a
+@enduml

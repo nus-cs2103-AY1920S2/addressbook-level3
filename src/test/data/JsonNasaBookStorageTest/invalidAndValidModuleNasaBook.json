@@ -1,0 +1,12 @@
+{
+  "modules" : [ {
+    "moduleName" : "Software Engineering",
+    "deadlineList" : [ ],
+    "eventList" : [ ]
+  } , {
+      "moduleCode" : "CS2103T",
+      "moduleName" : "Software Engineering",
+      "deadlineList" : [ ],
+      "eventList" : [ ]
+    }]
+}

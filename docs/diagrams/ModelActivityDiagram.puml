@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+skinparam padding 5
+skinparam minClassWidth 100
+skinparam arrowFontSize 15
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Activity {
+abstract "{abstract}\nUniqueActivityList" as UniqueActivityList
+Class UniqueDeadlineList
+Class UniqueEventList
+abstract "{abstract}\nActivity" as Activity
+Class Deadline
+Class Event
+Class Date
+Class Priority
+Class ActivityContainsKeyWordsPredicate
+}
+
+Class Module
+
+Module *--> "1" UniqueActivityList
+UniqueDeadlineList -up-|> UniqueActivityList
+UniqueEventList -up-|> UniqueActivityList
+UniqueDeadlineList o--> "*" Deadline
+UniqueEventList o--> "*" Event
+Deadline -up-|> Activity
+Event -up-|> Activity
+Event *--> "2" Date
+Deadline *--> "1" Date
+Deadline *--> "1" Priority
+
+@enduml
