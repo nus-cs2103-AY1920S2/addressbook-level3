@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic MODEL_COLOR_T1
+participant ":NewCommandParser" as NewCommandParser MODEL_COLOR
+participant ":NewCommand" as NewCommand MODEL_COLOR
+end box
+
+box Model LOGIC_COLOR_T1
+participant ":Model" as Model LOGIC_COLOR
+participant ":BlockModel" as BlockModel LOGIC_COLOR
+participant ":BlockTree" as BlockTree LOGIC_COLOR
+participant ":BlockTreeItem" as BlockTreeItem LOGIC_COLOR
+participant ":TreeItem<Block>" as TreeItem LOGIC_COLOR
+participant "block:Block" as Block LOGIC_COLOR
+participant "t:Title" as TitleObj LOGIC_COLOR
+participant "b:Body" as Body LOGIC_COLOR
+end box
+
+[->NewCommandParser
+activate NewCommandParser
+
+create Block
+NewCommandParser -> Block : Block(Title("CS2103T"), Body(""))
+activate Block
+
+create TitleObj
+Block -> TitleObj : Title("CS2103T")
+activate TitleObj
+
+TitleObj --> Block : t
+deactivate TitleObj
+
+create Body
+Block -> Body : Body("")
+activate Body
+
+Body --> Block : b
+deactivate Body
+
+Block --> NewCommandParser : block
+deactivate Block
+
+[<-NewCommandParser
+deactivate NewCommandParser
+
+[-> NewCommand : execute()
+activate NewCommand
+
+NewCommand -> Model : addBlockToCurrentPath(block)
+activate Model
+
+Model --> BlockModel : addBlockToCurrentPath(block)
+activate BlockModel
+
+BlockModel -> BlockModel : getCurrentlyOpenPath(block)
+activate BlockModel
+
+BlockModel -> BlockModel : currentlyOpenPath
+deactivate BlockModel
+
+BlockModel -> BlockTree : add(currentlyOpenPath, block)
+activate BlockTree
+
+create BlockTreeItem
+BlockTree -> BlockTreeItem : BlockTreeItem(block)
+activate BlockTreeItem
+
+create TreeItem
+BlockTreeItem -> TreeItem : TreeItem<Block>(block)
+activate TreeItem
+
+TreeItem --> BlockTreeItem : treeItem
+deactivate TreeItem
+
+BlockTreeItem --> BlockTree : blockTreeItem
+deactivate BlockTreeItem
+
+BlockTree --> BlockModel
+deactivate BlockTree
+
+BlockModel --> Model
+deactivate Model
+
+Model --> NewCommand
+deactivate
+
+[<--NewCommand
+deactivate NewCommand
+@enduml
