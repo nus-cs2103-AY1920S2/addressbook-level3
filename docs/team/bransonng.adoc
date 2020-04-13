@@ -82,10 +82,10 @@ include::../UserGuide.adoc[tag=TaskList]
 include::../UserGuide.adoc[tag=AutoComplete]
 
 == Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 
 include::../DeveloperGuide.adoc[tag=branson]
 include::../DeveloperGuide.adoc[tag=Glossary]
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
