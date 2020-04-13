@@ -657,11 +657,11 @@ This results in the *correct* `Progress` objects, which may or may not be `Done`
 You can also notice that this is a faster implementation since we do not need to re-create a `CompositeID` and the actual
 `Progress` object itself when we are just adding back the UndoProgresses.
 
-// tag::oppositeAddDelete[]
-
 // end::undoassigncmd[]
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
+
+//tag::oppositeAddDelete[]
 
 `AddCommand` and `DeleteCommand` extends from abstract class UndoableCommand. Thus, user can undo/ redo this command.
 
@@ -1637,6 +1637,42 @@ Error details shown in the status message.
 Status bar remains the same.
 .. Other incorrect undo/redo commands to try: `undo`, `redo` (try these commands immediately after turn on the application) _{give more}_ +
    Expected: Error throws saying no commands that are redo/undoable. (No CRUD commands used before to undo/redo)
+
+=== Assign a staff to a course
+
+. Assign a staff to teach a course.
+
+.. Prerequisites: List all course using the `list-course` command. Select to view the course that is supposed to be assigned a Staff.
+.. Test Case: (Example) `assign tid/16100 cid/55160` +
+    Expected ID 16100 of Staff is added into Assigned Staff field of the course and the course ID 55160 is added into Assigned Course field of Staff.
+Status bar is updated accordingly.
+.. Test case: `assign tid/17100 cid/55160` (Staff ID 17100 level is Admin) +
+    Expected no Staff is assigned to teach the course.
+Error details show in the status message saying admin Staff cannot teach a course.
+Status bar remains the same.
+.. Other incorrect commands to try: `assign` a Teacher Staff to a course that already have another teacher assigned _{give more}_ +
+   Expected: no Staff is assigned to teach this course.
+Error details show in the status message saying a course can only have 1 Staff assigned.
+Status bar remains the same.
+
+_{ more test cases ... }_
+
+=== UnAssign a student from a course
+
+. Unassign a student from a course.
+
+.. Prerequisites: List all course using the `list-course` command. Select to view the course that is supposed to be assigned a Staff.
+.. Test Case: (Example) `unassign sid/16100 cid/55160` +
+    Expected ID 16100 of Student is removed from Assigned Students in Course and ID 55160 of Course is removed from Assigned Course in Student.
+Moreover, all the assignments (progresses) assigned to Student 16100 that belongs to Course 55160 are also removed.
+Status bar is updated accordingly.
+.. Test case: `unassign sid/17100 cid/55160`  (Student 17100 is not enrolled in course 55160) +
+    Expected no student is unassigned from a course.
+Error details show in the status message saying no such student is assigned to this course.
+Status bar remains the same.
+.. Other incorrect commands to try: `unassign` a student from a course that does not exist.
+Error details show in the status message saying cannot find a course with such ID.
+Status bar remains the same.
 
 _{ more test cases ... }_
 
