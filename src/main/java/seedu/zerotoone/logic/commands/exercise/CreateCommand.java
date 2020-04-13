@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -25,6 +27,7 @@ public class CreateCommand extends ExerciseCommand {
 
     private final ExerciseName exerciseName;
     private final List<ExerciseSet> exerciseSets;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates a CreateCommand to add the specified {@code Exercise}
@@ -37,6 +40,9 @@ public class CreateCommand extends ExerciseCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.fine(String.format("Executing %s with %s and %s",
+                getClass().getSimpleName(), this.exerciseName, this.exerciseSets));
+
         requireNonNull(model);
         if (model.isInSession()) {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);

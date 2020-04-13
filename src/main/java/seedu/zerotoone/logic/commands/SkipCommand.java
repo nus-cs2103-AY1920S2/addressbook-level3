@@ -28,7 +28,7 @@ public class SkipCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.info("Executing skip command.");
+        logger.fine("Executing skip command.");
         if (!model.isInSession()) {
             throw new CommandException(MESSAGE_SESSION_NOT_STARTED);
         }
