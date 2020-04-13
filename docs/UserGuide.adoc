@@ -131,7 +131,7 @@ The autocompletion of the parameter prefixes are only for these commands: `add-c
 +
 image::Ui.png[]
 . Type the command in the *Command Box* and press kbd:[Enter] to execute it
-** For example, executing the `help` command will lead you to this page
+** For example, executing the `help` command will lead you to this page
 
 ====
 * Refer to the <<understanding-the-gui, GUI>> and <<understanding-the-cli, CLI>> guides if you need help navigating this application
@@ -143,13 +143,13 @@ image::Ui.png[]
 This section introduces the syntax and the usages of the commands available in FitBiz. In explaining the syntax, we will adhere to the following format:
 
 * Words in `UPPER_SNAKE_CASE` are the parameters to be supplied by the user
-** e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`
+** e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`
 * Items in square brackets are optional
 ** e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`
 * Items with `…` after them can be used multiple times including zero times
-** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+** e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order
-** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
+** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
 
 === View help: `help`
 
@@ -246,6 +246,8 @@ You will obtain clients which have `bryan` in their name or `low` in the name. I
 image::ug-findcMultiplePart2.png[]
 
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
+
+// tag::add-c-command[]
 
 === Add a new client profile: `add-c` --- Toh Ker Wei
 After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
@@ -388,6 +390,8 @@ The following error message will be shown.
 image::AddSameEmailError.png[]
 
 To solve this issue, ensure that any new client you add does not have the same phone number or email as existing client.
+
+// end::add-c-command[]
 
 === Edit a client’s profile: `edit-c`
 
@@ -801,6 +805,8 @@ If you find that you are unable to execute this command successfully, there are 
 
 // end::export-command[]
 
+// tag::filter-c-command[]
+[[]]
 === Filter clients based on attribute: `filter-c` --- Toh Ker Wei
 
 When you have many clients and want to filter the list of clients to view a specific group, you can use the command `filter-c` to filter clients based on their tags or their sports.
@@ -846,8 +852,6 @@ image::FilterExampleCommand.png[]
 
 image::FilterExampleSuccess.png[]
 
-/ photo of listed clients
-
 ==== Common error/ problem
 *Tags with spaces*
 
@@ -866,6 +870,8 @@ image::FilterTagCorrectCommand.png[]
 The list of successfully filter clients will then be displayed.
 
 image::FilterTagSuccess.png[]
+
+// end::filter-c-command[]
 
 === Display visualisations of training progress: `graph` --- Li Zi Ying
 
