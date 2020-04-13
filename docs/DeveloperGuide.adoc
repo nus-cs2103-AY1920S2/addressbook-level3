@@ -478,7 +478,7 @@ Two `Exercise` are equal only if *all* attributes are equal.
 
 Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
-.Object diagram of two same Exercise
+.Object diagram of two instances of Exercise objects
 image::IsSameExerciseObjectDiagram.png[]
 
 The two `Exercise` only have different values in `ExerciseSets` but equal values in:
