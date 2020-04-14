@@ -1,0 +1,97 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":fitHelperParser" as FitHelperParser LOGIC_COLOR
+participant ":CalendarParser" as CalendarParser LOGIC_COLOR
+participant ":CalendarCommand" as CalendarCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> MainWindow : ("calendar d/2020-04-12")
+activate MainWindow
+
+MainWindow -> LogicManager
+activate LogicManager
+
+LogicManager -> LogicManager: execute("calendar d/2020-04-12")
+activate LogicManager
+
+LogicManager -> LogicManager
+deactivate LogicManager
+
+LogicManager -> FitHelperParser : parseCommand("calendar d/2020-04-12")
+activate FitHelperParser
+
+create CalendarParser
+FitHelperParser -> CalendarParser
+activate CalendarParser
+
+CalendarParser --> FitHelperParser :
+deactivate CalendarParser
+
+FitHelperParser -> CalendarParser : parse("2020-04-12")
+activate CalendarParser
+
+create CalendarCommand
+CalendarParser -> CalendarCommand
+activate CalendarCommand
+
+CalendarCommand --> CalendarParser : CalendarCommand
+deactivate CalendarCommand
+
+CalendarParser --> FitHelperParser : CalendarCommand
+deactivate CalendarParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CalendarParser -[hidden]-> FitHelperParser
+destroy CalendarParser
+
+FitHelperParser --> LogicManager : CalendarCommand
+deactivate FitHelperParser
+
+LogicManager -> CalendarCommand : execute()
+activate CalendarCommand
+
+CalendarCommand -> Model : setCalendarDate(dateToSet)
+activate Model
+
+Model --> CalendarCommand
+deactivate Model
+
+CalendarCommand -> Model : setCalendarMode(mode)
+activate Model
+
+Model --> CalendarCommand
+deactivate Model
+
+CalendarCommand -> Model : setCalendarShow(show)
+activate Model
+
+Model --> CalendarCommand
+deactivate Model
+
+create CommandResult
+CalendarCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CalendarCommand
+deactivate CommandResult
+
+CalendarCommand --> LogicManager : CommandResult
+deactivate CalendarCommand
+
+LogicManager --> MainWindow : CommandResult
+deactivate LogicManager
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

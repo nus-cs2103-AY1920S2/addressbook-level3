@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.stage.Stage?>
+
+<javafx.stage.Stage resizable="false" title="DayPage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/FitHelperLogo.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <StackPane id="daysPane" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="465" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+                <children>
+                    <StackPane minHeight="-Infinity" prefWidth="460.0">
+                        <children>
+                            <Label fx:id="dayTitle" textFill="#789cce" StackPane.alignment="TOP_LEFT">
+                                <StackPane.margin>
+                                    <Insets left="3.0" top="0.0" />
+                                </StackPane.margin>
+                            </Label>
+                            <Label fx:id="statsNo" textFill="#789cce" StackPane.alignment="TOP_RIGHT">
+                                <StackPane.margin>
+                                    <Insets left="10.0" top="0.0" />
+                                </StackPane.margin>
+                            </Label>
+                        </children>
+                    </StackPane>
+                    <StackPane id="listPanel" alignment="BOTTOM_CENTER">
+                        <children>
+                            <ScrollPane id="listScrollPane" fitToHeight="True" fitToWidth="true" minHeight="-Infinity" prefHeight="200" prefWidth="460.0">
+                                <StackPane.margin>
+                                    <Insets top="20.0" />
+                                </StackPane.margin>
+                                <content>
+                                    <ListView fx:id="listView" minHeight="-Infinity" prefHeight="190" prefWidth="460.0" />
+                                </content>
+                            </ScrollPane>
+                        </children>
+                    </StackPane>
+                </children>
+            </StackPane>
+        </Scene>
+    </scene>
+</javafx.stage.Stage>

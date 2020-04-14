@@ -1,0 +1,141 @@
+= Ye Chenchen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FitHelper
+
+:sectnums:
+
+== Overview
+
+*FitHelper* is a desktop diet-and-exercise-recording application made for Users who want to keep fit.
+It enables users to record their basic profile data, weight records, daily food intake and sports.
+Rather than just keeping the raw data, *FitHelper* also provided useful analysis and other customized services, such as calendar view and reminders.
+
+The application is mainly written in *Java* and built by a considerable *19k Lines of Code*.
+The codebase is well-maintained by reasonable amount of tests.
+A detailed and comprehensive set of guides are also provided for both application developers and users.
+
+== Summary of contributions
+
+=== Major Enhancement
+
+==== Build Entry in Model, Storage Part and Its Basic Commands (https://github.com/AY1920S2-CS2103-T09-4/main/pull/143[#143])
+
+* *Content*
+** *Model Part*: Create Entry class (for both food and sport entries) and all of its attributes classes.
+Modify Model and Model Manager to build a basic skeleton of FitHelper.
+** *Storage Part*: Create Json-adaptive Entry and Json-adaptive FitHelper main storage.
+Modify Storage and Storage Manager to enable FitHelper to store both type of entries.
+** *Logic Part*: Update all command prefix and flags. Create basic commands and corresponding parsers related to Entry, including `add`, `edit`, `find`, `delete`.
+
+* *Justification* +
+** This feature builds the basic skeleton of the whole application in Model and Storage Part.
+** This feature allows other developers to build other features related to Entry, such as Today Page and Calendar Page.
+
+
+==== Build Profile and Weight in Model, Storage, UI Part and Its Commands
+
+* *Content*
+** *Model Part*: Create Profile class and Weight class and all of their attributes classes.
+UserProfile and WeightRecords class are built to wrap up user profile and all weight records. They are parallel to the FitHelper class.
+Modify Model and Model Manager to include the profile system and weight system.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/170[#170],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240])
+** *Storage Part*: Create Json-adaptive UserProfile main storage and WeightRecords main storage.
+Establish two separate new databases.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/248[#248])
+** *UI Part*: Build Profile Page and Weight Page. Profile Page shows a table of user profile data.
+Weight Page includes a notification indicating the gap to user target weight and two Trend Line Graphs for weight and BMI data.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/186[#186],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
+** *Logic Part*:  Enable Profile Page switch and Weight Page switch.
+Also enable user to update profile's attributes value and manipulate weight database by corresponding commands and command parsers,
+including `profile`, `update`, `weight`, `addWeight`, `editWeight`, `deleteWeight` and `clearWeight`.
+(https://github.com/AY1920S2-CS2103-T09-4/main/pull/203[#203],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/214[#214],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/240[#240],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/311[#311])
+
+* *Justification* +
+** With this feature, all three database for this application are built:
+*** *FitHelper* for entry and diary data (*_fithelper.json_*)
+*** *UserProfile* for profile data (*_userprofile.json_*)
+*** *WeightRecords* for weight data(*_weightrecords.json_*)
+** Profile Page and Weight Page are essential to this application, since user's basic data
+are used to provide a more customized service, and keeping tracking of user's weight and providing useful analysis
+can significantly help the user to keep fit.
+** The profile and weight system are strong linked together, as one command may change both profile and weight database and GUI page.
+
+=== Code contribution
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=iyvvvvv&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=IYVVVVV&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[Functional code]]
+
+=== Other contributions
+
+** Project management:
+*** Create Milestone `v1.0`-`v2.0`, update and close issues regularly on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (https://github.com/AY1920S2-CS2103-T09-4/main/pull/214[#214])
+** Documentation:
+*** Add profile and weight related session to User Guide (https://github.com/AY1920S2-CS2103-T09-4/main/pull/98[#98],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/245[#245],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/324[#324])
+*** Make each session in User Guide aligned in structure, and summarize all prefixes, flags and all command formats (https://github.com/AY1920S2-CS2103-T09-4/main/pull/324[#324])
+*** Build Appendix in Developer Guide, including Product Scope, User Stories, Use Cases, NFR, Glossary and Manual Testing (https://github.com/AY1920S2-CS2103-T09-4/main/pull/93[#93],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/94[#94],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/96[#96],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/219[#219])
+*** Update Storage part and add weight feature in Developer Guide (https://github.com/AY1920S2-CS2103-T09-4/main/pull/221[#211],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/258[#258],
+https://github.com/AY1920S2-CS2103-T09-4/main/pull/330[#330])
+** Community:
+*** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S2-CS2103-T09-4/main/pull/242[#242])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/IYVVVVV/ped/issues/1[#1], https://github.com/IYVVVVV/ped/issues/4[#4], https://github.com/IYVVVVV/ped/issues/7[#7] )
+
+== Contributions to the User Guide
+:sectnums!:
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+
+include::../UserGuide.adoc[tag=prefix]
+
+include::../UserGuide.adoc[tag=profile]
+
+include::../UserGuide.adoc[tag=weight_records]
+
+include::../UserGuide.adoc[tag=exit]
+
+include::../UserGuide.adoc[tag=save_data]
+
+include::../UserGuide.adoc[tag=command_summary]
+
+:sectnums:
+== Contributions to the Developer Guide
+:sectnums!:
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=profile]
+
+include::../DeveloperGuide.adoc[tag=weight]
+
+include::../DeveloperGuide.adoc[tag=product_scope]
+
+include::../DeveloperGuide.adoc[tag=NFR]
+
+include::../DeveloperGuide.adoc[tag=glossary]
+
+include::../DeveloperGuide.adoc[tag=manual_test]
+

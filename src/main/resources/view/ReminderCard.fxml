@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane fx:id="innerPane" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+            <children>
+                <VBox prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" spacing="3.0" style="-fx-background-color: #ef827d; -fx-border-color: #ef827d;">
+                            <children>
+                                <Label fx:id="index" prefHeight="30.0" prefWidth="35.0" style="-fx-background-color: #ef827d;" text="1" textFill="WHITE">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="name" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #ef827d;" text="name" textFill="WHITE">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="55.0" style="-fx-background-color: #ef827d;" text="undone" textFill="WHITE">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #ef827d;">
+                            <children>
+                                <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="130.0">
+                                    <children>
+                                        <Label fx:id="time" prefHeight="15.0" prefWidth="130.0" text="time" textFill="#ef827d">
+                                            <font>
+                                                <Font size="10.0" />
+                                            </font></Label>
+                                        <Label fx:id="place" prefHeight="15.0" prefWidth="130.0" text="place" textFill="#ef827d">
+                                            <font>
+                                                <Font size="10.0" />
+                                            </font></Label>
+                                    </children>
+                                </VBox>
+                                <Label fx:id="calorie" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="Calorie" textFill="#ef827d">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/calorie.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children></AnchorPane>
+    </children>
+</AnchorPane>

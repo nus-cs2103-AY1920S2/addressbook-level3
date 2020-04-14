@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="430.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane fx:id="innerPane" maxHeight="Infinity" minHeight="-Infinity" prefWidth="403.0" style="-fx-background-color: white;">
+            <children>
+                <VBox maxHeight="Infinity" minHeight="-Infinity" prefWidth="430.0" style="-fx-background-color: white;">
+                    <children>
+                        <HBox fx:id="box1" alignment="CENTER_LEFT" maxHeight="Infinity" minHeight="-Infinity" prefWidth="431.0" spacing="3.0">
+                            <children>
+                                <Label fx:id="index" maxHeight="Infinity" minHeight="-Infinity" prefWidth="28.0" text="1" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Text fx:id="name" style="-fx-font: 20" text="text" wrappingWidth="400.916015625" />
+                            </children>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </HBox>
+                        <HBox fx:id="box2" alignment="CENTER_LEFT" maxHeight="Infinity" minHeight="-Infinity" prefWidth="444.0" style="-fx-background-color: white;">
+                            <children>
+                                <VBox alignment="CENTER_LEFT" maxHeight="Infinity" minHeight="-Infinity" prefWidth="340.0">
+                                    <children>
+                                        <Text fx:id="time" style="-fx-font: 20" text="text" wrappingWidth="331.0" />
+                                        <Text fx:id="place" style="-fx-font: 20" text="text" wrappingWidth="333.0" />
+                                    </children>
+                                </VBox>
+                                <Label fx:id="calorie" alignment="CENTER" maxHeight="Infinity" minHeight="-Infinity" prefWidth="104.0" text="Calorie">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/calorie.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children></AnchorPane>
+    </children>
+</AnchorPane>

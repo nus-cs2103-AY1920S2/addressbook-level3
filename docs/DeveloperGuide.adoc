@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FitHelper - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103-T09-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+By: `AY1920S2-CS2103-T09-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -32,9 +33,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/fithelper/Main.java[`Main`] and link:{repoURL}/src/main/java/fithelper/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -64,132 +64,354 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete x/f i/1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete x/f i/1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
 
+=== UI component
+//tag::UI[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/fithelper/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PagePane`, `ButtonList`, `CurrentPageTitle` etc.
+Moreover, it reserves a place for different pages that can be filled and displayed.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/fithelper/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/fithelper/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FitHelperParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an entry).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete x/f i/1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete x/f i/1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
+// tag::model[]
 === Model component
-
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores `UserProfile` and `WeightRecords` objects for user's personal information.
+* stores the FitHelper data.
+* stores `FitHelperCommit` and `VersionedFitHelper` objects for execution of `redo` and `undo` instructions.
+* exposes multiple unmodifiable `ObservableList<Entry>` and one unmodifiable `ObservableList<Diary>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+*API* : link:{repoURL}/src/main/java/fithelper/model/Model.java[`Model.java`]
 
+Below are the class diagrams for different components of model
+
+.Class Diagram for FitHelper
+image::FitHelperClassDiagram.png[]
+.Class Diagram for UserPrefs
+image::UserPrefsClassDiagram.png[]
+.Class Diagram for UserProfile
+image::UserProfileClassDiagram.png[]
+.Structure of VersionedFitHelper and FitHelperCommit
+image::VersionedFitHelperClassDiagram.png[]
+.Class Diagram for WeightRecords
+image::WeightRecordsClassDiagram.png[]
+//end::model[]
+
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/fithelper/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* saves a `UserPrefsStorage` object in json format and can read it back.
+* saves a `FitHelperStorage` object in json format (*_fithelper.json_*) and can read it back. This database includes all data related to entries and diaries.
+** `FitHelperStorage` consists of lists of `Entry` and `Diary`, and thus these two types of objects can be saved in json format and read back too.
+* saves a `UserProfileStorage` object in json format (*_userprofile.json_*) and can read it back. This database includes all data related to user profile attributes.
+** `UserProfileStorage` consists of a list of `Profile`, and objects in type of `Profile` can be saved in json format and read back.
+* saves a `WeightRecordsStorage` object in json format (*_weightrecords.json_*) and can read it back. This database includes all data related to weight records.
+** `WeightRecordsStorage` consists of a list of `Weight`, and objects in type of `Weight` can be saved in json format and read back.
 
+//end::storage[]
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `fithelper.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::entry[]
+=== Entry Feature
+The Entry consists of the following:
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+* Each `Entry` consists of a unique combination of `Name`, `Calorie`, `Location`, `Duration`, `Type`, `Remark`, `Status` and `Time`
+* Each `Entry` consists of a `Duration` in hours, default set to 1, smallest accuracy is 0.02 (1 min).
+* Each `Entry` consists of a `Type`, either food or sports
+* Each `Entry` consists of a `Remark`, default set to be empty
+* Each `Entry` consists of a `Status`, either `Done` or `Undone`
+* Each class has their respective getter methods
+
+The class diagram below is an overview of the `Entry` class.
+
+.Entry Class Diagram
+image::EntryClassDiagram.png[]
+
+==== Implementation of Entry Commands
+
+`Entry` class supports multiple commands. It includes:
+
+* `AddCommand` - Adds a `Entry` into `FitHelper`
+* `DeleteCommand` - Deletes a `Entry` from `FitHelper`
+* `EditCommand` -  Edits a `Entry` from `FitHelper`
+* `FindCommand` - Finds all `Entry` whose `name` contains the keywords user entered
+* `ListCommand` - Lists all `Entry`
+
+All the above entry commands will be parsed in `FitHelperParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding parsers will be invoked (i.e `AddCommandParser`,
+`EditCommandParser` etc). After which, the corresponding command will be executed (i.e `AddCommand`,
+`EditCommand` etc).
+
+The figure below shows the execution of an `EditCommand`.
+
+.EditCommand Activity Diagram
+image::EditEntryActivityDiagram.png[]
+
+After a successful execution, the entry with the given index will be edited from FitHelper.
+
+==== Design Considerations
+
+===== Aspect: `Type` for the entry
+
+* **Option 1:** As a string attribute in `Entry`
+
+** Pros: Easy to implement, less code required
+
+** Cons: Provides a lower level of abstraction
+
+* **Option 2:** Use two different classes to represent types, such as `FoodEntry` and `SportsEntry`
+
+** Pros: Higher level of abstraction
+
+** Cons: More code, generic types are required for implementation of common functionality
+
+In the end, we chose Option 1 as it reduces the amount of duplicated code required, given that all parameters of food entries and sports entries are the same.
+However, Option 2 is still an viable option.
+
+===== Aspect: `Time` for the entry
+
+* **Option 1:** Fix the format of `Time` to be `yyyy-MM-dd-hh:mm`
+
+** Pros: Easy to implement, less bug prone
+
+** Cons: Adds inconvenience to the user
+
+* **Option 2:** Use natty, the natural language date parser
+** Pros: Brings more convenience for CLI users
+
+** Cons: More bug prone due to the inaccuracy of the date parser. Moreover, only date can be parsed, not time.
+
+Consequently, we chose Option 1 as it standardized the format of date and time across this application.
+
+===== Aspect: `Duration` for the entry
+
+* **Option 1:** As an optional attribute
+
+** Pros: More user friendly, since duration for food entry is less meaningful
+
+** Cons: Calendar display will not able to display food entries
+
+* **Option 2:** As an optional attribute, with default set to 1
+
+** Pros: Calendar display will not able to display food entries with no duration provided
+
+** Cons: The duration does not reflect the true value when user chooses not to enter
+
+We chose Option 2 for better display of entries on the calendar
+//end::entry[]
+
+// tag::today[]
+=== Today Feature
+
+==== Implementation
+
+FitHelper's entries have a `Time` attribute including a `Date` and a specific `Time` in the format of `yyyy-mm-dd HH:mm`.
+Today feature allows the user to view entries with the `Date` of today, i.e. shows only entries in today.
+It fetches the `todayFoodEntries` and `todaySportsEntries` stored in FitHelper storage. Because the display of these two lists
+have the same logic, they are illustrated as `todayEntries` in this section, as a whole.
+
+* In `FitHelper`, the `UniqueEntryList<Entry> todayEntries` contains all entries on today.
+The list is updated whenever changes are made to the general UniqueEntryList<Entry> entries which contains entries of all dates.
+
+* A `FilteredList<Entry> filteredTodayEntries` is stored in the `ModelManager`. `filteredTodayEntries`
+in the ModelManager is initialized with this `UniqueEntryList<Entry>` by converting it to an `ObservableList<Entry>`.
+
+* `Today Page` takes in `todayEntries` as a parameter when it is initialized. The list is always displayed on the GUI page as a ListView.
+
+* When the `today` command is executed, FitHelper switches to `Today Page` where the entries on today can be seen.
+
+* Other features implemented in `Today Page`, like `daily calorie calculation`, `daily task completion`, and `dialy performance assessment`,
+all depend on the data carried by the passed in list.
+
+An example usage scenario and how the `today` mechanism behaves at each step is shown below.
+
+**Step 1.** The user launches the application for the first time.
+`UniqueEntryList` will be initialized with a list of default entries in FitHelper, which contains a few entries with various dates.
+`UniqueTodayEntryList` will be initialized concurrently by filtering out entries on today.
+
+**Step 2.** `MainWindow` fetches `ObservableList<Entry> todayEntries`.
+`Today Page` is initialized in `MainWindow` with the `ObservableList<Entry> todayEntries` passed from the model.
+
+**Step 3.** The user inputs `today` to view all today entries. `UI` passes the input to `Logic`.
+
+**Step 4.** Logic passes the user input to `FitHelperParser`. `FitHelperParser` identifies that this is a `TodayCommand`
+through the word "today".
+It then creates a `TodayCommandParser` to parse the it into a `TodayCommand` and return.
+
+**Step 5.** `Logic` gets the `TodayCommand` and execute it.
+This execution then returns a `CommandResult` to `UI`, containing the success message and a specified displayed page of `Today Page`.
+
+**Step 5.** `UI` displays the response in the `CommandResult`.
+`UI` also switches FitHelper to `Today Page`, where the continuously updated
+`todayEntryList` is displayed, since `UI` is constantly listening for the change in `Model`.
+
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
+
+.Sequence Diagram for Today Feature
+image::InitiateTodayPageSequenceDiagram.png[]
+//end::today[]
+
+// tag::diary[]
+=== Diary Feature
+
+==== Implementation
+
+FitHelper also allows the user to keep a diary with a `Date` in the format of `yyyy-mm-dd` and the `content` with no more than 200 characters.
+The diaries are represented as model `Diary` with the attributes of `DiaryId`, `DiaryDate`, and `Content`.
+This feature allows the user to view their diaries.
+It fetches the `filteredDiaryList` stored in FitHelper storage.
+
+The diary feature is facilitated by
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+which wraps a ObservableList and
+filters using the provided Predicate.
+A `FilteredList<Diary> filteredDiaries` is stored in the `ModelManager`.
+In `FitHelper`, there is an
+`ObservableList<Diary> diaries` which contains all diaries, regardless of its `DiaryDate`. `filteredDiaries`
+in the ModelManager is initialized with this ObservableList.
+
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
+
+* `Model#updateFilteredDiaryList(Predicate<Diary> predicate)` -- Sets the value of the property Predicate in the `filteredDiaries`.
+
+** The predicate is declared statically in the `Model` interface, namely
+`PREDICATE_SHOW_ALL_DIARIES`.
+In particular `PREDICATE_SHOW_ALL_DIARIES` is as follows
+```java
+    Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
+```
+
+** The `DiaryCommand` will call this method to change the visibility of diaries with different status by passing in the corresponding predicate.
+
+An example usage scenario and how the diary mechanism behaves at each step is shown below.
+
+**Step 1.** The user launches the application for the first time.
+`UniqueDiaryList` contains no default diaries before the user adds any.
+
+**Step 2.** The user inputs `diary` to list all diaries. `UI` passes the input to `Logic`.
+Logic then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
+
+**Step 3.** Logic passes the user input to `FitHelperParser`. `FitHelperParser` identifies that this is a `DiaryCommand`
+through the word "diary".
+It then creates a
+`DiaryCommandParser` to parse the it into a `DiaryCommand` and return.
+
+**Step 4.** `Logic` finally gets the `DiaryCommand` and execute it.
+The execution firstly calls
+`Model#updateFilteredDiaryList(Predicate<Diary> predicate)` to update the Predicate in
+`filteredDiaries` in `Model`.
+This execution then returns a `CommandResult` to `UI`, containing the response to the user.
+
+**Step 5.** `UI` displays the response in the `CommandResult`.
+In addition, UI will change to display diaries after model updates `filteredDiaries`, since `UI` is constantly listening for the change in `Model`.
+
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
+
+.Sequence Diagram for Diary Feature
+image::DiarySequenceDiagram.png[]
+//end::diary[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedFitHelper`.
+It extends `FitHelper` with an undo/redo history, stored internally as an `fitHelperStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedFitHelper#commit()` -- Saves the current FitHelper state in its history.
+* `VersionedFitHelper#undo()` -- Restores the previous FitHelper state from its history.
+* `VersionedFitHelper#redo()` -- Restores a previously undone FitHelper state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedFitHelper` will be initialized with the initial FitHelper state, and the `currentStatePointer` pointing to that single FitHelper state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width = 35%]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete x/f i/5` command to delete the 5th food entry in the FitHelper. The `delete` command calls `Model#commit()`, causing the modified state of the FitHelper after the `delete x/f i/5` command executes to be saved in the `fitHelperStateList`, and the `currentStatePointer` is shifted to the newly inserted FitHelper state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width = 35%]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add x/f n/apple ...` to add a new food entry. The `add` command also calls `Model#commit()`, causing another modified FitHelper state to be saved into the `fitHelperStateList`.
 
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
+image::UndoRedoState2.png[width = 35%]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not call `Model#commit()`, so the FitHelper state will not be saved into the `fitHelperStateList`.
+
+Step 4. The user now decides that adding the food entry was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous FitHelper state, and restores the FitHelper to that state.
+
+image::UndoRedoState3.png[width = 35%]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial FitHelper state, then there are no previous FitHelper states to restore. The `undo` command uses `Model#canundo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,50 +419,71 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the FitHelper to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `fitHelperStateList.size() - 1`, pointing to the latest FitHelper state, then there are no undone FitHelper states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the FitHelper, such as `list`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `fitHelperStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width = 35%]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `fitHelperStateList`, all FitHelper states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width = 35%]
+
+// end::undoredo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram.png[width = 30%]
 
-==== Design Considerations
 
-===== Aspect: How undo & redo executes
+// tag::calendar[]
+=== Calendar Feature
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+==== Implementation
+. The user enters a view command in the `calendar d/2020-04-13`.
 
-===== Aspect: Data structure to support the undo/redo commands
+. `LogicManager` parses the user input, constructs and executes the `CalendarCommand`.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+. The `CalendarCommand` reaches `setCalendarDate`, `setCalendarMode`, `setCalendarShow` in the `Model` and returns the `CommandResult` to the `LogicManager`.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+* `Model#setCalendarDate()` -- Set the referenced date for calendar, default set to current date.
+* `Model#setCalendarMode()` -- Set the calendar display mode, can be either `list` or `calendar` mode.
+* `Model#setCalendarShow()` -- Set the display of entries of a particular date, default set to `null`.
 
-// end::dataencryption[]
+
+. The `LogicManager` returns the `CommandResult` to the `Ui`.
+
+. The `Ui` gets the `CommandResult` from `LogicManager` and updates the Ui to display the module.
+The following sequence diagram shows how the update operation works to change calendar page:
+
+.CalendarCommand Sequence Diagram
+image::CalendarSequenceDiagram.png[]
+
+.CalendarCommand Class Diagram
+image::CalendarClassDiagram.png[test, 60%]
+
+==== Design consideration
+
+===== Aspect: Allowing no time clashes for all entries
+
+* **Option 1:** Allow multiple entries to exist over the same time period
+
+** Pros: More user friendly, since users might be doing multiple things for a given time period
+
+** Cons: Calendar display will not able to display food entries
+
+* **Option 2:** No time clashes allowed
+
+** Pros: Calendar display becomes clearer
+
+** Cons: Users are not given the freedom to add multiple entries with the same time period
+
+We chose Option 1 for better display of entries on the calendar
+// end::calendar[]
 
 === Logging
 
@@ -252,15 +495,192 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+//tag::profile[]
+//end::profile[]
+
+//tag::weight[]
+=== Add Weight Records
+
+FitHelper allows the user to track with their weight change easily by allowing user to add their current weight and previous weight.
+
+==== Sample
+An example usage scenario and how the `addWeight` command behaves at each step is shown below.
+
+**Step 1.**
+
+* The user launches the application for the first time.
+* `UniqueWeightList` in Model contains no default weights before the user adds any.
+* `weightrecords.json` in local Storage contains no weight records as well.
+
+**Step 2.**
+
+* The user inputs `addWeight` command word, followed by `v/WEIGHT_VALUE` and an optional `d/DATE`.
+* `UI` passes the input to `Logic`.
+* `Logic` then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
+
+**Step 3.**
+
+* `Logic` passes the user input to `FitHelperParser`.
+* `FitHelperParser` identifies that this is a `AddWeightCommand` through the command word "addWeight".
+* It then creates a `AddWeightCommandParser` to parse the input into a `AddWeightCommand` and return back.
+
+**Step 4.**
+
+* `Logic` gets the `AddWeightCommand` and execute it.
+* The execution firstly check is the new weight date is after today's date and if there is already a existing weight in the UniqueList.
+* Both of these two cases will throw corresponding `CommandException`.
+* Then the execution add the new `Weight` into model.
+* Finally, it returns a `CommandResult` to `UI`, containing the response to the user and the displayPage, which equals to `WEIGHT` page.
+
+**Step 5.**
+
+* `UI` displays the response in the `CommandResult`.
+* In addition, UI will change to display Weight Page after updating Profile Page and Weight Page.
+
+==== Implementation
+
+===== Storage
+
+A weight is stored with three attributes in the `weightrecords.json` database:
+
+* `date` : the date of the weight record in format of `yyyy-MM-dd`, if no date is provided by the user, the *default value* is the date of today
+* `weightValue` : a double value with two decimal places.
+* `bmi` : the BMI value is also a double value with two decimal places.
+It is auto-computed and stored, using the formula : `BMI = Weight Value(kg) / Height(m)^2`.
+The Height value gets from user profile in `userprofile.json` database.
+
+===== Model
+
+* A single weight is represented as model `Weight` with the attributes of `Date`, `WeightValue`, and `Bmi`. +
+
+* In `ModelManager`, all weights are represented by `WeightRecords weightRecords`.
+** The `WeightRecords` class implements `ReadOnlyWeightRecords` interface, and therefore can return an *unmodifiable* version of a *unique* list of weights.
+** The `WeightRecords` wraps a `UniqueWeightList` which allows adding and iterating. *Unique* here refers to the constraint that no two weight with the same date can exist in the list/database.
+
+* In `ModelManager`, a `FilteredList<Weight> filteredWeight` object is used to store and update a filtered version of all weights.
+** The
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+wraps a `ObservableList` and filters using a provided `Predicate`. +
+
+===== UI
+When user input `addWeight` command to `UI`, the input is passed to `Logic` part as a `String`.
+
+After `addWeight` command is executed, a `CommandResult` with `DisplayPage` equals `WEIGHT` will be passed back to `MainWindow` in `UI` part. Then:
+
+* Firstly, it will call `updateProfilePage()`, since if the newly added weight has the lasted date, Current Weight and Current BMI in uer profile will need to be updated.
+* Secondly, it will call `updateWeightPage()`, since if a new weight is added successfully, new points should be added on to Weight Line Chart and BMI Line Chart.
+The text content of top notification will also be updated if the gap between Current Weight and Target Weight is changed.
+* Lastly, it will call `showWeightPage()`. This allows the Main Window auto-switch to Weight Page after each `addWeight` command by user.
+
+===== Logic
+
+The Sequence Diagram below shows how the components interact with each other for the mentioned scenario in sample.
+
+.Sequence Diagram for Add Weight Feature
+image:AddWeightSequenceDiagram.png[]
+//end::weight[]
+
+//tag::check[]
+=== Check calorie intake/consumption of some common food/sports
+
+This function allows the user to search for calorie intake/consumption of food/sports by keywords.
+It helps the user better estimate how much calorie he/she will gain/burn
+by eating/exercising, so that he/she can add food/sports entry into the application
+without the need to search online for relevant information.
+
+==== Implementation
+The check function is achieved by calling the `FitHelper` inside the `ModelManager` to search
+through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
+keywords specified by the user.
+
+.Class diagram showing the interaction between CheckCommand, a concrete subclass of Command, and ModelManager, a concrete class implementing Model interface.
+image::ClassDiagramForCheckCommand.png[test, 100%]
+
+
+Given below are example usage scenario:
+
+Initialization: when the application is launched, `ModelManager` will initialize a `FitHelper`, which
+will in turn initialize both `FoodCalorieTable` and `SportsCalorieTable` to contain pre-set data
+which is a LinkedHashSet of one type of `CalorieDatum` (either `FoodCalorieDatum` or `SportsCalorieDatum`).
+
+image::InitializationOfCalorieTables.png[test, 80%]
+
+Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
+a `CheckCommand`, which asks `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
+to add first 3 `CalorieDatum` whose name matches the keyword `swim` into a set, and return the
+set to `CheckCommand`. Since the set contains at least one `CalorieDatum` (meaning there is
+some matching data), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser`
+contains a success message followed by the string representation of each matching datum.
+
+Case 2: when the user enter the command `check x/f k/swim`, the `LogicManager` will create
+a `CheckCommand`, which asks `ModelManager` to let ` FitHelper` to search through `FoodCalorieTable`
+to add first 3 `CalorieDatum`s whose name contains the keyword `swim` into a set, and return
+the set to `CheckCommand`. Since the set contains no `CalorieDatum` (meaning there is no
+matching data), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser` contains
+a failure message followed by the string representation of the keyword.
+
+image::SequenceDiagramForCheckCommand1.png[test, 150%]
+image::SequenceDiagramForCheckCommand2.png[test, 150%]
+
+The detailed searching mechanism is illustrated in the following activity diagram:
+
+image::SearchMechanismofCheckCommand.png[test, 50%]
+
+==== Design Considerations
+
+Aspect: Data structure to store entries
+
+* **Alternative 1 (current choice):** Use an `LinkedHashSet` as a field in CalorieTable
+to store the entries.
+** Pros: Easy to implement partial-key search (compare the keyword with the name of each entry in the set).
+Ensure that the database contains no duplicate data since a Set does allow duplicate elements.
+** Cons: O(n) complexity for finding matching entries, where n is the number of entries in the set.
+* **Alternative 2:** Use a `HashMap` as a field in CalorieTable to store the entries.
+The key is the name of the entry and the value is the entry.
+** Pros: (theoretically) O(1) time complexity for finding an entry given a complete keyword,
+regardless of how many entries are in the HashMap.
+** Cons: hard to implement partial-key search (i.e. the keyword is only part of the name of the entry).
+
+//end::check[]
+
+//tag::store(proposed)[]
+
+=== Store calorie data defined by the user [proposed in v2.0]
+
+This proposed function allows the user to create his/her own calorie data and store them
+into the application database. These data can be later searched by and shown to the user
+via the existing `check` command. This function helps the user to record calorie data of
+food/sports not included in the pre-set database (or data more accurate than the ones
+stored in the pre-set database), so that he/she do not need to remember these data
+or search them online when he/she need to add same food/sports entry into the application
+in the future.
+
+==== proposed implementation
+
+To store user-defined calorie data internally, we need current FitHelper class in
+the Model component to associate 2 new classes `UserFoodCalorieTable`
+and `UserSportsCalorieTable`, which will store user-defined calorie
+intake of food and calorie consumption of sports respectively.
+
+To allow the application to access these user-defined data in the future, we need another class
+in the Storage component responsible for writing internally data into Json file
+and reading the Json file back to internally stored data when the user reopens the application.
+
+.Additional classes associated with FitHelper for storing user-defined data (existing classes associated with FitHelper are omitted)
+image::AdditionalModel.png[test, 40%]
+
+.Additional Storage Class for writing and reading user-defined data (existing storage classes are omitted)
+image::AdditionalStorage.png[test, 30%]
+
+To allow the `check` command to search for user-defined data, the command will be modified to
+retrieve data from `UserFoodCalorieTable` or `UserSportsCalorieTable` as well, depending
+on the search type specified by the user.
+
+//end::store(proposed)[]
 
 == Documentation
 
@@ -274,97 +694,289 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::product_scope[]
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to control weight, therefore need to record daily food intake and sports
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: achieve fitness control faster than a typical mouse/GUI driven app
+//end::product_scope[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,30%,30%,30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |new user|record my basic information such as name and gender|have a more complete profile
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user who is concerned about body shape| record and update my current height and weight |have a clear view of my current body condition
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user who wants to lose weight |set my target weight|have a clear target to work towards
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user who wants to set diet plans |add a food entry|can plan my diet
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user who wants to control calorie intake |view the calorie in each food entry|can keep track of my calorie intake
+
+|`* * *` |user who wants to set sports plans |add a sport entry|can plan for my sport exercises
+
+|`* * *` |user who wants to increase calorie consumption |view the calorie consumption for each sport entry|can keep track of my calorie consumption
+
+|`* * *` |user who wants to adjust my diet/sports plans |edit a food/sports entry|can have my plans and records updated
+
+|`* * *` |user who wants to remove my diet/sports plans |delete a food/sports entry |
+
+|`* * *` |user who wants to search for an entry |search by keywords in the entry name |can find related entries without having to scan through all the entries
+
+|`* * *` |user who wants see today's plans |switch to Today Page and view the daily food/sports plans|can have a general idea of the daily diet/sports arrangements
+
+|`* * *` |user who needs some suggestions for my daily plan |switch to Today Page and view FitHelper feedback|I know whether my daily food/sports plan is suitable
+
+|`* * *` |user who wants to know my daily performance |switch to Today Page and view my performance report|I know my food calorie intake distribution and my task completion
+
+|`* * *` |user who types wrongly sometimes |undo my previous command |I do not need to delete explicitly using a long command
+
+|`* * *` |user who types wrongly sometimes |redo my previous undo command |I can re-executed a undone command
+
+|`* * *` |user who wants to keep a diary |add a diary log for a specific day|note down my schedules, feelings, goals and so on as a self-encouragement
+
+|`* * *` |user who wants to append more content to a previous diary |append new content to existing diaries|enrich my previous diaries' content
+
+|`* * *` |user who wants to replace the content of a previous diary with new content |edit existing diaries|modify the content to an updated version
+
+|`* * *` |user who wants to remove some diary logs |delete existing diaries|keep abandon some diary logs that I do not want to keep
+
+|`* * *` |user who wants to clear my diary |clear all existing diaries|I can re-start my diary from a white paper
+
+|`* *` |user who wants keep fit |acknowledge my weight change trend according to time |keep track of my weight change easily
+
+|`* *` |user who wants to lose weight |compare between my current weight and target weight |know the gap clearly
+
+|`* *` |user|update my basic information such as address and name if necessary |have an updated profile at any time
+
+|`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
+
+|`* *` |user who wants to have a clean user interface |clear entries regularly | do not need to see irrelevant information
+
+|`* *` |user|leave the application when I need |It does not occupy additional space in my computer
+
+|`* *` |user|list all entries by certain criteria|I can filter the tasks by what I am looking for
+
+|`* *` |user|get reminders for tasks not done |I can focused on these tasks and complete them
+
+|`* *` |user who do not know very well about dieting and exercising|
+check calorie intake/consumption of common food and sports |I can input calorie intake/consumption without
+having to search about these information online.
+
+|`* *` |first-time user|view help page|I can know the functions of the application quickly
+
 |=======================================================================
 
-_{More to be added}_
+//end::userStories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FitHelper` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Add an Entry
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User adds an entry specifying a meal or a sport with name, time, location, and calorie.
+2.  FitHelper stores the entry to the specific date file.
+3.  FitHelper display successful record and the entry status.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. User input incomplete values.
++
+[none]
+** 1a1. FitHelper shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 1b. The input time has clashes with previous entries.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1b1. FitHelper shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
 
+[discrete]
+=== Use case: UC02 - Edits an Entry
+
+*MSS*
+
+1.  User edits an entry specifying a meal or a sport with name, time, location, and calorie.
+2.  FitHelper modifies the entry to the specific date file.
+3.  FitHelper display successful record and the entry status.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User input repeated values that are already stored in the entry.
++
+[none]
+** 1a1. FitHelper ignores the edit command.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Deletes an Entry
+
+*MSS*
+
+1.  User deletes an entry by using the`delete` command.
+2.  FitHelper deletes the corresponding entry in the list and in the file.
+3.  FitHelper display the entry status and the successfully-delete message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `INDEX` specified by the user does not exist.
++
+[none]
+** 1a1. FitHelper shows an error message.
++
+Use case ends.
+
+[discrete]
 _{More to be added}_
 
+//tag::NFR[]
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 entries without a noticeable sluggishness in performance for typical usage
+.  Should be able to function normally without internet access.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user can get response from the system within 5 seconds after command input.
+.  A user can be familiar with the system commands and interface within half an hour usage.
 
 _{More to be added}_
+//end::NFR[]
 
+//tag::glossary[]
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|x/
+|Type of entry
+|add, check, delete, edit, find
+
+|i/
+|Index of entry
+|edit, delete, edit
+
+|n/
+|Name
+|add, edit
+
+|t/
+|Time in format of "date hour minute"
+|add, edit
+
+|l/
+|Location
+|add, edit
+
+|c/
+|Calorie
+|add, edit
+
+|s/
+|Status
+|add, edit
+
+|r/
+|Remark
+|edit
+
+|d/
+|Date in format of *yyyy-MM-dd*
+|calendar, addWeight
+
+|dr/
+|Duration in format of *yyyy-MM-dd yyyy-MM-dd*
+|add, edit
+
+|dc/
+|Dairy contents
+|dairy
+
+|k/
+|Keyword
+|check, find
+
+|attr/
+|Attribute in user profile
+|update
+
+|v/
+|Attribute Value in user profile
+|update, addWeight
+
+|===
+
+.Possible Command Flags
+|===
+|Command |Flag |Meaning
+
+|Sort
+|-a
+|Sort in *ascending* order
+
+|Sort
+|-d
+|Sort in *descending* order
+
+|Sort
+|-t
+|Sort according to *time*
+
+|Sort
+|-c
+|Sort according to *calorie intake*
+
+|Update
+|-f
+|*Force update* even with existing value
+
+|===
+
+//end::glossary[]
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name* : FitHelper
 
 Author: ...
 
@@ -378,6 +990,7 @@ Cons:
 * ...
 * ...
 
+//tag::manual_test[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -392,34 +1005,91 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the welcome page of FitHelper. On the left hand side, the user can see a list of page name. Users are able to click on the button or using corresponding command to direct to that page.
+.. The window size is fixed.
 
-. Saving window preferences
+. Shutdown
+.. Users are able to shutdown the application using CLI with following commands:
+- `exit`
+- `quit`
+- `bye`
+.. Users can also choose to shutdown the application by clicking on X button on the right top side if the window.
+.. User data will be auto-saved if user choose to shutdown the application. Three local data file in json format can be find:
+- `fithelper.json` : containg data related to entries and diaries.
+- `userprofile.json` : containing data related to user profile.
+- `weightrecords.json` : containing data related to all weight records.
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+=== Adding A New Weight Record
 
-_{ more test cases ... }_
+. Add *first weight record* while there is no previous weight record in the database.
 
-=== Deleting a person
+.. Prerequisites: None. Users are able to use `addWeight` command at any page.
+.. Test case: `addWeight v/50.0` +
+   Expected:
+- A new `Weight` is added into `weightrecords` database, with `WeightValue` equals 50.0, `Date` with default value(today's date) and `BMI` calculated by `Height`.
+- The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph. The top notification is also updated.
+- In profile page, Current Weight and Current BMI change from "Not Available Now" to the newest value.
+.. Test case: `addWeight v/49.0 d/2050-01-01` +
+   Expected: No new weight record is added since the date is after current date. An error message is shown in the command result box.
 
-. Deleting a person while all persons are listed
+. Add new weight record when there is already *some previous weight records existing* in the database.
+.. Prerequisites: None. Users are able to use `addWeight` command at any page.
+.. Test case: `addWeight v/48.0` +
+   Expected: No new weight record is added since there is existing weight record with the same date (by default is today's date) in the data base. An error message is shown in the command result box.
+.. Test case : `addWeight v/47.0 d/2020-03-01` +
+   Expected:
+- A new `Weight` is added into `weightrecords` database, with `WeightValue` equals 47.0, `Date` with 2020-03-01 and `BMI` calculated by `Height`.
+- The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph, and form a new trend line with previous data points. The top notification is also updated.
+- In profile page, Current Weight and Current BMI remain the same, since the newly added weight record is not the most recent record in the database.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Sorting entry lists
 
-_{ more test cases ... }_
+. sort and display the entry lists stored in the sample FitHelper
+.. Prerequisite: The data stored in FitHelper are the sample data. To restore to sample data,
+delete all files stored in the data folder and launch the application.
+.. Test case: `sort by/time` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in all three lists (Food Entry History, Sports Entry History and Reminders)
+are sorted by time in the descending order (entry with a later time comes first i.e. at top).
+.. Test case: `sort x/s by/cal o/a` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- Entries in Sports Entry History and Reminders list are sorted by calorie value
+in the ascending order (entry with a lower calorie value comes first i.e. at top).
+- Entries in Food Entry History list remain unchanged.
+.. Test case: `sort x/s o/a` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
+
+=== Checking calorie data
+
+. search for calorie intake/consumption of common food/sports
+.. Prerequisite: None, as long as the application is launched properly.
+.. Test case: `check x/s k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows calorie consumption per hour of common swimming styles
+in the bottom left corner.
+.. Test case: `check x/f k/swim` +
+Expected:
+- The application will go to or remain at the dashboard page.
+- The application shows no matching results message in the bottom left corner.
+.. Test case: `check k/swim` +
+Expected:
+- The application shows invalid command format error, followed by
+correct command format and example command in the bottom left corner.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If the application is launched and shut down at least once, there will be three local database in json format.
+.. Delete `fithelper.json`, and launch FitHelper again. All user manipulation on entries and diaries will be cleared. `Dashboard`, `Today`, `Calendar` and `Diary` Page will restart with sample data.
+.. Delete `userprofile.json`, and launch FitHelper again. All user manipulation on user profile will be clear. `Profile` page will restart with sample user data.
+.. Delete `weightrecords.json`, and launch FitHelper again. All user manipulation on weight records will be clear. `Profile` page will show Current Weight and Current BMI as "Not Available Now", and `Weight` Page will have no data point on the trend line graph.
 
-_{ more test cases ... }_
+
+
+//end::manual_test[]

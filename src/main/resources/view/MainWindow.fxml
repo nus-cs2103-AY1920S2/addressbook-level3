@@ -1,60 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+<fx:root title="FitHelper" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <icons>
+      <Image url="@../images/FitHelperLogo.png" />
+   </icons>
+   <scene>
+      <Scene stylesheets="@Extensions.css">
+         <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;">
+            <children>
+               <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <TextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0" prefWidth="338.0" promptText="Enter any command to start. e.g.  add x/food n/alice t/2020-04-10-16:00 l/utown c/500" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="560.6666666666666" />
+                     <Label fx:id="currentPage" text="FitHelper" textFill="#ef827d" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+                        <font>
+                           <Font size="30.0" />
+                        </font></Label>
+                     <Separator prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+                     <AnchorPane fx:id="pagePane" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                        <children>
+                           <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;" text="With FitHelper, Let's Turn Fat into FIT!" textFill="#ef827d" wrapText="true" AnchorPane.bottomAnchor="-34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                 <Font size="17.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </AnchorPane>
+                  </children>
+               </AnchorPane>
+               <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/FitHelperLogo.png" />
+                              </image>
+                              <VBox.margin>
+                                 <Insets top="15.0" />
+                              </VBox.margin>
+                           </ImageView>
+                           <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="10.0" prefHeight="50.0" prefWidth="170.0" text="FitHelper" textAlignment="CENTER" textFill="#ef827d" wrapText="true">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="dashBoardButton" mnemonicParsing="false" onAction="#handleShowDashBoard" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #789cce; -fx-border-color: #789cce;" text="Dashboard" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="todayButton" mnemonicParsing="false" onAction="#handleShowTodayPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #acbfea; -fx-border-color: #acbfea;" text="Today" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#handleShowCalendarPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #c8d5f6; -fx-border-color: #c8d5f6;" text="Calendar" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="profileButton" mnemonicParsing="false" onAction="#handleShowProfilePage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #fed7dd; -fx-border-color: #fed7dd;" text="User Profile" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="weightButton" mnemonicParsing="false" onAction="#handleShowWeightPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ffc5ce; -fx-border-color: #ffc5ce;" text="Weight Records" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="diaryButton" mnemonicParsing="false" onAction="#handleShowDiaryPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ffacbb; -fx-border-color: #ffacbb;" text="Diary" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font></Button>
+                           <Button fx:id="helpButton" mnemonicParsing="false" onAction="#handleShowHelpPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ef827d; -fx-border-color: #ef827d;" text="Help" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" prefHeight="157.0" prefWidth="200.0" style="-fx-background-color: white;" text="FitHelper is ready to help you~" textAlignment="CENTER" textFill="#ef827d" wrapText="true" />
+                        </children>
+                     </VBox>
+                  </children></AnchorPane>
+            </children>
+         </AnchorPane>
+      </Scene>
+   </scene>
 </fx:root>

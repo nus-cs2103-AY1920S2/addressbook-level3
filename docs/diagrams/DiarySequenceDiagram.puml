@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+box Ui UI_COLOR_T1
+Participant ":MainWindow" as mainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":FitHelperParser" as FitHelperParser LOGIC_COLOR
+Participant ":DiaryCommandParser" as DiaryCommandParser LOGIC_COLOR
+Participant ":DiaryCommand" as DiaryCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+Participant ":Model" as model MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+user -[USER_COLOR]> mainWindow : "diary"
+activate mainWindow
+
+mainWindow -[UI_COLOR]> LogicManager
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]> LogicManager : execute("diary")
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]-> LogicManager
+deactivate LogicManager
+
+LogicManager -[LOGIC_COLOR]> FitHelperParser : parseCommand("diary")
+activate FitHelperParser
+
+create DiaryCommandParser
+FitHelperParser -> DiaryCommandParser
+activate DiaryCommandParser
+
+DiaryCommandParser --> FitHelperParser
+deactivate DiaryCommandParser
+
+FitHelperParser -> DiaryCommandParser : parse("diary")
+activate DiaryCommandParser
+
+create DiaryCommand
+DiaryCommandParser -> DiaryCommand
+activate DiaryCommand
+
+DiaryCommand --> DiaryCommandParser : DiaryCommand
+deactivate DiaryCommand
+
+DiaryCommandParser --> FitHelperParser : DiaryCommand
+deactivate DiaryCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DiaryCommandParser -[hidden]-> FitHelperParser
+destroy DiaryCommandParser
+
+FitHelperParser --> LogicManager : DiaryCommand
+deactivate FitHelperParser
+deactivate LogicManager
+
+LogicManager -> DiaryCommand : execute()
+activate DiaryCommand
+
+DiaryCommand -> model : updateFilteredDiaryList(predicate)
+activate model
+
+model --> DiaryCommand
+deactivate model
+
+create CommandResult
+DiaryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DiaryCommand
+deactivate CommandResult
+
+DiaryCommand --> LogicManager : CommandResult
+deactivate DiaryCommand
+
+LogicManager --> mainWindow : CommandResult
+deactivate LogicManager
+
+user <--mainWindow
+deactivate mainWindow
+@enduml

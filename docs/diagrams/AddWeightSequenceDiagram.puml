@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+box Ui UI_COLOR_T1
+Participant ":MainWindow" as mainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":FitHelperParser" as FitHelperParser LOGIC_COLOR
+Participant ":AddWeightCommandParser" as AddWeightCommandParser LOGIC_COLOR
+Participant ":AddWeightCommand" as AddWeightCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+Participant ":Model" as Model MODEL_COLOR
+Participant "w:Weight" as Weight MODEL_COLOR
+end box
+
+
+user -[USER_COLOR]> mainWindow : "addWeight"
+activate mainWindow
+
+mainWindow -[UI_COLOR]> LogicManager
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]> LogicManager : execute("addWeight")
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]> FitHelperParser : parseCommand("addWeight")
+activate FitHelperParser
+
+create AddWeightCommandParser
+FitHelperParser -[LOGIC_COLOR]> AddWeightCommandParser
+activate AddWeightCommandParser
+
+AddWeightCommandParser --[LOGIC_COLOR]> FitHelperParser
+deactivate AddWeightCommandParser
+
+FitHelperParser -[LOGIC_COLOR]> AddWeightCommandParser : parse("diary")
+activate AddWeightCommandParser
+
+create AddWeightCommand
+AddWeightCommandParser -[LOGIC_COLOR]> AddWeightCommand
+activate AddWeightCommand
+
+AddWeightCommand --[LOGIC_COLOR]> AddWeightCommandParser : AddWeightCommand
+deactivate AddWeightCommand
+
+AddWeightCommandParser --[LOGIC_COLOR]> FitHelperParser : AddWeightCommand
+deactivate AddWeightCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddWeightCommandParser -[hidden]-> FitHelperParser
+destroy AddWeightCommandParser
+
+FitHelperParser --[LOGIC_COLOR]> LogicManager : AddWeightCommand
+deactivate FitHelperParser
+deactivate LogicManager
+
+LogicManager -[LOGIC_COLOR]> AddWeightCommand : execute()
+activate AddWeightCommand
+
+AddWeightCommand -[LOGIC_COLOR]> Model : getUserProfile()
+activate Model
+
+Model --[MODEL_COLOR]> AddWeightCommand : Profile
+deactivate Model
+
+create Weight
+AddWeightCommand -[LOGIC_COLOR]> Weight
+activate Weight
+
+Weight --[MODEL_COLOR]> AddWeightCommand : w
+deactivate Weight
+
+AddWeightCommand -[LOGIC_COLOR]> Model : addWeight(w)
+activate Model
+
+Model --[MODEL_COLOR]> AddWeightCommand
+deactivate Model
+
+create CommandResult
+AddWeightCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult
+
+CommandResult --[LOGIC_COLOR]> AddWeightCommand
+deactivate CommandResult
+
+AddWeightCommand --[LOGIC_COLOR]> LogicManager : CommandResult
+deactivate AddWeightCommand
+
+LogicManager --[LOGIC_COLOR]> mainWindow : CommandResult
+deactivate LogicManager
+
+user <[UI_COLOR]--mainWindow
+deactivate mainWindow
+@enduml

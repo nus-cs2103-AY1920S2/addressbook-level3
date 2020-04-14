@@ -1,0 +1,115 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":TodayPage" as TodayPage UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":fitHelperParser" as FitHelperParser LOGIC_COLOR
+participant ":TodayCommandParser" as TodayCommandParser LOGIC_COLOR
+participant "d:TodayCommand" as TodayCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":FitHelper" as FitHelper MODEL_COLOR
+end box
+
+[-> MainWindow : (initialize)
+activate MainWindow
+
+MainWindow -> LogicManager : getFilteredTodayEntryList()
+activate LogicManager
+
+LogicManager -> ModelManager : getFilteredTodayEntryList()
+activate ModelManager
+
+ModelManager -> FitHelper : getTodayEntryList()
+activate FitHelper
+
+FitHelper --> ModelManager : UniqueEntryList<Entry> todayEntries
+deactivate FitHelper
+
+ModelManager --> LogicManager : ObservableList<Entry> todayEntries
+deactivate ModelManager
+
+LogicManager --> MainWindow : ObservableList<Entry> todayEntries
+deactivate LogicManager
+
+create TodayPage
+MainWindow -> TodayPage : todayEntries
+activate TodayPage
+
+TodayPage --> MainWindow
+deactivate TodayPage
+
+[<--MainWindow
+deactivate MainWindow
+
+[-> MainWindow : ("today")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("today")
+activate LogicManager
+
+LogicManager -> FitHelperParser : parseCommand("today")
+activate FitHelperParser
+
+create TodayCommandParser
+FitHelperParser -> TodayCommandParser
+activate TodayCommandParser
+
+create TodayCommand
+TodayCommandParser -> TodayCommand : new TodayCommand()
+activate TodayCommand
+
+TodayCommand --> TodayCommandParser : todayCommand
+deactivate TodayCommand
+
+TodayCommandParser --> FitHelperParser : todayCommand
+deactivate TodayCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TodayCommandParser -[hidden]-> FitHelperParser
+destroy TodayCommandParser
+
+FitHelperParser --> LogicManager : todayCommand
+deactivate FitHelperParser
+
+LogicManager -> TodayCommand : execute()
+activate TodayCommand
+
+create CommandResult
+TodayCommand -> CommandResult : new CommandResult(displayedPage.TODAY)
+activate CommandResult
+
+CommandResult --> TodayCommand : commandResult
+deactivate CommandResult
+
+TodayCommand -> LogicManager : commandResult
+deactivate TodayCommand
+
+LogicManager -> MainWindow : commandResult
+deactivate LogicManager
+
+MainWindow -> MainWindow : showPage(commandResult)
+activate MainWindow
+MainWindow --> MainWindow
+deactivate MainWindow
+MainWindow -> MainWindow : showTodayPage()
+activate MainWindow
+MainWindow --> MainWindow
+deactivate MainWindow
+
+MainWindow -> TodayPage : getRoot()
+activate TodayPage
+
+TodayPage --> MainWindow
+deactivate TodayPage
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

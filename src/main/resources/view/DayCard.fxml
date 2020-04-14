@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
+<StackPane id="daysPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" minHeight="-Infinity" prefWidth="465" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane prefWidth="460.0" minHeight="-Infinity">
+            <children>
+                <Label fx:id="dayTitle" StackPane.alignment="TOP_LEFT" textFill="#789cce">
+                    <StackPane.margin>
+                        <Insets top="0.0" left="3.0"/>
+                    </StackPane.margin>
+                </Label>
+                <Label fx:id="statsNo" StackPane.alignment="TOP_RIGHT" textFill="#789cce">
+                    <StackPane.margin>
+                        <Insets top="0.0" left="10.0"/>
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <StackPane id="listPanel" alignment="BOTTOM_CENTER">
+            <children>
+                <ScrollPane id="listScrollPane" fitToWidth="true" prefWidth="460.0" prefHeight="200" minHeight="-Infinity" fitToHeight="True">
+                    <StackPane.margin>
+                        <Insets top="20.0" />
+                    </StackPane.margin>
+                    <content>
+                        <ListView fx:id="listView" prefWidth="460.0" prefHeight="190" minHeight="-Infinity"/>
+                    </content>
+                </ScrollPane>
+            </children>
+        </StackPane>
+    </children>
+</StackPane>

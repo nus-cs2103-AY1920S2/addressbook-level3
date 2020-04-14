@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="700.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Today's Food" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Today's Sports" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #ef827d; -fx-border-color: #ffffff;" text="My Performance" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="377.0" prefWidth="700.0" style="-fx-background-color: white;">
+               <children>
+                  <ListView fx:id="foodListView" editable="true" prefHeight="277.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                  <ListView fx:id="sportListView" prefHeight="277.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                  <Separator orientation="VERTICAL" prefHeight="359.0" prefWidth="0.0" />
+                  <AnchorPane prefHeight="359.0" prefWidth="234.0">
+                     <children>
+                        <VBox prefHeight="277.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label fx:id="calorieGain" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Intake" textFill="#ef827d" wrapText="true" />
+                              <Label fx:id="calorieGain1" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Food Calorie Distribution :" textFill="#ef827d" wrapText="true" />
+                              <AnchorPane prefHeight="205.0" prefWidth="250.0">
+                                 <children>
+                                    <PieChart fx:id="foodCaloriePieChart" animated="false" legendVisible="false" pickOnBounds="false" prefHeight="205.0" prefWidth="260.0" titleSide="RIGHT" />
+                                 </children>
+                              </AnchorPane>
+                              <Label fx:id="calorieConsume" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Consumption" textFill="#ef827d" wrapText="true" />
+                              <Label fx:id="totalCalorie" layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Total-Calorie" textFill="#ef827d" wrapText="true" />
+                              <Label fx:id="performance" layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Sport Task Performance" textFill="#ef827d" wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="78.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="doneFoodCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #789cce;" text="done food plan" textFill="WHITE" />
+                        <Label fx:id="undoneFoodCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ef827d;" text="undone food plan" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="78.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="doneSportCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #789cce;" text="done sports plan" textFill="WHITE" />
+                        <Label fx:id="undoneSportCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ef827d;" text="undone sport plan" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="260.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="260.0" style="-fx-background-color: #ef827d; -fx-border-color: #ef827d;" text="FitHelper Feedback~" textFill="WHITE">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="feedback" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="260.0" style="-fx-background-color: #ffffff;" text="Now add in some plans and get your feedbacks~" textFill="#ef827d" wrapText="true">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

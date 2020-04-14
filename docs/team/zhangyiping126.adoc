@@ -1,0 +1,56 @@
+= Zhang Yiping - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FitHelper
+
+== Overview
+
+FitHelper is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 21 kLoC.
+
+== Summary of contributions
+* *Enhancement added*-*calendar display*
+** What it does: allows the application to have a monthly/weekly display of entries
+** Justification: This feature allows the user to have a clearer idea of his/her food entries/sports entries status
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=zhangyiping126&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S2-CS2103-T09-4/main/pulls?page=1&q=is%3Apr+author%3Azhangyiping126[Pull Request]]
+
+* *Other contributions*:
+** Model
+*** Add duration attribute for entry, add natty date parser to parse date (removed)
+** Project management:
+*** Managed releases `v1.3` - `v1.3.1` (2 releases) on GitHub
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 0% to 17.29% (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/317[#317], https://github.com/AY1920S2-CS2103-T09-4/main/pull/308[#308], https://github.com/AY1920S2-CS2103-T09-4/main/pull/213[#213])
+** Documentation:
+*** Did cosmetic tweaks to existing contents, added screenshots with explanations, and created the calendar part: https://github.com/AY1920S2-CS2103-T09-4/main/pull/325[#325], https://github.com/AY1920S2-CS2103-T09-4/main/pull/264[#264]
+*** Edited existing uml diagrams, updated design of model component and created implementation of entry and calendar feature: https://github.com/AY1920S2-CS2103-T09-4/main/pull/322[#322], https://github.com/AY1920S2-CS2103-T09-4/main/pull/223[#223], https://github.com/AY1920S2-CS2103-T09-4/main/pull/220[#220]
+
+** Community:
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1920S2/forum/issues/40[40], https://github.com/nus-cs2103-AY1920S2/forum/issues/71[71], https://github.com/nus-cs2103-AY1920S2/forum/issues/80[80])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/ZhangYiping126/ped/issues)
+** Tools:
+*** Set up Codacy to perform code quality check for the group fork
+*** Set up AppVeyor to perform Continuous Integration(CI) for the group fork
+*** Integrated a third party library (jfxtras icalendar) to the project (https://github.com/AY1920S2-CS2103-T09-4/main/pull/157[#157])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=calendar]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+include::../DeveloperGuide.adoc[tag=entry]
+include::../DeveloperGuide.adoc[tag=calendar]

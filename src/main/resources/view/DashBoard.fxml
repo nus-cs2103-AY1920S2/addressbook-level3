@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;">
+            <children>
+                <HBox alignment="CENTER" prefHeight="80.0" prefWidth="700.0">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Food Entry History" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Sport Entry History" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #ef827d; -fx-border-color: #ffffff;" text="Reminders" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox prefHeight="420.0" prefWidth="700.0" style="-fx-background-color: white;">
+                    <children>
+                        <ListView fx:id="foodListView" editable="true" prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: white;" />
+                        <ListView fx:id="sportListView" prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: white;" />
+                  <ListView fx:id="reminderListView" prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: white;" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

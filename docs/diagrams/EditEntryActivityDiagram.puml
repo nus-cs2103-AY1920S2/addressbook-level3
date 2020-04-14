@@ -1,0 +1,20 @@
+@startuml
+
+start
+:User adds an entry;
+if () then (entry does not exist)
+    :Entry is added to FitHelper;
+    :User gets notified that an entry is added;
+    :User edits an entry;
+    if () then (entry exists)
+        :Entry gets edited;
+        :User gets notified that entry has been edited;
+    else (entry does not exist)
+        :User gets notified that entry does not exist;
+    endif
+else (entry exists)
+    :User gets notified that entry already exists in FitHelper;
+endif
+stop
+
+@enduml

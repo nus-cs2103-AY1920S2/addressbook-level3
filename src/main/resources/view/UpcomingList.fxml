@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
+<StackPane id="upcomingPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane prefWidth="180.0">
+            <children>
+                <Label fx:id="upcomingTitle" StackPane.alignment="TOP_LEFT" textFill="#789cce">
+                    <StackPane.margin>
+                        <Insets top="0.0" left="3.0"/>
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <StackPane id="upcomingPanel" alignment="BOTTOM_CENTER">
+            <children>
+                <ListView fx:id="listView" prefWidth="180.0">
+                    <StackPane.margin>
+                        <Insets top="20.0" />
+                    </StackPane.margin>
+                </ListView>
+            </children>
+        </StackPane>
+    </children>
+</StackPane>

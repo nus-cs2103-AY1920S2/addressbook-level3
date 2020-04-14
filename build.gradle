@@ -15,7 +15,9 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+application {
+    mainClassName = 'fithelper.Main'
+}
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -64,10 +66,16 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '8.0-r6'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '10.0-r1'
+
+    compile "com.joestelmach:natty:0.12"
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'fitHelper v1.4.0.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

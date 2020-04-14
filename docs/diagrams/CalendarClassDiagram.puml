@@ -1,0 +1,35 @@
+@startuml
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+interface Model <<interface>> {
+    + setCalendarDate(String date): void
+    + setCalendarMode(String mode) : void
+    + setCalendarShow(String show) : void
+}
+class CalendarSettings {
+    + setCalendarDate(String date): void
+    + setCalendarMode(String mode) : void
+    + setCalendarShow(String show) : void
+}
+
+class CalendarCommand implements Model{
+    /' Fields '/
+    + {static} COMMAND_WORD : String
+    - MODE : String
+    - DATE : String
+    - SHOW : String
+    + {static} MESSAGE_SUCCESS : String
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+}
+CalendarCommand --up|> "{abstract}\nCommand"
+Model --> CalendarSettings
+@enduml

@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+box Ui UI_COLOR_T1
+Participant ":MainWindow" as mainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":FitHelperParser" as FitHelperParser LOGIC_COLOR
+Participant ":TodayCommandParser" as TodayCommandParser LOGIC_COLOR
+Participant ":TodayCommand" as TodayCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+Participant ":Model" as model MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+user -[USER_COLOR]> mainWindow : "today"
+activate mainWindow
+
+mainWindow -[UI_COLOR]> LogicManager
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]> LogicManager : execute("today")
+activate LogicManager
+
+LogicManager -[LOGIC_COLOR]-> LogicManager
+deactivate LogicManager
+
+LogicManager -[LOGIC_COLOR]> FitHelperParser : parseCommand("today")
+activate FitHelperParser
+
+create TodayCommandParser
+FitHelperParser -> TodayCommandParser
+activate TodayCommandParser
+
+TodayCommandParser --> FitHelperParser
+deactivate TodayCommandParser
+
+FitHelperParser -> TodayCommandParser : parse("today")
+activate TodayCommandParser
+
+create TodayCommand
+TodayCommandParser -> TodayCommand
+activate TodayCommand
+
+TodayCommand --> TodayCommandParser : TodayCommand
+deactivate TodayCommand
+
+TodayCommandParser --> FitHelperParser : TodayCommand
+deactivate TodayCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TodayCommandParser -[hidden]-> FitHelperParser
+destroy TodayCommandParser
+
+FitHelperParser --> LogicManager : TodayCommand
+deactivate FitHelperParser
+deactivate LogicManager
+
+LogicManager -> TodayCommand : execute()
+activate TodayCommand
+
+TodayCommand -> model : updateFilteredEntryList(predicate)
+activate model
+
+model --> TodayCommand
+deactivate model
+
+create CommandResult
+TodayCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> TodayCommand
+deactivate CommandResult
+
+TodayCommand --> LogicManager : CommandResult
+deactivate TodayCommand
+
+LogicManager --> mainWindow : CommandResult
+deactivate LogicManager
+
+user <--mainWindow
+deactivate mainWindow
+@enduml

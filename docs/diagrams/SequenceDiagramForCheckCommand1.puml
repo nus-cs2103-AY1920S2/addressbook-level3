@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+
+title Sequence Diagram of Check Command (Logic part)
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitHelperParser" as FitHelperParser LOGIC_COLOR
+participant ":CheckCommandParser" as CheckCommandParser LOGIC_COLOR
+participant "command:CheckCommand" as CheckCommand LOGIC_COLOR
+participant "result:CommandResult" as Result LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+'participant ":FitHelper" as FitHelper MODEL_COLOR
+'participant "list:List<CalorieEntry>" as list MODEL_COLOR
+'participant ":CalorieTable" as CalorieTable MODEL_COLOR
+end box
+
+ -> LogicManager : execute("check ...")
+activate LogicManager
+
+'create CheckCommand
+'LogicManager -> CheckCommand : parse()
+'activate CheckCommand
+'LogicManager <-- CheckCommand : command
+'deactivate
+
+LogicManager -> FitHelperParser : parseCommand("check ...")
+activate FitHelperParser
+create CheckCommandParser
+FitHelperParser -> CheckCommandParser
+activate CheckCommandParser
+FitHelperParser <-- CheckCommandParser
+deactivate
+FitHelperParser -> CheckCommandParser : parse(args)
+activate CheckCommandParser
+create CheckCommand
+CheckCommandParser -> CheckCommand
+activate CheckCommand
+CheckCommandParser <-- CheckCommand : command
+deactivate CheckCommand
+FitHelperParser <-- CheckCommandParser : command
+deactivate CheckCommandParser
+LogicManager <-- FitHelperParser : command
+destroy CheckCommandParser
+deactivate
+
+LogicManager -> CheckCommand : execute(model)
+activate CheckCommand
+CheckCommand -> ModelManager : searchTable(type, keyword)
+activate ModelManager
+'ModelManager -> FitHelper : addCalorieData(type, keyword)
+'activate FitHelper
+'FitHelper -> CalorieTable : getData(type)
+'activate CalorieTable
+'FitHelper <-- CalorieTable : data
+'deactivate
+'
+'FitHelper -> FitHelper : searchEachWordCompleteMatch(keywordsByWord)
+'activate FitHelper
+'FitHelper --> FitHelper : count
+'deactivate
+'opt fewer than 3 entries are added so far, i.e. count < 3
+'FitHelper -> FitHelper : searchWholeWordPartialMatch(keywords)
+'activate FitHelper
+'FitHelper --> FitHelper : count
+'deactivate
+'end
+'opt fewer than 3 entries are added so far, i.e. count < 3
+'FitHelper -> FitHelper : searchEachWordPartialMatch(keywordsByWord)
+'activate FitHelper
+'FitHelper --> FitHelper :
+'deactivate
+'end
+'
+'FitHelper --> ModelManager : List<CalorieDatum>
+'deactivate FitHelper
+ModelManager --> CheckCommand : Set<CalorieDatum>
+deactivate ModelManager
+CheckCommand -> CheckCommand : convertSetToString()
+activate CheckCommand
+CheckCommand --> CheckCommand : feedbackToUser
+deactivate
+create Result
+CheckCommand -> Result
+activate Result
+Result --> CheckCommand : result
+deactivate
+CheckCommand --> LogicManager : result
+deactivate CheckCommand
+
+<-- LogicManager : result
+deactivate LogicManager
+destroy CheckCommand
+
+@enduml
