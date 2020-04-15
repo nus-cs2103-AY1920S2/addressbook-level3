@@ -1,0 +1,23 @@
+.root {
+    -fx-background-color: #242424;
+}
+
+.web-view .scroll-bar {
+    -fx-background-color: #242424;
+}
+
+.web-view .increment-button:hover {
+    -fx-background-color: gray;
+}
+
+.web-view .decrement-button:hover {
+    -fx-background-color: gray;
+}
+
+.web-view .thumb {
+    -fx-background-color: gray;
+}
+
+.web-view .thumb:hover {
+    -fx-background-color: dimgray;
+}

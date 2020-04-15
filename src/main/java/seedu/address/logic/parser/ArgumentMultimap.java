@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.
@@ -40,6 +42,14 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns true if a prefix occurs more than one time.
+     */
+    public boolean hasDuplicateValues(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.size() > 1;
+    }
+
+    /**
      * Returns all values of {@code prefix}.
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
@@ -54,7 +64,7 @@ public class ArgumentMultimap {
     /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
-    public String getPreamble() {
+    public String getPreamble() throws ParseException {
         return getValue(new Prefix("")).orElse("");
     }
 }

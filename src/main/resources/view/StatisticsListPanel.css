@@ -1,0 +1,39 @@
+.list-view {
+    -fx-background-color: #242424;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: dimgray;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: gray;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #242424;
+}
+
+.list-view .label {
+    -fx-text-fill: black;
+}
+
+.list-view .scroll-bar {
+    -fx-background-color: #242424;
+}
+
+.list-view .increment-button:hover {
+    -fx-background-color: gray;
+}
+
+.list-view .decrement-button:hover {
+    -fx-background-color: gray;
+}
+
+.list-view .thumb {
+    -fx-background-color: gray;
+}
+
+.list-view .thumb:hover {
+    -fx-background-color: dimgray;
+}

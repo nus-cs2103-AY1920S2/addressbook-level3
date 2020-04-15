@@ -4,14 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+
+import seedu.address.model.customer.Customer;
+import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +24,34 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final InventorySystem inventorySystem;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Product> filteredProducts;
+    private final FilteredList<Transaction> filteredTransactions;
+
+    private Predicate<Customer> customerPredicate;
+    private Predicate<Product> productPredicate;
+    private Predicate<Transaction> transactionPredicate;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventorySystem addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.inventorySystem = new InventorySystem(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredCustomers = new FilteredList<>(this.inventorySystem.getPersonList());
+        filteredProducts = new FilteredList<>(this.inventorySystem.getProductList());
+        filteredTransactions = new FilteredList<>(this.inventorySystem.getTransactionList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new InventorySystem(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,67 +79,184 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getInventorySystemFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setInventorySystemFilePath(Path inventorySystemFilePath) {
+        requireNonNull(inventorySystemFilePath);
+        userPrefs.setAddressBookFilePath(inventorySystemFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== InventorySystem ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setInventorySystem(ReadOnlyInventorySystem inventorySystem, String commandWord) {
+        this.inventorySystem.resetData(inventorySystem, commandWord);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyInventorySystem getInventorySystem() {
+        return inventorySystem;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasPerson(Customer customer) {
+        requireNonNull(customer);
+        return inventorySystem.hasPerson(customer);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return inventorySystem.hasProduct(product);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public Product findProductById(UUID id) {
+        requireNonNull(id);
+        return inventorySystem.findProductById(id);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void deletePerson(Customer target) {
+        inventorySystem.removePerson(target);
+    }
+
+    @Override
+    public void deleteProduct(Product target) {
+        inventorySystem.removeProduct(target);
+    }
+
+    @Override
+    public void addPerson(Customer customer) {
+        inventorySystem.addPerson(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        inventorySystem.addProduct(product);
+        updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+    }
+
+    @Override
+    public boolean hasTransaction(Transaction transaction) {
+        requireNonNull(transaction);
+        return inventorySystem.hasTransaction(transaction);
+    }
+
+    @Override
+    public void addTransaction(Transaction transaction) {
+        inventorySystem.addTransaction(transaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireAllNonNull(target, editedTransaction);
+        inventorySystem.setTransaction(target, editedTransaction);
+    }
+
+    @Override
+    public void deleteTransaction(Transaction transaction) {
+        inventorySystem.removeTransaction(transaction);
+    }
+
+    @Override
+    public ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        FilteredList<Transaction> newFilteredTransactions =
+                new FilteredList<>(inventorySystem.getTransactionList());
+        newFilteredTransactions.setPredicate(predicate);
+        return newFilteredTransactions;
+    }
+
+    @Override
+    public void setPerson(Customer target, Customer editedCustomer) {
+        requireAllNonNull(target, editedCustomer);
+        inventorySystem.setPerson(target, editedCustomer);
+    }
+
+    @Override
+    public void setProduct(Product target, Product editedProduct) {
+        requireAllNonNull(target, editedProduct);
+        inventorySystem.setProduct(target, editedProduct);
+    }
+
+    //=========== Filtered Customer List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public ObservableList<Product> getFilteredProductList() {
+        return filteredProducts;
+    }
+
+    @Override
+    public ObservableList<Transaction> getFilteredTransactionList() {
+        return filteredTransactions;
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCustomers.setPredicate(predicate);
+        customerPredicate = predicate;
+    }
+
+    @Override
+    public void updateFilteredCustomerList() {
+        filteredCustomers.setPredicate(customerPredicate);
+    }
+
+    @Override
+    public void updateFilteredProductList(Predicate<Product> predicate) {
+        requireNonNull(predicate);
+        filteredProducts.setPredicate(PREDICATE_SHOW_ALL_PRODUCTS);
+        int fullProductListSize = getFilteredProductList().size();
+
+        filteredProducts.setPredicate(predicate);
+        productPredicate = predicate;
+
+        SortedList<Product> sortedProduct = new SortedList<>(filteredProducts);
+        sortedProduct.comparatorProperty().set((o1, o2) -> {
+            if (o1.getProgress() - o2.getProgress() > 0) {
+                return 1;
+            } else if (o1.getProgress() == o2.getProgress()) {
+                return 0;
+            } else {
+                return -1;
+            }
+        });
+        if (sortedProduct.size() == fullProductListSize) {
+            inventorySystem.setProducts(sortedProduct);
+        }
+    }
+
+    @Override
+    public void updateFilteredProductList() {
+        filteredProducts.setPredicate(productPredicate);
+    }
+
+    @Override
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredTransactions.setPredicate(predicate);
+        transactionPredicate = predicate;
+    }
+
+    @Override
+    public void updateFilteredTransactionList() {
+        filteredTransactions.setPredicate(transactionPredicate);
     }
 
     @Override
@@ -143,9 +273,11 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return inventorySystem.equals(other.inventorySystem)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredCustomers.equals(other.filteredCustomers)
+                && filteredProducts.equals(other.filteredProducts)
+                && filteredTransactions.equals(other.filteredTransactions);
     }
 
 }

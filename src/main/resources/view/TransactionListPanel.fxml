@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label text="Transactions">
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" />
+      </VBox.margin>
+   </Label>
+   <TableView fx:id="transactionTableView">
+     <columns>
+       <TableColumn fx:id="customerCol" prefWidth="125.0" sortable="false" text="Customer" />
+       <TableColumn fx:id="productCol" prefWidth="125.0" sortable="false" text="Product" />
+         <TableColumn fx:id="dateTimeCol" minWidth="15.0" prefWidth="170.0" sortable="false" text="DateTime" />
+         <TableColumn fx:id="quantityCol" prefWidth="81.0" sortable="false" text="Quantity" />
+         <TableColumn fx:id="amountCol" prefWidth="72.0" sortable="false" text="Amount" />
+         <TableColumn fx:id="descriptionCol" prefWidth="287.0" sortable="false" text="Description" />
+     </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+   </TableView>
+</VBox>

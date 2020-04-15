@@ -1,0 +1,19 @@
+{
+  "persons": [ {
+    "id": "a4365691-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Jane",
+    "phone": "92763578",
+    "email" : "jane@gmail.com",
+    "address" : "Blk 26 Jurong West St 82",
+    "tagged" : []
+  }, {
+    "id": "a4365691-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Jane",
+    "phone": "92763578",
+    "email" : "jane@gmail.com",
+    "address" : "Blk 26 Jurong West St 82",
+    "tagged" : []
+  } ],
+  "transactions": [],
+  "products": []
+}

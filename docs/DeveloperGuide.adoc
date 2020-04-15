@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= iTrack Pro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103-T09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `iTrackPro Team`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -29,10 +29,6 @@ Refer to the guide <<SettingUp#, here>>.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -64,10 +60,10 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `deletep 1` command
+image::ArchitectureSequenceDiagram.png[width="700"]
 
 The sections below give more details of each component.
 
@@ -77,9 +73,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -96,17 +92,17 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InventorySystemParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a customer).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletec 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deletec 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -117,32 +113,34 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Inventory System data.
+* exposes an unmodifiable `ObservableList<Customer>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Product>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Transaction>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Inventory System`, which `Customer` can reference. This would allow `Inventory System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width="600"]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Inventory System data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,94 +151,278 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::manageitem[]
+=== Add/delete/edit/clear/list/find <<customer,customer>>/<<product,product>> feature
+The manage product mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+This results in a Command object which is executed by the LogicManager.
+The command execution modifies Model's customer list depending on the command.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The following commands are available to be parsed by InventorySystemParser:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `AddCustomerCommand/AddProductCommand`
+- Adds the customer/product into the list in the inventory system.
+* `ListCustomerCommand/ListProductCommand`
+- Lists all customer/product in the list.
+* `ClearCustomerCommand/ClearProductCommand`
+- Clears all customer/product in the list.
+* `DeleteCustomerCommand/DeleteProductCommand`
+- Deletes the selected customer/product from the list in the inventory system.
+* `EditCustomerCommand/EditProductCommand`
+- Edits the customer/product details.
+* `FindCustomerCommand/FindProductCommand`
+- Finds customer/product with attributes containing given keyword(s).
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The commands all inherit from superclass `Command`. Only add, delete, edit and find commands require a command parser to parse the arguments entered by the user.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The following sequence diagram shows how the add operation works:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+image::AddItemSequenceDiagram.png[]
 
-image::UndoRedoState0.png[]
+The following sequence diagram shows how the list operation works:
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+image::ListItemSequenceDiagram.png[]
 
-image::UndoRedoState1.png[]
+The following sequence diagram shows how the edit operation works:
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+image::EditItemSequenceDiagram.png[]
 
-image::UndoRedoState2.png[]
+The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::CommandActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How commands are executed
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Keep customers/products in the inventory system
+** Pros: Easy to implement, use less memory
+** Cons: If inventory system is corrupted then the data is lost
+* **Alternative 2:** Keep customers/products in individual management systems, separate each of the classes
+** Pros: Keep implementation of products, customers and transactions separate
+** Cons: Use more memory, tedious implementation
+
+===== Aspect: Data structure to support the commands
+
+* **Alternative 1 (current choice):** Use a list (`ArrayList`) to store the customers/products
+** Pros: Easy to sort and iterate through the list, get(index) method always gives an O(1) performance
+** Cons: allows duplicates
+* **Alternative 2:** Use a hashmap to store the customers/products
+** Pros: Find can be done in O(1), does not allow duplicate keys
+** Cons: Difficult to sort and iterate through hashmap, get(key) can be O(1) in the best case and O(n) in the worst case.
+// end::manageitem[]
+
+// tag::managetransaction[]
+=== Add/edit/undo/list/find <<transaction,transactions>>
+The user input is handled by the `MainWindow` class in Ui first, then passed to the `LogicManager` and parsed into
+`AddTransactionCommand`, `EditTransactionCommand`, etc. Depending on the nature of each command, new transaction or
+updated transaction will be added to a new index or existing index of the `UniqueTransactionList`, hosted by the
+`InventorySystem` class. For the `deleteTransactionCommand`, a transaction will be dropped from the `internalList`.
+Since the `quantity` and `sales` attribute will affect the same attributes of a product, the affiliated `product` will
+also be edited. In the end, the `filteredTransactionList` of the system will be updated so that the user can view the change
+accordingly. For the list and find transction commands, the filteredTransactionList will be updated for the UI to interact with users.
+One command is implemented for each operations in the logic module:
+
+* `AddTransactionCommand` -- Adds a transaction into the system and update the the quantity and sales attribute
+of the corresponding product.
+* `EditTransactionCommand` -- Edit details of a transaction. If `quantity` is changed, edit the affected product
+as well.
+* `UndoTransactionCommand` -- Undo a transaction from the system and edit the affiliated product.
+* `ListTransactionCommand` -- List all the transaction in the system.
+* `FindTransactionCommand` -- Find certain transactions by keywords.
+
+For each command, a parser is implemented to parse the input into arguments.
+
+* `AddTransactionCommmandParser` -- Parse the add transaction input and generates `AddTransactionCommand`. +
+* `EditTransactionCommandParser` -- Parse the edit transaction input and generates `EditTransactionCommand`. +
+* `UndoTransactionCommandParser` --Parse the undo transaction input and generates `UndoTransactionCommand`. +
+* `ListTransactionCommandParser` --Parse the list transaction input and generates `ListTransactionCommand`. +
+* `FindTransactionCommandParser` --Parse the find transaction input and generates `FindTransactionCommand`. +
+
+The following sequence diagram shows how each operation works.
+
+AddTransaction Operation:
+
+image::AddTransactionSequenceDiagram.png[]
+[NOTE]
+The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
+transaction is only generated in AddTransactionCommand.
+
+EditTransaction Operation:
+
+Unlike the edit operation of customer and products, editting transaction will trigger another operation of
+editting its associated product with the new quantity and money. If its product is editted, its quantity will be added back
+to the original product's quantity, and the new quantity will be deducted from the quantity of the newly referenced product. The update on sales object will
+be done in the reverse way. In the end, the new transction and product will replace the old ones in the system.
+
+image::EditTransactionSequenceDiagram.png[]
+
+UndoTransaction Operation:
+
+Undoing a transaction will add back its quantity to teh associated product and remove its amount of money from the
+sales of that product.
+
+image::UndoTransactionSequenceDiagram.png[]
+
+ListTransaction/FindTransaction Operation:
+
+The list operation for transaction is the same as that for products and customers.
+
+==== Design Considerations
+
+===== Aspect: How to store product & customer in transaction.
+
+* **Alternative 1 (current choice):** Store an unique id and name of the product/ customer.
+** Pros: Do not need to update transaction while product is editted.
+** Cons: More complex when displaying the customer/product information in UI. Needs to query model whenver
+the system needs to calcualte statistics related with product and transactions.
+* **Alternative 2 (previous choice):** Store the product/ customer instance as an attribute.
+** Pros: Easy to construct a transaction and display product/ customer name.
+** Cons: Easy to generate bugs while any of the instance is editted. Needs to update the product in transaction when a product
+is editted.
+
+===== Aspect: How to change the quantity & sales attribute of product while editing transactions.
+
+* **Alternative 1 (current choice):** If quantity/ product is changed, check validation first,
+re-store the quantity & sales of the original product, and then
+and update the quantity & sales of the new product.
+** Pros: Straightforward logic, not likely to create bugs.
+** Cons: Validation checking would be very complex.
+
+* **Alternative 2 (previous choice):** If quantity/ product is changed,
+re-store the quantity & sales of the original product, check validation
+(whether the product has that much inventory as required on transaction), and then
+and update the quantity & sales of the new product.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Likely to generate bugs when the new quantity exceeds inventory, i.e. the edit operation is not valid.
+// end::managetransaction[]
 
-===== Aspect: Data structure to support the undo/redo commands
+// tag::getprofitrevenue[]
+=== Get <<revenue,revenue>>/<<profit,profit>> feature
+The manage product mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `RevenueCommandParser/ProfitCommandParser` parses the user input arguments into Command objects.
+The resulting `RevenueCommand/ProfitCommand` is executed by the LogicManager.
+The command execution calculates the revenue/profit depending on the command.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+The following commands are available to be parsed by InventorySystemParser:
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+* `RevenueCommand`
+- Gets the revenue made in a selected period.
+* `ProfitCommand`
+- Gets the profit made in a selected period.
 
-_{Explain here how the data encryption feature will be implemented}_
+The commands all inherit from superclass `Command` and require command parsers to parse the user input arguments.
 
-// end::dataencryption[]
+The following sequence diagram shows how the profit operation works:
+
+image::ProfitSequenceDiagram.png[]
+The revenue operation works in the same way as the profit operation.
+
+==== Design Considerations
+
+===== Aspect: How commands are executed
+
+* **Alternative 1 (current choice):** Calculate revenue/profit only when needed
+** Pros: Decreases coupling, easy to test
+** Cons: Need to keep calculating if command is frequently used (increase time complexity especially if transaction list is long)
+* **Alternative 2:** Keep track of revenue/profit in a singleton class
+** Pros: No need to calculate when revenue/profit command is executed (instead, revenue/profit is updated whenever a transaction is added or edited)
+** Cons: Hard to unit test, increase coupling
+// end::getprofitrevenue[]
+
+//tag::plotsalesfeature[]
+=== Plot the quantity sold of a product
+The plot sales command is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `PlotSalesCommandParser` parses the user input arguments into the index of the product,
+the `start date`, and the `end date`.
+The generated `PlotSalesCommand` is executed by the LogicManager.
+The command execution generates a daily time sequence and calcualte the quantity sold on each day by querying all the
+related transactions. The time series data and the signal of displaying the sales graph is then encapsulated
+as a CommandResult object which is passed back to the Ui.
+
+The following sequnce diagram shos how the plot sale operation works:
+
+image:PlotSalesSequenceDiagram.png[]
+//end::plotsalesfeature[]
+
+//end::lowlimitfeature[]
+
+//tag::lowlimitfeature[]
+=== Set low limit threshold to receive notifications for products
+The low limit mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `LowLimitCommandParser` parses the user input arguments into `LowLimitCommand` object.
+The resulting `LowLimitCommand` is executed by the LogicManager.
+The command execution sets the updated threshold for the chosen product.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
+
+The command inherit from superclass `Command` and require command parser to parse the user input arguments.
+
+The following sequence diagram shows how the low limit operation works:
+
+image:LowLimitCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How the threshold field is being updated.
+
+* **Alternative 1 (current choice):** Separate low limit threshold command with edit product command
+** Pros: Decreases coupling, easier to test.
+** Cons: Additional command to edit the field of an product.
+* **Alternative 2:** Integrate with existing edit product command
+** Pros: Will reduce number of commands the user needs to use.
+** Cons: Hard to unit test, increase coupling.
+//end::lowlimitfeature[]
+
+//tag::notificationWindow[]
+=== Notification window for products
+The notification window appears whenever an product's quantity reaches the threshold that was set.
+It comes with information such as the product's description and remaining quantity left.
+
+The following activity diagram shows how the operation works:
+
+image:NotificationWindowActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Display of the notification window
+
+* **Alternative 1 (current choice):** Only display product's name and remaining quantity.
+** Pros: User friendly, easy to implement.
+** Cons: Have to find and change the product's quantity via the command line.
+* **Alternative 2:** Provide quick way to change product's quantity via GUI
+** Pros: Speeds up the process of stocking up.
+** Cons: Hard to do testing for GUI, and project scope was on command line application.
+//end::notificationWindow[]
+
+//tag::sortProductList[]
+=== Sort Product List
+The product list sorts by the progress bar indicator beside each product's description whenever user enters `listp` command. +
+
+An example is shown below:
+
+image:SortingExample.png[]
+
+The following activity diagram shows how the operation works:
+
+image:SortProductListActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: When to sort the product list
+
+* **Alternative 1 (current choice):** Sorts only when user uses `listp` function.
+** Pros: More intuitive and user friendly.
+** Cons: Might be hard to track products' remaining balance without listing all the products.
+* **Alternative 2:** Sorts whenever the product list is updated.
+** Pros: Easy to track products' remaining balance.
+** Cons: Might be confusing for user as the indexes for product will change as the product list is sorted automatically,
+resulting in user to recheck products' index before entering in commands.
+//end::sortProductList[]
 
 === Logging
 
@@ -277,13 +459,17 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: Shop owners who
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Are selling products
+** Cannot afford expensive management systems
+** Are relying on manual work to record products
+** Want to optimise sales based analysis of previous sales
+** Have many products and a large inventory
+* Prefer desktop apps over other types
+* Can type fast
+* Prefer typing over mouse input
+* Are reasonably comfortable using CLI apps
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -295,35 +481,53 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to it when I forgot how to use the app
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add <<item,items>> to the system |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete my <<item,items>> from the system |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user | edit my <<item,item>> details in the system |keep the list updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |view all <<item,items>> in my shop |keep track of my <<item,items>>
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |find <<item,items>> by keyword or attributes |search <<item,items>> more efficiently
+
+|`* *` |user |receive notifications when the <<product, product>> quantity is running low |stock up for the particular <<product, product>>
+
+|`* *` |user |set the inventory quantity low limit |get notified when my stock is running low
+
+|`* *` |analytical user |view the top-selling <<product, products>> and worst-selling <<product, products>> at one glance (e.g. dashboard that displays name of <<product, products>>) |
+
+|`* *` |analytical user |view the sales or quantity of each individual <<product, product>> in graphical format | so that it is easier to visualise
+
+|`* *` |analytical user |see predicted sales for the next month based on past sales |know which <<product, products>> to stock up on
+
+|`* *` |analytical user |view a list of <<product, products>> sorted by the amount of profits |
+
+|`* *` |analytical user |view the revenue on a daily/ monthly/ yearly basis or in a customised period |
+
+|`*` |lazy user |keep track of previous inputs |enter/edit previous commands easily
+
+|`*` |lazy user |access <<product, products>> that are running low in quantity easily |restock and update the system much faster
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iTrack Pro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case:  UC01 - Delete an <<item,item>>
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to pass:[<u>list items (UC05)</u>]
+2. The app displays a list of requested items.
+3. User requests to delete a specific item in the list
+4. The item is deleted from the list
+
 +
 Use case ends.
 
@@ -337,20 +541,223 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. The app shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case:  UC02 - Add an <<item,item>>
+
+*MSS*
+
+1. User adds an item.
+2. The app notifies the user that the item is added.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The add command is invalid or incomplete.
+[none]
+** 1a1. The app shows an error message.
+** 1a2. The app shows an example of valid input for the command.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC03 - Edit an <<item,item>>
+
+*MSS*
+
+1. User requests to pass:[<u>list items (UC05)</u>]
+2. The app displays a list of requested items.
+3. User requests to edit a specific item in the list.
+4. The item is updated with the new information entered by the user.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. The app shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The edit command input is invalid or incomplete.
++
+[none]
+** 3b1. The app shows an error message.
+** 3b2. The app shows an example of valid input for the command.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case:  UC04 - Find <<item,items>>
+
+*MSS*
+
+1. User requests to find items by keyword and/or attribute.
+2. The app displays the search result.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No item was found with the keyword and/or attribute entered.
++
+[none]
+** 1a1. The app shows a prompt message that no such item was found.
++
+Use case ends.
+
+[none]
+* 1b. The find command input is invalid or incomplete.
++
+[none]
+** 1b1. The app shows an error message.
+** 1b2. The app shows an example of valid input for the command.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case:  UC05 - List <<item,items>>
+
+*MSS*
+
+1. User requests to list items.
+2. The app displays a list of requested items.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+[none]
+** 2a1. The app shows a prompt message that the list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC06 - View statistics (profit, revenue)
+
+*MSS*
+
+1. User requests to view statistics.
+2. The app shows all statistics.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no products, hence no statistics can be shown.
++
+[none]
+** 2a1. The app shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC07 - Predict sales
+
+*MSS*
+
+1. User requests to predict sales for next month.
+2. The app shows the predictions.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no products, hence no predictions can be made.
++
+[none]
+** 2a1. The app shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC08 - Configure low inventory notification settings (for products)
+
+*MSS*
+
+1. User sets the quantity threshold for a particular product.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The input limit is invalid or out of range or the product index is invalid.
++
+[none]
+** 1a1. The app shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC09 - Plot the quantity sold of a product (for products)
+
+*MSS*
+
+1. User enters the index of the product as well as the start date and end date for ploting purposes.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The index is out of boundary.
++
+[none]
+** 1a1. The app shows an error message.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java 11 or above installed.
+.  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The system should work on Windows, Linux or Mac operating aystems.
+.  The system should be usable by a novice who has never used an inventory management system.
+.  The system should save the <<product, product>>, <<customer, customer>> and <<transaction, transaction>> data permanently.
+.  There should be at least one <<product, product>> and <<customer, customer>> before a <<transaction, transaction>> can be made.
+.  The response to any use action should become visible within 5 seconds.
+.  The system should be able to have up to 1000000 <<customer, customers>>, 1000000 <<product, products>> and 1000000 <<transaction, transactions>>.
+.  The product (price, cost price, quantity, sales), transaction (quantity, money) fields and quantity threshold should be able to take integers up to 1000000.
+.  The price and cost price should be at least $1.
+.  The customer's address field should take up to 45 characters.
+.  The customer's name field should take up to 30 characters.
+.  The customer's phone field should be between 3 to 15 characters long and contain only integers.
+.  The customer's email field should take up to 40 characters and should be a valid email format.
+.  A customer can have up to 5 tags where each tag is up to 15 characters long.
+.  The user interface should be intuitive enough for users who are not IT-savvy.
+.  The source code should be open source.
+.  The product is offered as a free downloadable <<jar, jar>> file.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -358,25 +765,39 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[item]] Item::
+Any item belonging to either customer, product or a transaction class
 
-[appendix]
-== Product Survey
+[[customer]] Customer::
+A customer that buys the user’s shop
 
-*Product Name*
+[[product]] Product::
+An item that is sold in the user’s shop
 
-Author: ...
+[[transaction]] Transaction::
+A deal between a customer and the user’s shop that is made on a product
 
-Pros:
+[[inventory]] Inventory::
+The products in stock.
 
-* ...
-* ...
+[[revenue]] Revenue::
+The sales of the product, calculated by adding up the transaction amounts of a particular product.
 
-Cons:
+[[revenue]] Profit::
+The money gained from the sale of the product minus cost of product, calculated by revenue - total cost.
 
-* ...
-* ...
+[[sales]] Sales::
+Used interchangeably with revenue
+
+[[price]] Price::
+Selling price of the product
+
+[[cost]] Cost price::
+Price of making/ buying the product to sell
+
+[[jar]] Jar File::
+A https://en.wikipedia.org/wiki/JAR_(file_format)[JAR] (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file for distribution.
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -386,40 +807,305 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== General
+
+==== Launch and Shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample inventory system data. The window size may not be optimum.
 
-. Saving window preferences
+=== Customer
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+==== Adding a customer
 
-_{ more test cases ... }_
+. Adding a customer
 
-=== Deleting a person
+.. Test case: `addc n/John p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+Expected: Customer with given attributes is added to list. Details of the added customer shown in the status message.
+.. Prerequisites: the following command already has been executed once already +
+Test case: `addc n/John p/98765432` +
+Expected: No customer is added as duplicate customers are not allowed. Error details shown in the status message.
+.. Test case: `addc n/Jane p/98765432 e/jane@example.com a/31 michigan t/friends t/owesMoney t/iphone t/comingThurs t/regular t/giveDiscount` +
+Expected: No customer is added as number of tags should be at most five. Error details shown in the status message.
+.. Test case: `addc n/Bob n/Eddy p/98765432 e/bob@example.com a/323, Tampines Ave 3, #12-21 t/colleagues` +
+Expected: No customer is added as there are multiple name prefixes. Error details shown in the status message.
+.. Other incorrect add commands to try: `addc n/Jill`, `addc n/Jill p/0 e/jill@mail.com a/31 michigan` +
+Expected: Similar to previous.
 
-. Deleting a person while all persons are listed
+==== Deleting a customer
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Deleting a customer while all customers are listed
+
+.. Prerequisites: List all customers using the `listc` command. Multiple customers in the list.
+.. Test case: `deletec 1` +
+Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+.. Test case: `deletec 0` +
+Expected: No customer is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `deletec`, `deletec x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+==== Editing a customer
+
+. Editing a customer while all customers are listed
+
+.. Prerequisites: List all customers using the `listc` command. Multiple customers in the list.
+.. Test case: `editc 1 n/Bob` +
+Expected: First customer is edited from the list. Details of the edited customer shown in the status message.
+.. Test case: `editc 1 e/0` +
+Expected: No customers is edited as email is invalid. Error details shown in the status message.
+.. Test case: `editc 1 n/Johnathan n/Alex` +
+Expected: No customers is edited as there are multiple name prefixes. Error details shown in the status message.
+.. Other incorrect edit commands to try: `editc 1`, `editc x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+==== Clearing all customers
+
+. Clearing all customers
+
+.. Test case: `clearc` +
+Expected: All customers are cleared. Details of success message is shown in the status bar.
+
+==== Listing all customers
+
+. Listing all customers
+
+.. Test case: `listc` +
+Expected: All customers are listed. Details of success message is shown in the status bar.
+
+==== Finding customers
+
+. Finding customers
+
+.. Test case: `findc n/alice` +
+Expected: All customers with full word 'alice' in name are listed. Details of success message is shown in the status bar.
+.. Test case: `findc n/alex alice` +
+Expected: All customers with full word 'alex' **OR** 'alice' in name are listed. Details of success message is shown in the status bar.
+.. Test case: `findc a/serangoon yishun` +
+Expected: All customers with full words matching 'serangoon' **OR** 'yishun' in their addresses are listed. Details of success message is shown in the status bar.
+.. Test case: `findc a/serangoon n/bob` +
+Expected: All customers with full words matching 'serangoon' in their addresses **AND** 'bob' in their names are listed. Details of success is shown in the status bar.
+.. Test case: `findc n/alex n/peter` +
+Expected: No customers found as there are multiple name prefixes. Error details shown in the status message.
+
+=== Product
+
+==== Adding a product
+
+. Adding a product
+
+.. Test case: `addp d/iphone cp/400 pr/1000 q/10 s/100` +
+   Expected: Product with given attributes is added to list. Details of the added product shown in the status message.
+.. Prerequisites: the following command already has been executed once already +
+   Test case: `addp d/iphone cp/400 pr/1000 q/10 s/100` +
+   Expected: No product is added as duplicate products are not allowed. Error details shown in the status message.
+.. Test case: `addp d/iphone cp/400.5 pr/1000 q/10` +
+   Expected: No product is added as cost price should be an integer. Error details shown in the status message.
+.. Test case : `addp d/iphone d/ipad cp/400 pr/1000 q/10` +
+   Expected: No product is added as there are multiple description prefixes. Error details shown in the status message.
+.. Other incorrect add commands to try: `addp d/iphone cp/40 pr/1000 q/x` (where x is larger than 1000000), `addp d/iphone cp/40 q/100000` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+==== Deleting a product
 
-=== Saving data
+. Deleting a product while all products are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all products using the `listp` command. Multiple products in the list.
+.. Test case: `deletep 1` +
+Expected: First product is deleted from the list. Details of the deleted product shown in the status message.
+.. Test case: `deletep 0` +
+Expected: No product is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `deletep`, `deletep x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+==== Editing a product
 
-_{ more test cases ... }_
+. Editing a product while all products are listed
+
+.. Prerequisites: List all products using the `listp` command. Multiple products in the list.
+.. Test case: `editp 1 d/Bag` +
+Expected: First product is edited from the list. Details of the edited product shown in the status message.
+.. Test case: `editp 1 pr/0` +
+Expected: No product is edited as price is invalid. Error details shown in the status message.
+.. Test case: `editp 1 pr/300 pr/500` +
+Expected: No product is edited as there are multiple price prefixes. Error details shown in the status message.
+.. Other incorrect edit commands to try: `editp 1`, `editp x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+==== Clearing all products
+
+. Clearing all products
+
+.. Test case: `clearp` +
+Expected: All products are cleared. Details of success is shown in the status bar.
+
+==== Listing all products
+
+. Listing all products
+
+.. Test case: `listp` +
+Expected: All products are listed. Details of success is shown in the status bar.
+
+==== Finding products
+
+. Finding products
+
+.. Test case: `findp bag` +
+Expected: All products with full word 'bag' in description are listed. Details of success is shown in the status bar.
+.. Test case: `findp bag yellow` +
+Expected: All products with full words matching 'bag' or 'yellow' in description are listed. Details of success is shown in the status bar.
+
+=== Transaction
+
+==== Adding a transaction
+
+. Adding a transaction
+
+.. Test case: `addt c/1 p/1 q/1 dt/2020-04-11 11:44 m/30 d/under discount` +
+Expected: Transaction with given attributes is added to list. Details of the added transaction shown in the status message.
+.. Prerequisites: the following command already has been executed once already +
+Test case: `addt c/1 p/1 q/1 dt/2020-04-11 10:44 m/30 d/under discount` +
+Expected: No transaction is added as duplicate transactions are not allowed. Error details shown in the status message.
+.. Test case: `addt c/1 p/1 q/0` +
+Expected: No transaction is added as quantity should be a positive integer. Error details shown in the status message.
+.. Test case: `addt c/1 c/1 p/1 q/10` +
+Expected: No transaction is added as there are multiple customer prefixes. Error details shown in the status message.
+.. Other incorrect add commands to try: `addt c/x p/1 q/2` (where x is larger than size of customer list), `addt c/1 p/1` +
+Expected: Similar to previous.
+
+==== Undoing a transaction
+
+. Undoing a transaction while all transactions are listed
+
+.. Prerequisites: List all transactions using the `listt` command. Multiple transactions in the list.
+.. Test case: `undot 1` +
+Expected: First transaction in the list is undone. Details of the undone transaction shown in the status message.
+.. Test case: `undot 0` +
+Expected: No transaction is deleted. Error details shown in the status message.
+.. Other incorrect undo commands to try: `undot`, `undot x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+==== Editing a transaction
+
+. Editing a transaction while all transactions are listed
+
+.. Prerequisites: List all transactions using the `listt` command. Multiple transactions in the list.
+.. Test case: `editt 1 d/Discount` +
+Expected: First transaction is edited from the list. Details of the edited transaction shown in the status message.
+.. Test case: `editt 1 m/0` +
+Expected: No transaction is edited as amount is invalid. Error details shown in the status message.
+.. Test case: `editt 1 d/Discount d/offer` +
+Expected: No transaction is edited as there are multiple description prefixes. Error details shown in the status message.
+.. Other incorrect edit commands to try: `editt 1`, `editt x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+==== Clearing all transactions
+
+. Clearing all transactions
+
+.. Test case: `cleart` +
+Expected: All transactions are cleared. Details of success is shown in the status bar.
+
+==== Listing all transactions
+
+. Listing all transactions
+
+.. Test case: `listt` +
+Expected: All transactions are listed. Details of success is shown in the status bar.
+
+==== Finding transactions
+
+. Finding transactions
+
+.. Test case: `findt c/alice` +
+Expected: All transactions with full word 'alice' in their customer names are listed. Details of success is shown in the status bar.
+.. Test case: `findt p/bag watch` +
+Expected: All transactions with full words matching 'bag' **OR** 'watch' in their product names are listed. Details of success is shown in the status bar.
+.. Test case: `findt c/alice m/10` +
+Expected: All transactions with full words matching 'alice' in their customer names **AND** have transaction amounts of 10 are listed. Details of success is shown in the status bar.
+.. Test case: `findt c/alice c/john` +
+Expected: No transaction found as there are multiple customer prefixes. Error details shown in the status message.
+
+=== Statistics
+
+==== Getting the revenue made in a certain period
+
+. Getting the revenue made in a certain period
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `revenue sd/2020-01-01 10:00 ed/2020-12-12 10:01` +
+Expected: The calculated revenue is shown in the status message.
+.. Test case: `revenue sd/2020-09-01 10:00 ed/2020-01-12 10:01` +
+Expected: Revenue cannot be calculated if start date is after end date. Error details shown in the status message.
+.. Other incorrect revenue commands to try: `revenue sd/2020-01-01 10:00 ed/2020-01-12`, `revenue` +
+Expected: Similar to previous.
+
+==== Getting the profit made in a certain period
+
+. Getting the profit made in a certain period
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `profit sd/2020-01-01 10:00 ed/2020-12-12 10:01` +
+Expected: The calculated profit is shown in the status message.
+.. Test case: `profit sd/2020-09-01 10:00 ed/2020-01-12 10:01` +
+Expected: Profit cannot be calculated if start date is after end date. Error details shown in the status message.
+.. Other incorrect profit commands to try: `profit sd/2020-01-01 10:00 ed/2020-01-12`, `profit` +
+Expected: Similar to previous.
+
+==== Setting the low-inventory threshold
+
+. Setting the low-inventory threshold
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `lowlimit p/1 t/20` +
+Expected: The calculated profit is shown in the status message.
+.. Test case: `lowlimit p/1 t/0` +
+Expected: Current threshold of product is not modified as threshold can only take positive integer values. Error details shown in the status message.
+.. Other incorrect lowlimit commands to try: `lowlimit p/x t/20` (where x is more than product list size), `lowlimit` +
+Expected: Similar to previous.
+
+==== Predicting the sales for the next month
+
+. Predicting the sales for the next month
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `predict` +
+Expected: The predicted revenue for next month is shown in the status message.
+
+==== Plotting sales of a product
+
+. Plotting sales of a product
+
+.. Prerequisites: List all products using the `listp` command. Multiple products in the list.
+.. Test case: `plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00` +
+Expected: The sales of the product is plotted in a graph in a new window that pops up.
+.. Test case: `plotsales 1 sd/2020-03-20 10:00 ed/2020-01-30 10:00` +
+Expected: Sales of product is not plotted as start date is after end date. Error details shown in the status message.
+.. Other incorrect plotsales commands to try: `plotsales x sd/2020-03-20 10:00 ed/2020-03-30 10:00` (where x is more than product list size), `plotsales` +
+Expected: Similar to previous.
+
+[appendix]
+== Effort
+
+Throughout this journey, we have overcame many challenges and gained much more experience in software engineering.
+Our project was ambitious as it consisted of multiple entities. In addition to the original address book with the persons entity, we also included products and transactions to the system.
+Since the structure was quite complex, we had to brainstorm about the best way to incorporate products and transactions into the app.
+
+The person class had to be refactored to fit our user profile of customers.
+The commands for products were similar to the original commands for person, however there were also some differences since the requirements for products and persons varied.
+For example, the attributes required for products were vastly different for customers, and new restrictions needed to be applied.
+The commands for transactions were quite different from both customers and products, since transaction is an association class between customer and product.
+For example, the add transaction command affected the product quantity and sales, so it had to update the product too, whereas for customer and product there was no need to modify other classes.
+We also needed to consider the proper way to keep track of customers and products to ensure that there were no duplicates. Initially we tried keeping track using only the attributes however there were bugs so we added customer and product ids.
+
+With multiple entities, a lot of thought went into figuring out how to display all the data.
+Throughout the process, we revamped the ui such that all the information would be presented clearly. Ultimately, our design differed from the original as we settled on a tab design.
+Initially, there were different windows showing different information too. In the end, we combined most of the information into a single window, and split the information shown according to categories which were listed as tabs.
+Besides the layout of the ui, the design also took time to finalise as we wanted to make our app look professional and modern.
+
+Lastly, the statistics were quite challenging to implement. This is especially so as we used various bars and graphs, which were new to us and we had to learn independently.
+The calculations were relatively easier as it was just simple math calculations of profit etc.
+
+In all, even though our project was complex, we managed to implement most of our features and even included extra features that we had not plan on intially. Given the moderate to high difficulty level of the project, we are glad that we achieved our project goals.

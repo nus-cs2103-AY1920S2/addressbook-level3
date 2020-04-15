@@ -1,0 +1,95 @@
+= Tan Su Yee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iTrack Pro
+
+---
+
+== Overview
+
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers. It is also able to provide an analysis of the entire business to help the owner manage the shop.
+
+== Summary of contributions
+
+* *Major enhancement*:
+1. Added *the ability to manage products (add, list, find, delete, clear, edit)*
+** What it does: allows the user to manage products in the inventory easily. User can add, delete or edit products, and list or clear all products. Users can also find products based on keywords.
+** Justification: This feature improves the product significantly because shop owners can have many products and managing them manually can be inefficient. Hence, the inventory system provides a convenient way for them to keep track of their products.
+** Highlights: Though the implementation seems similar to the `Person` class in the addressbook, it was challenging as the fields were different and the execution of some commands varied due to the different requirements.
+
+2. Added *the ability to view and analyse statistics (revenue, profit, predict sales, view top selling products)*
+** What it does: allows the user to view and analyse statistics based on transactions added to the inventory system.
+** Justification: This feature improves the product significantly because shop owners can gain insight to their business and know how profitable they are. By knowing the revenue and profit, the user can gauge market demand for their products and employ suitable marketing strategies to improve sales. Moreover, users can get the predicted sales for the next month, enabling them to make more informed business decisions.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The difficult part was to determine how and when the revenue/ profit was to be calculated, and the best way to structure the classes.
+
+* *Minor enhancement*:
+** Added id for `Customer` and `Product` and made use of customer and product id fields to prevent duplicate transactions (during transaction edit) (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/122[#122])
+** Added view top-selling products function (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/112[#112])
+** Updated ui for statistics window and notification (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/130[#130], https://github.com/AY1920S2-CS2103-T09-2/main/pull/112[#112])
+** Wrote tests for product features to increase coverage by 16.3% to 66.752% (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/82[#82])
+** Wrote tests for statistics features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/119[#119], https://github.com/AY1920S2-CS2103-T09-2/main/pull/97[#97])
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=aliciatxl&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tp-dashboard]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/model/product[Product model], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/product[Product commands], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/product[Product parser], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/storage/product[Product storage], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/product[Product ui]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/statistics[Statistics commands], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/statistics[Statistics parser], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/statistics[Statistics ui], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui[Statistics window]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/commands/product[Test product commands], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/parser/product[Test product parser], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/model/product[Test product model], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/storage[Test product storage], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/testutil/product[Test product testutil]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/commands/statistics[Test revenue/profit commands]]
+
+* *Other contributions*:
+
+** Project management:
+*** Reviewed and merge code of teammates
+*** Created and assigned issues
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/93[#93], https://github.com/AY1920S2-CS2103-T09-2/main/pull/94[#94], https://github.com/AY1920S2-CS2103-T09-2/main/pull/187[#187])
+*** Added restrictions for each field (e.g. max value for price and quantity, max length for address) (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/142[#142])
+** Documentation:
+*** Edited ArchitectureSequenceDiagram, BetterModelClassDiagram, DeleteSequenceDiagram, LogicClassDiagram to reflect current app structure (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184])
+*** Replaced ModelClassDiagram, UiClassDiagram and StorageClassDiagram with created diagrams to reflect current class structure (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184], https://github.com/AY1920S2-CS2103-T09-2/main/pull/187[#187])
+*** Added implementation section, and sequence and activity diagrams for product features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/100[#100], https://github.com/AY1920S2-CS2103-T09-2/main/pull/103[#103])
+*** Added implementation section, and sequence and activity diagrams for revenue/profit features (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/184[#184])
+*** Modified glossary and design sections, add target audience, manual testing, effort and use cases to developer guide (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/19[#19], https://github.com/AY1920S2-CS2103-T09-2/main/pull/194[#194], https://github.com/AY1920S2-CS2103-T09-2/main/pull/202[#202])
+*** Add product features and statistics (revenue, predict, profit) features to user guide (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/24[#24])
+** Community:
+*** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S2-CS2103-T09-1/main[T09-1]
+** Tools:
+*** Created team organisation on github and set up address book in organisation repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addp]
+
+include::../UserGuide.adoc[tag=editp]
+
+include::../UserGuide.adoc[tag=clearp]
+
+include::../UserGuide.adoc[tag=deletep]
+
+// include::../UserGuide.adoc[tag=findp]
+
+include::../UserGuide.adoc[tag=listp]
+
+include::../UserGuide.adoc[tag=revenue]
+
+include::../UserGuide.adoc[tag=profit]
+
+include::../UserGuide.adoc[tag=predict]
+
+include::../UserGuide.adoc[tag=viewtopsellingproducts]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=manageitem]
+
+include::../DeveloperGuide.adoc[tag=getprofitrevenue]

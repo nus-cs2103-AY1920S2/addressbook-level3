@@ -1,0 +1,100 @@
+= Tan Jun Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iTrack Pro
+
+---
+
+== Overview
+
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers. It is also able to provide an analysis of the entire business to help the owner manage the shop.
+
+== Summary of contributions
+
+* *Major enhancement*:
+1. Added *the ability to find customers by specified attributes*
+** What it does: allows the user to locate customers easily by name, address, email or phone number.
+** Justification: This feature improves the application significantly because user can have many customers, and it can be difficult to keep track of customers manually.
+** Highlights: The original find feature was only by name, the implementation has to be changed and refactored to accommodate finding by other attributes too.
+
+2. Added *visualisation of product balance on Product Ui via progress bar indicator*
+** What it does: allows the user to easily identify stocks that are running low.
+** Justification: This feature improves the application significantly as users would not have to struggle looking at numbers only to see which stock is running low soon.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The difficult part was to determine how the remaining stock was to be calculated, and the best way to structure the classes.
+
+* *Minor enhancement*:
+** Added a command history feature that allows the user to navigate to previous commands using up/down keys (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/92[#92])
+** Added lowlimit command that allows the user to set individual product low quantity threshold (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/98[#98])
+** Added notification popup window when stock quantity goes below threshold (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/99[#99])
+** Added cost price field to Product class to calculate profit (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/114[#114])
+** Updated ui for statistics window (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/129[#129])
+** Fixed bugs from PE-D (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/185[#185], https://github.com/AY1920S2-CS2103-T09-2/main/pull/198[#198])
+** Added web view for help window (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/200[#200])
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=junhaotan&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&since=2020-02-14[tP-dashboard]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/model/customer[Customer model], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/customer[Customer commands], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/customer[Customer parser], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/storage/customer[Customer storage], https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/customer[Customer ui]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/commands/product/LowLimitCommand.java[LowLimit command], https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/parser/product/LowLimitCommandParser.java[LowLimit parser], https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/ui/NotificationWindow.java[LowLimit Ui]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/ui/CommandBox.java[Command history feature]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/pull/196[InventorySystemParserTest]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (4 releases) on GitHub
+*** Reviewed and merged teammates' pull requests
+*** Created and managed milestones & issues
+** Enhancements to existing features:
+*** Added more conditions for duplicate customers (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/185[#185])
+*** Fix alignment of address label in CustomerCard Ui (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/185[#185])
+*** Added restrictions for number of tags when editing customers (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/185[#185])
+** Documentations:
+*** Added user stories in Developer Guide (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/20[#20])
+*** Combined customer and product common features for Developer Guide (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/110[#110])
+*** Updated User Guide to reflect latest application Ui and features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/127[#127], https://github.com/AY1920S2-CS2103-T09-2/main/pull/138[#138], https://github.com/AY1920S2-CS2103-T09-2/main/pull/189[#189])
+*** Updated Developer Guide with implemented feature (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/196[#196])
+** Community:
+*** Reviewed PRs and documentations for other teams: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/104[F09-2], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/42[F10-2], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/19[T09-1]
+
+<<<
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addc]
+
+include::../UserGuide.adoc[tag=editc]
+
+//include::../UserGuide.adoc[tag=clearc]
+
+include::../UserGuide.adoc[tag=deletec]
+
+//include::../UserGuide.adoc[tag=findc]
+
+//include::../UserGuide.adoc[tag=listc]
+
+include::../UserGuide.adoc[tag=lowlimit]
+
+include::../UserGuide.adoc[tag=lowstockproducts]
+
+//include::../UserGuide.adoc[tag=receivenotif]
+
+include::../UserGuide.adoc[tag=reuseinputs]
+
+<<<
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=lowlimitfeature]
+
+include::../DeveloperGuide.adoc[tag=notificationWindow]
+
+include::../DeveloperGuide.adoc[tag=sortProductList]

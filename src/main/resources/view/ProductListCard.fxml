@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPaneProduct" fx:id="cardPaneProduct" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <stylesheets>
+            <URL value="@Progress.css" />
+        </stylesheets>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/product_icon.png" />
+               </image>
+            </ImageView>
+                <Label fx:id="description" styleClass="cell_big_label" text="\$first" />
+                <ProgressBar fx:id="progressBar" progress="1.0" />
+            </HBox>
+            <FlowPane fx:id="tags" />
+         <Separator prefWidth="200.0">
+            <VBox.margin>
+               <Insets bottom="5.0" top="5.0" />
+            </VBox.margin>
+         </Separator>
+            <HBox>
+                <children>
+                    <Label text="Cost Price">
+                        <HBox.margin>
+                            <Insets right="10.0" />
+                        </HBox.margin>
+                    </Label>
+                    <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="costPrice" styleClass="cell_small_label" text="\$costPrice" />
+                </children>
+            </HBox>
+         <HBox>
+            <children>
+               <Label text="Price">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Label>
+               <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Quantity">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Label>
+               <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Sales">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Label>
+               <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="sales" styleClass="cell_small_label" text="\$sales" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+                <Label text="Threshold">
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="threshold" styleClass="cell_small_label" text="\$threshold" />
+            </children>
+         </HBox>
+        </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+</HBox>

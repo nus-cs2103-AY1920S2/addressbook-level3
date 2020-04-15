@@ -1,0 +1,172 @@
+= He Yingxu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iTrackPro
+
+---
+
+== Overview
+
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers.
+
+== Summary of contributions
+
+* *Major enhancement*:
+1. Added *the ability to manage transcations*, e.g., *addt*, *editt*, *findt*, *listt*, *undot*, *cleart*.
+** What it does: It records, edits, lists, finds, deletes transactions from the system. The quantity and sales attribute of products will be affected as well.
+** Justification: This feature allows the customer to manage a large amount of transactions. It improves the usability of the application and increases the efficiency for the user to manage inventory system.
+** Highlights: Adding/editting/undoing transactions will also update the quantity/sales attributes of related products. A future date time in the future is not allowed.
+** Credits: These operations are inspired from the operations of persons in AB3 system.
+
+2. Added the *ability to plot the quantity sold of a product in a certain time range*.
+** What it does: The command fetches all transactions related with the specified product in a certain time period, then
+converts the data to daily time series format and plot it in a bar chart.
+** Justification: This feature allows users to understand the popularity of a product visually in a trend format, such that they
+could make decisions of whether to stock up or down the product.
+** Highlights: If a time range is not specified, the command will consider the last 7 days by default. An end date before start date or date in the future is not allowed.
+
+3. Added the histogram of products to the statistics panel.
+** What is does: It fetches the quantity and sales of all the products and group them by the amount of quantity/sales.
+The data is then plot in a line chart format.
+** Justification: It allows the user to understand whether the business is healthy, E.g. whether most of the products have sufficient inventory, is there any super-sales-creator or all the products share the same sales evenly.
+** Highlights: They are displayed upon the application is launched. The graph will be updated everytime a user takes any action, e.g. adding a new product.
+
+* *Minor enhancement*:
+** Update the UI from three side-by-side lists to tab panes with transactions representated by rows in a table (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/186[#186]).
+** Split the original shared quantity class to TransactionQuantity and ProductQuantity with different minimal values. Merged sales and money class (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117], https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192]).
+** Set default dateTime and money for transactions (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/117[#117]).
+** Added test for transaction model, logic, and test utils (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209], https://github.com/AY1920S2-CS2103-T09-2/main/pull/201[#201], https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197],
+https://github.com/AY1920S2-CS2103-T09-2/main/pull/183[#183], https://github.com/AY1920S2-CS2103-T09-2/main/pull/140[#140]).
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=YingxuH&tabRepo=AY1920S2-CS2103-T09-2%2Fmain%5Bmaster%5D[tp-dashboard] +
+** Model: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/model/transaction[transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/model/util/Quantity.java[util: quantity]]
+** Logic: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/commands/transaction[command: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/commands/product/PlotSalesCommand.java[command: PlotSales],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/logic/parser/transaction[parser: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/logic/parser/product/PlotSalesCommandParser.java[parser: PlotSales]]
+** [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/storage/transaction[storage: tranasction],
+[https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/main/java/seedu/address/ui/transaction[ui: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/blob/master/src/main/java/seedu/address/ui/PlotWindow.java[ui: PlotWindow]]
+** Test: [https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/model/transaction[model: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/testutil/transaction[testutil: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/commands/transaction[commands: transaction],
+https://github.com/AY1920S2-CS2103-T09-2/main/tree/master/src/test/java/seedu/address/logic/parser/transaction[parser: transaction],
+]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up the issue labels and milestones with my team mates.
+*** Set up `netlify`, `coverall`, auto-build tools (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/17[#17])
+*** Merge PRs created by my team mates.
+** Enhancements to existing features:
+*** Refactored the process of triggering notification windows as passing signals to command result and making the `MainWindow` to handle the plot.  (Commit https://github.com/AY1920S2-CS2103-T09-2/main/pull/192/commits/803fa013d1d0adc44434a7838fb45a145cf394bd[803fa01] of PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/192[#192])
+*** Refactored the process of checking duplicate input attributes (this https://github.com/AY1920S2-CS2103-T09-2/main/pull/209/commits/c841de096b6cfb0877416062adaa5770d868bb2c[commit] from PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/209[#209])
+*** Fixed the bug of re-listing all products everytime adding a transaction, allowing users to input future time, and statistics window not updated after each action (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/182[#182], https://github.com/AY1920S2-CS2103-T09-2/main/pull/197[#197], https://github.com/AY1920S2-CS2103-T09-2/main/pull/134[#134], https://github.com/AY1920S2-CS2103-T09-2/main/pull/186[#186])
+** Documentation:
+*** Updated the readme from the template of AB3 to customized iTrackPro page (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/12[#12])
+*** Updated the UG with add/edit/delete/find/list transactions as well as top-selling product, revenue, and low inventory (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/27[#27])
+*** Updated the UG about the plotsales command, renaming `deletet` to `undot`, re-phrase some explanations (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/135[#135], Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/137[#137], https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
+*** Updated the Dev Guide with NFR, Glossary, managing transaction and plot sales command. (PR https://github.com/AY1920S2-CS2103-T09-2/main/pull/21[#21], https://github.com/AY1920S2-CS2103-T09-2/main/pull/109[#109], https://github.com/AY1920S2-CS2103-T09-2/main/pull/107[#107], https://github.com/AY1920S2-CS2103-T09-2/main/pull/212[#212])
+** Community:
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/58[#58])
+*** Reviewed the PRs and documentations from other teams in the tutorial together with my team mates(examples:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/104[#104], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/42[#42])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=help]
+
+include::../UserGuide.adoc[tag=addt]
+
+include::../UserGuide.adoc[tag=listt]
+
+include::../UserGuide.adoc[tag=editt]
+
+include::../UserGuide.adoc[tag=findt]
+
+include::../UserGuide.adoc[tag=cleart]
+
+== Command Summary
+
+* *Adding customer* : `addc n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…` +
+e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* *Listing all customers* : `listc`
+* *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
+e.g. `editc 1 p/91234567 e/johndoe@example.com`
+* *Finding customers* : `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]` +
+e.g. `findc n/John`
+* *Deleting a customer* : `deletec INDEX` +
+e.g. `findc n/Betsy` +
+`deletec 1`
+* *Clearing all customers* : `clearc`
+* *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]` +
+e.g. `addp d/iphone x pr/1000 cp/800 q/10`
+* *Listing all products* : `listp`
+* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
+e.g. `editp 1 pr/1150 q/80`
+* *Finding products* : `findp KEYWORD [KEYWORD]...` +
+e.g. `findp black`
+* *Deleting a product* : `deletep INDEX` +
+e.g. `listp` +
+`deletep 2`
+* *Clearing all products* : `clearp`
+* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
+e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
+* *Listing all transactions* : `listt`
+* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
+e.g. `editt 1 p/101 c/123`
+* *Finding transactions* : `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAME]...] [dt/DATE_TIME] [m/MONEY]` +
+e.g. `findt c/bob dt/2020-02-07 10:00`
+* *Undo a transaction* : `undot INDEX` +
+e.g. `findt dt/2020-01-03 10:00` +
+`undot 1`
+* *Clearing all transactions* : `cleart`
+* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE` +
+e.g. `revenue sd/2020-01-01 10:00 ed/2020-12-12 10:01`
+* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE` +
+e.g. `profit sd/2020-01-01 10:00 ed/2020-12-12 10:01`
+* *Setting the low-inventory threshold* : `lowlimit p/PRODUCT_ID t/THRESHOLD` +
+e.g. `lowlimit p/1 t/20`
+* *Predicting the sales for the next month* : `predict`
+* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]` +
+e.g. `plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00`
+* *Exiting from the program* : `exit`
+* *Get help* : `help`
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=managetransaction]
+
+include::../DeveloperGuide.adoc[tag=plotsalesfeature]
+
+[discrete]
+=== Use case:  UC09 - Plot the quantity sold of a product (for products)
+
+*MSS*
+
+1. User enters the index of the product as well as the start date and end date for ploting purposes.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The index is out of boundary.
++
+[none]
+** 1a1. The app shows an error message.
++
+Use case ends.
+

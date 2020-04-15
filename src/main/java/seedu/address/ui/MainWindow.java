@@ -2,13 +2,15 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.geometry.Pos;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +18,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.product.Product;
+import seedu.address.ui.customer.CustomerListPanel;
+import seedu.address.ui.product.ProductListPanel;
+import seedu.address.ui.statistics.StatisticsListPanel;
+import seedu.address.ui.transaction.TransactionListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,18 +38,30 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private CustomerListPanel personListPanel;
+    private ProductListPanel productListPanel;
+    private TransactionListPanel transactionListPanel;
+    private StatisticsListPanel statisticsListPanel;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private NotificationWindow notificationWindow;
+    private PlotWindow plotWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane customerListPanelPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane productListPanelPlaceholder;
+
+    @FXML
+    private StackPane transactionListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -60,64 +79,51 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
+        notificationWindow = new NotificationWindow();
+        plotWindow = new PlotWindow();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-    }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        customerListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        productListPanel = new ProductListPanel(logic.getFilteredProductList());
+        productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
+
+        transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+
+        statisticsListPanel = new StatisticsListPanel(logic);
+        statisticsPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInventorySystemFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        Label commandBoxLabel = new Label("Enter command");
+        commandBoxLabel.setTextFill(Color.web("#ffffff"));
+
+        HBox commandHBox = new HBox();
+        HBox.setHgrow(commandBoxLabel, Priority.ALWAYS);
+        HBox.setHgrow(commandBox.getRoot(), Priority.ALWAYS);
+        commandHBox.setAlignment(Pos.BASELINE_CENTER);
+        commandHBox.setSpacing(10);
+        commandHBox.getChildren().addAll(commandBoxLabel, commandBox.getRoot());
+
+        commandBoxPlaceholder.getChildren().add(commandHBox);
     }
 
     /**
@@ -144,6 +150,31 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Plot the sales of a product.
+     */
+    @FXML
+    public void handlePlot(XYChart.Series dataSeries, String title) {
+        if (!plotWindow.isShowing()) {
+            plotWindow.show(dataSeries, title);
+        } else {
+            plotWindow.focus();
+        }
+    }
+
+    /**
+     *
+     */
+    @FXML
+    public void handleNotification(Product editedProduct) {
+        if (!notificationWindow.isShowing()) {
+            notificationWindow.show(editedProduct.getDescription(), editedProduct.getQuantity());
+        } else {
+            notificationWindow.focus();
+        }
+    }
+
+
     void show() {
         primaryStage.show();
     }
@@ -156,12 +187,8 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+        Platform.exit();
+        System.exit(0);
     }
 
     /**
@@ -174,6 +201,17 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            statisticsPanelPlaceholder.getChildren().removeAll();
+            statisticsPanelPlaceholder.getChildren().add(new StatisticsListPanel(logic).getRoot());
+
+            if (commandResult.isShowNotification()) {
+                handleNotification(commandResult.getNotificationData());
+            }
+
+            if (commandResult.isShowPlot()) {
+                handlePlot(commandResult.getDataSeries(), commandResult.getTitle());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

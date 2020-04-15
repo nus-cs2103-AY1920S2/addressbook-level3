@@ -1,18 +1,24 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+
+import seedu.address.model.customer.Customer;
+import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Customer> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
+    Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +43,157 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getInventorySystemFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setInventorySystemFilePath(Path inventorySystemFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code inventorySystem}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setInventorySystem(ReadOnlyInventorySystem inventorySystem, String commandWord);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the InventorySystem */
+    ReadOnlyInventorySystem getInventorySystem();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Customer customer);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns true if a product with the same identity as {@code product} exists in the product list.
      */
-    void deletePerson(Person target);
+    boolean hasProduct(Product product);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given customer.
+     * The customer must exist in the address book.
      */
-    void addPerson(Person person);
+    void deletePerson(Customer target);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Deletes the given product.
+     * The product must exist in the product list.
+     */
+    void deleteProduct(Product target);
+
+    /**
+     * Deletes the given transaction.
+     * The transaction must exist in the product list.
+     */
+    void deleteTransaction(Transaction target);
+
+    /**
+     * Adds the given customer.
+     * {@code customer} must not already exist in the address book.
+     */
+    void addPerson(Customer customer);
+
+    /**
+     * Adds the given product.
+     * {@code product} must not already exist in the product list.
+     */
+    void addProduct(Product product);
+
+    /**
+     * Find product by id.
+     * {@code id} the unique id.
+     */
+    Product findProductById(UUID id);
+
+    /**
+     * Replaces the given customer {@code target} with {@code editedCustomer}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer
+     * in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void setPerson(Customer target, Customer editedCustomer);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Replaces the given product {@code target} with {@code editedProduct}.
+     * {@code target} must exist in the product list.
+     * The product identity of {@code editedProduct} must not be the same as
+     * another existing product in the address book.
+     */
+    void setProduct(Product target, Product editedProduct);
+
+    /**
+     * Replaces the given customer {@code target} with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer
+     * in the address book.
+     */
+    void setTransaction(Transaction target, Transaction editedTransaction);
+
+    /** Returns an unmodifiable view of the filtered customer list */
+    ObservableList<Customer> getFilteredCustomerList();
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the address book.
+     */
+    boolean hasTransaction(Transaction transaction);
+
+    /**
+     * Adds the given transaction.
+     * {@code transaction} must not already exist in the address book.
+     */
+    void addTransaction(Transaction transaction);
+
+    /**
+     * Return a filtered observable transactions list.
+     * @param predicate specifies the matching condition.
+     */
+    ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate);
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCustomerList();
+
+    /**
+     * Updates the filter of the filtered product list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProductList(Predicate<Product> predicate);
+
+
+    /**
+     * Updates the filter of the filtered product list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProductList();
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList();
+
+
+    /** Returns an unmodifiable view of the filtered product list */
+    ObservableList<Product> getFilteredProductList();
+
+    /** Returns an unmodifiable view of the filtered product list */
+    ObservableList<Transaction> getFilteredTransactionList();
 }

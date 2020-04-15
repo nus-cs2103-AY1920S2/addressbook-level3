@@ -1,0 +1,55 @@
+{
+  "_comment": "InventorySystem save file which contains the same Person values as in TypicalPersons#getTypicalInventorySystem()",
+  "persons" : [ {
+    "id": "a4365691-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "friends" ]
+  }, {
+    "id": "a4365692-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "id": "a4365693-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "address" : "wall street",
+    "tagged" : [ ]
+  }, {
+    "id": "a4365694-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "address" : "10th street",
+    "tagged" : [ "friends" ]
+  }, {
+    "id": "a4365695-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "werner@example.com",
+    "address" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "id": "a4365696-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "address" : "little tokyo",
+    "tagged" : [ ]
+  }, {
+    "id": "a4365697-ea10-47ad-b33b-fc038f1e5e81",
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "tagged" : [ ]
+  } ],
+  "transactions" : [],
+  "products": []
+}
