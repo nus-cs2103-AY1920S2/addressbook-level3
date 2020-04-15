@@ -148,6 +148,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasStudentNameNonCaseSensitive(String student) {
+        requireNonNull(student);
+        return teaPet.hasStudentNameNonCaseSensitive(student);
+    }
+
+    @Override
     public void deleteStudent(Student target) {
         teaPet.removeStudent(target);
     }

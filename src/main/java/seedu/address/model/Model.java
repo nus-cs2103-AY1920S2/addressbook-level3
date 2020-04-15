@@ -85,6 +85,11 @@ public interface Model {
     boolean hasStudentName(String student);
 
     /**
+     * Returns true if a student with the same name non case sensitive as {@code student} exists in tea pet.
+     */
+    boolean hasStudentNameNonCaseSensitive(String student);
+
+    /**
      * Deletes the given student.
      * The student must exist in tea pet.
      */

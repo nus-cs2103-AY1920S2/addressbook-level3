@@ -110,6 +110,7 @@ public class Submission implements Comparable<Submission> {
 
     @Override
     public int compareTo(Submission s) {
-        return 0;
+        return studentName.toLowerCase()
+                .compareTo(s.getStudentName().toLowerCase());
     }
 }

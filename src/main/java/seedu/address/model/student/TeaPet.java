@@ -78,6 +78,20 @@ public class TeaPet implements ReadOnlyTeaPet {
     }
 
     /**
+     * Returns true if a student with the same identity as {@code student} exists in tea pet.
+     */
+    public boolean hasStudentNameNonCaseSensitive(String student) {
+        requireNonNull(student);
+        boolean contains = false;
+        for (Student stu : students) {
+            if (stu.getName().fullName.toLowerCase().equals(student.toLowerCase())) {
+                contains = true;
+            }
+        }
+        return contains;
+    }
+
+    /**
      * Adds a student to tea pet.
      * The student must not already exist in tea pet.
      */

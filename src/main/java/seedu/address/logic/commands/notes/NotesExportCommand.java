@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.notes;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
@@ -24,6 +25,7 @@ public class NotesExportCommand extends NotesCommand {
      */
     @Override
     public CommandResult execute(Model model) {
+        model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

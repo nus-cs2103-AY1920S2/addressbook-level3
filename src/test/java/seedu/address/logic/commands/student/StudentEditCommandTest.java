@@ -86,8 +86,12 @@ public class StudentEditCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         StudentEditCommand editCommand = new StudentEditCommand(INDEX_FIRST_STUDENT, new EditStudentDescriptor());
         Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-        String expectedMessage = MESSAGE_DUPLICATE_STUDENT;
-        assertCommandFailure(editCommand, model, expectedMessage);
+        String expectedMessage = String.format(StudentEditCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+
+        Model expectedModel = new ModelManager(new TeaPet(model.getTeaPet()),
+                new Academics(model.getAcademics()), new Admin(model.getAdmin()),
+                new NotesManager(model.getNotesManager()), new EventHistory(model.getEventHistory()), new UserPrefs());
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

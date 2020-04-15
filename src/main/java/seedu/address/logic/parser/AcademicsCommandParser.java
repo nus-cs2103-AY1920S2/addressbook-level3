@@ -49,14 +49,14 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
     public AcademicsCommand parse(String args) throws ParseException, CommandException {
         requireNonNull(args);
 
-        if (args.equals("")) {
-            return academicsDisplayCommand("");
-        }
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ADD, PREFIX_DELETE, PREFIX_EDIT, PREFIX_HOMEWORK, PREFIX_EXAM,
                         PREFIX_REPORT, PREFIX_SUBMIT, PREFIX_MARK, PREFIX_STUDENT, PREFIX_ASSESSMENT_DESCRIPTION,
                         PREFIX_ASSESSMENT_TYPE, PREFIX_ASSESSMENT_DATE, PREFIX_EXPORT);
+
+        if (args.equals("")) {
+            return academicsDisplayCommand(argMultimap, "");
+        }
 
         if (argMultimap.getValue(PREFIX_ADD).isPresent()) {
             return addCommand(argMultimap);
@@ -69,11 +69,11 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
         } else if (argMultimap.getValue(PREFIX_MARK).isPresent()) {
             return markCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_HOMEWORK).isPresent()) {
-            return academicsDisplayCommand("homework");
+            return academicsDisplayCommand(argMultimap, "homework");
         } else if (argMultimap.getValue(PREFIX_EXAM).isPresent()) {
-            return academicsDisplayCommand("exam");
+            return academicsDisplayCommand(argMultimap, "exam");
         } else if (argMultimap.getValue(PREFIX_REPORT).isPresent()) {
-            return academicsDisplayCommand("report");
+            return academicsDisplayCommand(argMultimap, "report");
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) {
             return academicsExportCommand();
         } else {
@@ -125,8 +125,7 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble(PREFIX_DELETE.getPrefix()));
             return new AcademicsDeleteCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsDeleteCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX, pe);
         }
     }
 
@@ -142,8 +141,7 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble("edit"));
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AcademicsEditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX, pe);
         }
 
         AcademicsEditCommand.EditAssessmentDescriptor editAssessmentDescriptor =
@@ -201,8 +199,7 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble(PREFIX_SUBMIT.getPrefix()));
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AcademicsSubmitCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX, pe);
         }
         List<String> students = argMultimap.getAllValues(PREFIX_STUDENT);
 
@@ -224,8 +221,7 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble(PREFIX_MARK.getPrefix()));
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AcademicsMarkCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX, pe);
         }
         List<String> students = argMultimap.getAllValues(PREFIX_STUDENT);
 
@@ -236,7 +232,12 @@ public class AcademicsCommandParser implements Parser<AcademicsCommand> {
      * Returns a AcademicsDisplayCommand object for execution.
      * {@code ArgumentMultimap}.
      */
-    private AcademicsDisplayCommand academicsDisplayCommand(String type) throws ParseException, CommandException {
+    private AcademicsDisplayCommand academicsDisplayCommand(ArgumentMultimap argMultimap, String type)
+            throws ParseException, CommandException {
+        if (!argMultimap.getPreamble(type).isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AcademicsMarkCommand.MESSAGE_USAGE));
+        }
         return new AcademicsDisplayCommand(type);
     }
 

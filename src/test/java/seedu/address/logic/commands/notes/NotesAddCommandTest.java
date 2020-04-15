@@ -161,6 +161,11 @@ public class NotesAddCommandTest {
         }
 
         @Override
+        public boolean hasStudentNameNonCaseSensitive(String student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteStudent(Student target) {
             throw new AssertionError("This method should not be called.");
         }

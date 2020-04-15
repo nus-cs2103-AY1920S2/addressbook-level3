@@ -137,8 +137,7 @@ public class AcademicsCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "academics delete a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AcademicsDeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "academics delete a", Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
     }
     // ==================== DELETE COMMAND END ====================
 
@@ -147,39 +146,39 @@ public class AcademicsCommandParserTest {
     public void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(parser, "academics edit " + VALID_DESCRIPTION_MATH_ASSIGNMENT,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
 
         // no field specified
         assertParseFailure(parser, "academics edit 1", AcademicsEditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "academics edit",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure(parser, "academics edit -5" + DESCRIPTION_MATH_ASSIGNMENT,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
 
         // zero index
         assertParseFailure(parser, "academics edit 0" + DESCRIPTION_MATH_ASSIGNMENT,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "academics edit 1 some random string",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "academics edit 1 i/ string",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void parseEditCommand_invalidValue_failure() {
         assertParseFailure(parser, "academics edit 1" + INVALID_ASSESSMENT_DESC, // invalid description
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
         assertParseFailure(parser, "academics edit 1" + INVALID_TYPE_DESC,
                 Messages.MESSAGE_INVALID_ASSESSMENT_TYPE); // invalid type
         assertParseFailure(parser, "academics edit 1" + INVALID_DATE_DESC,
@@ -196,7 +195,7 @@ public class AcademicsCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "academics edit 1" + INVALID_ASSESSMENT_DESC + INVALID_TYPE_DESC
-                + INVALID_DATE_DESC, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AcademicsEditCommand.MESSAGE_USAGE));
+                + INVALID_DATE_DESC, Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
     }
 
     @Test

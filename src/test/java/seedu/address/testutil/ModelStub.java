@@ -86,6 +86,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasStudentNameNonCaseSensitive(String student) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteStudent(Student target) {
         throw new AssertionError("Assertion error, method should not be called.");
     }

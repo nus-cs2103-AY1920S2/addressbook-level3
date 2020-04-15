@@ -48,7 +48,7 @@ public class StudentAddCommand extends StudentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasStudentName(toAdd.getName().fullName)) {
+        if (model.hasStudentNameNonCaseSensitive(toAdd.getName().fullName)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
         model.addStudent(toAdd);

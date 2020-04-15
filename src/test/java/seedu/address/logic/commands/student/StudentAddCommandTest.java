@@ -152,6 +152,11 @@ public class StudentAddCommandTest {
         }
 
         @Override
+        public boolean hasStudentNameNonCaseSensitive(String student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteStudent(Student target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -472,6 +477,11 @@ public class StudentAddCommandTest {
         public boolean hasStudentName(String student) {
             return this.student.getName().fullName.equals(student);
         }
+
+        @Override
+        public boolean hasStudentNameNonCaseSensitive(String student) {
+            return this.student.getName().fullName.toLowerCase().equals(student.toLowerCase());
+        }
     }
 
     /**
@@ -492,6 +502,18 @@ public class StudentAddCommandTest {
             boolean contains = false;
             for (Student stu : studentsAdded) {
                 if (stu.getName().fullName.equals(student)) {
+                    contains = true;
+                }
+            }
+            return contains;
+        }
+
+        @Override
+        public boolean hasStudentNameNonCaseSensitive(String student) {
+            requireNonNull(student);
+            boolean contains = false;
+            for (Student stu : studentsAdded) {
+                if (stu.getName().fullName.toLowerCase().equals(student.toLowerCase())) {
                     contains = true;
                 }
             }

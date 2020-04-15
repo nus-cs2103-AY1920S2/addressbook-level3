@@ -84,6 +84,7 @@ public class Assessment {
      * @return submission tracker of assessment.
      */
     public List<Submission> getSubmissionTracker() {
+        Collections.sort(submissionTracker);
         return submissionTracker;
     }
 
@@ -135,6 +136,7 @@ public class Assessment {
      */
     public void setSubmissions(List<Student> students) {
         students.stream().forEach(student -> submissionTracker.add(new Submission(student.getName().fullName)));
+        Collections.sort(submissionTracker);
     }
 
     /**
@@ -151,6 +153,7 @@ public class Assessment {
                 hasMarked = submission.isMarked() ? hasMarked + 1 : hasMarked;
             }
         }
+        Collections.sort(submissionTracker);
         submitted = hasSubmitted;
         marked = hasMarked;
     }
@@ -162,6 +165,7 @@ public class Assessment {
         submissionTracker
                 .stream().filter(submission -> submission.getStudentName().equals(prevName))
                 .forEach(submission -> submission.setStudentName(newName));
+        Collections.sort(submissionTracker);
     }
 
     /* STUDENT-LEVEL METHODS */
@@ -170,6 +174,7 @@ public class Assessment {
      */
     public void addStudent(String toAdd) {
         submissionTracker.add(new Submission(toAdd));
+        Collections.sort(submissionTracker);
     }
 
     /**
