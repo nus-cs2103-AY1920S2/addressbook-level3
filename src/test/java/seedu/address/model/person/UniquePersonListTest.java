@@ -9,6 +9,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -166,5 +169,52 @@ public class UniquePersonListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void withinRange() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd");
+        LocalDate currDate = LocalDate.now(ZoneId.of("Singapore"));
+        LocalDate fiveDaysLater = LocalDate.now(ZoneId.of("Singapore")).plusDays(5);
+
+        // Birthday is today
+        String bDay = LocalDate.now(ZoneId.of("Singapore")).format(format);
+        assertTrue(uniquePersonList.withinRange(bDay, currDate, fiveDaysLater));
+
+        // Birthday is four days later
+        bDay = LocalDate.now(ZoneId.of("Singapore")).plusDays(4).format(format);
+        assertTrue(uniquePersonList.withinRange(bDay, currDate, fiveDaysLater));
+
+        // Birthday is five days later
+        bDay = LocalDate.now(ZoneId.of("Singapore")).plusDays(5).format(format);
+        assertFalse(uniquePersonList.withinRange(bDay, currDate, fiveDaysLater));
+    }
+
+    @Test
+    public void setBdayList_contactHasNoBirthday_success() {
+        // Contact has no birthday
+        Person person = new PersonBuilder(ALICE).withBirthday("").build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+    }
+
+    @Test
+    public void setBdayList_contactHasBirthday_success() {
+        // Contact's birthday not in the next 5 days
+        Person person = new PersonBuilder(ALICE).withBirthday(LocalDate.now(ZoneId.of("Singapore")).plusDays(5)
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+
+        // Contact's birthday in the next 5 days
+        person = new PersonBuilder(BOB).withBirthday(LocalDate.now(ZoneId.of("Singapore"))
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertEquals(uniquePersonList.getBdayList(), Arrays.asList(person));
     }
 }

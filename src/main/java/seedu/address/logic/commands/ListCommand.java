@@ -10,10 +10,12 @@ import seedu.address.model.Model;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "(ab)list";
+    public static final String COMMAND_FUNCTION = "Shows a list of all persons in the address book.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":  " + COMMAND_FUNCTION + "\n"
+            + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
-
 
     @Override
     public CommandResult execute(Model model) {

@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,17 +24,24 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Birthday birthday;
+    private final Organization organization;
+    private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remarks,
+                Birthday birthday, Organization organization, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags); // do I need to put organization here?
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.birthday = birthday;
+        this.organization = organization;
+        this.remarks.addAll(remarks);
         this.tags.addAll(tags);
     }
 
@@ -52,12 +61,40 @@ public class Person {
         return address;
     }
 
+    public ArrayList<Remark> getRemark() {
+        return remarks;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Concatenates all the Person's tags together into one string.
+     * This is to be used by the TagsContainsKeywordsPredicate class
+     * @return String of all concatenated tags
+     */
+    public String getTagsForPredicate() {
+        String concatenatedTags = "";
+
+        for (Iterator<Tag> it = tags.iterator(); it.hasNext(); ) {
+            Tag t = it.next();
+            concatenatedTags = concatenatedTags + t.toString().toLowerCase();
+        }
+
+        return concatenatedTags;
     }
 
     /**
@@ -71,7 +108,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && (otherPerson.getPhone().equals(getPhone()));
     }
 
     /**
@@ -93,26 +130,35 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRemark().equals(getRemark())
+                && otherPerson.getBirthday().equals(getBirthday())
+                && otherPerson.getOrganization().equals(getOrganization())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, remarks, birthday, organization, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append("\nPhone: ")
                 .append(getPhone())
-                .append(" Email: ")
+                .append("\nEmail: ")
                 .append(getEmail())
-                .append(" Address: ")
+                .append("\nAddress: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append("\nRemarks: ");
+        getRemark().forEach(builder::append);
+        builder.append("\nBirthday: ")
+                .append(getBirthday())
+                .append("\nOrganization: ")
+                .append(getOrganization())
+                .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

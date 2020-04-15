@@ -1,0 +1,87 @@
+= Kwan Xin Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Naggy Joel
+
+---
+
+== Overview
+
+Naggy Joel is a desktop application used by University students to manage social life. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+It is an application that allows users to manage all aspects of their social life, ranging from your different social circles and contacts, to events, all without compromising on academic life.
+
+== Summary of contributions
+
+=== Major enhancement:
+* *Added the ability to add/edit/delete note commands for each contact*
+** What it does: Allows the user to add multiple notes, edit the added notes, or delete the added notes.
+** Justification: This feature improves the product significantly because a user can add in additional information to a contact that they wish to remember/ is deemed important.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
+** Credits: _{reused the original RemarkCommand}_
+
+* *Added the ability to add/edit/delete note commands for each restaurant*
+** What it does: Allows the user to add multiple notes, edit the added notes, or delete the added notes.
+** Justification: This feature improves the product significantly because a user can add additional information to a restaurant in order to keep track of the dishes' reviews.
+** Highlights: Each restaurant has 3 food notes that can be added, edited, or deleted. Multiple addition/deletion of notes require a detailed validity check of the command since the inputs are dependent.
+** Credits: _{referenced from RemarkCommand}_
+
+* *Added the ability to retrieve a single particular contact.*
+** What it does: This allows the user to view the information of a particular contact in full detail.
+** Justification: As we added in more fields to a person in the Address Book, we cut down the information displayed on the Address Book list command. Thus, this command allows the user to view the rest of the information.
+** Highlights:
+*** This enhancement requires the understanding of how the filtering of the Address Book contacts are done, and to display it on the application.
+*** Independent filtering is required. To retrieve a single contact information on a third display panel, the filtering of the Address Book contacts should not affect the original contact list on the second panel.
+
+=== Minor enhancement:
+* *Added the ability to sort assignments*
+** What it does: This allows the user to sort the assignments by deadline or estimated number of hours to be completed, or by the assignment's title in alphabetical order.
+** Justification: As our application allows user to keep track of the assignments that they have to complete, providing a sorting feature allows for prioritisation of assignments based on the criteria (deadline/time needed) the user prefers.
+** Highlights: Uncompleted assignments, assignments with the most recent deadline and take a longer time to complete will be listed first.
+
+* *Ensure that the filtered search results remains after editing of contacts/restaurants*
+** What it does: After a user enters `(ab)find` or `(rt)find` and wish to edit information of the contacts/restaurants in this search result, the filtered search result will still remain on the second panel even with the edits.
+** Justification: This helps to complement the commands and allows the user to have the option to return to the full list of contacts/remain the filtered search results after any edits.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=vanessa1098&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Vanessa1098&tabRepo=AY1920S2-CS2103-W14-3%2Fmain%5Bmaster%5D[Summary of code contributions]]
+
+* *Other contributions*:
+
+** Project management:
+** Enhancements to existing features:
+*** Edited the help command to display all commands on the user interface.
+*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/53[#53], https://github.com/AY1920S2-CS2103-W14-3/main/pull/142[#142], https://github.com/AY1920S2-CS2103-W14-3/main/pull/175[#175])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/46[#46])
+** Documentation:
+*** Contributed to the User Guide and Developer Guide of this project
+** Community:
+*** Reported bugs and suggestions for other teams in the module (https://github.com/Vanessa1098/ped/issues[PED])
+** Team-based Contributions:
+*** Reviewed PRs, provided suggestions for my teammates and comments to improve/clarify (https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me[Reviews])
+*** Created PRs for approvals (https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3AVanessa1098[Pull requests])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=notetaker]
+
+include::../UserGuide.adoc[tag=rtnotetaker]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=get]
+
+include::../DeveloperGuide.adoc[tag=sortAssgn]
+
+include::../DeveloperGuide.adoc[tag=editRestNote]
+
+include::../DeveloperGuide.adoc[tag=manual]
+
+---

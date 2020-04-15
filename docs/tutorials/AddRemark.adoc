@@ -268,10 +268,10 @@ Without getting too deep into `fxml`, let's go on a 5 minute adventure to get so
 Simply add
 [source, java]
 .PersonCard.java
-```
+----
 @FXML
 private Label remark;
-```
+----
 
 to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML.
@@ -279,9 +279,9 @@ It might sound like Greek to you right now, don't worry -- we will get back to i
 
 Then insert
 
-```
+----
 <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
-```
+----
 into link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-12580431f55d7880578aa4c16f249e71[`main/resources/view/PersonListCard.fxml`].
 
 That's it! Fire up the application again and you should see something like this:

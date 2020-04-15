@@ -151,6 +151,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-wrap-text: true;
 }
 
 .result-display .label {
@@ -312,6 +313,21 @@
     -fx-border-width: 0;
 }
 
+#cardPaneDetail {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#assignmentCardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#restaurantCardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -338,6 +354,16 @@
 }
 
 #tags {
+     -fx-hgap: 7;
+     -fx-vgap: 3;
+ }
+
+#status {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#visit {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
@@ -345,6 +371,24 @@
 #tags .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#status .label{
+    -fx-text-fill: white;
+    -fx-background-color: #E19125;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#visit .label {
+    -fx-text-fill: white;
+    -fx-background-color: #900C3F;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

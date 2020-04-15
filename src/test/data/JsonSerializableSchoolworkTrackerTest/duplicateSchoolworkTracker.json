@@ -1,0 +1,13 @@
+{
+  "assignments": [ {
+    "title" : "CS2103",
+    "deadline" : "2020-03-31 23:59",
+    "status" : "Uncompleted",
+    "estHours" : "450"
+  }, {
+    "title" : "CS2103",
+    "deadline" : "2020-03-31 23:59",
+    "status" : "Uncompleted",
+    "estHours" : "450"
+  } ]
+}

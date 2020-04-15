@@ -1,0 +1,65 @@
+= Sarah Chua - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Naggy Joel
+
+---
+
+== Overview
+
+Naggy Joel is a desktop application for University students who wish to manage their social life as well as their school assignments. While Naggy Joel understands the importance of maintaining a social life, Naggy Joel also understands that school assignments should come first!
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add/delete/edit Events*
+** What it does: allows the user to add/delete/edit their events (eg. social events).
+** Justification: This feature improves the product significantly because a user can log their events, delete events if there have been cancellations, or edit events if they have made mistakes in commands and the app should provide a convenient way to rectify them using the edit function.
+** Highlights: The implementation was challenging because I had to integrate this with the existing features (like the Schoolwork Tracker). For instance, I added a warning to be thrown when the user adds an Event on the same day as which an assignment is due, to warn the user that they ought to prioritize the assignment if it isn't completed yet, and to prompt the user to reconsider if going to such an event is necessary if they do not have time to complete their schoolwork.
+** Credits: -
+
+* *Major enhancement*: added *the ability to find Restaurants and Persons*
+** What it does: allows the user to find specific people in the address book and specific restaurants in the restaurant tracker.
+** Justification: This feature improves the product significantly because it allows people to find specific restaurants or people in the app (if the user have many contacts and many restaurants logged down, it makes it easier to the user to pick out the specific contact/restaurant that they want).
+** Highlights: This enhancement required in-depth knowledge of the Java Predicate because the existing code base had been using Predicates. Furthermore, since one Person could have multiple tags and our find command allows for searching via tags, the implementation was challenging as it required me to come up with a way to manipulate using one Predicate's keywords to search against multiple fields (unlike other Predicates, which usually check their keywords against one field like a Person's Name).
+** Credits: -
+
+* *Minor enhancement*: Added in the GUI display for the Event Schedule (so a person can see what events they have upcoming).
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=nidorinas[Summary of code contributions]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Added in the Organization field of a person, allowing them to be tagged to a specific Organization.
+** Documentation:
+*** Contributed to both the Developer Guide and User Guide for this project.
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103-W14-3/main/pull/154[#154]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103-W14-3/main/pull/152[#152]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S2-CS2103-T09-3/main/issues/114[1], https://github.com/AY1920S2-CS2103-T09-3/main/issues/115[2], https://github.com/AY1920S2-CS2103-T09-3/main/issues/116[3], https://github.com/AY1920S2-CS2103-T09-3/main/issues/117[4], https://github.com/AY1920S2-CS2103-T09-3/main/issues/118[5], https://github.com/AY1920S2-CS2103-T09-3/main/issues/119[6], https://github.com/AY1920S2-CS2103-T09-3/main/issues/120[7], https://github.com/AY1920S2-CS2103-T09-3/main/issues/121[8])
+** Tools:
+*** Integrated Travis with the team repo
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=eventSchedule]
+
+include::../UserGuide.adoc[tag=findCommand]
+
+include::../UserGuide.adoc[tag=findRestaurantCommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=findContacts]

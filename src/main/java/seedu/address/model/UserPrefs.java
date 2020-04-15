@@ -15,6 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path restaurantBookFilePath = Paths.get("data" , "restaurantbook.json");
+    private Path schedulerFilePath = Paths.get("data", "assignments.json");
+    private Path eventScheduleFilePath = Paths.get("data", "events.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -51,9 +54,31 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return addressBookFilePath;
     }
 
+    public Path getRestaurantBookFilePath() {
+        return restaurantBookFilePath;
+    }
+
+    public Path getSchedulerFilePath() {
+        return schedulerFilePath;
+    }
+
+    public Path getEventScheduleFilePath() {
+        return eventScheduleFilePath;
+    }
+
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public void setSchedulerFilePath(Path schedulerFilePath) {
+        requireNonNull(schedulerFilePath);
+        this.schedulerFilePath = schedulerFilePath;
+    }
+
+    public void setEventScheduleFilePath(Path eventScheduleFilePath) {
+        requireNonNull(eventScheduleFilePath);
+        this.eventScheduleFilePath = eventScheduleFilePath;
     }
 
     @Override
@@ -68,19 +93,31 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && schedulerFilePath.equals(o.schedulerFilePath)
+                && eventScheduleFilePath.equals(o.eventScheduleFilePath)
+                && restaurantBookFilePath.equals(o.restaurantBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, restaurantBookFilePath,
+                schedulerFilePath, eventScheduleFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("Gui Settings : "
+                + guiSettings);
+        sb.append("\nLocal data file location : "
+                + addressBookFilePath
+                + " "
+                + restaurantBookFilePath
+                + " "
+                + schedulerFilePath
+                + " "
+                + eventScheduleFilePath);
         return sb.toString();
     }
 

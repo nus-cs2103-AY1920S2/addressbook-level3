@@ -14,11 +14,15 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.Storage;
 
 /**
- * The main LogicManager of the app.
+ * The main LogicManager of the application.
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
@@ -42,10 +46,39 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        try {
-            storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        if (command.toString().contains("(ab)")) {
+            try {
+                storage.saveAddressBook(model.getAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command.toString().contains("(st)")) {
+            try {
+                storage.saveSchoolworkTracker(model.getSchoolworkTracker());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command.toString().contains("(ev)")) {
+            try {
+                storage.saveEventSchedule(model.getEventSchedule());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command.toString().contains("(rt)")) {
+            try {
+                storage.saveRestaurantBook(model.getRestaurantBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command.toString().contains("undo")) {
+            try {
+                storage.saveAddressBook(model.getAddressBook());
+                storage.saveSchoolworkTracker(model.getSchoolworkTracker());
+                storage.saveEventSchedule(model.getEventSchedule());
+                storage.saveRestaurantBook(model.getRestaurantBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         return commandResult;
@@ -62,6 +95,31 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Person> getFilteredPersonListResult() {
+        return model.getFilteredPersonListResult();
+    }
+
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return model.getFilteredRestaurantList();
+    }
+
+    @Override
+    public ObservableList<Person> getBdayList() {
+        return model.getBdayListResult();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
@@ -74,5 +132,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Day> getSchedule() {
+        return model.getSchedule();
     }
 }

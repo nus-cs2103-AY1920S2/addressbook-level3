@@ -1,0 +1,85 @@
+= Elysia Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Naggy Joel
+
+---
+
+== Overview
+
+*Naggy Joel* is a desktop social life manager application for university students who wants to enjoy life but not at the expense of their studies. It has a GUI created with JavaFX and is optimized to allow users to interact with it through the Command Line Interface (CLI).
+
+*Naggy Joel* helps users keep track of various aspects of their lives, from their social circles, to their events and deadlines. It aims to help the user be the best friend and student that they can ever be!
+
+== Summary of contributions
+=== Major Enhancements:
+* *Added the model for Schoolwork Tracker and the necessary basic commands*
+** *What it does:* The model forms the backbone of all commands for the Schoolwork Tracker and the basic commands allow adding, deleting and editing an assignment.
+** *Justification:* Naggy Joel is designed to enable students to keep track of their assignments so that they can make the most out of their university life. As such, this addition is crucial as it would later be involved in some of the future enhancements.
+** *Highlights:* This enhancement requires an understanding of what a typical assignment should consist of so that it does not violate the law of demeter and learning of RegEx.
+** *Credits:* _Referenced the original AddressBook and Person Model_
+
+* *Added the ability to allow users to generate their upcoming schedule*
+** *What it does:* Generates the user’s schedule for a specified number of day(s) based on their stored uncompleted assignments, their individual deadlines and estimated completion time.
+** *Justification:* Generally, students will consider outstanding assignments and the estimated amount of time required to complete them before deciding whether they have the time to hang out with friends. However, often times there are just too many assignments and it is difficult to estimate the work hours per day for the next few days at the back of their minds.
+** *Highlights:*
+*** Each day is colour-coded based on the estimated work hours for the day.
+*** There were many cases to consider to ensure a balanced distribution of work hours to each day while ensuring that the user can still meet all deadlines and not go against the concept of time (i.e. a maximum of 24 hours a day and we cannot rewind time).
+
+=== Minor Enhancements:
+* *Added the ability to visualise contacts with upcoming birthdays*
+** *What it does:* Displays all contacts with birthdays in the next 5 days (current day included).
+** *Justification:* As a university student with a busy life and many things to remember, often times we may unintentionally forget the birthdays of our friends and family. As such, this feature will help to serve as a reminder for users.
+** *Highlights:*
+*** Upcoming birthdays are colour-coded based on when the contact’s birthday is and is sorted in increasing date order when displayed.
+*** Displayed upon start-up and offered as a command as well.
+*** Can be extended to provide gift or celebration suggestions based on stored remarks.
+
+* Changed the functionality of the given `edit` Person command
+** *What it does:* The enhanced `edit` allows users to append tags and delete individual tags.
+** *Justification:* The original command only allows users to replace all existing tags with the new ones which is not very user-friendly as often times we want to add/delete individual tags rather than replace everything.
+** *Highlights:* Multiple tags can be added/deleted in the same command. Only distinct tags will be added if they do not already exist and all stated tags will be deleted if they exist.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=elysiatanzy&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ElysiaTanZY&tabRepo=AY1920S2-CS2103-W14-3%2Fmain%5Bmaster%5D[Summary of code contributions]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Edited the GUI of the application (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/68[#68], https://github.com/AY1920S2-CS2103-W14-3/main/pull/145[#145])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/65[#65], https://github.com/AY1920S2-CS2103-W14-3/main/pull/179[#179])
+*** Added in the birthday field to Person, allowed tags for a Person to include spaces and updated the existing commands to accommodate these changes. (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/44[#44], https://github.com/AY1920S2-CS2103-W14-3/main/pull/145[#145])
+** Documentation:
+*** Contributed to both the User Guide and Developer Guide for this project.
+** Contribution to team-based tasks:
+*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/AY1920S2-CS2103-W14-3/main/pull/71[#71], https://github.com/AY1920S2-CS2103-W14-3/main/pull/150[#150])
+*** Maintained the issue tracker
+*** Managed releases `v1.1, v1.2.1 to v1.4` (5 releases) on Github
+** Community:
+*** Over 30 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+author%3AElysiaTanZY+[Pull Requests] on Github
+*** Over 20 https://github.com/AY1920S2-CS2103-W14-3/main/pulls?q=is%3Apr+commenter%3AElysiaTanZY+[Reviews] on Github
+*** Helped team-members debug code and gave suggestions on how to enhance features
+*** Over 15 https://github.com/ElysiaTanZY/ped/issues?q=is%3Aissue+is%3Aall[Reported bugs and suggestions] for other teams in the module
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=editPerson]
+
+include::../UserGuide.adoc[tag=schoolworkTracker]
+
+include::../UserGuide.adoc[tag=schedule]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=schedule]
+
+---

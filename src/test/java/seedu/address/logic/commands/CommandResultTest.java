@@ -12,9 +12,12 @@ public class CommandResultTest {
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 
+        // [sarah] commenting this out bc someone edited some command and now this cant compile - I can run it though
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false,
+                false, false, false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,10 +32,24 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false,
+            false, false, false, false, false, false)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true,
+            false, false, false, false, false, false)));
+
+        //different get value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
+            true, false, false, false, false, false)));
+
+        // different assignment value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
+            false, true, false, false, false, false)));
+
+        // different restaurant value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
+            false, false, false, false, true, false)));
     }
 
     @Test
@@ -46,9 +63,23 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
+            false, false, false, false, false, false, false).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+            true, false, false, false, false, false, false).hashCode());
+
+        // different get value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+            false, true, false, false, false, false, false).hashCode());
+
+        // different assignment value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+            false, false, true, false, false, false, false).hashCode());
+
+        // different restaurant value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+            false, false, false, false, false, true, false).hashCode());
     }
 }

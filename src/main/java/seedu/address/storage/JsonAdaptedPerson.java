@@ -11,10 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,19 +31,32 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final ArrayList<JsonAdaptedRemark> remark = new ArrayList<>();
+    private final String birthday;
+    private final String organization;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
+                             @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark,
+                             @JsonProperty("birthday") String birthday,
+                             @JsonProperty("organization") String organization,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.birthday = birthday;
+        this.organization = organization;
+        if (remark != null) {
+            this.remark.addAll(remark);
+        }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +70,11 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        birthday = source.getBirthday().birthday;
+        organization = source.getOrganization().organization;
+        remark.addAll(source.getRemark().stream()
+                .map(JsonAdaptedRemark::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -66,8 +87,12 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final ArrayList<Remark> personRemarks = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedRemark r : remark) {
+            personRemarks.add(r.toModelType());
         }
 
         if (name == null) {
@@ -102,8 +127,24 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
-    }
+        if (birthday == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Birthday.class.getSimpleName()));
+        }
+        if (!Birthday.isValidDate(birthday)) {
+            throw new IllegalValueException(Birthday.MESSAGE_CONSTRAINTS);
+        }
+        final Birthday modelBirthday = new Birthday(birthday);
 
+        if (organization == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
+        }
+        final Organization modelOrganization = new Organization(organization);
+
+        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final ArrayList<Remark> modelRemarks = new ArrayList<>(personRemarks);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelRemarks, modelBirthday, modelOrganization, modelTags);
+    }
 }

@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,6 +33,12 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private PersonListPanelDetail personListPanel2;
+    private AssignmentListPanel assignmentListPanel;
+    private EventListPanel eventListPanel;
+    private RestaurantListPanel restaurantListPanel;
+    private PersonListBdayPanel personBdayPanel;
+    private ScheduleVisualPanel schedulePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane personListPanelPlaceholder2;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -112,6 +123,11 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
+        personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
+
+        resultDisplay.setFeedbackToUser(Messages.WELCOME_MESSAGE);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -160,8 +176,78 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Display specified person on third panel.
+     */
+    @FXML
+    private void handleGet() {
+        personListPanel2 = new PersonListPanelDetail(logic.getFilteredPersonListResult());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
+    }
+
+    /**
+     * Display assignments on third panel.
+     */
+    @FXML
+    private void handleAssignment() {
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(assignmentListPanel.getRoot());
+    }
+
+    /**
+     * Display Events on third panel.
+     */
+    @FXML
+    private void handleEvent() {
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(eventListPanel.getRoot());
+    }
+
+    /**
+     * Display restaurants on third panel.
+     */
+    @FXML
+    private void handleRestaurant() {
+        restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(restaurantListPanel.getRoot());
+    }
+
+    /**
+     * Display address book on first panel.
+     */
+    @FXML
+    private void handleAddress() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    /**
+     * Display upcoming birthdays on third panel.
+     */
+    @FXML
+    private void handleShowBirthday() {
+        personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
+    }
+
+    /**
+     * Display estimated workload for the next 5 days (excluding today) based on stored assignments, their deadlines
+     * and estimated work hours per assignment.
+     */
+    @FXML
+    private void handleShowSchedule() {
+        schedulePanel = new ScheduleVisualPanel(logic.getSchedule());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(schedulePanel.getRoot());
     }
 
     /**
@@ -175,13 +261,23 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
             if (commandResult.isExit()) {
                 handleExit();
+            } else if (commandResult.isGet()) {
+                handleGet();
+            } else if (commandResult.isAssignment()) {
+                handleAssignment();
+            } else if (commandResult.isEvent()) {
+                handleEvent();
+            } else if (commandResult.isRestaurant()) {
+                handleRestaurant();
+            } else if (commandResult.isShowBirthday()) {
+                handleShowBirthday();
+            } else if (commandResult.isShowSchedule()) {
+                handleShowSchedule();
             }
+
+            handleAddress();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
