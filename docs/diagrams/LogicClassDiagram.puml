@@ -8,10 +8,11 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class NormalParser
+Class InterviewParser
+Class PreSessionParser
 Class XYZCommandParser
 Class CliSyntax
-Class ParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
@@ -31,12 +32,23 @@ package Model{
 Class HiddenModel #FFFFFF
 }
 
+package Storage{
+Class HiddenStorage #FFFFFF
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
+Storage -up[hidden]- Model
 
+LogicManager --> Model
+LogicManager --> Storage
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" PreSessionParser
+LogicManager -->"1" InterviewParser
+LogicManager -->"1" NormalParser
+InterviewParser .down.> XYZCommandParser: creates >
+NormalParser .down.> XYZCommandParser: creates >
+PreSessionParser .down.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -45,18 +57,15 @@ XYZCommandParser ..> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note bottom of XYZCommand : XYZCommand = AddAttributeCommand, \nFinalizeCommand, etc
+note right of CommandResult : CommandResult \nhas multiple subclasses, \neg. ToggleCommandResult, \nNavigationCommandResult, \nHelpCommandResult, \nExitCommandResult
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+
+Command .up.> CommandResult : returns >
+Command .right.> Model : accesses and modifies >
+Command .right.> Storage : saves model to >
 @enduml

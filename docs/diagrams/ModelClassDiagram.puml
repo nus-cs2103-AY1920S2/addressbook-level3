@@ -4,53 +4,81 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Package Model <<Rectangle>> {
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Interviewee {
+Class Interviewee
+Class Alias
+Class ID
 Class Name
-Class Phone
-Class UniquePersonList
+Class CV
+Class Transcript
+Class IntervieweeList
 }
 
-Package Tag {
-Class Tag
+Package Question {
+Class Question
+Class QuestionDescription
+Class QuestionList
 }
+
+Package Attribute {
+Class Attribute
+Class AttributeName
+Class AttributeList
 }
+
+Package Metric {
+Class MetricList
+Class Metric
+Class MetricName
+Class AttributeToWeightMap
+}
+
+Package Transcript {
+Class Transcript
+Class RemarkList
+Class AttributeToScoreMap
+}
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+ModelManager *-right-> "1" AppPhase
+
+ModelManager *--> "1" AttributeList
+AttributeList o--> "*" Attribute
+Attribute *--> AttributeName
+
+ModelManager *--> "1" QuestionList
+QuestionList o--> "*" Question
+Question *--> QuestionDescription
+
+ModelManager *--> "1" MetricList
+MetricList o--> "*" Metric
+Metric *--> "1" MetricName
+Metric *--> "1" AttributeToWeightMap
+}
+
+ModelManager *--> "1" IntervieweeList
+IntervieweeList o--> "*" Interviewee
+Interviewee *--> Name
+Interviewee *--> Alias
+Interviewee *--> ID
+Interviewee *--> CV
+Interviewee *-up-> "*" Transcript
+Transcript *--> RemarkList
+Transcript *--> AttributeToScoreMap
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
-
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
-ModelManager -->"1" Person : filtered list
 @enduml

@@ -4,53 +4,71 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+HireLah! is targeted to bring greater convenience to interviewers who can type quickly and prefer typing over mouse +
+commands. Additionally, we included customised features in our desktop apps to help interviewers to manage interviews.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Chin Synn Khee, Joash
+image::corncobs.png[width="200", align="left"]
+{empty}[http://github.com/CornCobs[github]] [<<CornCobs#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: +
+- Maintains the standard of the code quality +
+- Designs the feature for interview phase +
+- Extensively create tests for the app +
+- Assists in finding a solution when other members have issues
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Mario Lorenzo
+image::mario7lorenzo.png[width="200", align="left"]
+{empty}[https://github.com/mario7lorenzo[github]] [<<mario7lorenzo#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer (Logic and Model) +
+Responsibilities: +
+- Creates the Model as the building blocks of the app +
+- Designs commands for the normal phase, and the decision phase +
+- Reminds the others regarding deadlines of the project +
+- Ensure the documentation consistent
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Yan Boshen
+image::bscrow.png[width="200", align="left"]
+{empty}[http://github.com/bscrow[github]] [<<bscrow#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer (UI) +
+Responsibilities: +
+- Reworks the UI of AB3 to fits the desired product. +
+- Extensively create tests for the app +
+- Contributes to the documentation of the UI
+
+'''
+
+=== Agnes Natasya
+image::agnesnatasya.png[width="200", align="left"]
+{empty}[http://github.com/agnesnatasya[github]] [<<agnesnatasya#, portfolio>>]
+
+Role: Developer (Logic and Model) +
+Responsibilities: +
+- Creates the parser to convert the input of the user to a command +
+- Creates tests for the normal parsers +
+- Contributes to the documentation of the Logic and Model
+
+'''
+
+=== Ong Wei Cheng
+image::Weiichengg.png[width="200", align="left"]
+{empty}[http://github.com/Weiichengg[github]] [<<Weiichengg#, portfolio>>]
+
+Role: Developer (Storage) +
+Responsibilities:  +
+- Designs the structure of the storage +
+- Reworks on the storage of AB3 +
+- Creates tests for the storage part
 
 '''

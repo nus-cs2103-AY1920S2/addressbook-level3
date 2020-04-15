@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ListView fx:id="remarkCardListView" prefHeight="500" minWidth="380" />
+   </center>
+   <left>
+      <Pane minWidth="251" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

@@ -7,6 +7,8 @@ src/main/resources/docs/
 /.idea/
 /out/
 /*.iml
+/src/main/resources/main.iml
+/src/test/resources/test.iml
 
 # Storage/log files
 /data/
