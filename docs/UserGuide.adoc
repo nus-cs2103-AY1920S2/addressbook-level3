@@ -192,7 +192,7 @@ a|* Description that accompanies a task
 
 |Priority
 |`[p/PRIORITY]` +
-Eg. `p/1` 
+Eg. `p/1`
 
 a|
 * _Priority can only be 1 or 2 or 3_
@@ -201,7 +201,7 @@ a|
 
 |Reminder
 |`[r/REMINDER]` +
-Eg. `r/10/06/20@12:30` 
+Eg. `r/10/06/20@12:30`
 
 a|
 *_ Format should be in DD/MM/YY@HH:mm_
@@ -217,7 +217,7 @@ a|
 
 |Tag
 a|`[t/TAG]...` +
-`t/errand t/home` 
+`t/errand t/home`
 a|
 *_Tags should be in alphanumeric characters only_
 * There can be multiple tags or none at all.
@@ -233,10 +233,10 @@ a|
 ==== Add Command
 ===== Command: `add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun`
 
-Alright, time to start your productivity journey! Let's add our very first task by using the command stated above. 
+Alright, time to start your productivity journey! Let's add our very first task by using the command stated above.
 
 [IMPORTANT]
-When adding tasks, you only need the `n/` prefix as only the name field is compulsory. 
+When adding tasks, you only need the `n/` prefix as only the name field is compulsory.
 .Add success
 image::add_success.png[width=790]
 
@@ -500,7 +500,7 @@ Add a task with a reminder using the following command `add n/<name> r/DD/MM/YY@
 
 For example: `add n/Buy Milk r/11/11/20@23:59`.
 
-After you have successfully added the task, you will see the following success message in the dialogue box! 
+After you have successfully added the task, you will see the following success message in the dialogue box!
 
 .Success for adding a task with reminder on result display(top).
 image::AddTaskReminderUp.png[width=395]
@@ -545,7 +545,7 @@ Add a task with a recurring attribute using the following command `add n/<name> 
 
 For example: `add n/Buy Milk rec/d`
 
-After you have successfully added the task, you will see the following success message in the dialogue box! 
+After you have successfully added the task, you will see the following success message in the dialogue box!
 
 .Success for adding a task with recurring attribute on result display(top).
 image::AddTaskRecurringUp.png[width=395]
