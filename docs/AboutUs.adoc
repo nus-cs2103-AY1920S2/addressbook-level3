@@ -28,7 +28,7 @@ Role: Full-Stack Developer / DevOps Engineer
 
 === Tang Guofeng
 image::Guofeng-Tang.png[width="150", align="left"]
-{empty}[http://github.com/Guofeng-Tang[github]] [<<Guofeng-Tang#, portfolio>>]
+{empty}[http://github.com/Guofeng-Tang[github]] [<<guofeng-tang#, portfolio>>]
 
 Role: Full-Stack Developer / QA Tester
 
