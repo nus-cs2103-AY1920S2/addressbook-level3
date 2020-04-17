@@ -16,7 +16,7 @@ toc::[]
 
 In this tutorial, we'll walk you through the implementation of a new command -- `remark`.
 
-This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required.
+This command allows users of the AddressBook application to add optional remarks to people in their task list and edit it if required.
 The command should have the format of `remark INDEX r/REMARK`.
 An example of the command is `remark 2 r/Likes baseball`.
 
@@ -41,7 +41,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 
 /**
- * Changes the remark of an existing person in the address book.
+ * Changes the remark of an existing person in the task list.
  */
 public class RemarkCommand extends Command {
 
@@ -314,7 +314,7 @@ Let's update `JsonAdaptedPerson` to work with our new `Person`!
 While the changes to code may be minimal, the test data will have to be updated as well.
 
 WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
-Not doing so will cause AddressBook to default to an empty address book!
+Not doing so will cause AddressBook to default to an empty task list!
 
 Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
 
@@ -361,7 +361,7 @@ Since all fields in a `Person` are immutable, we create a new instance of a `Per
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPriority(), personToEdit.getEmail(),
                 personToEdit.getAddress(), remark, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);

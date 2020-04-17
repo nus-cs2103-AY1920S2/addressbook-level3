@@ -7,54 +7,98 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+<fx:root maxHeight="700.0" maxWidth="1200.0" minHeight="700.0" minWidth="1200.0" onCloseRequest="#handleExit" title="BBProductive" type="javafx.stage.Stage" width="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/BBProductiveIcon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <VBox>
+                <children>
+                    <SplitPane dividerPositions="0.1" prefWidth="800" VBox.vgrow="ALWAYS">
+                        <items>
+                            <VBox minWidth="360.0">
+                                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                                    <Menu mnemonicParsing="false" text="File">
+                                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                                    </Menu>
+                                    <Menu mnemonicParsing="false" text="Help">
+                                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                                    </Menu>
+                                </MenuBar>
+                                <StackPane fx:id="petPlaceholder" maxHeight="400.0" minHeight="400.0" VBox.vgrow="NEVER" />
+                                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" VBox.vgrow="NEVER">
+                                    <padding>
+                                        <Insets bottom="5" left="10" right="10" top="5" />
+                                    </padding>
+                                </StackPane>
+                                <StackPane fx:id="commandBoxPlaceholder" maxHeight="50.0" minHeight="50.0" VBox.vgrow="NEVER">
+                                    <padding>
+                                        <Insets bottom="5" left="10" right="10" top="5" />
+                                    </padding>
+                                </StackPane>
+                            </VBox>
+                            <TabPane fx:id="tabPanePlaceholder" minWidth="840.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="200.0" tabMaxWidth="200.0" tabMinHeight="30.0" tabMinWidth="120.0">
+                                <tabs>
+                                    <Tab disable="true" text="                                                                                                                                                                         ">
+                                        <content>
+                                            <VBox fx:id="taskList1" prefWidth="340.0">
+                                                <padding>
+                                                <Insets bottom="10" left="10" right="10" top="10" />
+                                                </padding>
+                                                <children>
+                                                <StackPane fx:id="pomodoroPlaceholder1" mouseTransparent="true">
+                                                    <padding>
+                                                        <Insets bottom="20" top="10" />
+                                                    </padding>
+                                                </StackPane>
+                                                <StackPane fx:id="taskListPanelPlaceholder1" VBox.vgrow="ALWAYS" />
+                                                </children>
+                                            </VBox>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Tasks">
+                                        <content>
+                                            <VBox fx:id="taskList" prefWidth="340.0">
+                                                <padding>
+                                                    <Insets bottom="10" left="10" right="10" top="10" />
+                                                </padding>
+                                                <StackPane fx:id="pomodoroPlaceholder" mouseTransparent="true">
+                                       <padding>
+                                          <Insets bottom="20" top="10" />
+                                       </padding></StackPane>
+                                                <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                            </VBox>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Statistics">
+                                        <content>
+                                            <StackPane fx:id="statisticsPlaceholder" prefWidth="340.0" />
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Settings">
+                                        <content>
+                                            <StackPane fx:id="settingsPlaceholder" prefWidth="340.0" />
+                                        </content>
+                                    </Tab>
+                                </tabs>
+                            </TabPane>
+                        </items>
+                    </SplitPane>
+                    <StackPane fx:id="statusbarPlaceholder" minHeight="20.0" VBox.vgrow="NEVER" />
+                </children>
+            </VBox>
+            <stylesheets>
+                <URL value="@Extensions.css" />
+                <URL value="@LightTheme.css" />
+            </stylesheets>
+        </Scene>
+    </scene>
 </fx:root>

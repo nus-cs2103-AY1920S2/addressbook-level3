@@ -69,8 +69,8 @@ image:LeftGutter.png[]
 
 == Tracing the execution path
 
-Recall from the User Guide that the `edit` command has the format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]
-[a/ADDRESS] [t/TAG]...` For this tutorial we will be issuing the command `edit 1 n/Alice Yeoh`.
+Recall from the User Guide that the `edit` command has the format: `edit INDEX [n/NAME] [p/PRIORITY] [e/EMAIL]
+[a/DESCRIPTION] [t/TAG]...` For this tutorial we will be issuing the command `edit 1 n/Alice Yeoh`.
 
 [TIP]
 .Taking notes
@@ -251,8 +251,8 @@ handled?
 . What components will you have to modify to perform the following enhancements to the application?
 .. Make command words case-insensitive
 .. Allow `delete` to remove more than one index at a time
-.. Save the address book in the CSV format instead
+.. Save the task list in the CSV format instead
 .. Add a new command
 .. Add a new field to `Person`
-.. Add a new entity to the address book
+.. Add a new entity to the task list
 ****

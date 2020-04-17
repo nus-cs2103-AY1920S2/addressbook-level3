@@ -11,6 +11,7 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'com.github.sherter.google-java-format' version '0.8'
     id 'application'
 }
 
@@ -37,6 +38,21 @@ jacocoTestReport {
     }
 }
 
+googleJavaFormat {
+    source 'src/main'
+    source 'src/test'
+    include '**/*.java'
+    options style: 'AOSP'
+}
+
+import com.github.sherter.googlejavaformatgradleplugin.GoogleJavaFormat
+
+task format(type: GoogleJavaFormat) {
+  source 'src/main'
+  source 'src/test'
+  include '**/*.java'
+}
+
 test {
     useJUnitPlatform()
 }
@@ -57,6 +73,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -67,7 +86,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'bbproductive.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +152,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'BB Productive',
+        'site-githuburl': 'https://github.com/AY1920S2-CS2103T-W16-1/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

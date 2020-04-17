@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="statisticsPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Daily Challenge">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Region layoutX="10.0" layoutY="92.0" prefHeight="30.0" prefWidth="200.0" />
+      <HBox alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="progressDaily" text="0 mins">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text=" / ">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="progressTarget" text="100 mins">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="progressBarDaily" fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Region prefHeight="90.0" prefWidth="200.0" />
+      <Label fx:id="barChartTitle" alignment="CENTER" text="Duration Pommed" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="barChartPomDurationData" prefHeight="174.0" prefWidth="340.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <Region layoutX="10.0" layoutY="102.0" prefHeight="50.0" prefWidth="200.0" />
+      <Label fx:id="barChartTitle1" alignment="CENTER" layoutX="167.0" layoutY="259.0" text="Tasks Completed" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="barChartTasksDoneData" layoutX="10.0" layoutY="272.0" prefHeight="174.0" prefWidth="340.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
+   </children>
+</VBox>
