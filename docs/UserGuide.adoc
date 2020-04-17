@@ -534,7 +534,7 @@ image::reminder_edit_success.png[width=790]
 //end::reminder[]
 
 //tag::recurring[]
-=== Recurring
+=== Recurring (Arthur)
 
 ==== What's Recurring?
 Have a task you need to complete every day or every week? BBProductive has you covered with recurring tasks! Add a recurring task and the task will be marked as unfinished every day or every week? This means not having to add the same task over and over again! Furthermore, you can accompany these recurring tasks with reminders. Now you don't have to worry about forgetting to do your daily or weekly tasks!
@@ -566,7 +566,7 @@ image::recurring_add_success.png[width=790]
 The format for recurring is strictly `rec/d` or `rec/w` as there are only daily and weekly recurring tasks. Any other input will be recognized as invalid and an error message will be shown on the result display.
 ====
 
-===== Edit Task with recurring
+===== Edit Task with recurring (Arthur)
 Want to make an existing task recurring? You can edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `edit 1 rec/w`.
@@ -576,7 +576,7 @@ Once completed, you will see that the task details will be updated with a recurr
 .Task card now has a weekly recurring attribute
 image::EditRecurringTaskWeekly.png[width=790]
 
-=== Recurring behaviour when a task is marked as done
+=== Recurring behaviour when a task is marked as done (Arthur)
 Mark a task as done as you would normally using the command `done <index>`. For a recurring task, after the stipulated amount of time(either daily or weekly), the task will be reset as unfinished.
 
 For example: `done 1` on a daily recurring task.
