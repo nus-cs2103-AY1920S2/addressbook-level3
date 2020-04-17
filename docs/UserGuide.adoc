@@ -22,7 +22,7 @@ image::CoverPage.png[width="790"]
 == What is BB Productive? (Fyonn)
 
 Feeling unproductive lately? Try BB Productive! BB Productive is a productivity application that consists of three main features: a task manager, a Pomodoro timer and a Pet, to help you get rid of those unproductive days. It is *targeted towards students who are prone to procrastination and prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast and needs help feeling motivated, BB Productive can help you to start your journey of productivity!
-Interested? Jump to <<quickStart, Section 3. Quick Start>> to get started. Enjoy!
+Interested? Jump to <<quickstart, Section 3. Quick Start>> to get started. Enjoy!
 
 == About this document (Fyonn)
 This document provides information about the multitude of features in BB Productive, and how you can best utilise them to your benefit.
@@ -83,6 +83,7 @@ Parameters can be in any order e.g. if the command specifies `pet/PETNAME pom/PO
 
 //tag::quickStart[]
 == Quick Start (Arthur)
+anchor:quickstart[]
 - This section provides a quick guide on firing up BB Productive.
 
 .Overview of BBproductive features
@@ -655,6 +656,8 @@ This is the view you will be seeing after running the set command. As you can se
 
 .Set after
 image::UG_Set_After.png[width="790"]
+
+Now that you know how to use the set commands, start customising the app to better suit your needs!
 
 [IMPORTANT]
 Take note that there are restrictions on the values you can set.
