@@ -153,6 +153,7 @@ image::stats_tab.png[width=395]
 
 === Settings Tab
 The Settings Tab lets you customize the app to your preference. In this tab, you can view your configurations for Pet Name, Pomodoro Duration, and Daily Challenge Target. To find out more about how you can use this tab, head to Section 6.11. Set Commands.
+
 .Settings Tab
 image::settings_tab.png[width=395]
 
