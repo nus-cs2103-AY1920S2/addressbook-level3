@@ -630,7 +630,7 @@ Use the `settings` command to view the _Settings_ tab. The orange background on 
 
 image::settings.png[width="790"]
 
-=== Set Commands
+=== Set Commands (Fyonn)
 anchor:settings[]
 _This section explains how to use the set commands_
 
@@ -681,7 +681,7 @@ image::storage.png[width="395"]
 == Command Table Summary
 _The following table summarizes all the commands that you can use. Input contained with in [...] are optional fields._
 
-.Command Table
+.Command Table (Hardy)
 [cols="1,3m,3m", frame="topbot",options="header"]
 |===
 |Command |Format |Example
@@ -746,7 +746,7 @@ _The following table summarizes all the commands that you can use. Input contain
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BB Productive folder.
 
-== Command Summary (Hardy)
+== Command Summary
 
 * *Add* `add n/Do math homework des/pages 1-2 r/DD/MM/YY@HH:mm t/tag1 tag2` +
 e.g. `add n/Do math homework d/pages 1-2 r/09/08/20@12:30 t/Difficult InProgress`
