@@ -21,7 +21,8 @@ image::CoverPage.png[width="790"]
 
 == What is BB Productive? (Fyonn)
 
-Feeling unproductive lately? Try BB Productive! BB Productive is a productivity application that consists of three main features: a task manager, a Pomodoro timer and a Pet, to help you get rid of those unproductive days. It is *optimized for students who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can help you to start your journey of productivity. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Feeling unproductive lately? Try BB Productive! BB Productive is a productivity application that consists of three main features: a task manager, a Pomodoro timer and a Pet, to help you get rid of those unproductive days. It is *targeted towards students who are prone to procrastination and prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast and needs help feeling motivated, BB Productive can help you to start your journey of productivity!
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == About this document (Fyonn)
 This document provides information about the multitude of features in BB Productive, and how you can best utilise them to your benefit.
@@ -354,8 +355,7 @@ The pet has three stages in its evolution: the baby, the teenager and the dad. E
 image::BBProductiveGrowing.png[width=790]
 
 ==== Pet's Mode
-
-The pet has two moods: *Happy* and *Hangry*. When the pet is happy, that means you have been consistent in your work. Good Job! However, when the pet is hangry, that indicates that you have not been doing work for awhile. The pet acts as a visual cue to remind you when you have not been productive in awhile. Want to make your pet happy again? Start doing work now!
+Oh no! Is your pet looking like it is angry? You might be wondering why. That is because the pet has two moods: *Happy* and *Hangry*. When the pet is happy, that means you have been consistent in your work. Good Job! However, when the pet is hangry, that indicates that you have not been doing work for awhile. The pet acts as a visual cue to remind you when you have not been productive in awhile. Want to make your pet happy again? Start doing work now!
 
 .Example of different hangry modes
 image::hangry-moods-examples.png[width=790]
