@@ -84,7 +84,7 @@ Parameters can be in any order e.g. if the command specifies `pet/PETNAME pom/PO
 //tag::quickStart[]
 == Quick Start (Arthur)
 anchor:quickstart[]
-- This section provides a quick guide on firing up BB Productive.
+_This section provides a quick guide on firing up BB Productive._
 
 .Overview of BBproductive features
 image::BBProductiveQuickStart_Graphic.png[width="790"]
@@ -125,7 +125,7 @@ _This section provides a quick description for the common terminologies used in 
 //tag::gui[]
 
 == Graphical User Interface (Permas)
-This section gives you a brief overview of the various GUI components present in BB Productive.
+_This section gives you a brief overview of the various GUI components present in BB Productive._
 
 === Pet View
 The Pet View is where you can view your pet, its name, level, and experience points. With diligent usage of BB Productive, you can increase the experience points of your pete. The pet will evolve as it levels up, encouraging you to work harder! Further details of the Pet can be found in <<pet, Section 6.2. Pet>>.
@@ -162,6 +162,7 @@ image::settings_tab.png[width=395]
 [[Features]]
 == Features
 anchor:features[]
+_This section describes the features of BBProductive._
 
 //tag::TaskList[]
 === TaskList (Branson)
@@ -669,6 +670,8 @@ Daily Target: The maximum amount is 720 minutes
 
 //tag::storage[]
 === Storage (Permas)
+_This section describes how you can transfer saved data._
+
 All your progress, user preferences and settings are stored in the “data” folder. If you plan to switch devices, you may transfer your progress to another computer by copying the contents of the original device’s “data” folder to the new device’s data folder. This can be done through a thumb drive.
 
 Please check that the following files are in the “data” folder to ensure that you are transferring the correct files!
