@@ -566,7 +566,7 @@ image::recurring_add_success.png[width=790]
 The format for recurring is strictly `rec/d` or `rec/w` as there are only daily and weekly recurring tasks. Any other input will be recognized as invalid and an error message will be shown on the result display.
 ====
 
-===== Edit Task with recurring (Arthur)
+===== Edit Task with recurring
 Want to make an existing task recurring? You can edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `edit 1 rec/w`.
@@ -592,7 +592,7 @@ image::recurring_behaviour_undone_resultDisplay.png[width=395]
 .Task has been reset as shown on the task card.
 image::recurring_behaviour_undone.png[width=790]
 
-=== Recurring behaviour when the task has a reminder
+=== Recurring behaviour when the task has a reminder (Arthur)
 Add a reminder as you would normally using the command `edit <index> r/DD/MM/YY@HH:mm` or `add n/<name> r/DD/MM/YY@HH:mm rec/<type>` if you are adding the task. For a recurring task, after the stipulated amount of time(either daily or weekly), the reminder will be incremented by the time interval if it has been triggered. This means that the reminder will be incremented by 1 day if the time interval is daily, and 7 days if the time interval is weekly.
 
 .Task initially has a reminder for 13th April 2020 at 9:32 PM.
