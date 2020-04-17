@@ -338,7 +338,7 @@ _This section provides information about the virtual pet_
 BB productive provides you with a virtual pet to act as your companion to motivate you to do work. It is also a visual embodiment of your productivity so as to remind you of your productivity progress. The pet achieves these functions through three components: Experience points, Evolution and Pet's Mood.
 
 ==== Experience (XP) Points
-Just like in a game, the pet has experience (XP) points that are used to level up. Notice whenever a task is done, the XP increases by 5 points? You can also increase the XP by 25 points when you finish a Pomodoro cycle. When the XP points accumulations to a total of 100, the pet levels up! Through this reward system, you will be motivated to start doing your work and completing them! Proceed to the next section for information about the evolution of the pet.
+Just like in a game, the pet has experience (XP) points that are used to level up. Notice whenever a task is done, the XP increases by 5 points? You can also increase the XP by 25 points when you finish a Pomodoro cycle. When the XP points accumulates to a total of 100, the pet levels up! Through this reward system, you will be motivated to start doing your work and completing them! Proceed to the next section for information about the evolution of the pet.
 
 .Done Before
 image::UG_Done_before.png[width=790]
@@ -355,7 +355,7 @@ image::BBProductiveGrowing.png[width=790]
 
 ==== Pet's Mode
 
-The pet has two moods: *Happy* and *Hangry*. When the pet is happy, that means you have been consistent in your work. Good Job! However, when the pet is hangry, that indicates that you have not been doing work for awhile. The pet acts as a visual cue to remind you when you have not been productive in awhile. [For testing purposes, the pet will turn hangry after 1 minute]
+The pet has two moods: *Happy* and *Hangry*. When the pet is happy, that means you have been consistent in your work. Good Job! However, when the pet is hangry, that indicates that you have not been doing work for awhile. The pet acts as a visual cue to remind you when you have not been productive in awhile. Want to make your pet happy again? Start doing work now!
 
 .Example of different hangry modes
 image::hangry-moods-examples.png[width=790]
@@ -632,14 +632,14 @@ image::settings.png[width="790"]
 anchor:settings[]
 _This section explains how to use the set commands_
 
-Tired of the name "BB"? Are 25 minutes of Pomodoro time too short for you? Want to achieve more with the daily challenge? BB productive provides you with the option to customize the various features! Simply use the set commands to customize it the way you want.
+Tired of the name "BB"? Is 25 minutes of Pomodoro time too short for you? Want to achieve more with the daily challenge? BB productive provides you with the option to customize the various features! Simply use the set commands to customize it the way you want.
 
 command: `set [pet/PETNAME] [pom/POMDURATION] [daily/DAILYTARGET]`
 
 [TIP]
 Parameters can be in any order e.g. if the command specifies `pet/PETNAME pom/POMDURATION`, `pom/POMDURATION pet/PETNAME` is also acceptable.
 
-For example, you would like the name to be "Momu", the Pomodoro duration to be 30 mins and the daily challenge target to be 150 minutes. Run this command:
+For example, you might like the name to be "Momu", the Pomodoro duration to be 30 mins and the daily challenge target to be 150 minutes. To do so, run this command:
 
 eg. Command `set pet/Momu pom/30 daily/150`
 
