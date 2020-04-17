@@ -107,7 +107,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete`**`3` : deletes the 3rd task shown in the list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<features, Section 6 Features>> for details of each command.
 
 //end::quickStart[]
 
@@ -160,6 +160,7 @@ image::settings_tab.png[width=395]
 
 [[Features]]
 == Features
+anchor:features[]
 
 //tag::TaskList[]
 === TaskList (Branson)
