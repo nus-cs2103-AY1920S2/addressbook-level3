@@ -134,7 +134,7 @@ The Pet View is where you can view your pet, its name, level, and experience poi
 image::pet.png[width=395]
 
 === Command Box
-The Command Box is the one-stop place for you to input any commands to interact with the app. Simply click the box and type the command of your choice. Hit the `Enter` or `Return` key on your keyboard to execute the command. The program will respond to each command through the Pet Dialog Box. Occasionally, the app may also prompt you for your response via the Dialog Box. You can reply through the command box as well.
+The Command Box is the one-stop place for you to input any commands to interact with the app. Simply click the box and type the command of your choice. Hit [Enter] on your keyboard to execute the command. The program will respond to each command through the Pet Dialog Box. Occasionally, the app may also prompt you for your response via the Dialog Box. You can reply through the command box as well.
 
 .Command Box
 image::command_box.png[width=395]
