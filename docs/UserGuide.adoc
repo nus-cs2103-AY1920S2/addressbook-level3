@@ -679,10 +679,10 @@ image::storage.png[width="395"]
 //end::storage[]
 //tag::commandtablesummary[]
 [[CommandTableSummary]]
-== Command Table Summary
+== Command Table Summary (Hardy)
 _The following table summarizes all the commands that you can use. Input contained with in [...] are optional fields._
 
-.Command Table (Hardy)
+.Command Table
 [cols="1,3m,3m", frame="topbot",options="header"]
 |===
 |Command |Format |Example
