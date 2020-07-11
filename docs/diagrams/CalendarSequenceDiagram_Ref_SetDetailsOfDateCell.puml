@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+
+mainframe <b>sd</b> Set details of DateCell
+participant ":CalendarPane" as CalendarPane UI_COLOR
+participant "d:DateCell" as DateCell UI_COLOR
+
+activate CalendarPane
+
+loop 42 times
+
+    CalendarPane -> CalendarPane: setDateCell(dateCell, date)
+    activate CalendarPane
+
+    CalendarPane -> DateCell: Set the Date, Text & Circle
+    activate DateCell
+
+    DateCell --> CalendarPane
+    deactivate DateCell
+
+    CalendarPane -> CalendarPane: addExpiringCoupons(dateCell)
+    activate CalendarPane
+
+    loop For coupons in the filtered list
+
+        opt Coupon has same expiry date as date of DateCell
+            CalendarPane -> DateCell: addCoupon(coupon)
+            activate DateCell
+
+            DateCell --> CalendarPane
+            deactivate DateCell
+        end
+
+    end
+    deactivate DateCell
+
+    CalendarPane --> CalendarPane
+    deactivate CalendarPane
+
+    CalendarPane --> CalendarPane
+    deactivate CalendarPane
+end
+
+@enduml

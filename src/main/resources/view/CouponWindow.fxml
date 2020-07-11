@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<fx:root resizable="false" title="Coupon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <icons>
+    <Image url="@/images/coupon_stash_32.png"/>
+  </icons>
+  <scene>
+    <Scene fx:id="scene">
+      <stylesheets>
+        <URL value="@Stylesheet.css"/>
+        <URL value="@CouponCard.css"/>
+      </stylesheets>
+      <VBox prefHeight="560.0" prefWidth="500.0" style="-fx-background-color: #46998F;"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+          <HBox alignment="CENTER" id="savings-header">
+            <Label fx:id="numericalAmount" id="expanded-coupon-savings" alignment="CENTER" maxWidth="500.0" prefHeight="80.0" text="Savings"
+                   textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" style="-fx-font-size: 50px;" />
+            <ScrollPane prefHeight="40.0" id="expanded-coupon-saveables"
+                        fitToWidth="true" fitToHeight="true">
+              <VBox fx:id="saveables" alignment="CENTER">
+                <padding>
+                  <Insets left="30.0" />
+                </padding>
+              </VBox>
+            </ScrollPane>
+            <padding>
+              <Insets top="10.0" bottom="5.0"/>
+            </padding>
+          </HBox>
+          <HBox prefHeight="380.0" prefWidth="500.0">
+            <children>
+              <VBox id="expanded-coupon-details" prefHeight="380.0" prefWidth="250.0">
+                <children>
+                  <Label text="Name" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="name" styleClass="expanded-coupon-details-info" alignment="TOP_LEFT" prefHeight="48.0" text="Coupon Name" wrapText="true"/>
+                  <Label text="Promo Code" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="promoCode" styleClass="expanded-coupon-details-info" alignment="TOP_LEFT" prefHeight="48.0" text="Coupon Promo Code"
+                         wrapText="true"/>
+                  <Label text="Duration" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="duration" styleClass="expanded-coupon-details-info" alignment="TOP_LEFT" prefHeight="48.0" text="Coupon Duration"
+                         wrapText="true"/>
+                  <Label text="Usage" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="usage" styleClass="expanded-coupon-details-info" alignment="TOP_LEFT" prefHeight="48.0" text="Coupon Usage" wrapText="true"/>
+                  <Label text="Reminder" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="remindDate" styleClass="expanded-coupon-details-info" alignment="TOP_LEFT" prefHeight="48.0" text="Coupon Reminder"
+                         wrapText="true"/>
+                  <Label text="Terms &amp; Conditions" styleClass="expanded-coupon-details-title"/>
+                  <Label fx:id="condition" id="expanded-coupon-details-condition" alignment="TOP_LEFT" text="T&amp;C" wrapText="true" prefHeight="40.0"/>
+                </children>
+                <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0"/>
+                </padding>
+              </VBox>
+              <VBox prefHeight="380.0" prefWidth="250.0">
+                <children>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="History" textAlignment="CENTER" id="history-label"/>
+                  <ScrollPane maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0"
+                             style="-fx-background-color: #75BE85; " id="history-pane" hbarPolicy="NEVER">
+                    <VBox fx:id="historyPane" />
+                    <padding>
+                      <Insets bottom="10.0" left="10.0" right="20.0" top="10.0"/>
+                    </padding>
+                  </ScrollPane>
+                </children>
+                <padding>
+                  <Insets left="10.0" right="20.0" top="10.0"/>
+                </padding>
+              </VBox>
+            </children>
+          </HBox>
+          <FlowPane fx:id="tags" styleClass="tags" prefHeight="50.0" prefWidth="500.0" vgap="20.0" style="-fx-alignment: center; -fx-padding: 0 20 5 20;"/>
+        </children>
+      </VBox>
+    </Scene>
+  </scene>
+</fx:root>

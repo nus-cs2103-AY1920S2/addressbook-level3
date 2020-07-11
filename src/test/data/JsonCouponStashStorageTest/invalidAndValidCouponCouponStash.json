@@ -1,0 +1,25 @@
+{
+  "coupons": [ {
+    "name": "Valid Coupon",
+    "promoCode": "9482424",
+    "savingsPerUse" : {
+      "monetaryAmount" : 5.5,
+      "percentageAmount" : null,
+      "saveables" : null
+    },
+    "expiryDate": "30-10-2020",
+    "usage": "0",
+    "limit": "1"
+  }, {
+    "name": "Coupon With Invalid Savings Field",
+    "promoCode": "9482424",
+    "savingsPerUse" : {
+      "monetaryAmount" : 7.5,
+      "percentageAmount" : 7.5,
+      "saveables" : null
+    },
+    "usage": "0",
+    "limit": "1",
+    "expiryDate": "30-08-2020"
+  } ]
+}

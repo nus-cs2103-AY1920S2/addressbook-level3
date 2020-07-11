@@ -1,0 +1,17 @@
+@startuml
+!include savingsStyle.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+
+class Savings as "__s2:Savings__" \
+SAVINGS_COLOUR
+class MonetaryAmount as \
+"__monetaryAmount:MonetaryAmount__" \
+MONEY_COLOUR {
+    monetaryAmount: 2.5
+}
+
+Savings --> MonetaryAmount
+
+@enduml

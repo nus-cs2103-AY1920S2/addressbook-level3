@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial State
+
+package Stack <<rectangle>> {
+    class Item1 as """"
+}
+
+class Pointer as "currIndex: 0" #FFFFF
+
+Pointer -> Item1
+
+@end

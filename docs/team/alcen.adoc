@@ -1,0 +1,82 @@
+= Alden - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Coupon Stash
+
+'''
+
+image::Ui.png[width="600"]
+
+== Overview
+
+Coupon Stash is a desktop application for keeping track of your
+coupons, coupon usage, and coupon savings. Coupon Stash is written
+in Java, JavaFX and FXML, by a team of 5 committed individuals
+(including me). Featuring a command-line interface as well as
+UI elements like calendars and graphs, Coupon Stash is an amazing
+application and a prominent highlight of my abilities.
+
+== Summary of contributions
+
+In this section, I will provide a brief summary of my contributions
+to Coupon Stash, as well as to documents like the User Guide
+and Developer Guide.
+
+* *Major enhancement*: The *savings* feature allowing users to
+keep track of how much they have saved from using coupons
+
+** Tracking savings per usage allows the user see how much they have
+saved, over the course of a certain time period.
+** This feature improves the product significantly because a key part
+of coupons is the savings and benefits it brings to the user, and so
+there is demand for knowing how much benefits you have reaped
+easily.
+** This feature was not easy to add as it required consideration
+about the various forms of savings that coupons may offer, such
+as a percent off the original price, a flat monetary amount, or
+even free gifts. Also, it required integration with other
+features, like the "used" feature which allows users
+to mark their coupons whenever they use them.
+
+* *Minor enhancement*: added a "setcurrency" command so users
+can customise the application to different regions, which
+would be helpful for exchange students for example.
+
+* *Code contributed*: View alcen's contributions with RepoSense
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=alcen[here]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.5` - `v1.3.1` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI with a savings graph and tab
+(Pull request https://github.com/AY1920S2-CS2103T-F09-1/main/pull/212[#212])
+*** Wrote additional tests for savings features to increase coverage
+(Pull requests https://github.com/AY1920S2-CS2103T-F09-1/main/pull/327[#327])
+** Tools:
+*** Integrated Github plugins (Travis CI, AppVeyor) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|Here are some sections of the User Guide authored by me.
+|===
+
+include::../UserGuide.adoc[tag=saved]
+
+include::../UserGuide.adoc[tag=setcurrency]
+
+== Contributions to the Developer Guide
+
+|===
+|_These are some sections I contributed to the Developer Guide.
+Highlights include frequent use of Unified Modelling Language
+(UML) diagrams to illustrate associations between program components._
+|===
+
+include::../DeveloperGuide.adoc[tag=savings]
+

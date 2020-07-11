@@ -1,0 +1,22 @@
+@startuml
+!include savingsStyle.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+
+class Savings as "__s5:Savings__" \
+SAVINGS_COLOUR
+class PercentageAmount as "__percentage:PercentageAmount__" \
+PERCENT_COLOUR {
+    percentage: 50
+}
+class Saveable as "__saveable:Saveable__" \
+SAVEABLE_COLOUR {
+    savedItem: "Chicken Wings"
+    count: 1
+}
+
+Savings --> PercentageAmount
+Savings --> Saveable
+
+@enduml

@@ -1,0 +1,452 @@
+{
+  "_comment": "CouponStash save file which contains the same Coupon values as in TypicalCoupons#getTypicalCouponStash()",
+  "coupons" : [ {
+    "name" : "Alice Pauline",
+    "promoCode" : "I<3STASH",
+    "savingsPerUse" : {
+      "monetaryAmount" : {
+        "integer" : 0,
+        "decimal" : 50
+      },
+      "percentageAmount" : null,
+      "saveables" : [ {
+        "saveableDesc" : "MRT Ticket",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Album",
+        "count" : 3
+      } ]
+    },
+    "usage" : "0",
+    "limit" : "1",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "14-9-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Vehicle",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Apartment",
+            "count" : 5
+          } ]
+        }
+      }, {
+        "date" : "11-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 71,
+            "decimal" : 16
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "19-12-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 38,
+            "decimal" : 68
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Addition",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Promotion",
+            "count" : 8
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ "friends" ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "02-12-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "29-11-2020"
+  }, {
+    "name" : "Benson Meier",
+    "promoCode" : "ILUVSTASH",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : 30.0,
+      "saveables" : null
+    },
+    "usage" : "2",
+    "limit" : "5",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "31-10-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 79,
+            "decimal" : 23
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Insurance",
+            "count" : 2
+          }, {
+            "saveableDesc" : "Perception",
+            "count" : 3
+          } ]
+        }
+      }, {
+        "date" : "14-5-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 1,
+            "decimal" : 24
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "11-8-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Apartment",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Election",
+            "count" : 2
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ "owesMoney", "friends" ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "31-12-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "28-11-2020"
+  }, {
+    "name" : "Carl Kurz",
+    "promoCode" : "KKB",
+    "savingsPerUse" : {
+      "monetaryAmount" : {
+        "integer" : 20,
+        "decimal" : 0
+      },
+      "percentageAmount" : null,
+      "saveables" : [ {
+        "saveableDesc" : "Door Gift",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Spa",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Drink",
+        "count" : 1
+      } ]
+    },
+    "usage" : "0",
+    "limit" : "2",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "7-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 34,
+            "decimal" : 57
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Cabinet",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Charity",
+            "count" : 4
+          } ]
+        }
+      }, {
+        "date" : "14-1-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 39,
+            "decimal" : 52
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "6-9-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Cabinet",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Intention",
+            "count" : 1
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "27-8-2020"
+  }, {
+    "name" : "Daniel Meier",
+    "promoCode" : "DANIELZXC",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : 5.0,
+      "saveables" : [ {
+        "saveableDesc" : "Notebook",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Candy",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Pencil",
+        "count" : 1
+      } ]
+    },
+    "usage" : "0",
+    "limit" : "1",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "15-4-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 7,
+            "decimal" : 23
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "12-9-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 26,
+            "decimal" : 8
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Perception",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Reception",
+            "count" : 41
+          } ]
+        }
+      }, {
+        "date" : "24-5-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Professor",
+            "count" : 34
+          }, {
+            "saveableDesc" : "Media",
+            "count" : 1
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ "friends" ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "31-12-2019",
+    "startDate" : "31-07-2019",
+    "remindDate" : "28-12-2019"
+  }, {
+    "name" : "Elle Meyer",
+    "promoCode" : "9482224",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : null,
+      "saveables" : [ {
+        "saveableDesc" : "Channel Bag",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Brattby Bag",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Doir Bag",
+        "count" : 1
+      } ]
+    },
+    "usage" : "0",
+    "limit" : "1",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "7-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 72,
+            "decimal" : 29
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Inspection",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Investment",
+            "count" : 1
+          } ]
+        }
+      }, {
+        "date" : "30-3-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 50,
+            "decimal" : 21
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "17-4-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Strategy",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Conclusion",
+            "count" : 3
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ ],
+    "condition" : "While Stock Last",
+    "archived" : "true",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "27-8-2020"
+  }, {
+    "name" : "Fiona Kunz",
+    "promoCode" : "9482427",
+    "savingsPerUse" : {
+      "monetaryAmount" : {
+        "integer" : 3,
+        "decimal" : 0
+      },
+      "percentageAmount" : null,
+      "saveables" : null
+    },
+    "usage" : "0",
+    "limit" : "1",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "7-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 216,
+            "decimal" : 54
+          },
+          "saveables" : null
+        }
+      }, {
+        "date" : "5-10-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 583,
+            "decimal" : 50
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Performance",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Proposal",
+            "count" : 1
+          } ]
+        }
+      }, {
+        "date" : "28-9-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Policy",
+            "count" : 2
+          }, {
+            "saveableDesc" : "President",
+            "count" : 1
+          } ]
+        }
+      } ]
+    },
+    "tagged" : [ ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "27-8-2020"
+  }, {
+    "name" : "George Best",
+    "promoCode" : "9482442",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : 17.0,
+      "saveables" : null
+    },
+    "usage" : "0",
+    "limit" : "2",
+    "totalSaved" : {
+      "mappings" : [ {
+        "date" : "7-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Construction",
+            "count" : 1
+          }, {
+            "saveableDesc" : "Charity",
+            "count" : 1
+          } ]
+        }
+      }, {
+        "date" : "14-12-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 475103,
+            "decimal" : 66
+          },
+          "saveables" : [ {
+            "saveableDesc" : "Expression",
+            "count" : 6
+          }, {
+            "saveableDesc" : "Perception",
+            "count" : 1
+          } ]
+        }
+      }, {
+        "date" : "10-2-2019",
+        "savings" : {
+          "monetaryAmount" : {
+            "integer" : 3648,
+            "decimal" : 7
+          },
+          "saveables" : null
+        }
+      } ]
+    },
+    "tagged" : [ ],
+    "condition" : "While Stock Last",
+    "archived" : "false",
+    "expiryDate" : "31-12-2020",
+    "startDate" : "31-07-2019",
+    "remindDate" : "28-12-2020"
+  } ]
+}

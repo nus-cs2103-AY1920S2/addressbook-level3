@@ -1,0 +1,17 @@
+@startuml
+
+start
+:User enters used command;
+:Checks validity of index and usage date;
+if () then ([is valid index and usage date])
+    :Checks if the coupon specified has a percentage amount;
+    if () then ([has percentage amount but original amount not specified])
+        :Coupon savings calculated and saved;
+        :Coupon usage increased by one;
+    else ([else])
+    endif
+else ([else])
+endif
+stop
+
+@enduml

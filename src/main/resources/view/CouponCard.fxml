@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="couponPane" fx:id="cardPane" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/11.0" xmlns:fx="http://javafx.com/fxml/1">
+  <stylesheets>
+    <URL value="@CouponCard.css"/>
+  </stylesheets>
+  <children>
+    <AnchorPane HBox.hgrow="ALWAYS">
+      <children>
+        <HBox minWidth="614.0" style="-fx-background-color: #46998F; -fx-background-radius: 10;"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+          <children>
+            <HBox style="-fx-border-color: white; -fx-border-width: 1; -fx-border-style: segments(4, 4, 4, 4);
+                  -fx-border-radius: 10; " HBox.hgrow="ALWAYS">
+              <children>
+                <VBox alignment="CENTER" prefWidth="120.0">
+                  <children>
+                    <VBox fx:id="savings" alignment="CENTER" minHeight="-Infinity"
+                          prefHeight="110.0" prefWidth="100.0">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0"/>
+                      </VBox.margin>
+                    </VBox>
+                  </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="130.0" prefWidth="431.0" HBox.hgrow="ALWAYS">
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                  <children>
+                    <HBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="10.0">
+                      <children>
+                        <HBox spacing="3.0">
+                          <children>
+                            <Label id="couponName" fx:id="name" text="name"/>
+                          </children>
+                        </HBox>
+                      </children>
+                      <VBox.margin>
+                        <Insets top="5.0"/>
+                      </VBox.margin>
+                    </HBox>
+                    <HBox spacing="10.0">
+                      <children>
+                        <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" HBox.hgrow="NEVER">
+                          <children>
+                            <Label id="couponFields" fx:id="promoCode" text="promoCode"/>
+                            <Label id="couponFields" fx:id="expiryDate" text="expiryDate"/>
+                            <Label id="couponFields" fx:id="usage" text="usage"/>
+                          </children>
+                          <HBox.margin>
+                            <Insets top="10.0"/>
+                          </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                          <children>
+                            <Label id="couponFields" fx:id="startDate" text="startDate">
+                              <VBox.margin>
+                                <Insets bottom="10.0"/>
+                              </VBox.margin>
+                            </Label>
+                            <Label id="couponFields" fx:id="remindDate" text="remindDate">
+                              <VBox.margin>
+                                <Insets bottom="6.0"/>
+                              </VBox.margin>
+                            </Label>
+                            <Label id="couponFields" fx:id="condition" contentDisplay="BOTTOM" prefHeight="25.0"
+                                   style="-fx-font-size: 10;" text="condition" wrapText="true">
+                            </Label>
+                          </children>
+                          <HBox.margin>
+                            <Insets top="10.0"/>
+                          </HBox.margin>
+                        </VBox>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+              <HBox.margin>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+              </HBox.margin>
+            </HBox>
+          </children>
+        </HBox>
+        <Label fx:id="archived" id="archivedLabel" prefWidth="100.0" rotate="-40.0"
+               style="-fx-background-color: red; -fx-background-radius: 4; -fx-alignment: center;
+               -fx-font-weight: bold;" text="Archived" textAlignment="CENTER" AnchorPane.leftAnchor="-5.0"
+               AnchorPane.topAnchor="35.0"/>
+        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true"
+                   AnchorPane.rightAnchor="7.5" AnchorPane.topAnchor="55.0">
+          <image>
+            <Image url="@../images/scissors.png"/>
+          </image>
+        </ImageView>
+        <Label fx:id="id" alignment="CENTER" text="1" textAlignment="CENTER" AnchorPane.leftAnchor="139.0"
+               AnchorPane.topAnchor="4.0">
+          <padding>
+            <Insets left="6.0" right="7.0"/>
+          </padding>
+        </Label>
+        <Label fx:id="idDup" alignment="CENTER" text="1" textAlignment="CENTER" AnchorPane.leftAnchor="139.0"
+               AnchorPane.topAnchor="4.0">
+          <padding>
+            <Insets left="6.0" right="7.0"/>
+          </padding>
+        </Label>
+        <FlowPane fx:id="tags" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0"
+                  AnchorPane.topAnchor="7.0" prefWidth="450" styleClass="tags"/>
+        <FlowPane fx:id="tagsDup" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0"
+                  AnchorPane.topAnchor="7.0" prefWidth="450" styleClass="tags"/>
+      </children>
+    </AnchorPane>
+  </children>
+</HBox>

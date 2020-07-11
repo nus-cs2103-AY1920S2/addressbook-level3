@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+'actor User
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CalendarResultDisplayPane" as CalendarResultDisplayPane UI_COLOR
+participant ":CalendarPane" as CalendarPane UI_COLOR
+participant "d:DateCell" as DateCell UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant "logic: LogicManager" as Logic LOGIC_COLOR
+end box
+
+[-> MainWindow:Start CouponStash
+activate MainWindow
+
+create CalendarResultDisplayPane
+MainWindow -> CalendarResultDisplayPane: CalendarResultDisplayPane()
+activate CalendarResultDisplayPane
+
+CalendarResultDisplayPane --> MainWindow
+deactivate CalendarResultDisplayPane
+
+MainWindow -> CalendarResultDisplayPane: fillInnerParts()
+activate CalendarResultDisplayPane
+
+create CalendarPane
+CalendarResultDisplayPane -> CalendarPane: CalendarPane()
+activate CalendarPane
+
+
+CalendarPane -> Logic: getFilteredCouponList()
+activate Logic
+Logic --> CalendarPane
+deactivate Logic
+
+CalendarPane -> Logic: getMonthView()
+activate Logic
+Logic --> CalendarPane
+deactivate Logic
+
+CalendarPane -> CalendarPane: initializeUi()
+activate CalendarPane
+
+
+loop 42 times
+    create DateCell
+    CalendarPane -> DateCell : new DateCell()
+    activate DateCell
+
+    DateCell --> CalendarPane : d
+    deactivate DateCell
+
+    CalendarPane -> CalendarPane : addDateCellToArray(d)
+    activate CalendarPane
+    CalendarPane --> CalendarPane
+
+    deactivate CalendarPane
+
+end
+
+CalendarPane --> CalendarPane
+deactivate CalendarPane
+
+CalendarPane -> CalendarPane: fillUpCalendar()
+activate CalendarPane
+
+
+ref over CalendarPane, DateCell : Set details of DateCell
+
+
+CalendarPane --> CalendarPane
+deactivate CalendarPane
+
+CalendarPane --> CalendarResultDisplayPane:
+deactivate CalendarPane
+
+CalendarResultDisplayPane --> MainWindow
+deactivate CalendarResultDisplayPane
+
+MainWindow -->]
+deactivate MainWindow
+
+@enduml

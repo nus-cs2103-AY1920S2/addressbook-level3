@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":SavedCommandParser" as SavedCommandParser LOGIC_COLOR
+participant "sv:SavedCommand" as SavedCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "c:Coupon" as Coupon MODEL_COLOR
+participant "savingsMap:DateSavingsSumMap" as DateSavingsSumMap MODEL_COLOR
+end box
+
+[-> SavedCommandParser : parse()
+activate SavedCommandParser
+
+create SavedCommand
+SavedCommandParser -> SavedCommand
+activate SavedCommand
+
+SavedCommand --> SavedCommandParser : sv
+deactivate SavedCommand
+
+[<-- SavedCommandParser: sv
+deactivate SavedCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+[<[hidden]- SavedCommandParser
+destroy SavedCommandParser
+
+[-> SavedCommand : execute(model)
+activate SavedCommand
+
+SavedCommand -> Model : getCouponList()
+activate Model
+
+Model --> SavedCommand : couponsList
+deactivate Model
+
+alt command has date
+    loop for all coupons
+        SavedCommand --> Coupon : getTotalSavings()
+        activate Coupon
+
+        Coupon --> SavedCommand : toBeAdded
+        deactivate Coupon
+    end
+else else
+    loop for all coupons
+        SavedCommand --> Coupon : getSavingsMap()
+        activate Coupon
+
+        Coupon --> SavedCommand : savingsMap
+        deactivate Coupon
+        loop from start date to end date
+            SavedCommand --> DateSavingsSumMap : get(date)
+            activate DateSavingsSumMap
+
+            DateSavingsSumMap --> SavedCommand : toBeAdded
+            deactivate DateSavingsSumMap
+        end
+    end
+end
+
+[<-- SavedCommand : result
+deactivate SavedCommand
+[<[hidden]- SavedCommand
+destroy SavedCommand
+
+@enduml

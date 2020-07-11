@@ -1,0 +1,15 @@
+{
+  "coupons": [ {
+    "name": "Hans Muster",
+    "promoCode": "992929",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : null,
+      "saveables" : null
+    },
+    "archived" : "archived",
+    "expiryDate": "30-08-2020",
+    "usage": "0",
+    "limit": "1"
+  } ]
+}

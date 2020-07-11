@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CouponStashParser" as CouponStashParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CouponStash" as CouponStash MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
+end box
+[-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> CouponStashParser : parseCommand()
+activate CouponStashParser
+
+create UndoCommand
+CouponStashParser -> UndoCommand
+activate UndoCommand
+
+UndoCommand --> CouponStashParser
+deactivate UndoCommand
+
+CouponStashParser --> LogicManager : u
+deactivate CouponStashParser
+
+LogicManager -> UndoCommand : execute()
+activate UndoCommand
+
+UndoCommand -> Model : undoCouponStash()
+activate Model
+
+Model -> CouponStash : resetData()
+activate CouponStash
+CouponStash --> Model
+deactivate CouponStash
+
+Model -> HistoryManager : getNextCommandText()
+activate HistoryManager
+HistoryManager --> Model : commandText
+deactivate HistoryManager
+
+Model --> UndoCommand : commandText
+deactivate Model
+
+UndoCommand --> LogicManager : result
+deactivate UndoCommand
+UndoCommand -[hidden]-> LogicManager : result
+destroy UndoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="dateStackPane" maxHeight="40.0" maxWidth="60.0" minHeight="40.0" minWidth="40.0"
+           prefHeight="30" prefWidth="40"
+           xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+</StackPane>

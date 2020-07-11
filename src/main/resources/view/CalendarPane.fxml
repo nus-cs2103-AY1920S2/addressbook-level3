@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" prefHeight="328">
+  <VBox fx:id="calendarPane" spacing="0"
+        xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER">
+      <StackPane>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6c96be" height="15.0"
+                   onMouseClicked="#changeCalendarToPreviousMonth" stroke="#6C96BE" strokeType="INSIDE" width="60.0">
+          <cursor>
+            <Cursor fx:constant="HAND"/>
+          </cursor>
+        </Rectangle>
+        <Polygon id="prevButton" fill="#6C96BE" onMouseClicked="#changeCalendarToPreviousMonth" rotate="-90.0"
+                 stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0">
+          <points>
+            <Double fx:value="-6.0"/>
+            <Double fx:value="4.8"/>
+            <Double fx:value="6.0"/>
+            <Double fx:value="4.8"/>
+            <Double fx:value="0.0"/>
+            <Double fx:value="-7.2"/>
+          </points>
+          <cursor>
+            <Cursor fx:constant="HAND"/>
+          </cursor>
+        </Polygon>
+      </StackPane>
+      <Text fx:id="calendarHeader" fill="WHITE" text="Current Month &amp; Year" textAlignment="CENTER">
+        <font>
+          <Font name="Segoe UI Bold" size="18.0"/>
+        </font>
+        <HBox.margin>
+          <Insets bottom="12.0" top="12.0"/>
+        </HBox.margin>
+      </Text>
+      <StackPane>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6c96be" height="15.0"
+                   onMouseClicked="#changeCalendarToNextMonth" stroke="#6C96BE" strokeType="INSIDE" width="60.0">
+          <cursor>
+            <Cursor fx:constant="HAND"/>
+          </cursor>
+        </Rectangle>
+        <Polygon id="nextButton" fill="#6C96BE" onMouseClicked="#changeCalendarToNextMonth" rotate="90.0" stroke="WHITE"
+                 strokeType="INSIDE" strokeWidth="2.0">
+          <points>
+            <Double fx:value="-6.0"/>
+            <Double fx:value="4.8"/>
+            <Double fx:value="6.0"/>
+            <Double fx:value="4.8"/>
+            <Double fx:value="0.0"/>
+            <Double fx:value="-7.2"/>
+          </points>
+          <cursor>
+            <Cursor fx:constant="HAND"/>
+          </cursor>
+        </Polygon>
+      </StackPane>
+    </HBox>
+    <GridPane alignment="BASELINE_CENTER" gridLinesVisible="false">
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="0">
+        <Text fill="white" text="M">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="1">
+        <Text fill="white" text="T">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="2">
+        <Text fill="white" text="W">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="3">
+        <Text fill="white" text="T">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="4">
+        <Text fill="white" text="F">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="5">
+        <Text fill="white" text="S">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <StackPane alignment="BASELINE_CENTER" prefWidth="40" prefHeight="30" GridPane.columnIndex="6">
+        <Text fill="white" text="S">
+          <font>
+            <Font name="Segoe UI Bold" size="14.0"/>
+          </font>
+        </Text>
+      </StackPane>
+      <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints/>
+      </rowConstraints>
+    </GridPane>
+    <GridPane fx:id="calendarGrid">
+    </GridPane>
+    <opaqueInsets>
+      <Insets/>
+    </opaqueInsets>
+  </VBox>
+</StackPane>

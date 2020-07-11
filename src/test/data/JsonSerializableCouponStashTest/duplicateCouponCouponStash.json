@@ -1,0 +1,52 @@
+{
+  "coupons": [ {
+    "name": "Alice Pauline",
+    "promoCode": "I<3STASH",
+    "savingsPerUse" : {
+      "monetaryAmount" : {
+        "integer" : 123,
+        "decimal" : 0
+      },
+      "percentageAmount" :null,
+      "saveables" : [ {
+        "saveableDesc" : "Water Bottle",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Notebook",
+        "count" : 1
+      } ]
+    },
+    "archived" : "false",
+    "expiry date": "30-08-2020",
+    "start date": "1-08-2020",
+    "usage": "0",
+    "limit": "1",
+    "tagged": [ "friends" ],
+    "remind date" : "27-8-2020",
+    "condition" : "Min $50 spend"
+  }, {
+    "name": "Alice Pauline",
+    "promoCode": "I<3STASH",
+    "savingsPerUse" : {
+      "monetaryAmount" : {
+        "integer" : 123,
+        "decimal" : 0
+      },
+      "percentageAmount" :null,
+      "saveables" : [ {
+        "saveableDesc" : "Water Bottle",
+        "count" : 1
+      }, {
+        "saveableDesc" : "Notebook",
+        "count" : 1
+      } ]
+    },
+    "archived" : "false",
+    "start date": "2-08-2020",
+    "expiry date": "30-08-2020",
+    "usage": "1",
+    "limit": "0",
+    "remind date": "27-8-2020",
+    "condition" : "Min $50 spend"
+  } ]
+}

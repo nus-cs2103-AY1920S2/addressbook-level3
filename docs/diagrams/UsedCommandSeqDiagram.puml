@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CouponStashParser" as CouponStashParser LOGIC_COLOR
+participant ":UsedCommandParser" as UsedCommandParser LOGIC_COLOR
+participant ":UsedCommand" as UsedCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box ModelManager MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("used 1 $100")
+activate LogicManager
+
+LogicManager -> CouponStashParser : parseCommand()
+activate CouponStashParser
+
+create UsedCommandParser
+CouponStashParser -> UsedCommandParser
+activate UsedCommandParser
+
+UsedCommandParser --> CouponStashParser
+deactivate UsedCommandParser
+
+CouponStashParser -> UsedCommandParser : parse()
+activate UsedCommandParser
+
+create UsedCommand
+UsedCommandParser -> UsedCommand
+activate UsedCommand
+
+UsedCommand --> UsedCommandParser
+deactivate UsedCommand
+
+UsedCommandParser --> CouponStashParser
+deactivate UsedCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UsedCommandParser -[hidden]-> CouponStashParser
+destroy UsedCommandParser
+
+CouponStashParser --> LogicManager
+deactivate CouponStashParser
+
+LogicManager -> UsedCommand : execute(model, "used 1 $100")
+activate UsedCommand
+
+UsedCommand -> ModelManager : setCoupon(couponToBeUsed, newCoupon)
+activate ModelManager
+
+ModelManager --> UsedCommand :
+deactivate ModelManager
+
+create CommandResult
+UsedCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UsedCommand : result
+deactivate CommandResult
+
+UsedCommand --> LogicManager : result
+deactivate UsedCommand
+UsedCommand -[hidden]-> UsedCommandParser
+destroy UsedCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

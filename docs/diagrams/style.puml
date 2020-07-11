@@ -29,9 +29,13 @@
 !define STORAGE_COLOR_T1 #FFE374
 !define STORAGE_COLOR_T2 #EDC520
 !define STORAGE_COLOR_T3 #806600
-!define STORAGE_COLOR_T2 #544400
+!define STORAGE_COLOR_T4 #544400
 
 !define USER_COLOR #000000
+
+!define ARCHIVE_COLOR #D45E1B
+!define ARCHIVE_COLOR_T1 #D27744
+
 
 skinparam BackgroundColor #FFFFFFF
 
@@ -42,21 +46,22 @@ skinparam Class {
     BorderThickness 1
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
-    FontName Arial
+    FontName Verdana
+    AttributeFontColor #FFFFFF
 }
 
 skinparam Actor {
     BorderColor USER_COLOR
     Color USER_COLOR
-    FontName Arial
+    FontName Verdana
 }
 
 skinparam Sequence {
     MessageAlign center
-    BoxFontSize 15
+    BoxFontSize 12
     BoxPadding 0
     BoxFontColor #FFFFFF
-    FontName Arial
+    FontName Verdana
 }
 
 skinparam Participant {
@@ -64,11 +69,22 @@ skinparam Participant {
     Padding 20
 }
 
+skinparam GenericDisplay zz
+
+skinparam ArrowFontSize 10
+skinparam ArrowFontStyle bold
+
+skinparam NoteBackgroundColor ghostwhite
+skinparam NoteBorderColor #3333C4
+skinparam DefaultFontName Verdana
+
 skinparam MinClassWidth 50
 skinparam ParticipantPadding 10
 skinparam Shadowing false
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
 
 hide footbox
 hide members

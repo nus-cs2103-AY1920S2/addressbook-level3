@@ -1,0 +1,13 @@
+{
+  "coupons": [ {
+    "name": "Coupon with invalid name field: Ha!ns Mu@ster",
+    "savingsPerUse" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : 12.5,
+      "saveables" : null
+    },
+    "expiryDate": "30-08-2020",
+    "usage": "0",
+    "limit": "1"
+  } ]
+}

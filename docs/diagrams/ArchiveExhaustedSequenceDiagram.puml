@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box "<color:white>Logic</color>" LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":UsedCommand" as UsedCommand LOGIC_COLOR
+end box
+
+box "<color:white>Model</color>" MODEL_COLOR_T1
+participant ":Coupon" as Coupon MODEL_COLOR
+participant ":Usage" as Usage MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> UsedCommand : execute()
+activate UsedCommand
+
+UsedCommand -> UsedCommand : createUsedCouponMonetaryValue()
+activate UsedCommand
+
+UsedCommand -> Coupon : increaseUsageByOne()
+activate Coupon
+Coupon --> UsedCommand : usedCoupon
+deactivate Coupon
+
+UsedCommand --> UsedCommand : usedCoupon
+deactivate UsedCommand
+
+UsedCommand -> Usage : isAtLimit()
+activate Usage
+Usage --> UsedCommand
+deactivate Usage
+
+alt usage reached its limit
+
+    UsedCommand -> Coupon : archive()
+    activate Coupon
+    Coupon --> UsedCommand : archivedUsedCoupon
+    deactivate Coupon
+
+    UsedCommand -> ModelManager : setCoupon(archivedUsedCoupon)
+    activate ModelManager
+    ModelManager --> UsedCommand
+    deactivate ModelManager
+
+else
+
+    UsedCommand -> ModelManager : setCoupon(usedCoupon)
+    activate ModelManager
+    ModelManager --> UsedCommand
+    deactivate ModelManager
+
+end
+
+UsedCommand -> ModelManager : updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS)
+activate ModelManager
+ModelManager --> UsedCommand
+deactivate ModelManager
+
+UsedCommand --> LogicManager : commandResult
+deactivate UsedCommand
+
+[<-- LogicManager : commandResult
+
+@enduml

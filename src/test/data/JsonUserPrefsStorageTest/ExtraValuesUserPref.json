@@ -9,5 +9,8 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "stashSettings" : {
+    "moneySymbol" : "RM"
+  },
+  "couponStashFilePath" : "couponstash.json"
 }

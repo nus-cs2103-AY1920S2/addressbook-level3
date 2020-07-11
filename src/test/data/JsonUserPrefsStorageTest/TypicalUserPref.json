@@ -7,5 +7,8 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "stashSettings" : {
+    "moneySymbol" : "RM"
+  },
+  "couponStashFilePath" : "couponstash.json"
 }

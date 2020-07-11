@@ -1,56 +1,96 @@
 @startuml
 !include style.puml
+
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCouponStash <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class CouponStash
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class ReadOnlyUserPrefs <<Interface>>
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Coupon {
+Class Coupon
+Class StartDate
+Class EndDate
 Class Name
-Class Phone
-Class UniquePersonList
+Class PromoCode
+Class UniqueCouponList
+Class Usage
+Class Limit
+Class RemindDate
+Package Savings {
+Class Savings
+Class DateSavingsSumMap
+Class PercentageAmount
+Class MonetaryAmount
+Class Saveable
+Class PureMonetarySavings
+}
 }
 
 Package Tag {
 Class Tag
+}
+
+Package UndoRedo {
+Class HistoryManager
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+CouponStash .up..|> ReadOnlyCouponStash
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" CouponStash
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+CouponStash *--> "1" UniqueCouponList
+UniqueCouponList o--> "*" Coupon
+Coupon *--> "1" Name
+Coupon *--> "1" PromoCode
+Coupon *--> "1" EndDate
+Coupon *--> "1" StartDate
+Coupon *--> "1" Savings : savings per use
+Coupon *--> "1" Usage
+Coupon *--> "1" Limit
+Coupon *--> "1" RemindDate
+Coupon *--> "1" DateSavingsSumMap : total savings
+Coupon *-up-> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Savings *--> "0..1" PercentageAmount
+Savings *--> "0..1" MonetaryAmount
+Savings *--> "*" Saveable
+PureMonetarySavings -up-|> Savings
+PureMonetarySavings *-right-> "0..1" MonetaryAmount
+PureMonetarySavings *-down-> "*" Saveable
+DateSavingsSumMap ..> PureMonetarySavings : "maps dates to"
 
-ModelManager -->"1" Person : filtered list
+HistoryManager *--> "*" CouponStash
+
+ModelManager --> "*" Coupon : filtered list
+
+/'
+ '  Hidden arrows to arrange diagram and make it
+ '  look nicer
+ '/
+Name -[hidden]up-> PromoCode
+StartDate -[hidden]up-> EndDate
+Usage -[hidden]up-> Limit
+PromoCode -[hidden]down-> RemindDate
+PercentageAmount -[hidden]left-> MonetaryAmount
+PercentageAmount -[hidden]left-> Saveable
+HistoryManager -[hidden]left-> ReadOnlyCouponStash
+CouponStash -[hidden]right-> Tag
+
 @enduml
