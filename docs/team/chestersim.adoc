@@ -93,3 +93,59 @@ include::../UserGuide.adoc[tag=unarchive]
 |===
 
 include::../DeveloperGuide.adoc[tag=archiving]
+
+== PROJECT: Package
+
+---
+
+== Overview
+
+Package is a platform tailored to the needs of a specific food business, allowing for a seamless
+platform for both the business and its customers to use to order food packages. The platform manages
+food packages, menus, and the delivery area of customers, which can help save the business time and
+energy over using the conventional method of recording on paper and communicating over instant messaging.
+
+Website: https://foodanatomy.herokuapp.com/
+
+== Summary of contributions
+
+* Communicated with business client
+* Planned functionality of the platform
+* Designed platform UI on https://www.figma.com/file/O1JiLIhOknekXlux9UiSDy/Package.com?node-id=0%3A1[Figma]
+* Build both frontend and backend from scratch
+
+== PROJECT: chestersim.dev
+
+---
+
+== Overview
+
+https://www.chestersim.dev[chestersim.dev] is meant to be a personal website for myself, but was also used intially for me to build something
+with my newfound knowledge for React. An updated https://www.figma.com/file/7DObklugMkxWiZA6YdBDgC/Website[version] is coming up soon!
+
+== PROJECT: MoneyMove$
+
+---
+
+== Overview
+
+MoneyMove$ is a project born out of the Razer Fintech Hackathon (video https://www.facebook.com/102706714599106/videos/1128359337496993[here] at the 1:10:18 mark!).
+It is a savings/Sub-Accounts app that provides a curated, personalized content experience which ties directly into savings goals and habits. The app relies on Mambu's APIs to create sub-accounts - buckets - for each item, good, or service the user desires. The team intends to offer a plethora of content for the user to save up to, including gaming, food deals, movies, events and even personal banking services. The project won the prize for the top 2 in the hackathon!
+
+== Summary of contribtions
+* Main frontend engineer - build the entire app in React Native
+
+== PROJECT: Clique
+
+---
+
+== Overview
+
+Clique was a project done by me and my partner for Project Orbital (CP2106, and won the Judge's Choice Award. It is a messaging-cum-calendar mobile app,
+where we try to integrate events into messaging. Read more about it in depth in the https://github.com/clique-orbital/clique2[repo]!
+
+== Summary of contributions
+* Designed majority of the UI using Sketch
+* Developed and build equal share of both the frontend and the backend.
+
+
